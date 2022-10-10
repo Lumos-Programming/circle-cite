@@ -1,4 +1,9 @@
+<script setup lang="ts">
+useHead({
+  title: 'Hooks',
+  titleTemplate: (title) => `${title} ｜ Lumos`
+})
+</script>
 <template>
-  <h1>This is default layout.</h1>
   <NuxtPage />
 </template>
