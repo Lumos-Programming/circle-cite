@@ -1,0 +1,269 @@
+@use './variables' as var;
+/*
+classベースでデザインするためによく使うstyleをクラス化するscss
+*/
+
+/*
+::beforeや::afterに関するstyle
+*/
+.before-marker {
+  position: relative;
+  padding-left: 20px;
+  &::before {
+    counter-increment: list;
+    content: '';
+    display: block;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: calc((100% - 10px - 5px) / 2);
+    left: 0;
+    background: #f6a500;
+  }
+}
+.arrow-bottom {
+  &::after {
+    content: '';
+    position: absolute;
+    right: 15px;
+    top: calc((41px - 7.07px) / 2);
+    width: 15px;
+    height: 8px;
+    transform: rotate(0deg);
+    background-image: url(../img/icon_arrow_r.svg);
+    background-repeat: no-repeat;
+    @extend .transition-medium-ease-out;
+  }
+  &.active::after {
+    transform: rotate(-180deg);
+  }
+}
+
+.arrow-right {
+  &::after {
+    content: '';
+    position: absolute;
+    right: 15px;
+    top: calc((100% - 11px) / 2);
+    width: 8px;
+    height: 8px;
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    transform: rotate(45deg);
+    transition: all 0.18s ease-out;
+  }
+  &.active::after {
+    transform: rotate(-135deg);
+    top: calc((100% - 6px) / 2);
+  }
+}
+.round-hover {
+  &::after {
+    border: 0 solid var.$deep-orange-darken-1;
+    border-radius: 50%;
+    box-sizing: border-box;
+    content: '';
+    width: inherit;
+    height: initial;
+    transition: all 0.18s ease-out;
+    z-index: 1;
+    @extend .transition-short-ease-out;
+  }
+  &:hover::after {
+    border: 5px solid var.$deep-orange-darken-1;
+  }
+  &:hover {
+    @extend .opacity-dot7;
+  }
+}
+
+/*
+単一機能を表す責務を負うcss class
+*/
+.designed-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: transparent auto;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+  @media screen and (min-width: 960px) {
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    margin-top: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #c0c0c0;
+    border-radius: 9999px;
+    border: 3px solid transparent;
+    box-sizing: border-box;
+    background-clip: content-box;
+    &:hover {
+      background-color: var.$grey-darken-2;
+    }
+  }
+}
+.scrollbar-hidden {
+  scrollbar-width: none; /*Firefox対応のスクロールバー非表示コード*/
+  -ms-overflow-style: none; /*Internet Explore対応のスクロールバー非表示コード*/
+  &::-webkit-scrollbar {
+    display: none; /*Google Chrome、Safari、Microsoft Edge対応のスクロールバー非表示コード*/
+  }
+}
+.one-line-reader {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/*
+単一プロパティを表す責務を負うcss class
+*/
+.font-family-main {
+  font-family: Roboto, '游ゴシック体', YuGothic, '游ゴシック Medium',
+    'Yu Gothic Medium', '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN',
+    'ヒラギノ角ゴ ProN W3', 'メイリオ' !important;
+}
+.letter-spacing-main {
+  letter-spacing: 0.8px !important;
+}
+
+$transition: ease, ease-out, ease-in, ease-in-out;
+$transition-time: (
+  'short': 0.18s,
+  'medium': 0.3s,
+  'long': 0.4s
+);
+@each $i in $transition {
+  @each $k, $v in $transition-time {
+    .transition-#{$k}-#{$i} {
+      transition: all $v $i 0s !important;
+    }
+  }
+}
+$cursor: alias, all-scroll, cell, copy, context-menu, crosshair, default, grab,
+  grabbing, help, move, no-drop, not-allowed, progress, wait, pointer, text,
+  vertical-text, zoom-in, zoom-out, unset;
+@each $i in $cursor {
+  .cursor-#{$i} {
+    cursor: $i;
+  }
+}
+$word-break: break-word, break-all, keep-all, normal, unset;
+@each $i in $word-break {
+  @if $i == break-word {
+    .word-break {
+      word-break: break-word;
+    }
+  } @else if $i == break-all {
+    .word-break-all {
+      word-break: break-all;
+    }
+  } @else {
+    .word-break-#{$i} {
+      word-break: $i;
+    }
+  }
+}
+$white-space: wrap, nowrap, break-spaces, normal, pre, pre-line, pre-wrap, unset;
+@each $i in $white-space {
+  .white-space-#{$i} {
+    white-space: $i;
+  }
+}
+$text-overflow: ellipsis, clip, unset;
+@each $i in $text-overflow {
+  .text-overflow-#{$i} {
+    text-overflow: $i;
+  }
+}
+$mix-blend-mode: normal, luminosity, screen, unset;
+@each $i in $mix-blend-mode {
+  .mix-blend-#{$i} {
+    mix-blend-mode: $i;
+  }
+}
+@for $i from 0 through 10 {
+  .border-width-#{$i} {
+    border-width: 1px * $i !important;
+  }
+  .z-index-#{$i} {
+    z-index: $i !important;
+  }
+  .opacity-dot#{$i} {
+    opacity: 0.1 * $i !important;
+  }
+}
+$line-height: (
+  'xs': 1,
+  'sm': 1.15,
+  'md': 1.2,
+  'lg': 1.5,
+  'xl': 1.8
+);
+@each $k, $v in $line-height {
+  .line-height-#{$k} {
+    line-height: $v !important;
+  }
+}
+@for $i from 0 through 100 {
+  .line-height-#{$i} {
+    line-height: $i * 1px !important;
+  }
+}
+@for $i from 0 through 200 {
+  .top-#{$i} {
+    top: $i * 1px;
+  }
+  .right-#{$i} {
+    right: $i * 1px;
+  }
+  .left-#{$i} {
+    left: $i * 1px;
+  }
+  .bottom-#{$i} {
+    bottom: $i * 1px;
+  }
+  .top-n#{$i} {
+    top: $i * -1px;
+  }
+  .right-n#{$i} {
+    right: $i * -1px;
+  }
+  .left-n#{$i} {
+    left: $i * -1px;
+  }
+  .bottom-n#{$i} {
+    bottom: $i * -1px;
+  }
+  .height-#{$i} {
+    height: $i * 1px !important;
+  }
+  .width-#{$i} {
+    width: $i * 1px !important;
+  }
+  .border-radius-#{$i} {
+    border-radius: $i * 1px !important;
+  }
+}
+/*
+color関連
+*/
+@each $name, $color in var.$colors {
+  .#{$name} {
+    color: $color !important;
+  }
+  .background-#{$name} {
+    background-color: $color !important;
+  }
+  .border-#{$name} {
+    border-color: $color !important;
+  }
+}
+.background-white {
+  background-color: white !important;
+}

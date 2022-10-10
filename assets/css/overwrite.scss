@@ -1,0 +1,52 @@
+@use './variables' as var;
+@use './utility';
+/*
+vuetifyのユーティリティクラスを上書きするscss
+*/
+$font-class: text-h1, text-h2, text-h3, text-h4, text-h5, text-h6, text-body-1,
+  text-body-2, text-subtitle-1, text-subtitle-2, text-caption;
+@each $i in $font-class {
+  .#{$i} {
+    @extend .font-family-main;
+  }
+}
+/*
+vuetifyのスタイル済みクラスを上書きするscss
+*/
+.v-select__selection-text {
+  padding-top: 3px;
+}
+// NOTE:ユーザー情報を登録する際のinputタグのデザイン用
+.v-field--variant-outlined {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var.$grey-lighten-2;
+  border-radius: 4px !important;
+  background-color: var.$grey-lighten-3;
+  &.v-field--focused {
+    border-color: var.$orange-base;
+    background-color: white;
+    box-shadow: 0 0 5px rgb(221 141 0 / 50%);
+  }
+}
+.v-field__input {
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+.v-field__outline {
+  .v-field__outline__start {
+    --v-field-border-width: 0px;
+  }
+  .v-field__outline__end {
+    --v-field-border-width: 0px;
+  }
+}
+.v-field--error {
+  border-color: var.$red-darken-4 !important;
+  background-color: rgba($color: var.$red-darken-4, $alpha: 0.3) !important;
+}
+
+// NOTE:v-imgのlazy-srcでno_image画像を出力する際にデフォルトでかかっているぼかしを無効化する
+.v-img__img--preload {
+  filter: none !important;
+}
