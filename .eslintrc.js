@@ -21,6 +21,7 @@ module.exports = {
     // typescript settings
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
     // vue settings
     'vue/script-setup-uses-vars': 0,
     'vue/attribute-hyphenation': 0,
@@ -30,7 +31,11 @@ module.exports = {
     'vue/no-v-model-argument': 0,
     'vue/no-v-html': 0,
     'vue/multi-word-component-names': 0,
-    'vue/no-useless-template-attributes': 0
+    'vue/no-useless-template-attributes': 0,
+    'vue/valid-v-for': 0,
+    'vue/require-v-for-key': 0,
+    'vue/prop-name-casing': 0,
+    'vue/no-multiple-template-root': 0
     // nuxt settings
   }
 }
