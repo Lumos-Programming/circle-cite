@@ -2,6 +2,10 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
+    "build:development": "cross-env MODE=DEVELOPMENT nuxt build",
+    "build:staging": "cross-env MODE=STAGING nuxt build",
+    "build:production": "cross-env MODE=PRODUCTION nuxt build",
+    "start": "PORT=8080 node .output/server/index.mjs",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -17,6 +21,7 @@
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^3.2.0",
@@ -32,6 +37,7 @@
     "vuetify": "^3.0.0-beta.13"
   },
   "dependencies": {
+    "@aws-amplify/api-graphql": "^2.3.19",
     "aws-amplify": "^4.3.37"
   }
 }

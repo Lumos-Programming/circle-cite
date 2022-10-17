@@ -17,5 +17,11 @@ export default defineNuxtConfig({
         usePolling: true
       }
     }
+  },
+  runtimeConfig: {
+    public: {
+      isProd: process.env.MODE?.toUpperCase() === 'PRODUCTION' || false,
+      limit: 100
+    }
   }
 })
