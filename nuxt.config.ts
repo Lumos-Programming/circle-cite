@@ -10,6 +10,7 @@ export default defineNuxtConfig({
   },
   vite: {
     define: {
+      global: {},
       'process.env.DEBUG': false
     },
     server: {
@@ -20,7 +21,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      isProd: process.env.MODE?.toUpperCase() === 'PRODUCTION' || false,
+      // isProd: process.env.MODE?.toUpperCase() === 'PRODUCTION' || false,
+      isProd: false,
       limit: 100
     }
   }

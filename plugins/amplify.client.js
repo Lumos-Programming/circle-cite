@@ -2,7 +2,7 @@ import { API, Storage } from 'aws-amplify'
 // TODO: 開発速度優先でjsで開発したため、後に適切な片付けを行う
 export default defineNuxtPlugin((nuxtApp) => {
   const config = nuxtApp.$config
-  const isProd = config.public.isProduction
+  const isProd = config.public.isProd
   return {
     provide: {
       listGraphql: async ({ name, query, filter = {}, multiple = 1 }) => {

@@ -1,5 +1,5 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  const config = nuxtApp.$config.public.isProd
+  const config = nuxtApp.$config
   const isProd = config.public.isProd
   return {
     provide: {

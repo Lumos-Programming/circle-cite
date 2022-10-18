@@ -27,16 +27,17 @@ classベースでデザインするためによく使うstyleをクラス化す�
     content: '';
     position: absolute;
     right: 15px;
-    top: calc((41px - 7.07px) / 2);
-    width: 15px;
+    top: calc((100% - 11px) / 2);
+    width: 8px;
     height: 8px;
-    transform: rotate(0deg);
-    background-image: url(../img/icon_arrow_r.svg);
-    background-repeat: no-repeat;
-    @extend .transition-medium-ease-out;
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    transform: rotate(-45deg);
+    transition: all 0.18s ease-out;
   }
   &.active::after {
-    transform: rotate(-180deg);
+    transform: rotate(135deg);
+    top: calc((100% - 6px) / 2);
   }
 }
 
