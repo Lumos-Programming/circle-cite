@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     shim: false
     // strict: true
   },
-  css: ['vuetify/styles'],
+  css: ['the-new-css-reset', 'vuetify/styles', '@/assets/css/index.scss'],
   build: {
     transpile: ['vuetify']
   },
@@ -21,8 +21,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      // isProd: process.env.MODE?.toUpperCase() === 'PRODUCTION' || false,
-      isProd: false,
+      isProd: process.env.MODE?.toUpperCase() === 'PRODUCTION' || false,
       limit: 100
     }
   }

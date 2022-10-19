@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useHead({
   title: 'Hooks',
-  titleTemplate: (title) => `${title} ｜ Lumos`
+  titleTemplate: (title) => `${title} | Lumos`
 })
 </script>
 <template>
