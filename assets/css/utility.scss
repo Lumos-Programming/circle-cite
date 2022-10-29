@@ -130,14 +130,14 @@ classベースでデザインするためによく使うstyleをクラス化す�
     'ヒラギノ角ゴ ProN W3', 'メイリオ' !important;
 }
 .letter-spacing-main {
-  letter-spacing: 0.8px !important;
+  letter-spacing: 1px !important;
 }
 
 $transition: ease, ease-out, ease-in, ease-in-out;
 $transition-time: (
-  'short': 0.18s,
+  'short': 0.1s,
   'medium': 0.3s,
-  'long': 0.4s
+  'long': 0.5s
 );
 @each $i in $transition {
   @each $k, $v in $transition-time {

@@ -81,6 +81,17 @@ export default defineNuxtPlugin((nuxtApp) => {
         if (navigator.clipboard) {
           navigator.clipboard.writeText(text)
         }
+      },
+      getYMD: (string: string) => {
+        const date = new Date(string)
+        if (!date) return ''
+        return (
+          date.getFullYear() +
+          ' ' +
+          (date.getMonth() + 1) +
+          ' ' +
+          date.getDate()
+        )
       }
     }
   }

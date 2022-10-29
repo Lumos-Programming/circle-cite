@@ -19,6 +19,18 @@ export default defineNuxtConfig({
       }
     }
   },
+  modules: ['nuxt-jsoneditor'],
+  jsoneditor: {
+    componentName: 'JsonEditor',
+    includeCss: true,
+    options: {
+      /**
+       *
+       * SET GLOBAL OPTIONS
+       *
+       * */
+    }
+  },
   runtimeConfig: {
     public: {
       isProd: process.env.MODE?.toUpperCase() === 'PRODUCTION' || false,
