@@ -21,9 +21,9 @@ getUsers()
         style="flex: 0 1 33.3%"
         class="bg-transparent"
       >
-        <v-card class="w-100 elevation-5 rounded-lg"
-          ><v-img src="sample.jpg"
-        /></v-card>
+        <v-card class="w-100 elevation-5 rounded-lg">
+          <v-img src="sample.jpg" :aspect-ratio="3 / 13" cover />
+        </v-card>
         <div
           class="d-flex flex-nowrap justify-end bg-transparent my-3"
           style="gap: 0 10px"
@@ -39,7 +39,7 @@ getUsers()
             font-weight="font-weight-regular"
           />
         </div>
-        <atom-text font-size="text-subtitle-1" :text="item.name" />
+        <atom-text font-size="text-h5" :text="item.name" />
       </v-sheet>
     </div>
   </layout-public>

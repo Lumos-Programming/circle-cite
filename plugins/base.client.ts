@@ -82,15 +82,15 @@ export default defineNuxtPlugin((nuxtApp) => {
           navigator.clipboard.writeText(text)
         }
       },
-      getYMD: (string: string) => {
+      getYMD: (string: string, separator = '/') => {
         const date = new Date(string)
         if (!date) return ''
         return (
           date.getFullYear() +
-          ' ' +
-          (date.getMonth() + 1) +
-          ' ' +
-          date.getDate()
+          separator +
+          ('0' + (date.getMonth() + 1)).slice(-2) +
+          separator +
+          ('0' + date.getDate()).slice(-2)
         )
       }
     }

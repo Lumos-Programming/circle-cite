@@ -1,34 +1,35 @@
 <script setup lang="ts">
-import { CreateProjectInput, ListProjectsQuery, Project } from '~/assets/API'
 import {
-  createProject,
-  deleteProject,
-  updateProject
+  CreatePortfolioInput,
+  ListPortfoliosQuery,
+  Portfolio
+} from '~/assets/API'
+import {
+  createPortfolio,
+  deletePortfolio,
+  updatePortfolio
 } from '~/assets/graphql/mutations'
-import { listProjects } from '~/assets/graphql/queries'
+import { listPortfolios } from '~/assets/graphql/queries'
 const { $getYMD, $listQuery } = useNuxtApp()
-const projects = ref<Project[]>([])
-const getProjects = async () => {
-  projects.value = await $listQuery<ListProjectsQuery, Project>({
-    name: 'listProjects',
-    query: listProjects
+const portfolios = ref<Portfolio[]>([])
+const getPortfolios = async () => {
+  portfolios.value = await $listQuery<ListPortfoliosQuery, Portfolio>({
+    name: 'listPortfolios',
+    query: listPortfolios
   })
-  console.log(projects.value)
 }
-const input = ref<CreateProjectInput>({
-  name: '',
+const input = ref<CreatePortfolioInput>({
+  title: '',
+  url: '',
   description: '',
-  start: $getYMD(new Date().toLocaleString(), '-'),
-  end: $getYMD(new Date().toLocaleString(), '-'),
-  wanted: false,
   published: false,
-  userProjectId: null
+  userPortfolioId: null
 })
-getProjects()
+getPortfolios()
 </script>
 <template>
   <layout-admin>
-    <atom-text font-size="text-h4" text="Projects" />
+    <atom-text font-size="text-h4" text="Portfolios" />
     <atom-breadcrumbs class="mb-5" />
     <v-card class="pa-5">
       <atom-text
@@ -42,8 +43,8 @@ getProjects()
           style="flex: 1"
           @click="
             $baseMutation({
-              name: 'createProject',
-              query: createProject,
+              name: 'createPortfolio',
+              query: createPortfolio,
               input
             })
           "
@@ -55,8 +56,8 @@ getProjects()
           style="flex: 1"
           @click="
             $baseMutation({
-              name: 'updateProject',
-              query: updateProject,
+              name: 'updatePortfolio',
+              query: updatePortfolio,
               input
             })
           "
@@ -68,8 +69,8 @@ getProjects()
           style="flex: 1"
           @click="
             $baseMutation({
-              name: 'deleteProject',
-              query: deleteProject,
+              name: 'deletePortfolio',
+              query: deletePortfolio,
               input
             })
           "
@@ -81,11 +82,11 @@ getProjects()
     </v-card>
     <v-card class="pa-5 my-5">
       <div class="d-flex my-2">
-        <atom-text text="All Projects" font-size="text-h6" class="my-2" />
+        <atom-text text="All Portfolios" font-size="text-h6" class="my-2" />
         <v-spacer />
-        <v-btn variant="outlined" @click="getProjects()"> 再取得 </v-btn>
+        <v-btn variant="outlined" @click="getPortfolios()"> 再取得 </v-btn>
       </div>
-      <json-editor v-model="projects" height="400" mode="tree" />
+      <json-editor v-model="portfolios" height="400" mode="tree" />
     </v-card>
   </layout-admin>
 </template>

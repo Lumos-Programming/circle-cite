@@ -16,5 +16,5 @@ withDefaults(
 )
 </script>
 <template>
-  <p :class="[fontSize, fontWeight, color, lineHeight]">{{ text }}<slot /></p>
+  <p :class="[fontSize, fontWeight, color, lineHeight]"><slot />{{ text }}</p>
 </template>

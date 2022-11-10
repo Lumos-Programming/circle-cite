@@ -39,7 +39,7 @@ const pages = [
 </script>
 <template>
   <div
-    class="d-flex flex-nowrap bg-grey-lighten-2"
+    class="d-flex flex-nowrap bg-grey-lighten-4"
     style="width: 100vw; min-height: 100vh"
   >
     <!-- NOTE: 画面左側メニュバー -->

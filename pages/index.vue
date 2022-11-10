@@ -1,72 +1,18 @@
 <script setup lang="ts">
-import { CreateSkillInput, ListSkillsQuery } from '~/assets/API'
-import {
-  createSkill,
-  deleteSkill,
-  updateSkill
-} from '~/assets/graphql/mutations'
-import { listSkills } from '~/assets/graphql/queries'
-const { $unAuthListQuery } = useNuxtApp()
-const skills = ref<CreateSkillInput[]>([])
-const getSkills = async () => {
-  skills.value = await $unAuthListQuery<ListSkillsQuery, CreateSkillInput>({
-    name: 'listSkills',
-    query: listSkills
-  })
-}
-const input = ref<CreateSkillInput>({
-  name: ''
-})
-getSkills()
+useHead({ title: 'トップページ' })
 </script>
 <template>
-  <layout-admin>
-    <atom-text font-size="text-h4" text="Skills" />
-    <atom-breadcrumbs class="mb-5" />
-    <v-card class="pa-5">
-      <atom-text
-        text="Create / Update / Delete"
-        font-size="text-h6"
-        class="my-2"
-      />
-      <div class="d-flex my-2" style="gap: 0 20px">
-        <v-btn
-          variant="outlined"
-          style="flex: 1"
-          @click="
-            $baseMutation({ name: 'createSkill', query: createSkill, input })
-          "
-        >
-          新規作成
-        </v-btn>
-        <v-btn
-          variant="outlined"
-          style="flex: 1"
-          @click="
-            $baseMutation({ name: 'updateSkill', query: updateSkill, input })
-          "
-        >
-          更新
-        </v-btn>
-        <v-btn
-          variant="outlined"
-          style="flex: 1"
-          @click="
-            $baseMutation({ name: 'deleteSkill', query: deleteSkill, input })
-          "
-        >
-          削除
-        </v-btn>
+  <layout-public>
+    <div v-for="i in 5" class="d-flex align-center" style="height: 100vh">
+      <div style="flex: 1">
+        <atom-text text="Hooks" font-size="text-h2" class="my-2" />
+        <atom-text
+          text="Lumos Circle Site"
+          font-weight="font-weight-regular"
+          class="ml-1"
+        />
       </div>
-      <json-editor v-model="input" height="400" mode="tree" />
-    </v-card>
-    <v-card class="pa-5 my-5">
-      <div class="d-flex my-2">
-        <atom-text text="All Skills" font-size="text-h6" class="my-2" />
-        <v-spacer />
-        <v-btn variant="outlined" @click="getSkills()"> 再取得 </v-btn>
-      </div>
-      <json-editor v-model="skills" height="400" mode="tree" />
-    </v-card>
-  </layout-admin>
+      <div style="flex: 1"></div>
+    </div>
+  </layout-public>
 </template>

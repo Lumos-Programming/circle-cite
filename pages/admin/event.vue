@@ -6,7 +6,7 @@ import {
   updateEvent
 } from '~/assets/graphql/mutations'
 import { listEvents } from '~/assets/graphql/queries'
-const { $listQuery } = useNuxtApp()
+const { $getYMD, $listQuery } = useNuxtApp()
 const events = ref<Event[]>([])
 const getEvents = async () => {
   events.value = await $listQuery<ListEventsQuery, Event>({
@@ -16,7 +16,7 @@ const getEvents = async () => {
 }
 const input = ref<CreateEventInput>({
   name: '',
-  date: [new Date().toLocaleString()],
+  date: [$getYMD(new Date().toLocaleString(), '-')],
   description: '',
   wanted: false,
   published: false,

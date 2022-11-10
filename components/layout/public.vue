@@ -1,6 +1,7 @@
 <template>
-  <div class="bg-grey-lighten-3" style="width: 100vw; min-height: 100vh">
-    <div :style="{ maxWidth: '1000px' }" class="mx-auto">
+  <div class="bg-grey-lighten-4" style="width: 100vw; min-height: 100vh">
+    <module-header />
+    <div :style="{ maxWidth: '960px' }" class="px-5 mx-md-auto">
       <slot />
     </div>
   </div>

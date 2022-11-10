@@ -8,39 +8,36 @@ const getSkills = async () => {
     name: 'listSkills',
     query: listSkills
   })
+  console.log(skills.value)
 }
 getSkills()
 </script>
 <template>
   <layout-public>
-    <atom-text font-size="text-h4" text="Skill" class="py-10" />
-    <div class="d-flex">
-      <v-sheet
+    <atom-text font-size="text-h4" text="Skills" class="py-10" />
+    <v-chip-group column>
+      <v-hover
         v-for="item in skills"
         :key="item.id"
-        style="flex: 0 1 33.3%"
-        class="bg-transparent"
+        v-slot="{ isHovering, props }"
       >
-        <v-card class="w-100 elevation-5 rounded-lg"
-          ><v-img src="sample.jpg"
-        /></v-card>
-        <div
-          class="d-flex flex-nowrap justify-end bg-transparent my-3"
-          style="gap: 0 10px"
+        <v-chip
+          :ripple="false"
+          class="ma-2 elevation-5 transition-short-ease-out"
+          :class="[
+            isHovering
+              ? 'text-white background-grey-darken-4'
+              : 'bg-white grey-darken-4'
+          ]"
+          variant="elevated"
+          prepend-icon="mdi-music-accidental-sharp"
+          v-bind="props"
+          link
+          :to="'/skill/' + item.id"
         >
-          <atom-text
-            font-size="text-caption"
-            :text="$getYMD(item.createdAt)"
-            font-weight="font-weight-regular"
-          />
-          <atom-text
-            font-size="text-caption"
-            :text="$getYMD(item.updatedAt)"
-            font-weight="font-weight-regular"
-          />
-        </div>
-        <atom-text font-size="text-subtitle-1" :text="item.name" />
-      </v-sheet>
-    </div>
+          {{ item.name }}
+        </v-chip>
+      </v-hover>
+    </v-chip-group>
   </layout-public>
 </template>

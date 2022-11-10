@@ -154,6 +154,12 @@ $cursor: alias, all-scroll, cell, copy, context-menu, crosshair, default, grab,
     cursor: $i;
   }
 }
+$vertical-align: text-bottom, text-top, sub, super;
+@each $i in $vertical-align {
+  .align-#{$i} {
+    vertical-align: $i !important;
+  }
+}
 $word-break: break-word, break-all, keep-all, normal, unset;
 @each $i in $word-break {
   @if $i == break-word {
