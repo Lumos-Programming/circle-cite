@@ -2,10 +2,10 @@
 withDefaults(
   defineProps<{
     text?: string
-    fontSize: string
-    fontWeight: string
-    color: string
-    lineHeight: string
+    fontSize?: string
+    fontWeight?: string
+    color?: string
+    lineHeight?: string
   }>(),
   {
     fontSize: 'text-subtitle-1',
