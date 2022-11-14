@@ -106,7 +106,7 @@ const menu = [
         <div
           class="border-solid border-width-1 border-rey-darken-4 rounded position-absolute transition-medium-ease-out top-0 right-0 background-white overflow-hidden"
           :style="{
-            width: active ? 'calc(100vw - 32px)' : '48px',
+            width: active ? 'calc(100vw - 40px)' : '48px',
             height: active ? 'calc(var(--vh) * 100 - 80px)' : '40px'
           }"
         >

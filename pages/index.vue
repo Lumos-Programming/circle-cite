@@ -3,7 +3,10 @@ useHead({ title: 'トップページ' })
 </script>
 <template>
   <layout-public>
-    <div v-for="i in 5" class="d-flex align-center" style="height: 100vh">
+    <div
+      class="d-flex align-center"
+      style="height: calc(var(--vh, 1vh) * 100 - 80px)"
+    >
       <div style="flex: 1">
         <atom-text text="Hooks" font-size="text-h2" class="my-2" />
         <atom-text
