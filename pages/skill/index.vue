@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ListSkillsQuery, Skill } from '~/assets/API'
 import { listSkills } from '~/assets/graphql/queries'
-const { $unAuthListQuery } = useNuxtApp()
+const { $listQuery } = useNuxtApp()
 const skills = ref<Skill[]>([])
 const getSkills = async () => {
-  skills.value = await $unAuthListQuery<ListSkillsQuery, Skill>({
+  skills.value = await $listQuery<ListSkillsQuery, Skill>({
     name: 'listSkills',
     query: listSkills
   })

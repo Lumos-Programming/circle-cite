@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Event, ListEventsQuery } from '~/assets/API'
 import { listEvents } from '~/assets/graphql/queries'
-const { $unAuthListQuery } = useNuxtApp()
+const { $listQuery } = useNuxtApp()
 const events = ref<Event[]>([])
 const getEvents = async () => {
-  events.value = await $unAuthListQuery<ListEventsQuery, Event>({
+  events.value = await $listQuery<ListEventsQuery, Event>({
     name: 'listEvents',
     query: listEvents
   })

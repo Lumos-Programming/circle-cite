@@ -1,45 +1,34 @@
-import { GraphQLResult } from '@aws-amplify/api'
+import { GraphQLResult, GraphQLQuery } from '@aws-amplify/api'
 import { API, Auth } from 'aws-amplify'
-// TODO: 開発速度優先で開発したため、後に適切な型付けを行う
 export default defineNuxtPlugin((nuxtApp) => {
   const config = nuxtApp.$config
   const isProd = config.public.isProd
   const { isSignedIn } = useLoginState()
   return {
     provide: {
-      unAuthListQuery: async <T, S>({
+      getQuery: async <T, S>({
         name,
         query,
         filter = {},
         multiple = 1
-      }): Promise<S[]> => {
-        const items = []
+      }): Promise<S> => {
         const variables = Object.assign(
           { limit: config.public.limit * multiple, nextToken: null },
           filter
         )
-        const callbackQuery = async () => {
-          try {
-            // NOTE: DynamoDBのscanの1MB制限に達するとnextTokenが返される
-            const result = (await API.graphql({
-              query,
-              variables,
-              authMode: 'AWS_IAM'
-            })) as GraphQLResult<T>
-            items.push(...(result.data[name]?.items || []))
-            if (result.data[name]?.nextToken) {
-              variables.nextToken = result.data[name].nextToken
-              await callbackQuery()
-            }
-          } catch (e) {
+        return await API.graphql<GraphQLQuery<T>>({
+          query,
+          variables,
+          authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
+        })
+          .then((res) => {
+            if (!isProd) console.log(res.data[name])
+            return res.data[name]
+          })
+          .catch((e) => {
             if (!isProd) console.log(name + ':', e)
             clearError()
-          }
-        }
-
-        await callbackQuery()
-        if (!isProd) console.log(items)
-        return items
+          })
       },
       listQuery: async <T, S>({
         name,
@@ -55,10 +44,13 @@ export default defineNuxtPlugin((nuxtApp) => {
         const callbackQuery = async () => {
           try {
             // NOTE: DynamoDBのscanの1MB制限に達するとnextTokenが返される
-            const result = (await API.graphql({
+            const result = await API.graphql<GraphQLQuery<T>>({
               query,
-              variables
-            })) as GraphQLResult<T>
+              variables,
+              authMode: isSignedIn.value
+                ? 'AMAZON_COGNITO_USER_POOLS'
+                : 'AWS_IAM'
+            })
             items.push(...(result.data[name]?.items || []))
             if (result.data[name]?.nextToken) {
               variables.nextToken = result.data[name].nextToken
