@@ -28,7 +28,7 @@ getEvents()
             :style="{
               transform: isHovering ? 'scale(1.05)' : 'scale(1.0)'
             }"
-            @click="navigateTo('/article/' + item.id)"
+            @click="navigateTo('/event/' + item.id)"
           >
             <v-img src="sample.jpg" :aspect-ratio="16 / 9" cover />
           </v-card>
@@ -59,7 +59,7 @@ getEvents()
           line-height="line-height-lg"
           class="ml-1"
         >
-          <NuxtLink :to="'/article/' + item.id">{{ item.name }}</NuxtLink>
+          <NuxtLink :to="'/event/' + item.id">{{ item.name }}</NuxtLink>
         </atom-text>
       </v-sheet>
     </div>
