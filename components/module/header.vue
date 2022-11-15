@@ -91,8 +91,9 @@ const menu = [
         v-bind="props"
       >
         <div
-          class="border-solid border-width-1 border-rey-darken-4 rounded position-absolute transition-medium-ease-out top-0 right-0 background-white overflow-hidden"
+          class="border-solid border-width-1 border-rey-darken-4 rounded position-absolute transition-long-ease-out top-0 right-0 background-white overflow-hidden"
           :style="{
+            'max-width': '960px',
             width: active ? 'calc(100vw - 40px)' : '48px',
             height: active ? 'calc(var(--vh) * 100 - 80px)' : '40px'
           }"
