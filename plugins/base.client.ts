@@ -34,40 +34,16 @@ export default defineNuxtPlugin((nuxtApp) => {
         }
       }),
       baseFetch: async <T>(path: string, options = nuxtApp.$options()) => {
-        const { data, error } = await useFetch(path, options)
-        let err = null
-        if (error.value) {
-          err = {
-            data: error.value,
-            // @ts-ignore
-            request: error.value.request || path,
-            options
+        if (!isProd) console.log(options)
+        const { data, error, refresh } = await useFetch(path, {
+          ...options,
+          onResponseError({ request, response, options }) {
+            if (!isProd) console.log(response)
           }
-          if (!isProd) console.dir(err)
-          if (!isProd) console.error(error.value)
-          clearError()
-        }
-        return { data: data.value as T, error: err }
-      },
-      baseAsyncData: async <T>(path: string, options = nuxtApp.$options()) => {
-        const { data, error } = await useAsyncData(
-          path,
-          () => $fetch(path, options),
-          { initialCache: false }
-        )
-        let err = null
-        if (error.value) {
-          err = {
-            data: error.value,
-            // @ts-ignore :NOTE
-            request: error.value.request || path,
-            options
-          }
-          if (!isProd) console.dir(err)
-          if (!isProd) console.error(path, error.value)
-          clearError()
-        }
-        return { data: data.value as T, error: err }
+        })
+        if (error.value) clearError()
+        else if (!data.value) await refresh()
+        return { data: data.value as T, error: error.value as any }
       },
       itemsSort: (
         items: any[],

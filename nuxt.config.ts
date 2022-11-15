@@ -17,12 +17,19 @@ export default defineNuxtConfig({
       watch: {
         usePolling: true
       }
+      // proxy: {
+      //   '/api/discord': {
+      //     target: process.env.DISCORDWEBHOOK,
+      //     rewrite: (path) => path.replace(/^\/api\/discord/, ''),
+      //     changeOrigin: true
+      //   }
+      // }
     }
   },
   modules: ['nuxt-jsoneditor'],
   jsoneditor: {
     componentName: 'JsonEditor',
-    includeCss: true,
+    // includeCss: true,
     options: {
       /**
        *
@@ -34,7 +41,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       isProd: process.env.MODE?.toUpperCase() === 'PRODUCTION' || false,
-      limit: 100
+      baseUrl: process.env.BASEURL || '',
+      limit: 100,
+      discordwebhook: process.env.DISCORDWEBHOOK || ''
     }
   }
 })

@@ -72,27 +72,14 @@ const menu = [
       @click="navigateTo('/')"
     />
     <v-spacer></v-spacer>
-    <v-hover
-      v-for="item in menu.filter((v) => v.outside)"
-      :key="item.text"
-      v-slot="{ isHovering, props }"
-    >
-      <v-btn
-        v-if="!xs"
-        class="height-40 px-4 py-2 transition-medium-ease"
-        :class="[
-          isHovering
-            ? 'elevation-3 background-white'
-            : 'background-grey-lighten-4'
-        ]"
-        :ripple="false"
-        variant="flat"
-        v-bind="props"
-        @click="item.function()"
-      >
-        <atom-text :text="item.text" line-height="line-height-lg" />
-      </v-btn>
-    </v-hover>
+    <template v-if="!xs">
+      <atom-button
+        v-for="item in menu.filter((v) => v.outside)"
+        :key="item.text"
+        :text="item.text"
+        @btn-click="item.function()"
+      />
+    </template>
     <v-hover v-slot="{ isHovering, props }">
       <div
         class="position-relative height-40 width-48 background-grey-lighten-4"
