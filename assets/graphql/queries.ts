@@ -18,10 +18,11 @@ export const getUser = /* GraphQL */ `
       skill {
         items {
           id
-          name
+          title
           createdAt
           updatedAt
           userSkillId
+          articleSkillId
         }
         nextToken
       }
@@ -36,7 +37,6 @@ export const getUser = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
       }
@@ -50,7 +50,6 @@ export const getUser = /* GraphQL */ `
           createdAt
           updatedAt
           userPortfolioId
-          portfolioImageId
           owner
         }
         nextToken
@@ -58,7 +57,7 @@ export const getUser = /* GraphQL */ `
       project {
         items {
           id
-          name
+          title
           description
           start
           end
@@ -73,7 +72,7 @@ export const getUser = /* GraphQL */ `
       event {
         items {
           id
-          name
+          title
           date
           description
           wanted
@@ -84,20 +83,16 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
       skillUserId
       projectUserId
       eventUserId
-      userImageId
       owner
     }
   }
@@ -135,20 +130,16 @@ export const listUsers = /* GraphQL */ `
         event {
           nextToken
         }
-        image {
-          id
-          name
-          path
-          identityId
-          createdAt
-          updatedAt
+        file {
+          bucket
+          key
+          region
         }
         createdAt
         updatedAt
         skillUserId
         projectUserId
         eventUserId
-        userImageId
         owner
       }
       nextToken
@@ -159,7 +150,7 @@ export const getSkill = /* GraphQL */ `
   query GetSkill($id: ID!) {
     getSkill(id: $id) {
       id
-      name
+      title
       user {
         items {
           id
@@ -177,7 +168,6 @@ export const getSkill = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -185,6 +175,7 @@ export const getSkill = /* GraphQL */ `
       createdAt
       updatedAt
       userSkillId
+      articleSkillId
     }
   }
 `;
@@ -197,13 +188,14 @@ export const listSkills = /* GraphQL */ `
     listSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        title
         user {
           nextToken
         }
         createdAt
         updatedAt
         userSkillId
+        articleSkillId
       }
       nextToken
     }
@@ -242,25 +234,21 @@ export const getArticle = /* GraphQL */ `
         event {
           nextToken
         }
-        image {
-          id
-          name
-          path
-          identityId
-          createdAt
-          updatedAt
+        file {
+          bucket
+          key
+          region
         }
         createdAt
         updatedAt
         skillUserId
         projectUserId
         eventUserId
-        userImageId
         owner
       }
       project {
         id
-        name
+        title
         description
         start
         end
@@ -272,13 +260,18 @@ export const getArticle = /* GraphQL */ `
         article {
           nextToken
         }
+        file {
+          bucket
+          key
+          region
+        }
         createdAt
         updatedAt
         userProjectId
       }
       event {
         id
-        name
+        title
         date
         description
         wanted
@@ -289,24 +282,31 @@ export const getArticle = /* GraphQL */ `
         article {
           nextToken
         }
+        file {
+          bucket
+          key
+          region
+        }
         createdAt
         updatedAt
         userEventId
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      skill {
+        items {
+          id
+          title
+          createdAt
+          updatedAt
+          userSkillId
+          articleSkillId
+        }
+        nextToken
       }
       createdAt
       updatedAt
       userArticleId
       projectArticleId
       eventArticleId
-      articleImageId
     }
   }
 `;
@@ -338,12 +338,11 @@ export const listArticles = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         project {
           id
-          name
+          title
           description
           start
           end
@@ -355,7 +354,7 @@ export const listArticles = /* GraphQL */ `
         }
         event {
           id
-          name
+          title
           date
           description
           wanted
@@ -364,20 +363,14 @@ export const listArticles = /* GraphQL */ `
           updatedAt
           userEventId
         }
-        image {
-          id
-          name
-          path
-          identityId
-          createdAt
-          updatedAt
+        skill {
+          nextToken
         }
         createdAt
         updatedAt
         userArticleId
         projectArticleId
         eventArticleId
-        articleImageId
       }
       nextToken
     }
@@ -417,34 +410,26 @@ export const getPortfolio = /* GraphQL */ `
         event {
           nextToken
         }
-        image {
-          id
-          name
-          path
-          identityId
-          createdAt
-          updatedAt
+        file {
+          bucket
+          key
+          region
         }
         createdAt
         updatedAt
         skillUserId
         projectUserId
         eventUserId
-        userImageId
         owner
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
       userPortfolioId
-      portfolioImageId
       owner
     }
   }
@@ -478,21 +463,16 @@ export const listPortfolios = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
-        image {
-          id
-          name
-          path
-          identityId
-          createdAt
-          updatedAt
+        file {
+          bucket
+          key
+          region
         }
         createdAt
         updatedAt
         userPortfolioId
-        portfolioImageId
         owner
       }
       nextToken
@@ -503,7 +483,7 @@ export const getProject = /* GraphQL */ `
   query GetProject($id: ID!) {
     getProject(id: $id) {
       id
-      name
+      title
       description
       start
       end
@@ -526,7 +506,6 @@ export const getProject = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -542,9 +521,13 @@ export const getProject = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
+      }
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
@@ -561,7 +544,7 @@ export const listProjects = /* GraphQL */ `
     listProjects(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        title
         description
         start
         end
@@ -572,6 +555,11 @@ export const listProjects = /* GraphQL */ `
         }
         article {
           nextToken
+        }
+        file {
+          bucket
+          key
+          region
         }
         createdAt
         updatedAt
@@ -585,7 +573,7 @@ export const getEvent = /* GraphQL */ `
   query GetEvent($id: ID!) {
     getEvent(id: $id) {
       id
-      name
+      title
       date
       description
       wanted
@@ -607,7 +595,6 @@ export const getEvent = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -623,9 +610,13 @@ export const getEvent = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
+      }
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
@@ -642,7 +633,7 @@ export const listEvents = /* GraphQL */ `
     listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        title
         date
         description
         wanted
@@ -653,40 +644,14 @@ export const listEvents = /* GraphQL */ `
         article {
           nextToken
         }
+        file {
+          bucket
+          key
+          region
+        }
         createdAt
         updatedAt
         userEventId
-      }
-      nextToken
-    }
-  }
-`;
-export const getImage = /* GraphQL */ `
-  query GetImage($id: ID!) {
-    getImage(id: $id) {
-      id
-      name
-      path
-      identityId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listImages = /* GraphQL */ `
-  query ListImages(
-    $filter: ModelImageFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listImages(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
       }
       nextToken
     }
