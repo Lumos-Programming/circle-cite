@@ -1,21 +1,15 @@
-import { GraphQLResult, GraphQLQuery } from '@aws-amplify/api'
-import { API, Auth } from 'aws-amplify'
+import { GraphQLQuery } from '@aws-amplify/api'
+import { StorageAccessLevel } from '@aws-amplify/storage'
+import { API, Auth, Storage } from 'aws-amplify'
+import { v4 as uuidv4 } from 'uuid'
+import awsConfig from '~/assets/aws-exports'
 export default defineNuxtPlugin((nuxtApp) => {
   const config = nuxtApp.$config
   const isProd = config.public.isProd
   const { isSignedIn } = useLoginState()
   return {
     provide: {
-      getQuery: async <T, S>({
-        name,
-        query,
-        filter = {},
-        multiple = 1
-      }): Promise<S> => {
-        const variables = Object.assign(
-          { limit: config.public.limit * multiple, nextToken: null },
-          filter
-        )
+      getQuery: async <T, S>({ name, query, variables = {} }): Promise<S> => {
         return await API.graphql<GraphQLQuery<T>>({
           query,
           variables,
@@ -37,10 +31,11 @@ export default defineNuxtPlugin((nuxtApp) => {
         multiple = 1
       }): Promise<S[]> => {
         const items = []
-        const variables = Object.assign(
-          { limit: config.public.limit * multiple, nextToken: null },
+        const variables = {
+          limit: config.public.limit * multiple,
+          nextToken: null,
           filter
-        )
+        }
         const callbackQuery = async () => {
           try {
             // NOTE: DynamoDBのscanの1MB制限に達するとnextTokenが返される
@@ -61,143 +56,100 @@ export default defineNuxtPlugin((nuxtApp) => {
             clearError()
           }
         }
-
         await callbackQuery()
         if (!isProd) console.log(items)
         return items
       },
-      baseMutation: async <T>({ name, query, input }): Promise<T> => {
-        try {
-          const res = (await API.graphql({
-            query,
-            variables: { input }
-          })) as GraphQLResult<T>
-          console.log(name)
-          console.log(res)
-          console.log(res.data[name])
-          return res.data[name]
-        } catch (e) {
-          if (!isProd) console.log(name + ':', e)
-          clearError()
+      baseMutation: async <T, S>({ name, query, input }): Promise<S> => {
+        return await API.graphql<GraphQLQuery<T>>({
+          query,
+          variables: { input }
+        })
+          .then((res) => {
+            if (!isProd) console.log(res.data[name])
+            return res.data[name]
+          })
+          .catch((e) => {
+            if (!isProd) console.log(name + ':', e)
+            clearError()
+          })
+      },
+      getImage: async (key: string): Promise<string> => {
+        // NOTE: keyは{prptected or public or private}/{identityId}/{random uuid}/{file name}.{extension}の形式
+        // NOTE: 返り値はデフォルト15分の有効期限付き署名付きURL(String)
+        if (!key) return '/no_image.png'
+        const item = key.split('/')
+        if (item.length !== 4) return '/no_image.png'
+        if (
+          item[0] !== 'protected' &&
+          item[0] !== 'public' &&
+          item[0] !== 'private'
+        )
+          return '/no_image.png'
+        return await Storage.get(key, {
+          level: item[0] as StorageAccessLevel,
+          identityId: item[1]
+        })
+      },
+      makeFileObjectForMutation: async (
+        level: StorageAccessLevel = 'protected',
+        file: File
+      ) => {
+        if (!file) return
+        const bucket = awsConfig.aws_user_files_s3_bucket
+        const region = awsConfig.aws_user_files_s3_bucket_region
+        const { name, type: mimeType } = file
+        const [, , , extension] = /([^.]+)(\.(\w+))?$/.exec(name)
+        const { identityId } = await Auth.currentCredentials()
+        const key =
+          level +
+          '/' +
+          identityId +
+          '/' +
+          uuidv4() +
+          (extension && '.') +
+          extension
+        return {
+          bucket,
+          key,
+          region,
+          mimeType,
+          localUri: file
         }
       },
-      // createStorage: async (path, image) => {
-      //   await Storage.put(path + image.name, image, {
-      //     level: 'protected',
-      //     contentType: image.type
-      //   }).catch((e) => {
-      //     if (!isProd) console.log('createStorage', e)
-      //   })
-      // },
-      // updateStorage: async (item, image, path) => {
-      //   if (image) {
-      //     const s3Path = path || item.url || ''
-      //     await Storage.remove(s3Path + item.fullName, {
-      //       level: 'protected',
-      //       contentType: image.type || item.type || ''
-      //     }).catch((e) => {
-      //       console.log('updateStorage', e)
-      //     })
-      //     await Storage.put(s3Path + image.name, image, {
-      //       level: 'protected',
-      //       contentType: image.type || item.type || ''
-      //     }).catch((e) => {
-      //       console.log('updateStorage', e)
-      //     })
-      //   }
-      // },
-      // deleteStorage: async (item) => {
-      //   await Storage.remove(item.url + item.fullName, {
-      //     level: 'protected'
-      //   }).catch((e) => {
-      //     console.log('deleteStorage', e)
-      //   })
-      // },
-      // getImage: async (item) => {
-      //   item.uploadImageUrl = await nuxtApp.$getStorage(
-      //     item.url + item.fullName,
-      //     item.identityId
-      //   )
-      //   item.inputImage = null
-      //   item.isNew = false
-      //   item.isUpdated = false
-      //   return item
-      // },
-      // getImages: async (res) => {
-      //   for (let i = 0, len = res.length; i < len; i++) {
-      //     let item = res[i]
-      //     item = await nuxtApp.$getImage(item)
-      //   }
-      //   return res
-      // },
-      // createImage: async ({
-      //   item = {},
-      //   path = '',
-      //   query = {},
-      //   assign = {}
-      // }) => {
-      //   if (item.isNew) {
-      //     const image = item.inputImage // ファイルオブジェクト
-      //     const createitem = {
-      //       fullName: image.name || '',
-      //       name: image.name.substring(0, image.name.indexOf('.')) || '', // 拡張子無い名前
-      //       type: image.type || '',
-      //       size: image.size || 0,
-      //       alt: item.alt || '',
-      //       url: path || '',
-      //       identityId: nuxtApp.$$store.state.identityId,
-      //       owner: nuxtApp.$$store.state.owner
-      //     }
-      //     if (Object.keys(assign)) {
-      //       Object.assign(createitem, assign)
-      //     }
-      //     await nuxtApp.$createStorage(path, image).then(async () => {
-      //       await API.graphql({
-      //         query,
-      //         variables: {
-      //           input: createitem
-      //         }
-      //       }).catch((e) => {
-      //         console.log('createImage', e)
-      //       })
-      //     })
-      //   }
-      // },
-      // updateImage: async ({ item = {}, query = {}, path = null }) => {
-      //   if (!item.isNew && item.isUpdated) {
-      //     const image = item.inputImage
-      //     await nuxtApp.$updateStorage(item, image, path).then(async () => {
-      //       await API.graphql({
-      //         query,
-      //         variables: {
-      //           input: {
-      //             id: item.id || '',
-      //             fullName: image ? image.name : item.fullName || '',
-      //             name: image
-      //               ? image.name.substring(0, image.name.indexOf('.'))
-      //               : item.name || '',
-      //             type: image ? image.type : item.type || '',
-      //             size: image ? image.size : item.size || 0,
-      //             alt: item.alt || '',
-      //             url: path || item.url || ''
-      //           }
-      //         }
-      //       }).catch((e) => {
-      //         console.log('updateImage', e)
-      //       })
-      //     })
-      //   }
-      // },
-      // deleteImage: async ({ item = {}, query = {} }) => {
-      //   await nuxtApp.$deleteStorage(item).then(async () => {
-      //     await API.graphql({
-      //       query,
-      //       variables: { input: { id: item.id } }
-      //     }).catch((e) => {
-      //       console.log('deleteImage', e)
-      //     })
-      //   })
-      // },
+      createImage: async (
+        level: StorageAccessLevel = 'protected',
+        file: File
+      ) => {
+        if (!file) return
+        const { name, type } = file
+        const [, , , extension] = /([^.]+)(\.(\w+))?$/.exec(name)
+        const { identityId } = await Auth.currentCredentials()
+        const key =
+          level +
+          '/' +
+          identityId +
+          '/' +
+          uuidv4() +
+          (extension && '.') +
+          extension
+        await Storage.put(key, file, {
+          level,
+          contentType: type
+        }).catch((e) => {
+          if (!isProd) console.log('createImage', e)
+        })
+      },
+      deleteImage: async (
+        key: string,
+        level: StorageAccessLevel = 'protected'
+      ) => {
+        await Storage.remove(key, {
+          level
+        }).catch((e) => {
+          console.log('deleteImage', e)
+        })
+      },
       signUp: async (username: string, password: string) => {
         await Auth.signUp({
           username,
