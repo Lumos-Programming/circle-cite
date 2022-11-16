@@ -2,7 +2,7 @@ import { Auth } from 'aws-amplify'
 import { regexp } from '~/assets/enum'
 import { useLoginState, useMyProfile } from '~/composables/useStateManegment'
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { isSignedIn } = useLoginState()
+  const { isSignedIn, setSignedIn } = useLoginState()
   const { setMyProfile } = useMyProfile()
   const config = useRuntimeConfig()
   const isProd = config.public.isProd
@@ -14,6 +14,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   if (to.path.includes('admin')) {
     const user = await Auth.currentUserInfo()
     if (user) setMyProfile(user)
+    else setSignedIn(false)
     if (!isProd) console.log('user', user)
     if (!isSignedIn.value) return navigateTo('/login')
   }

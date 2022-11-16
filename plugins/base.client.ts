@@ -70,8 +70,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         }
       },
       getYMD: (string: string, separator = '/') => {
+        if (!string) return ''
         const date = new Date(string)
-        if (!date) return ''
         return (
           date.getFullYear() +
           separator +
