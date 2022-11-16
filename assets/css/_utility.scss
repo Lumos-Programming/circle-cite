@@ -2,83 +2,9 @@
 /*
 classベースでデザインするためによく使うstyleをクラス化するscss
 */
-
 /*
 ::beforeや::afterに関するstyle
 */
-.before-marker {
-  position: relative;
-  padding-left: 20px;
-  &::before {
-    counter-increment: list;
-    content: '';
-    display: block;
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    position: absolute;
-    top: calc((100% - 10px - 5px) / 2);
-    left: 0;
-    background: #f6a500;
-  }
-}
-.arrow-bottom {
-  &::after {
-    content: '';
-    position: absolute;
-    right: 15px;
-    top: calc((100% - 11px) / 2);
-    width: 8px;
-    height: 8px;
-    border-style: solid;
-    border-width: 2px 2px 0 0;
-    transform: rotate(-45deg);
-    transition: all 0.18s ease-out;
-  }
-  &.active::after {
-    transform: rotate(135deg);
-    top: calc((100% - 6px) / 2);
-  }
-}
-
-.arrow-right {
-  &::after {
-    content: '';
-    position: absolute;
-    right: 15px;
-    top: calc((100% - 11px) / 2);
-    width: 8px;
-    height: 8px;
-    border-style: solid;
-    border-width: 2px 2px 0 0;
-    transform: rotate(45deg);
-    transition: all 0.18s ease-out;
-  }
-  &.active::after {
-    transform: rotate(-135deg);
-    top: calc((100% - 6px) / 2);
-  }
-}
-.round-hover {
-  &::after {
-    border: 0 solid var.$deep-orange-darken-1;
-    border-radius: 50%;
-    box-sizing: border-box;
-    content: '';
-    width: inherit;
-    height: initial;
-    transition: all 0.18s ease-out;
-    z-index: 1;
-    @extend .transition-short-ease-out;
-  }
-  &:hover::after {
-    border: 5px solid var.$deep-orange-darken-1;
-  }
-  &:hover {
-    @extend .opacity-dot7;
-  }
-}
-
 /*
 単一機能を表す責務を負うcss class
 */
@@ -255,21 +181,4 @@ $line-height: (
   .border-radius-#{$i} {
     border-radius: $i * 1px !important;
   }
-}
-/*
-color関連
-*/
-@each $name, $color in var.$colors {
-  .#{$name} {
-    color: $color !important;
-  }
-  .background-#{$name} {
-    background-color: $color !important;
-  }
-  .border-#{$name} {
-    border-color: $color !important;
-  }
-}
-.background-white {
-  background-color: white !important;
 }
