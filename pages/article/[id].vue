@@ -69,8 +69,8 @@ fetchArticle()
             class="ma-2 elevation-5 transition-short-ease-out"
             :class="[
               isHovering
-                ? 'text-white bg-grey-darken-4'
-                : 'bg-white grey-darken-4'
+                ? 'text-white bg-grey-darken-3'
+                : 'bg-white grey-darken-3'
             ]"
             variant="elevated"
             prepend-icon="mdi-music-accidental-sharp"

@@ -82,16 +82,12 @@ const menu = [
     </template>
     <v-hover v-slot="{ isHovering, props }">
       <div
-        class="position-relative height-40 width-48 background-grey-lighten-4"
-        :class="[
-          isHovering
-            ? 'elevation-3 background-white'
-            : 'background-grey-lighten-4'
-        ]"
+        class="position-relative height-40 width-48"
+        :class="[isHovering ? 'elevation-3 bg-white' : 'bg-grey-lighten-4']"
         v-bind="props"
       >
         <div
-          class="border-solid border-width-1 border-rey-darken-4 rounded position-absolute transition-long-ease-out top-0 right-0 background-white overflow-hidden"
+          class="border-solid border-width-1 border-grey-darken-3 rounded position-absolute transition-long-ease-out top-0 right-0 bg-white overflow-hidden"
           :style="{
             'max-width': '960px',
             width: active ? 'calc(100vw - 40px)' : '48px',
@@ -111,12 +107,10 @@ const menu = [
             >
               <atom-text
                 :text="item.text"
-                :color="IsHovering ? 'text-white' : 'grey-darken-4'"
+                :color="IsHovering ? 'text-white' : 'text-grey-darken-3'"
                 class="w-100 text-center py-4 cursor-pointer transition-short-ease-out"
                 v-bind="Props"
-                :class="[
-                  IsHovering ? 'background-grey-darken-4' : ' background-white'
-                ]"
+                :class="[IsHovering ? 'bg-grey-darken-3' : ' bg-white']"
                 @click="item.function()"
               />
             </v-hover>
