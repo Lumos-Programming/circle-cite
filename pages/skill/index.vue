@@ -8,7 +8,6 @@ const getSkills = async () => {
     name: 'listSkills',
     query: listSkills
   })
-  console.log(skills.value)
 }
 getSkills()
 </script>
@@ -26,7 +25,7 @@ getSkills()
           class="ma-2 elevation-5 transition-short-ease-out"
           :class="[
             isHovering
-              ? 'text-white background-grey-darken-4'
+              ? 'text-white bg-grey-darken-4'
               : 'bg-white grey-darken-4'
           ]"
           variant="elevated"
@@ -35,7 +34,7 @@ getSkills()
           link
           :to="'/skill/' + item.id"
         >
-          {{ item.name }}
+          {{ item.title }}
         </v-chip>
       </v-hover>
     </v-chip-group>
