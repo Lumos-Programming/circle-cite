@@ -6,7 +6,8 @@ const events = ref<Event[]>([])
 const getEvents = async () => {
   events.value = await $listQuery<ListEventsQuery, Event>({
     name: 'listEvents',
-    query: listEvents
+    query: listEvents,
+    filter: { published: { eq: true } }
   })
 }
 getEvents()
@@ -15,53 +16,27 @@ getEvents()
   <layout-public>
     <atom-text font-size="text-h4" text="Event" class="py-10" />
     <div class="d-flex flex-wrap" style="gap: 60px 5%">
-      <v-sheet
+      <module-content-medium
         v-for="item in events"
         :key="item.id"
+        :path="'/event/' + item.id"
+        :img-key="item.file?.key || ''"
+        :created-at="item.createdAt"
+        :updated-at="item.updatedAt"
+        :title="item.title"
         style="flex: 0 1 30%"
-        class="bg-transparent"
       >
-        <v-hover v-slot="{ isHovering, props }">
-          <v-card
-            class="w-100 elevation-5 rounded-lg transition-medium-ease"
-            v-bind="props"
-            :style="{
-              transform: isHovering ? 'scale(1.05)' : 'scale(1.0)'
-            }"
-            @click="navigateTo('/event/' + item.id)"
-          >
-            <v-img src="sample.jpg" :aspect-ratio="16 / 9" cover />
-          </v-card>
-        </v-hover>
-        <div
-          class="d-flex flex-nowrap justify-end bg-transparent mt-4 mb-2"
-          style="gap: 0 10px"
-        >
-          <atom-text
-            font-size="text-caption"
-            :text="$getYMD(item.createdAt)"
-            font-weight="font-weight-regular"
-            ><v-icon size="14" class="mr-1 align-text-bottom">
-              mdi-cloud-upload-outline
-            </v-icon>
-          </atom-text>
-          <atom-text
-            font-size="text-caption"
-            :text="$getYMD(item.updatedAt)"
-            font-weight="font-weight-regular"
-            ><v-icon size="14" class="mr-1 align-text-bottom">
-              mdi-autorenew
-            </v-icon>
-          </atom-text>
-        </div>
         <atom-text
-          font-size="text-h6"
-          line-height="line-height-lg"
-          class="ml-1"
-        >
-          <NuxtLink :to="'/event/' + item.id">{{ item.name }}</NuxtLink>
-        </atom-text>
-      </v-sheet>
+          :text="item.wanted ? '募集中' : '募集終了'"
+          class="rounded-pill text-center border-width-1 border-solid pa-1 mx-2 mb-5"
+          :class="[
+            item.wanted
+              ? 'border-light-blue-darken-4 bg-light-blue-darken-4'
+              : 'border-grey-darken-1 bg-transparent'
+          ]"
+          :color="item.wanted ? 'text-white' : 'text-grey-darken-1'"
+        />
+      </module-content-medium>
     </div>
   </layout-public>
 </template>
