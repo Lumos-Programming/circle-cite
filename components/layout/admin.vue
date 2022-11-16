@@ -39,7 +39,7 @@ const pages = [
 </script>
 <template>
   <div
-    class="d-flex flex-nowrap bg-grey-lighten-4"
+    class="d-flex flex-nowrap bg-grey-lighten-5"
     style="width: 100vw; min-height: 100vh"
   >
     <!-- NOTE: 画面左側メニュバー -->
@@ -49,7 +49,7 @@ const pages = [
         v-bind="props"
         :class="[
           isHovering ? 'width-200' : 'width-200',
-          'transition-medium-ease-out pa-5 ma-5 position-relative'
+          'transition-medium-ease-out pa-5 ma-5 position-relative bg-light-blue-darken-4'
         ]"
         style="flex: 0 0 200px"
       >
@@ -85,22 +85,6 @@ const pages = [
           />
         </v-btn>
         <v-btn
-          class="width-160 height-40 my-1 position-absolute bottom-60 left-20"
-          variant="text"
-          :ripple="false"
-          style="flex: 0"
-          @click="$signIn('sharewisdoms@gmail.com', 'Emq6dyL74r4pY6R')"
-        >
-          <v-icon class="width-40">mdi-logout</v-icon>
-          <atom-text
-            :class="[isHovering ? 'width-120' : 'width-120']"
-            font-size="text-caption"
-            class="one-line-reader"
-            style="line-height: 40px !important"
-            text="ログイン"
-          />
-        </v-btn>
-        <v-btn
           class="width-160 height-40 my-1 position-absolute bottom-20 left-20"
           variant="text"
           :ripple="false"
@@ -118,7 +102,6 @@ const pages = [
         </v-btn>
       </v-card>
     </v-hover>
-
     <div
       class="pt-16 mx-5 overflow-y-auto scrollbar-hidden"
       :style="{ flex: '1', height: 'calc(100vh - 40px)' }"

@@ -61,7 +61,7 @@ const menu = [
 </script>
 <template>
   <div
-    class="w-100 height-80 pt-10 d-flex flex-nowrap position-sticky top-0 z-index-2 background-grey-lighten-4"
+    class="w-100 height-80 pt-10 d-flex flex-nowrap position-sticky top-0 z-index-2 bg-grey-lighten-5"
     style="gap: 0 20px"
   >
     <atom-text

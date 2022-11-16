@@ -17,9 +17,7 @@ withDefaults(
     <v-btn
       class="height-40 px-4 py-2 transition-medium-ease"
       :class="[
-        isHovering
-          ? 'elevation-3 background-white'
-          : 'background-grey-lighten-4',
+        isHovering ? 'elevation-3 background-white' : 'bg-grey-lighten-5',
         btnClass
       ]"
       :ripple="false"
