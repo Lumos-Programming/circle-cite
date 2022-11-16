@@ -45,10 +45,10 @@ computed(async () => {
     <atom-text class="text-center ma-3" :text="belongs" />
     <div class="d-flex flex-nowrap justify-center" style="gap: 0 4px">
       <atom-button-circle @btn-click="navigateTo(github, { external: true })">
-        <v-icon class="ma-2">mdi-github</v-icon>
+        <v-img src="/github.svg" class="width-24 height-24 ma-2" />
       </atom-button-circle>
       <atom-button-circle @btn-click="navigateTo(twitter, { external: true })">
-        <v-icon class="ma-2">mdi-twitter</v-icon>
+        <v-img src="/twitter.svg" class="width-24 height-24 ma-2" />
       </atom-button-circle>
       <atom-button-circle @btn-click="navigateTo(qiita, { external: true })">
         <v-img src="/qiita.png" class="width-24 height-24 ma-2" />
