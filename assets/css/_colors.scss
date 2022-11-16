@@ -3,16 +3,10 @@
 @each $color_name, $color_color in c.$colors {
   @each $color_type, $color_value in $color_color {
     @if ($color_type == 'base') {
-      .background-#{$color_name} {
-        background-color: $color_value !important;
-      }
       .border-#{$color_name} {
         border-color: $color_value !important;
       }
     } @else if ($color_type != 'shades') {
-      .background-#{$color_name}-#{$color_type} {
-        background-color: $color_value !important;
-      }
       .border-#{$color_name}-#{$color_type} {
         border-color: $color_value !important;
       }
