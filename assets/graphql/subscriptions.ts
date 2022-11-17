@@ -7,8 +7,11 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser(owner: $owner) {
       id
       name
+      description
       email
       belongs
+      join
+      leave
       discordId
       github
       zenn
@@ -18,11 +21,11 @@ export const onCreateUser = /* GraphQL */ `
       skill {
         items {
           id
-          title
+          userID
+          skillID
           createdAt
           updatedAt
-          userSkillId
-          articleSkillId
+          owner
         }
         nextToken
       }
@@ -57,29 +60,33 @@ export const onCreateUser = /* GraphQL */ `
       project {
         items {
           id
-          title
-          description
-          start
-          end
-          wanted
-          published
+          userID
+          projectID
           createdAt
           updatedAt
-          userProjectId
+          owner
         }
         nextToken
       }
       event {
         items {
           id
-          title
-          date
-          description
-          wanted
-          published
+          userID
+          eventID
           createdAt
           updatedAt
-          userEventId
+          owner
+        }
+        nextToken
+      }
+      link {
+        items {
+          id
+          userID
+          linkID
+          createdAt
+          updatedAt
+          owner
         }
         nextToken
       }
@@ -90,9 +97,6 @@ export const onCreateUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      skillUserId
-      projectUserId
-      eventUserId
       owner
     }
   }
@@ -102,8 +106,11 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser(owner: $owner) {
       id
       name
+      description
       email
       belongs
+      join
+      leave
       discordId
       github
       zenn
@@ -113,11 +120,11 @@ export const onUpdateUser = /* GraphQL */ `
       skill {
         items {
           id
-          title
+          userID
+          skillID
           createdAt
           updatedAt
-          userSkillId
-          articleSkillId
+          owner
         }
         nextToken
       }
@@ -152,29 +159,33 @@ export const onUpdateUser = /* GraphQL */ `
       project {
         items {
           id
-          title
-          description
-          start
-          end
-          wanted
-          published
+          userID
+          projectID
           createdAt
           updatedAt
-          userProjectId
+          owner
         }
         nextToken
       }
       event {
         items {
           id
-          title
-          date
-          description
-          wanted
-          published
+          userID
+          eventID
           createdAt
           updatedAt
-          userEventId
+          owner
+        }
+        nextToken
+      }
+      link {
+        items {
+          id
+          userID
+          linkID
+          createdAt
+          updatedAt
+          owner
         }
         nextToken
       }
@@ -185,9 +196,6 @@ export const onUpdateUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      skillUserId
-      projectUserId
-      eventUserId
       owner
     }
   }
@@ -197,8 +205,11 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser(owner: $owner) {
       id
       name
+      description
       email
       belongs
+      join
+      leave
       discordId
       github
       zenn
@@ -208,11 +219,11 @@ export const onDeleteUser = /* GraphQL */ `
       skill {
         items {
           id
-          title
+          userID
+          skillID
           createdAt
           updatedAt
-          userSkillId
-          articleSkillId
+          owner
         }
         nextToken
       }
@@ -247,29 +258,33 @@ export const onDeleteUser = /* GraphQL */ `
       project {
         items {
           id
-          title
-          description
-          start
-          end
-          wanted
-          published
+          userID
+          projectID
           createdAt
           updatedAt
-          userProjectId
+          owner
         }
         nextToken
       }
       event {
         items {
           id
-          title
-          date
-          description
-          wanted
-          published
+          userID
+          eventID
           createdAt
           updatedAt
-          userEventId
+          owner
+        }
+        nextToken
+      }
+      link {
+        items {
+          id
+          userID
+          linkID
+          createdAt
+          updatedAt
+          owner
         }
         nextToken
       }
@@ -280,10 +295,73 @@ export const onDeleteUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      skillUserId
-      projectUserId
-      eventUserId
       owner
+    }
+  }
+`;
+export const onCreateLink = /* GraphQL */ `
+  subscription OnCreateLink {
+    onCreateLink {
+      id
+      urls
+      likes
+      user {
+        items {
+          id
+          userID
+          linkID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateLink = /* GraphQL */ `
+  subscription OnUpdateLink {
+    onUpdateLink {
+      id
+      urls
+      likes
+      user {
+        items {
+          id
+          userID
+          linkID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteLink = /* GraphQL */ `
+  subscription OnDeleteLink {
+    onDeleteLink {
+      id
+      urls
+      likes
+      user {
+        items {
+          id
+          userID
+          linkID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -295,28 +373,26 @@ export const onCreateSkill = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          skillID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
+        }
+        nextToken
+      }
+      article {
+        items {
+          id
+          skillID
+          articleID
+          createdAt
+          updatedAt
         }
         nextToken
       }
       createdAt
       updatedAt
-      userSkillId
-      articleSkillId
     }
   }
 `;
@@ -328,28 +404,26 @@ export const onUpdateSkill = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          skillID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
+        }
+        nextToken
+      }
+      article {
+        items {
+          id
+          skillID
+          articleID
+          createdAt
+          updatedAt
         }
         nextToken
       }
       createdAt
       updatedAt
-      userSkillId
-      articleSkillId
     }
   }
 `;
@@ -361,28 +435,26 @@ export const onDeleteSkill = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          skillID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
+        }
+        nextToken
+      }
+      article {
+        items {
+          id
+          skillID
+          articleID
+          createdAt
+          updatedAt
         }
         nextToken
       }
       createdAt
       updatedAt
-      userSkillId
-      articleSkillId
     }
   }
 `;
@@ -396,8 +468,11 @@ export const onCreateArticle = /* GraphQL */ `
       user {
         id
         name
+        description
         email
         belongs
+        join
+        leave
         discordId
         github
         zenn
@@ -419,6 +494,9 @@ export const onCreateArticle = /* GraphQL */ `
         event {
           nextToken
         }
+        link {
+          nextToken
+        }
         file {
           bucket
           key
@@ -426,9 +504,6 @@ export const onCreateArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        skillUserId
-        projectUserId
-        eventUserId
         owner
       }
       project {
@@ -452,7 +527,6 @@ export const onCreateArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userProjectId
       }
       event {
         id
@@ -474,16 +548,14 @@ export const onCreateArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userEventId
       }
       skill {
         items {
           id
-          title
+          skillID
+          articleID
           createdAt
           updatedAt
-          userSkillId
-          articleSkillId
         }
         nextToken
       }
@@ -505,8 +577,11 @@ export const onUpdateArticle = /* GraphQL */ `
       user {
         id
         name
+        description
         email
         belongs
+        join
+        leave
         discordId
         github
         zenn
@@ -528,6 +603,9 @@ export const onUpdateArticle = /* GraphQL */ `
         event {
           nextToken
         }
+        link {
+          nextToken
+        }
         file {
           bucket
           key
@@ -535,9 +613,6 @@ export const onUpdateArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        skillUserId
-        projectUserId
-        eventUserId
         owner
       }
       project {
@@ -561,7 +636,6 @@ export const onUpdateArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userProjectId
       }
       event {
         id
@@ -583,16 +657,14 @@ export const onUpdateArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userEventId
       }
       skill {
         items {
           id
-          title
+          skillID
+          articleID
           createdAt
           updatedAt
-          userSkillId
-          articleSkillId
         }
         nextToken
       }
@@ -614,8 +686,11 @@ export const onDeleteArticle = /* GraphQL */ `
       user {
         id
         name
+        description
         email
         belongs
+        join
+        leave
         discordId
         github
         zenn
@@ -637,6 +712,9 @@ export const onDeleteArticle = /* GraphQL */ `
         event {
           nextToken
         }
+        link {
+          nextToken
+        }
         file {
           bucket
           key
@@ -644,9 +722,6 @@ export const onDeleteArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        skillUserId
-        projectUserId
-        eventUserId
         owner
       }
       project {
@@ -670,7 +745,6 @@ export const onDeleteArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userProjectId
       }
       event {
         id
@@ -692,16 +766,14 @@ export const onDeleteArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userEventId
       }
       skill {
         items {
           id
-          title
+          skillID
+          articleID
           createdAt
           updatedAt
-          userSkillId
-          articleSkillId
         }
         nextToken
       }
@@ -724,8 +796,11 @@ export const onCreatePortfolio = /* GraphQL */ `
       user {
         id
         name
+        description
         email
         belongs
+        join
+        leave
         discordId
         github
         zenn
@@ -747,6 +822,9 @@ export const onCreatePortfolio = /* GraphQL */ `
         event {
           nextToken
         }
+        link {
+          nextToken
+        }
         file {
           bucket
           key
@@ -754,9 +832,6 @@ export const onCreatePortfolio = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        skillUserId
-        projectUserId
-        eventUserId
         owner
       }
       file {
@@ -782,8 +857,11 @@ export const onUpdatePortfolio = /* GraphQL */ `
       user {
         id
         name
+        description
         email
         belongs
+        join
+        leave
         discordId
         github
         zenn
@@ -805,6 +883,9 @@ export const onUpdatePortfolio = /* GraphQL */ `
         event {
           nextToken
         }
+        link {
+          nextToken
+        }
         file {
           bucket
           key
@@ -812,9 +893,6 @@ export const onUpdatePortfolio = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        skillUserId
-        projectUserId
-        eventUserId
         owner
       }
       file {
@@ -840,8 +918,11 @@ export const onDeletePortfolio = /* GraphQL */ `
       user {
         id
         name
+        description
         email
         belongs
+        join
+        leave
         discordId
         github
         zenn
@@ -863,6 +944,9 @@ export const onDeletePortfolio = /* GraphQL */ `
         event {
           nextToken
         }
+        link {
+          nextToken
+        }
         file {
           bucket
           key
@@ -870,9 +954,6 @@ export const onDeletePortfolio = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        skillUserId
-        projectUserId
-        eventUserId
         owner
       }
       file {
@@ -900,20 +981,10 @@ export const onCreateProject = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          projectID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
         }
         nextToken
@@ -939,7 +1010,6 @@ export const onCreateProject = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userProjectId
     }
   }
 `;
@@ -956,20 +1026,10 @@ export const onUpdateProject = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          projectID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
         }
         nextToken
@@ -995,7 +1055,6 @@ export const onUpdateProject = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userProjectId
     }
   }
 `;
@@ -1012,20 +1071,10 @@ export const onDeleteProject = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          projectID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
         }
         nextToken
@@ -1051,7 +1100,6 @@ export const onDeleteProject = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userProjectId
     }
   }
 `;
@@ -1067,20 +1115,10 @@ export const onCreateEvent = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          eventID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
         }
         nextToken
@@ -1106,7 +1144,6 @@ export const onCreateEvent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userEventId
     }
   }
 `;
@@ -1122,20 +1159,10 @@ export const onUpdateEvent = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          eventID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
         }
         nextToken
@@ -1161,7 +1188,6 @@ export const onUpdateEvent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userEventId
     }
   }
 `;
@@ -1177,20 +1203,10 @@ export const onDeleteEvent = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          eventID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
         }
         nextToken
@@ -1216,7 +1232,1065 @@ export const onDeleteEvent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userEventId
+    }
+  }
+`;
+export const onCreateUserSkills = /* GraphQL */ `
+  subscription OnCreateUserSkills($owner: String) {
+    onCreateUserSkills(owner: $owner) {
+      id
+      userID
+      skillID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      skill {
+        id
+        title
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateUserSkills = /* GraphQL */ `
+  subscription OnUpdateUserSkills($owner: String) {
+    onUpdateUserSkills(owner: $owner) {
+      id
+      userID
+      skillID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      skill {
+        id
+        title
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteUserSkills = /* GraphQL */ `
+  subscription OnDeleteUserSkills($owner: String) {
+    onDeleteUserSkills(owner: $owner) {
+      id
+      userID
+      skillID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      skill {
+        id
+        title
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateProjectUsers = /* GraphQL */ `
+  subscription OnCreateProjectUsers($owner: String) {
+    onCreateProjectUsers(owner: $owner) {
+      id
+      userID
+      projectID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      project {
+        id
+        title
+        description
+        start
+        end
+        wanted
+        published
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateProjectUsers = /* GraphQL */ `
+  subscription OnUpdateProjectUsers($owner: String) {
+    onUpdateProjectUsers(owner: $owner) {
+      id
+      userID
+      projectID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      project {
+        id
+        title
+        description
+        start
+        end
+        wanted
+        published
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteProjectUsers = /* GraphQL */ `
+  subscription OnDeleteProjectUsers($owner: String) {
+    onDeleteProjectUsers(owner: $owner) {
+      id
+      userID
+      projectID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      project {
+        id
+        title
+        description
+        start
+        end
+        wanted
+        published
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateEventUsers = /* GraphQL */ `
+  subscription OnCreateEventUsers($owner: String) {
+    onCreateEventUsers(owner: $owner) {
+      id
+      userID
+      eventID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      event {
+        id
+        title
+        date
+        description
+        wanted
+        published
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateEventUsers = /* GraphQL */ `
+  subscription OnUpdateEventUsers($owner: String) {
+    onUpdateEventUsers(owner: $owner) {
+      id
+      userID
+      eventID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      event {
+        id
+        title
+        date
+        description
+        wanted
+        published
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteEventUsers = /* GraphQL */ `
+  subscription OnDeleteEventUsers($owner: String) {
+    onDeleteEventUsers(owner: $owner) {
+      id
+      userID
+      eventID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      event {
+        id
+        title
+        date
+        description
+        wanted
+        published
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateUserLinks = /* GraphQL */ `
+  subscription OnCreateUserLinks($owner: String) {
+    onCreateUserLinks(owner: $owner) {
+      id
+      userID
+      linkID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      link {
+        id
+        urls
+        likes
+        user {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateUserLinks = /* GraphQL */ `
+  subscription OnUpdateUserLinks($owner: String) {
+    onUpdateUserLinks(owner: $owner) {
+      id
+      userID
+      linkID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      link {
+        id
+        urls
+        likes
+        user {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteUserLinks = /* GraphQL */ `
+  subscription OnDeleteUserLinks($owner: String) {
+    onDeleteUserLinks(owner: $owner) {
+      id
+      userID
+      linkID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      link {
+        id
+        urls
+        likes
+        user {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateArticleSkills = /* GraphQL */ `
+  subscription OnCreateArticleSkills {
+    onCreateArticleSkills {
+      id
+      skillID
+      articleID
+      skill {
+        id
+        title
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      article {
+        id
+        title
+        body
+        published
+        user {
+          id
+          name
+          description
+          email
+          belongs
+          join
+          leave
+          discordId
+          github
+          zenn
+          qiita
+          twitter
+          slide
+          createdAt
+          updatedAt
+          owner
+        }
+        project {
+          id
+          title
+          description
+          start
+          end
+          wanted
+          published
+          createdAt
+          updatedAt
+        }
+        event {
+          id
+          title
+          date
+          description
+          wanted
+          published
+          createdAt
+          updatedAt
+        }
+        skill {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        userArticleId
+        projectArticleId
+        eventArticleId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateArticleSkills = /* GraphQL */ `
+  subscription OnUpdateArticleSkills {
+    onUpdateArticleSkills {
+      id
+      skillID
+      articleID
+      skill {
+        id
+        title
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      article {
+        id
+        title
+        body
+        published
+        user {
+          id
+          name
+          description
+          email
+          belongs
+          join
+          leave
+          discordId
+          github
+          zenn
+          qiita
+          twitter
+          slide
+          createdAt
+          updatedAt
+          owner
+        }
+        project {
+          id
+          title
+          description
+          start
+          end
+          wanted
+          published
+          createdAt
+          updatedAt
+        }
+        event {
+          id
+          title
+          date
+          description
+          wanted
+          published
+          createdAt
+          updatedAt
+        }
+        skill {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        userArticleId
+        projectArticleId
+        eventArticleId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteArticleSkills = /* GraphQL */ `
+  subscription OnDeleteArticleSkills {
+    onDeleteArticleSkills {
+      id
+      skillID
+      articleID
+      skill {
+        id
+        title
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      article {
+        id
+        title
+        body
+        published
+        user {
+          id
+          name
+          description
+          email
+          belongs
+          join
+          leave
+          discordId
+          github
+          zenn
+          qiita
+          twitter
+          slide
+          createdAt
+          updatedAt
+          owner
+        }
+        project {
+          id
+          title
+          description
+          start
+          end
+          wanted
+          published
+          createdAt
+          updatedAt
+        }
+        event {
+          id
+          title
+          date
+          description
+          wanted
+          published
+          createdAt
+          updatedAt
+        }
+        skill {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        userArticleId
+        projectArticleId
+        eventArticleId
+      }
+      createdAt
+      updatedAt
     }
   }
 `;

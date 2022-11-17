@@ -39,11 +39,31 @@ fetchSkill()
     >
       <module-user-small
         v-for="item in skill.user.items"
-        :key="item.id"
-        :path="'/member/' + item.id"
-        :img-key="item.file?.key"
-        :name="item.name"
+        :key="item.user.id"
+        :path="'/member/' + item.user.id"
+        :img-key="item.user.file?.key"
+        :name="item.user.name"
         style="flex: 0 1 22%"
+      />
+    </div>
+    <atom-text
+      font-size="text-h5"
+      text="このタグに関連する記事"
+      class="mt-16 mx-5"
+    />
+    <div
+      v-if="skill?.user?.items"
+      class="d-flex flex-nowrap ma-5 pa-2 overflow-x-auto"
+      style="gap: 60px 5%"
+    >
+      <module-content-medium
+        v-for="item in skill.article.items"
+        :key="item.article.id"
+        :path="'/article/' + item.article.id"
+        :created-at="item.article.createdAt"
+        :updated-at="item.article.updatedAt"
+        :title="item.article.title"
+        style="flex: 0 1 30%"
       />
     </div>
   </layout-public>

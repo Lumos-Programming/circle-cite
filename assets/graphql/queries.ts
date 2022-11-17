@@ -7,8 +7,11 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       name
+      description
       email
       belongs
+      join
+      leave
       discordId
       github
       zenn
@@ -18,11 +21,11 @@ export const getUser = /* GraphQL */ `
       skill {
         items {
           id
-          title
+          userID
+          skillID
           createdAt
           updatedAt
-          userSkillId
-          articleSkillId
+          owner
         }
         nextToken
       }
@@ -57,29 +60,33 @@ export const getUser = /* GraphQL */ `
       project {
         items {
           id
-          title
-          description
-          start
-          end
-          wanted
-          published
+          userID
+          projectID
           createdAt
           updatedAt
-          userProjectId
+          owner
         }
         nextToken
       }
       event {
         items {
           id
-          title
-          date
-          description
-          wanted
-          published
+          userID
+          eventID
           createdAt
           updatedAt
-          userEventId
+          owner
+        }
+        nextToken
+      }
+      link {
+        items {
+          id
+          userID
+          linkID
+          createdAt
+          updatedAt
+          owner
         }
         nextToken
       }
@@ -90,9 +97,6 @@ export const getUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      skillUserId
-      projectUserId
-      eventUserId
       owner
     }
   }
@@ -107,8 +111,11 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         name
+        description
         email
         belongs
+        join
+        leave
         discordId
         github
         zenn
@@ -130,6 +137,9 @@ export const listUsers = /* GraphQL */ `
         event {
           nextToken
         }
+        link {
+          nextToken
+        }
         file {
           bucket
           key
@@ -137,10 +147,50 @@ export const listUsers = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        skillUserId
-        projectUserId
-        eventUserId
         owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getLink = /* GraphQL */ `
+  query GetLink($id: ID!) {
+    getLink(id: $id) {
+      id
+      urls
+      likes
+      user {
+        items {
+          id
+          userID
+          linkID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listLinks = /* GraphQL */ `
+  query ListLinks(
+    $filter: ModelLinkFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLinks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        urls
+        likes
+        user {
+          nextToken
+        }
+        createdAt
+        updatedAt
       }
       nextToken
     }
@@ -154,28 +204,26 @@ export const getSkill = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          skillID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
+        }
+        nextToken
+      }
+      article {
+        items {
+          id
+          skillID
+          articleID
+          createdAt
+          updatedAt
         }
         nextToken
       }
       createdAt
       updatedAt
-      userSkillId
-      articleSkillId
     }
   }
 `;
@@ -192,10 +240,11 @@ export const listSkills = /* GraphQL */ `
         user {
           nextToken
         }
+        article {
+          nextToken
+        }
         createdAt
         updatedAt
-        userSkillId
-        articleSkillId
       }
       nextToken
     }
@@ -211,8 +260,11 @@ export const getArticle = /* GraphQL */ `
       user {
         id
         name
+        description
         email
         belongs
+        join
+        leave
         discordId
         github
         zenn
@@ -234,6 +286,9 @@ export const getArticle = /* GraphQL */ `
         event {
           nextToken
         }
+        link {
+          nextToken
+        }
         file {
           bucket
           key
@@ -241,9 +296,6 @@ export const getArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        skillUserId
-        projectUserId
-        eventUserId
         owner
       }
       project {
@@ -267,7 +319,6 @@ export const getArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userProjectId
       }
       event {
         id
@@ -289,16 +340,14 @@ export const getArticle = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userEventId
       }
       skill {
         items {
           id
-          title
+          skillID
+          articleID
           createdAt
           updatedAt
-          userSkillId
-          articleSkillId
         }
         nextToken
       }
@@ -325,8 +374,11 @@ export const listArticles = /* GraphQL */ `
         user {
           id
           name
+          description
           email
           belongs
+          join
+          leave
           discordId
           github
           zenn
@@ -335,9 +387,6 @@ export const listArticles = /* GraphQL */ `
           slide
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
         }
         project {
@@ -350,7 +399,6 @@ export const listArticles = /* GraphQL */ `
           published
           createdAt
           updatedAt
-          userProjectId
         }
         event {
           id
@@ -361,7 +409,6 @@ export const listArticles = /* GraphQL */ `
           published
           createdAt
           updatedAt
-          userEventId
         }
         skill {
           nextToken
@@ -387,8 +434,11 @@ export const getPortfolio = /* GraphQL */ `
       user {
         id
         name
+        description
         email
         belongs
+        join
+        leave
         discordId
         github
         zenn
@@ -410,6 +460,9 @@ export const getPortfolio = /* GraphQL */ `
         event {
           nextToken
         }
+        link {
+          nextToken
+        }
         file {
           bucket
           key
@@ -417,9 +470,6 @@ export const getPortfolio = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        skillUserId
-        projectUserId
-        eventUserId
         owner
       }
       file {
@@ -450,8 +500,11 @@ export const listPortfolios = /* GraphQL */ `
         user {
           id
           name
+          description
           email
           belongs
+          join
+          leave
           discordId
           github
           zenn
@@ -460,9 +513,6 @@ export const listPortfolios = /* GraphQL */ `
           slide
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
         }
         file {
@@ -492,20 +542,10 @@ export const getProject = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          projectID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
         }
         nextToken
@@ -531,7 +571,6 @@ export const getProject = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userProjectId
     }
   }
 `;
@@ -563,7 +602,6 @@ export const listProjects = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userProjectId
       }
       nextToken
     }
@@ -581,20 +619,10 @@ export const getEvent = /* GraphQL */ `
       user {
         items {
           id
-          name
-          email
-          belongs
-          discordId
-          github
-          zenn
-          qiita
-          twitter
-          slide
+          userID
+          eventID
           createdAt
           updatedAt
-          skillUserId
-          projectUserId
-          eventUserId
           owner
         }
         nextToken
@@ -620,7 +648,6 @@ export const getEvent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userEventId
     }
   }
 `;
@@ -651,7 +678,576 @@ export const listEvents = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userEventId
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserSkills = /* GraphQL */ `
+  query GetUserSkills($id: ID!) {
+    getUserSkills(id: $id) {
+      id
+      userID
+      skillID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      skill {
+        id
+        title
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listUserSkills = /* GraphQL */ `
+  query ListUserSkills(
+    $filter: ModelUserSkillsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        skillID
+        user {
+          id
+          name
+          description
+          email
+          belongs
+          join
+          leave
+          discordId
+          github
+          zenn
+          qiita
+          twitter
+          slide
+          createdAt
+          updatedAt
+          owner
+        }
+        skill {
+          id
+          title
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getProjectUsers = /* GraphQL */ `
+  query GetProjectUsers($id: ID!) {
+    getProjectUsers(id: $id) {
+      id
+      userID
+      projectID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      project {
+        id
+        title
+        description
+        start
+        end
+        wanted
+        published
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listProjectUsers = /* GraphQL */ `
+  query ListProjectUsers(
+    $filter: ModelProjectUsersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProjectUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        projectID
+        user {
+          id
+          name
+          description
+          email
+          belongs
+          join
+          leave
+          discordId
+          github
+          zenn
+          qiita
+          twitter
+          slide
+          createdAt
+          updatedAt
+          owner
+        }
+        project {
+          id
+          title
+          description
+          start
+          end
+          wanted
+          published
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getEventUsers = /* GraphQL */ `
+  query GetEventUsers($id: ID!) {
+    getEventUsers(id: $id) {
+      id
+      userID
+      eventID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      event {
+        id
+        title
+        date
+        description
+        wanted
+        published
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listEventUsers = /* GraphQL */ `
+  query ListEventUsers(
+    $filter: ModelEventUsersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEventUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        eventID
+        user {
+          id
+          name
+          description
+          email
+          belongs
+          join
+          leave
+          discordId
+          github
+          zenn
+          qiita
+          twitter
+          slide
+          createdAt
+          updatedAt
+          owner
+        }
+        event {
+          id
+          title
+          date
+          description
+          wanted
+          published
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserLinks = /* GraphQL */ `
+  query GetUserLinks($id: ID!) {
+    getUserLinks(id: $id) {
+      id
+      userID
+      linkID
+      user {
+        id
+        name
+        description
+        email
+        belongs
+        join
+        leave
+        discordId
+        github
+        zenn
+        qiita
+        twitter
+        slide
+        skill {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        portfolio {
+          nextToken
+        }
+        project {
+          nextToken
+        }
+        event {
+          nextToken
+        }
+        link {
+          nextToken
+        }
+        file {
+          bucket
+          key
+          region
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      link {
+        id
+        urls
+        likes
+        user {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listUserLinks = /* GraphQL */ `
+  query ListUserLinks(
+    $filter: ModelUserLinksFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserLinks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        linkID
+        user {
+          id
+          name
+          description
+          email
+          belongs
+          join
+          leave
+          discordId
+          github
+          zenn
+          qiita
+          twitter
+          slide
+          createdAt
+          updatedAt
+          owner
+        }
+        link {
+          id
+          urls
+          likes
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getArticleSkills = /* GraphQL */ `
+  query GetArticleSkills($id: ID!) {
+    getArticleSkills(id: $id) {
+      id
+      skillID
+      articleID
+      skill {
+        id
+        title
+        user {
+          nextToken
+        }
+        article {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      article {
+        id
+        title
+        body
+        published
+        user {
+          id
+          name
+          description
+          email
+          belongs
+          join
+          leave
+          discordId
+          github
+          zenn
+          qiita
+          twitter
+          slide
+          createdAt
+          updatedAt
+          owner
+        }
+        project {
+          id
+          title
+          description
+          start
+          end
+          wanted
+          published
+          createdAt
+          updatedAt
+        }
+        event {
+          id
+          title
+          date
+          description
+          wanted
+          published
+          createdAt
+          updatedAt
+        }
+        skill {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        userArticleId
+        projectArticleId
+        eventArticleId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listArticleSkills = /* GraphQL */ `
+  query ListArticleSkills(
+    $filter: ModelArticleSkillsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listArticleSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        skillID
+        articleID
+        skill {
+          id
+          title
+          createdAt
+          updatedAt
+        }
+        article {
+          id
+          title
+          body
+          published
+          createdAt
+          updatedAt
+          userArticleId
+          projectArticleId
+          eventArticleId
+        }
+        createdAt
+        updatedAt
       }
       nextToken
     }

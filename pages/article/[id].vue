@@ -58,7 +58,7 @@ fetchArticle()
           @click="navigateTo('/member/' + article.user.id)"
         />
       </div>
-      <v-chip-group v-if="article.skill.items.length" column>
+      <v-chip-group v-if="article.skill?.items.length" column>
         <v-hover
           v-for="item in article.skill.items"
           :key="item.id"
@@ -69,16 +69,16 @@ fetchArticle()
             class="ma-2 elevation-5 transition-short-ease-out"
             :class="[
               isHovering
-                ? 'text-white bg-grey-darken-3'
-                : 'bg-white grey-darken-3'
+                ? 'text-white bg-grey-darken-4'
+                : 'bg-white grey-darken-4'
             ]"
-            variant="elevated"
+            variant="flat"
             prepend-icon="mdi-music-accidental-sharp"
             v-bind="props"
             link
             :to="'/skill/' + item.id"
           >
-            {{ item.title }}
+            {{ item.skill.title }}
           </v-chip>
         </v-hover>
       </v-chip-group>
