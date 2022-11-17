@@ -1,0 +1,13 @@
+@use 'vuetify/lib/styles/settings/colors' as c;
+// NOTE: colorに関しては極力vuetifyにあるcolor setを使う
+// NOTE: blackにはgrey-darken-4を使う
+$main-color: map-get(c.$brown, 'darken-4');
+$sub-color: map-get(c.$brown, 'lighten-5');
+$accent-color: map-get(c.$light-blue, 'darken-4');
+$sub-accent-color: map-get(c.$light-blue, 'lighten-5');
+$colors: (
+  'main-color': $main-color,
+  'sub-color': $sub-color,
+  'accent-color': $accent-color,
+  'sub-accent-color': $sub-accent-color
+);

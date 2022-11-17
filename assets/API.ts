@@ -13,10 +13,16 @@ export type CreateUserInput = {
   qiita?: string | null,
   twitter?: string | null,
   slide?: string | null,
+  file?: S3ObjectInput | null,
   skillUserId?: string | null,
   projectUserId?: string | null,
   eventUserId?: string | null,
-  userImageId?: string | null,
+};
+
+export type S3ObjectInput = {
+  bucket: string,
+  key: string,
+  region: string,
 };
 
 export type ModelUserConditionInput = {
@@ -35,7 +41,6 @@ export type ModelUserConditionInput = {
   skillUserId?: ModelIDInput | null,
   projectUserId?: ModelIDInput | null,
   eventUserId?: ModelIDInput | null,
-  userImageId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -111,13 +116,12 @@ export type User = {
   portfolio?: ModelPortfolioConnection | null,
   project?: ModelProjectConnection | null,
   event?: ModelEventConnection | null,
-  image?: Image | null,
+  file?: S3Object | null,
   createdAt: string,
   updatedAt: string,
   skillUserId?: string | null,
   projectUserId?: string | null,
   eventUserId?: string | null,
-  userImageId?: string | null,
   owner?: string | null,
 };
 
@@ -130,11 +134,12 @@ export type ModelSkillConnection = {
 export type Skill = {
   __typename: "Skill",
   id: string,
-  name: string,
+  title: string,
   user?: ModelUserConnection | null,
   createdAt: string,
   updatedAt: string,
   userSkillId?: string | null,
+  articleSkillId?: string | null,
 };
 
 export type ModelUserConnection = {
@@ -158,19 +163,18 @@ export type Article = {
   user: User,
   project?: Project | null,
   event?: Event | null,
-  image?: Image | null,
+  skill?: ModelSkillConnection | null,
   createdAt: string,
   updatedAt: string,
   userArticleId?: string | null,
   projectArticleId?: string | null,
   eventArticleId?: string | null,
-  articleImageId?: string | null,
 };
 
 export type Project = {
   __typename: "Project",
   id: string,
-  name: string,
+  title: string,
   description?: string | null,
   start?: string | null,
   end?: string | null,
@@ -178,34 +182,33 @@ export type Project = {
   published?: boolean | null,
   user?: ModelUserConnection | null,
   article?: ModelArticleConnection | null,
+  file?: S3Object | null,
   createdAt: string,
   updatedAt: string,
   userProjectId?: string | null,
 };
 
+export type S3Object = {
+  __typename: "S3Object",
+  bucket: string,
+  key: string,
+  region: string,
+};
+
 export type Event = {
   __typename: "Event",
   id: string,
-  name: string,
+  title: string,
   date?: Array< string > | null,
   description?: string | null,
   wanted?: boolean | null,
   published?: boolean | null,
   user?: ModelUserConnection | null,
   article?: ModelArticleConnection | null,
+  file?: S3Object | null,
   createdAt: string,
   updatedAt: string,
   userEventId?: string | null,
-};
-
-export type Image = {
-  __typename: "Image",
-  id: string,
-  name?: string | null,
-  path?: string | null,
-  identityId: string,
-  createdAt: string,
-  updatedAt: string,
 };
 
 export type ModelPortfolioConnection = {
@@ -222,11 +225,10 @@ export type Portfolio = {
   description?: string | null,
   published?: boolean | null,
   user: User,
-  image?: Image | null,
+  file?: S3Object | null,
   createdAt: string,
   updatedAt: string,
   userPortfolioId?: string | null,
-  portfolioImageId?: string | null,
   owner?: string | null,
 };
 
@@ -253,10 +255,10 @@ export type UpdateUserInput = {
   qiita?: string | null,
   twitter?: string | null,
   slide?: string | null,
+  file?: S3ObjectInput | null,
   skillUserId?: string | null,
   projectUserId?: string | null,
   eventUserId?: string | null,
-  userImageId?: string | null,
 };
 
 export type DeleteUserInput = {
@@ -265,22 +267,25 @@ export type DeleteUserInput = {
 
 export type CreateSkillInput = {
   id?: string | null,
-  name: string,
+  title: string,
   userSkillId?: string | null,
+  articleSkillId?: string | null,
 };
 
 export type ModelSkillConditionInput = {
-  name?: ModelIDInput | null,
+  title?: ModelIDInput | null,
   and?: Array< ModelSkillConditionInput | null > | null,
   or?: Array< ModelSkillConditionInput | null > | null,
   not?: ModelSkillConditionInput | null,
   userSkillId?: ModelIDInput | null,
+  articleSkillId?: ModelIDInput | null,
 };
 
 export type UpdateSkillInput = {
   id: string,
-  name?: string | null,
+  title?: string | null,
   userSkillId?: string | null,
+  articleSkillId?: string | null,
 };
 
 export type DeleteSkillInput = {
@@ -295,7 +300,6 @@ export type CreateArticleInput = {
   userArticleId?: string | null,
   projectArticleId?: string | null,
   eventArticleId?: string | null,
-  articleImageId?: string | null,
 };
 
 export type ModelArticleConditionInput = {
@@ -308,7 +312,6 @@ export type ModelArticleConditionInput = {
   userArticleId?: ModelIDInput | null,
   projectArticleId?: ModelIDInput | null,
   eventArticleId?: ModelIDInput | null,
-  articleImageId?: ModelIDInput | null,
 };
 
 export type ModelBooleanInput = {
@@ -326,7 +329,6 @@ export type UpdateArticleInput = {
   userArticleId?: string | null,
   projectArticleId?: string | null,
   eventArticleId?: string | null,
-  articleImageId?: string | null,
 };
 
 export type DeleteArticleInput = {
@@ -339,8 +341,8 @@ export type CreatePortfolioInput = {
   url?: string | null,
   description?: string | null,
   published?: boolean | null,
+  file?: S3ObjectInput | null,
   userPortfolioId?: string | null,
-  portfolioImageId?: string | null,
 };
 
 export type ModelPortfolioConditionInput = {
@@ -352,7 +354,6 @@ export type ModelPortfolioConditionInput = {
   or?: Array< ModelPortfolioConditionInput | null > | null,
   not?: ModelPortfolioConditionInput | null,
   userPortfolioId?: ModelIDInput | null,
-  portfolioImageId?: ModelIDInput | null,
 };
 
 export type UpdatePortfolioInput = {
@@ -361,8 +362,8 @@ export type UpdatePortfolioInput = {
   url?: string | null,
   description?: string | null,
   published?: boolean | null,
+  file?: S3ObjectInput | null,
   userPortfolioId?: string | null,
-  portfolioImageId?: string | null,
 };
 
 export type DeletePortfolioInput = {
@@ -371,17 +372,18 @@ export type DeletePortfolioInput = {
 
 export type CreateProjectInput = {
   id?: string | null,
-  name: string,
+  title: string,
   description?: string | null,
   start?: string | null,
   end?: string | null,
   wanted?: boolean | null,
   published?: boolean | null,
+  file?: S3ObjectInput | null,
   userProjectId?: string | null,
 };
 
 export type ModelProjectConditionInput = {
-  name?: ModelStringInput | null,
+  title?: ModelStringInput | null,
   description?: ModelStringInput | null,
   start?: ModelStringInput | null,
   end?: ModelStringInput | null,
@@ -395,12 +397,13 @@ export type ModelProjectConditionInput = {
 
 export type UpdateProjectInput = {
   id: string,
-  name?: string | null,
+  title?: string | null,
   description?: string | null,
   start?: string | null,
   end?: string | null,
   wanted?: boolean | null,
   published?: boolean | null,
+  file?: S3ObjectInput | null,
   userProjectId?: string | null,
 };
 
@@ -410,16 +413,17 @@ export type DeleteProjectInput = {
 
 export type CreateEventInput = {
   id?: string | null,
-  name: string,
+  title: string,
   date?: Array< string > | null,
   description?: string | null,
   wanted?: boolean | null,
   published?: boolean | null,
+  file?: S3ObjectInput | null,
   userEventId?: string | null,
 };
 
 export type ModelEventConditionInput = {
-  name?: ModelStringInput | null,
+  title?: ModelStringInput | null,
   date?: ModelStringInput | null,
   description?: ModelStringInput | null,
   wanted?: ModelBooleanInput | null,
@@ -432,42 +436,16 @@ export type ModelEventConditionInput = {
 
 export type UpdateEventInput = {
   id: string,
-  name?: string | null,
+  title?: string | null,
   date?: Array< string > | null,
   description?: string | null,
   wanted?: boolean | null,
   published?: boolean | null,
+  file?: S3ObjectInput | null,
   userEventId?: string | null,
 };
 
 export type DeleteEventInput = {
-  id: string,
-};
-
-export type CreateImageInput = {
-  id?: string | null,
-  name?: string | null,
-  path?: string | null,
-  identityId: string,
-};
-
-export type ModelImageConditionInput = {
-  name?: ModelStringInput | null,
-  path?: ModelStringInput | null,
-  identityId?: ModelIDInput | null,
-  and?: Array< ModelImageConditionInput | null > | null,
-  or?: Array< ModelImageConditionInput | null > | null,
-  not?: ModelImageConditionInput | null,
-};
-
-export type UpdateImageInput = {
-  id: string,
-  name?: string | null,
-  path?: string | null,
-  identityId?: string | null,
-};
-
-export type DeleteImageInput = {
   id: string,
 };
 
@@ -488,16 +466,16 @@ export type ModelUserFilterInput = {
   skillUserId?: ModelIDInput | null,
   projectUserId?: ModelIDInput | null,
   eventUserId?: ModelIDInput | null,
-  userImageId?: ModelIDInput | null,
 };
 
 export type ModelSkillFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelIDInput | null,
+  title?: ModelIDInput | null,
   and?: Array< ModelSkillFilterInput | null > | null,
   or?: Array< ModelSkillFilterInput | null > | null,
   not?: ModelSkillFilterInput | null,
   userSkillId?: ModelIDInput | null,
+  articleSkillId?: ModelIDInput | null,
 };
 
 export type ModelArticleFilterInput = {
@@ -511,7 +489,6 @@ export type ModelArticleFilterInput = {
   userArticleId?: ModelIDInput | null,
   projectArticleId?: ModelIDInput | null,
   eventArticleId?: ModelIDInput | null,
-  articleImageId?: ModelIDInput | null,
 };
 
 export type ModelPortfolioFilterInput = {
@@ -524,12 +501,11 @@ export type ModelPortfolioFilterInput = {
   or?: Array< ModelPortfolioFilterInput | null > | null,
   not?: ModelPortfolioFilterInput | null,
   userPortfolioId?: ModelIDInput | null,
-  portfolioImageId?: ModelIDInput | null,
 };
 
 export type ModelProjectFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
+  title?: ModelStringInput | null,
   description?: ModelStringInput | null,
   start?: ModelStringInput | null,
   end?: ModelStringInput | null,
@@ -543,7 +519,7 @@ export type ModelProjectFilterInput = {
 
 export type ModelEventFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
+  title?: ModelStringInput | null,
   date?: ModelStringInput | null,
   description?: ModelStringInput | null,
   wanted?: ModelBooleanInput | null,
@@ -552,22 +528,6 @@ export type ModelEventFilterInput = {
   or?: Array< ModelEventFilterInput | null > | null,
   not?: ModelEventFilterInput | null,
   userEventId?: ModelIDInput | null,
-};
-
-export type ModelImageFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  path?: ModelStringInput | null,
-  identityId?: ModelIDInput | null,
-  and?: Array< ModelImageFilterInput | null > | null,
-  or?: Array< ModelImageFilterInput | null > | null,
-  not?: ModelImageFilterInput | null,
-};
-
-export type ModelImageConnection = {
-  __typename: "ModelImageConnection",
-  items:  Array<Image | null >,
-  nextToken?: string | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -593,10 +553,11 @@ export type CreateUserMutation = {
       items:  Array< {
         __typename: "Skill",
         id: string,
-        name: string,
+        title: string,
         createdAt: string,
         updatedAt: string,
         userSkillId?: string | null,
+        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -613,7 +574,6 @@ export type CreateUserMutation = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -629,7 +589,6 @@ export type CreateUserMutation = {
         createdAt: string,
         updatedAt: string,
         userPortfolioId?: string | null,
-        portfolioImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -639,7 +598,7 @@ export type CreateUserMutation = {
       items:  Array< {
         __typename: "Project",
         id: string,
-        name: string,
+        title: string,
         description?: string | null,
         start?: string | null,
         end?: string | null,
@@ -656,7 +615,7 @@ export type CreateUserMutation = {
       items:  Array< {
         __typename: "Event",
         id: string,
-        name: string,
+        title: string,
         date?: Array< string > | null,
         description?: string | null,
         wanted?: boolean | null,
@@ -667,21 +626,17 @@ export type CreateUserMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     skillUserId?: string | null,
     projectUserId?: string | null,
     eventUserId?: string | null,
-    userImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -709,10 +664,11 @@ export type UpdateUserMutation = {
       items:  Array< {
         __typename: "Skill",
         id: string,
-        name: string,
+        title: string,
         createdAt: string,
         updatedAt: string,
         userSkillId?: string | null,
+        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -729,7 +685,6 @@ export type UpdateUserMutation = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -745,7 +700,6 @@ export type UpdateUserMutation = {
         createdAt: string,
         updatedAt: string,
         userPortfolioId?: string | null,
-        portfolioImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -755,7 +709,7 @@ export type UpdateUserMutation = {
       items:  Array< {
         __typename: "Project",
         id: string,
-        name: string,
+        title: string,
         description?: string | null,
         start?: string | null,
         end?: string | null,
@@ -772,7 +726,7 @@ export type UpdateUserMutation = {
       items:  Array< {
         __typename: "Event",
         id: string,
-        name: string,
+        title: string,
         date?: Array< string > | null,
         description?: string | null,
         wanted?: boolean | null,
@@ -783,21 +737,17 @@ export type UpdateUserMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     skillUserId?: string | null,
     projectUserId?: string | null,
     eventUserId?: string | null,
-    userImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -825,10 +775,11 @@ export type DeleteUserMutation = {
       items:  Array< {
         __typename: "Skill",
         id: string,
-        name: string,
+        title: string,
         createdAt: string,
         updatedAt: string,
         userSkillId?: string | null,
+        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -845,7 +796,6 @@ export type DeleteUserMutation = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -861,7 +811,6 @@ export type DeleteUserMutation = {
         createdAt: string,
         updatedAt: string,
         userPortfolioId?: string | null,
-        portfolioImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -871,7 +820,7 @@ export type DeleteUserMutation = {
       items:  Array< {
         __typename: "Project",
         id: string,
-        name: string,
+        title: string,
         description?: string | null,
         start?: string | null,
         end?: string | null,
@@ -888,7 +837,7 @@ export type DeleteUserMutation = {
       items:  Array< {
         __typename: "Event",
         id: string,
-        name: string,
+        title: string,
         date?: Array< string > | null,
         description?: string | null,
         wanted?: boolean | null,
@@ -899,21 +848,17 @@ export type DeleteUserMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     skillUserId?: string | null,
     projectUserId?: string | null,
     eventUserId?: string | null,
-    userImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -927,7 +872,7 @@ export type CreateSkillMutation = {
   createSkill?:  {
     __typename: "Skill",
     id: string,
-    name: string,
+    title: string,
     user?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -947,7 +892,6 @@ export type CreateSkillMutation = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -955,6 +899,7 @@ export type CreateSkillMutation = {
     createdAt: string,
     updatedAt: string,
     userSkillId?: string | null,
+    articleSkillId?: string | null,
   } | null,
 };
 
@@ -967,7 +912,7 @@ export type UpdateSkillMutation = {
   updateSkill?:  {
     __typename: "Skill",
     id: string,
-    name: string,
+    title: string,
     user?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -987,7 +932,6 @@ export type UpdateSkillMutation = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -995,6 +939,7 @@ export type UpdateSkillMutation = {
     createdAt: string,
     updatedAt: string,
     userSkillId?: string | null,
+    articleSkillId?: string | null,
   } | null,
 };
 
@@ -1007,7 +952,7 @@ export type DeleteSkillMutation = {
   deleteSkill?:  {
     __typename: "Skill",
     id: string,
-    name: string,
+    title: string,
     user?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -1027,7 +972,6 @@ export type DeleteSkillMutation = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1035,6 +979,7 @@ export type DeleteSkillMutation = {
     createdAt: string,
     updatedAt: string,
     userSkillId?: string | null,
+    articleSkillId?: string | null,
   } | null,
 };
 
@@ -1082,27 +1027,23 @@ export type CreateArticleMutation = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
     project?:  {
       __typename: "Project",
       id: string,
-      name: string,
+      title: string,
       description?: string | null,
       start?: string | null,
       end?: string | null,
@@ -1116,6 +1057,12 @@ export type CreateArticleMutation = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userProjectId?: string | null,
@@ -1123,7 +1070,7 @@ export type CreateArticleMutation = {
     event?:  {
       __typename: "Event",
       id: string,
-      name: string,
+      title: string,
       date?: Array< string > | null,
       description?: string | null,
       wanted?: boolean | null,
@@ -1136,25 +1083,34 @@ export type CreateArticleMutation = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userEventId?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    skill?:  {
+      __typename: "ModelSkillConnection",
+      items:  Array< {
+        __typename: "Skill",
+        id: string,
+        title: string,
+        createdAt: string,
+        updatedAt: string,
+        userSkillId?: string | null,
+        articleSkillId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userArticleId?: string | null,
     projectArticleId?: string | null,
     eventArticleId?: string | null,
-    articleImageId?: string | null,
   } | null,
 };
 
@@ -1202,27 +1158,23 @@ export type UpdateArticleMutation = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
     project?:  {
       __typename: "Project",
       id: string,
-      name: string,
+      title: string,
       description?: string | null,
       start?: string | null,
       end?: string | null,
@@ -1236,6 +1188,12 @@ export type UpdateArticleMutation = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userProjectId?: string | null,
@@ -1243,7 +1201,7 @@ export type UpdateArticleMutation = {
     event?:  {
       __typename: "Event",
       id: string,
-      name: string,
+      title: string,
       date?: Array< string > | null,
       description?: string | null,
       wanted?: boolean | null,
@@ -1256,25 +1214,34 @@ export type UpdateArticleMutation = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userEventId?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    skill?:  {
+      __typename: "ModelSkillConnection",
+      items:  Array< {
+        __typename: "Skill",
+        id: string,
+        title: string,
+        createdAt: string,
+        updatedAt: string,
+        userSkillId?: string | null,
+        articleSkillId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userArticleId?: string | null,
     projectArticleId?: string | null,
     eventArticleId?: string | null,
-    articleImageId?: string | null,
   } | null,
 };
 
@@ -1322,27 +1289,23 @@ export type DeleteArticleMutation = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
     project?:  {
       __typename: "Project",
       id: string,
-      name: string,
+      title: string,
       description?: string | null,
       start?: string | null,
       end?: string | null,
@@ -1356,6 +1319,12 @@ export type DeleteArticleMutation = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userProjectId?: string | null,
@@ -1363,7 +1332,7 @@ export type DeleteArticleMutation = {
     event?:  {
       __typename: "Event",
       id: string,
-      name: string,
+      title: string,
       date?: Array< string > | null,
       description?: string | null,
       wanted?: boolean | null,
@@ -1376,25 +1345,34 @@ export type DeleteArticleMutation = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userEventId?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    skill?:  {
+      __typename: "ModelSkillConnection",
+      items:  Array< {
+        __typename: "Skill",
+        id: string,
+        title: string,
+        createdAt: string,
+        updatedAt: string,
+        userSkillId?: string | null,
+        articleSkillId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userArticleId?: string | null,
     projectArticleId?: string | null,
     eventArticleId?: string | null,
-    articleImageId?: string | null,
   } | null,
 };
 
@@ -1443,36 +1421,28 @@ export type CreatePortfolioMutation = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPortfolioId?: string | null,
-    portfolioImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -1522,36 +1492,28 @@ export type UpdatePortfolioMutation = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPortfolioId?: string | null,
-    portfolioImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -1601,36 +1563,28 @@ export type DeletePortfolioMutation = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPortfolioId?: string | null,
-    portfolioImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -1644,7 +1598,7 @@ export type CreateProjectMutation = {
   createProject?:  {
     __typename: "Project",
     id: string,
-    name: string,
+    title: string,
     description?: string | null,
     start?: string | null,
     end?: string | null,
@@ -1669,7 +1623,6 @@ export type CreateProjectMutation = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1687,9 +1640,14 @@ export type CreateProjectMutation = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1706,7 +1664,7 @@ export type UpdateProjectMutation = {
   updateProject?:  {
     __typename: "Project",
     id: string,
-    name: string,
+    title: string,
     description?: string | null,
     start?: string | null,
     end?: string | null,
@@ -1731,7 +1689,6 @@ export type UpdateProjectMutation = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1749,9 +1706,14 @@ export type UpdateProjectMutation = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1768,7 +1730,7 @@ export type DeleteProjectMutation = {
   deleteProject?:  {
     __typename: "Project",
     id: string,
-    name: string,
+    title: string,
     description?: string | null,
     start?: string | null,
     end?: string | null,
@@ -1793,7 +1755,6 @@ export type DeleteProjectMutation = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1811,9 +1772,14 @@ export type DeleteProjectMutation = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1830,7 +1796,7 @@ export type CreateEventMutation = {
   createEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
+    title: string,
     date?: Array< string > | null,
     description?: string | null,
     wanted?: boolean | null,
@@ -1854,7 +1820,6 @@ export type CreateEventMutation = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1872,9 +1837,14 @@ export type CreateEventMutation = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1891,7 +1861,7 @@ export type UpdateEventMutation = {
   updateEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
+    title: string,
     date?: Array< string > | null,
     description?: string | null,
     wanted?: boolean | null,
@@ -1915,7 +1885,6 @@ export type UpdateEventMutation = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1933,9 +1902,14 @@ export type UpdateEventMutation = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1952,7 +1926,7 @@ export type DeleteEventMutation = {
   deleteEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
+    title: string,
     date?: Array< string > | null,
     description?: string | null,
     wanted?: boolean | null,
@@ -1976,7 +1950,6 @@ export type DeleteEventMutation = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1994,64 +1967,18 @@ export type DeleteEventMutation = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     userEventId?: string | null,
-  } | null,
-};
-
-export type CreateImageMutationVariables = {
-  input: CreateImageInput,
-  condition?: ModelImageConditionInput | null,
-};
-
-export type CreateImageMutation = {
-  createImage?:  {
-    __typename: "Image",
-    id: string,
-    name?: string | null,
-    path?: string | null,
-    identityId: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateImageMutationVariables = {
-  input: UpdateImageInput,
-  condition?: ModelImageConditionInput | null,
-};
-
-export type UpdateImageMutation = {
-  updateImage?:  {
-    __typename: "Image",
-    id: string,
-    name?: string | null,
-    path?: string | null,
-    identityId: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteImageMutationVariables = {
-  input: DeleteImageInput,
-  condition?: ModelImageConditionInput | null,
-};
-
-export type DeleteImageMutation = {
-  deleteImage?:  {
-    __typename: "Image",
-    id: string,
-    name?: string | null,
-    path?: string | null,
-    identityId: string,
-    createdAt: string,
-    updatedAt: string,
   } | null,
 };
 
@@ -2077,10 +2004,11 @@ export type GetUserQuery = {
       items:  Array< {
         __typename: "Skill",
         id: string,
-        name: string,
+        title: string,
         createdAt: string,
         updatedAt: string,
         userSkillId?: string | null,
+        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2097,7 +2025,6 @@ export type GetUserQuery = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2113,7 +2040,6 @@ export type GetUserQuery = {
         createdAt: string,
         updatedAt: string,
         userPortfolioId?: string | null,
-        portfolioImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -2123,7 +2049,7 @@ export type GetUserQuery = {
       items:  Array< {
         __typename: "Project",
         id: string,
-        name: string,
+        title: string,
         description?: string | null,
         start?: string | null,
         end?: string | null,
@@ -2140,7 +2066,7 @@ export type GetUserQuery = {
       items:  Array< {
         __typename: "Event",
         id: string,
-        name: string,
+        title: string,
         date?: Array< string > | null,
         description?: string | null,
         wanted?: boolean | null,
@@ -2151,21 +2077,17 @@ export type GetUserQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     skillUserId?: string | null,
     projectUserId?: string | null,
     eventUserId?: string | null,
-    userImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -2211,21 +2133,17 @@ export type ListUsersQuery = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -2240,7 +2158,7 @@ export type GetSkillQuery = {
   getSkill?:  {
     __typename: "Skill",
     id: string,
-    name: string,
+    title: string,
     user?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -2260,7 +2178,6 @@ export type GetSkillQuery = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -2268,6 +2185,7 @@ export type GetSkillQuery = {
     createdAt: string,
     updatedAt: string,
     userSkillId?: string | null,
+    articleSkillId?: string | null,
   } | null,
 };
 
@@ -2283,7 +2201,7 @@ export type ListSkillsQuery = {
     items:  Array< {
       __typename: "Skill",
       id: string,
-      name: string,
+      title: string,
       user?:  {
         __typename: "ModelUserConnection",
         nextToken?: string | null,
@@ -2291,6 +2209,7 @@ export type ListSkillsQuery = {
       createdAt: string,
       updatedAt: string,
       userSkillId?: string | null,
+      articleSkillId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2339,27 +2258,23 @@ export type GetArticleQuery = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
     project?:  {
       __typename: "Project",
       id: string,
-      name: string,
+      title: string,
       description?: string | null,
       start?: string | null,
       end?: string | null,
@@ -2373,6 +2288,12 @@ export type GetArticleQuery = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userProjectId?: string | null,
@@ -2380,7 +2301,7 @@ export type GetArticleQuery = {
     event?:  {
       __typename: "Event",
       id: string,
-      name: string,
+      title: string,
       date?: Array< string > | null,
       description?: string | null,
       wanted?: boolean | null,
@@ -2393,25 +2314,34 @@ export type GetArticleQuery = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userEventId?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    skill?:  {
+      __typename: "ModelSkillConnection",
+      items:  Array< {
+        __typename: "Skill",
+        id: string,
+        title: string,
+        createdAt: string,
+        updatedAt: string,
+        userSkillId?: string | null,
+        articleSkillId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userArticleId?: string | null,
     projectArticleId?: string | null,
     eventArticleId?: string | null,
-    articleImageId?: string | null,
   } | null,
 };
 
@@ -2447,13 +2377,12 @@ export type ListArticlesQuery = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       },
       project?:  {
         __typename: "Project",
         id: string,
-        name: string,
+        title: string,
         description?: string | null,
         start?: string | null,
         end?: string | null,
@@ -2466,7 +2395,7 @@ export type ListArticlesQuery = {
       event?:  {
         __typename: "Event",
         id: string,
-        name: string,
+        title: string,
         date?: Array< string > | null,
         description?: string | null,
         wanted?: boolean | null,
@@ -2475,21 +2404,15 @@ export type ListArticlesQuery = {
         updatedAt: string,
         userEventId?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      skill?:  {
+        __typename: "ModelSkillConnection",
+        nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
       userArticleId?: string | null,
       projectArticleId?: string | null,
       eventArticleId?: string | null,
-      articleImageId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2539,36 +2462,28 @@ export type GetPortfolioQuery = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPortfolioId?: string | null,
-    portfolioImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -2606,22 +2521,17 @@ export type ListPortfoliosQuery = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       },
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       userPortfolioId?: string | null,
-      portfolioImageId?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -2636,7 +2546,7 @@ export type GetProjectQuery = {
   getProject?:  {
     __typename: "Project",
     id: string,
-    name: string,
+    title: string,
     description?: string | null,
     start?: string | null,
     end?: string | null,
@@ -2661,7 +2571,6 @@ export type GetProjectQuery = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -2679,9 +2588,14 @@ export type GetProjectQuery = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2701,7 +2615,7 @@ export type ListProjectsQuery = {
     items:  Array< {
       __typename: "Project",
       id: string,
-      name: string,
+      title: string,
       description?: string | null,
       start?: string | null,
       end?: string | null,
@@ -2714,6 +2628,12 @@ export type ListProjectsQuery = {
       article?:  {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -2731,7 +2651,7 @@ export type GetEventQuery = {
   getEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
+    title: string,
     date?: Array< string > | null,
     description?: string | null,
     wanted?: boolean | null,
@@ -2755,7 +2675,6 @@ export type GetEventQuery = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -2773,9 +2692,14 @@ export type GetEventQuery = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2795,7 +2719,7 @@ export type ListEventsQuery = {
     items:  Array< {
       __typename: "Event",
       id: string,
-      name: string,
+      title: string,
       date?: Array< string > | null,
       description?: string | null,
       wanted?: boolean | null,
@@ -2808,47 +2732,15 @@ export type ListEventsQuery = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userEventId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetImageQueryVariables = {
-  id: string,
-};
-
-export type GetImageQuery = {
-  getImage?:  {
-    __typename: "Image",
-    id: string,
-    name?: string | null,
-    path?: string | null,
-    identityId: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListImagesQueryVariables = {
-  filter?: ModelImageFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListImagesQuery = {
-  listImages?:  {
-    __typename: "ModelImageConnection",
-    items:  Array< {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2876,10 +2768,11 @@ export type OnCreateUserSubscription = {
       items:  Array< {
         __typename: "Skill",
         id: string,
-        name: string,
+        title: string,
         createdAt: string,
         updatedAt: string,
         userSkillId?: string | null,
+        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2896,7 +2789,6 @@ export type OnCreateUserSubscription = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2912,7 +2804,6 @@ export type OnCreateUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userPortfolioId?: string | null,
-        portfolioImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -2922,7 +2813,7 @@ export type OnCreateUserSubscription = {
       items:  Array< {
         __typename: "Project",
         id: string,
-        name: string,
+        title: string,
         description?: string | null,
         start?: string | null,
         end?: string | null,
@@ -2939,7 +2830,7 @@ export type OnCreateUserSubscription = {
       items:  Array< {
         __typename: "Event",
         id: string,
-        name: string,
+        title: string,
         date?: Array< string > | null,
         description?: string | null,
         wanted?: boolean | null,
@@ -2950,21 +2841,17 @@ export type OnCreateUserSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     skillUserId?: string | null,
     projectUserId?: string | null,
     eventUserId?: string | null,
-    userImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -2991,10 +2878,11 @@ export type OnUpdateUserSubscription = {
       items:  Array< {
         __typename: "Skill",
         id: string,
-        name: string,
+        title: string,
         createdAt: string,
         updatedAt: string,
         userSkillId?: string | null,
+        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -3011,7 +2899,6 @@ export type OnUpdateUserSubscription = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -3027,7 +2914,6 @@ export type OnUpdateUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userPortfolioId?: string | null,
-        portfolioImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -3037,7 +2923,7 @@ export type OnUpdateUserSubscription = {
       items:  Array< {
         __typename: "Project",
         id: string,
-        name: string,
+        title: string,
         description?: string | null,
         start?: string | null,
         end?: string | null,
@@ -3054,7 +2940,7 @@ export type OnUpdateUserSubscription = {
       items:  Array< {
         __typename: "Event",
         id: string,
-        name: string,
+        title: string,
         date?: Array< string > | null,
         description?: string | null,
         wanted?: boolean | null,
@@ -3065,21 +2951,17 @@ export type OnUpdateUserSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     skillUserId?: string | null,
     projectUserId?: string | null,
     eventUserId?: string | null,
-    userImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -3106,10 +2988,11 @@ export type OnDeleteUserSubscription = {
       items:  Array< {
         __typename: "Skill",
         id: string,
-        name: string,
+        title: string,
         createdAt: string,
         updatedAt: string,
         userSkillId?: string | null,
+        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -3126,7 +3009,6 @@ export type OnDeleteUserSubscription = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -3142,7 +3024,6 @@ export type OnDeleteUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userPortfolioId?: string | null,
-        portfolioImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -3152,7 +3033,7 @@ export type OnDeleteUserSubscription = {
       items:  Array< {
         __typename: "Project",
         id: string,
-        name: string,
+        title: string,
         description?: string | null,
         start?: string | null,
         end?: string | null,
@@ -3169,7 +3050,7 @@ export type OnDeleteUserSubscription = {
       items:  Array< {
         __typename: "Event",
         id: string,
-        name: string,
+        title: string,
         date?: Array< string > | null,
         description?: string | null,
         wanted?: boolean | null,
@@ -3180,21 +3061,17 @@ export type OnDeleteUserSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     skillUserId?: string | null,
     projectUserId?: string | null,
     eventUserId?: string | null,
-    userImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -3203,7 +3080,7 @@ export type OnCreateSkillSubscription = {
   onCreateSkill?:  {
     __typename: "Skill",
     id: string,
-    name: string,
+    title: string,
     user?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -3223,7 +3100,6 @@ export type OnCreateSkillSubscription = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -3231,6 +3107,7 @@ export type OnCreateSkillSubscription = {
     createdAt: string,
     updatedAt: string,
     userSkillId?: string | null,
+    articleSkillId?: string | null,
   } | null,
 };
 
@@ -3238,7 +3115,7 @@ export type OnUpdateSkillSubscription = {
   onUpdateSkill?:  {
     __typename: "Skill",
     id: string,
-    name: string,
+    title: string,
     user?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -3258,7 +3135,6 @@ export type OnUpdateSkillSubscription = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -3266,6 +3142,7 @@ export type OnUpdateSkillSubscription = {
     createdAt: string,
     updatedAt: string,
     userSkillId?: string | null,
+    articleSkillId?: string | null,
   } | null,
 };
 
@@ -3273,7 +3150,7 @@ export type OnDeleteSkillSubscription = {
   onDeleteSkill?:  {
     __typename: "Skill",
     id: string,
-    name: string,
+    title: string,
     user?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -3293,7 +3170,6 @@ export type OnDeleteSkillSubscription = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -3301,6 +3177,7 @@ export type OnDeleteSkillSubscription = {
     createdAt: string,
     updatedAt: string,
     userSkillId?: string | null,
+    articleSkillId?: string | null,
   } | null,
 };
 
@@ -3343,27 +3220,23 @@ export type OnCreateArticleSubscription = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
     project?:  {
       __typename: "Project",
       id: string,
-      name: string,
+      title: string,
       description?: string | null,
       start?: string | null,
       end?: string | null,
@@ -3377,6 +3250,12 @@ export type OnCreateArticleSubscription = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userProjectId?: string | null,
@@ -3384,7 +3263,7 @@ export type OnCreateArticleSubscription = {
     event?:  {
       __typename: "Event",
       id: string,
-      name: string,
+      title: string,
       date?: Array< string > | null,
       description?: string | null,
       wanted?: boolean | null,
@@ -3397,25 +3276,34 @@ export type OnCreateArticleSubscription = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userEventId?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    skill?:  {
+      __typename: "ModelSkillConnection",
+      items:  Array< {
+        __typename: "Skill",
+        id: string,
+        title: string,
+        createdAt: string,
+        updatedAt: string,
+        userSkillId?: string | null,
+        articleSkillId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userArticleId?: string | null,
     projectArticleId?: string | null,
     eventArticleId?: string | null,
-    articleImageId?: string | null,
   } | null,
 };
 
@@ -3458,27 +3346,23 @@ export type OnUpdateArticleSubscription = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
     project?:  {
       __typename: "Project",
       id: string,
-      name: string,
+      title: string,
       description?: string | null,
       start?: string | null,
       end?: string | null,
@@ -3492,6 +3376,12 @@ export type OnUpdateArticleSubscription = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userProjectId?: string | null,
@@ -3499,7 +3389,7 @@ export type OnUpdateArticleSubscription = {
     event?:  {
       __typename: "Event",
       id: string,
-      name: string,
+      title: string,
       date?: Array< string > | null,
       description?: string | null,
       wanted?: boolean | null,
@@ -3512,25 +3402,34 @@ export type OnUpdateArticleSubscription = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userEventId?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    skill?:  {
+      __typename: "ModelSkillConnection",
+      items:  Array< {
+        __typename: "Skill",
+        id: string,
+        title: string,
+        createdAt: string,
+        updatedAt: string,
+        userSkillId?: string | null,
+        articleSkillId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userArticleId?: string | null,
     projectArticleId?: string | null,
     eventArticleId?: string | null,
-    articleImageId?: string | null,
   } | null,
 };
 
@@ -3573,27 +3472,23 @@ export type OnDeleteArticleSubscription = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
     project?:  {
       __typename: "Project",
       id: string,
-      name: string,
+      title: string,
       description?: string | null,
       start?: string | null,
       end?: string | null,
@@ -3607,6 +3502,12 @@ export type OnDeleteArticleSubscription = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userProjectId?: string | null,
@@ -3614,7 +3515,7 @@ export type OnDeleteArticleSubscription = {
     event?:  {
       __typename: "Event",
       id: string,
-      name: string,
+      title: string,
       date?: Array< string > | null,
       description?: string | null,
       wanted?: boolean | null,
@@ -3627,25 +3528,34 @@ export type OnDeleteArticleSubscription = {
         __typename: "ModelArticleConnection",
         nextToken?: string | null,
       } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userEventId?: string | null,
     } | null,
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    skill?:  {
+      __typename: "ModelSkillConnection",
+      items:  Array< {
+        __typename: "Skill",
+        id: string,
+        title: string,
+        createdAt: string,
+        updatedAt: string,
+        userSkillId?: string | null,
+        articleSkillId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userArticleId?: string | null,
     projectArticleId?: string | null,
     eventArticleId?: string | null,
-    articleImageId?: string | null,
   } | null,
 };
 
@@ -3693,36 +3603,28 @@ export type OnCreatePortfolioSubscription = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPortfolioId?: string | null,
-    portfolioImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -3771,36 +3673,28 @@ export type OnUpdatePortfolioSubscription = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPortfolioId?: string | null,
-    portfolioImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -3849,36 +3743,28 @@ export type OnDeletePortfolioSubscription = {
         __typename: "ModelEventConnection",
         nextToken?: string | null,
       } | null,
-      image?:  {
-        __typename: "Image",
-        id: string,
-        name?: string | null,
-        path?: string | null,
-        identityId: string,
-        createdAt: string,
-        updatedAt: string,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
       } | null,
       createdAt: string,
       updatedAt: string,
       skillUserId?: string | null,
       projectUserId?: string | null,
       eventUserId?: string | null,
-      userImageId?: string | null,
       owner?: string | null,
     },
-    image?:  {
-      __typename: "Image",
-      id: string,
-      name?: string | null,
-      path?: string | null,
-      identityId: string,
-      createdAt: string,
-      updatedAt: string,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPortfolioId?: string | null,
-    portfolioImageId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -3887,7 +3773,7 @@ export type OnCreateProjectSubscription = {
   onCreateProject?:  {
     __typename: "Project",
     id: string,
-    name: string,
+    title: string,
     description?: string | null,
     start?: string | null,
     end?: string | null,
@@ -3912,7 +3798,6 @@ export type OnCreateProjectSubscription = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -3930,9 +3815,14 @@ export type OnCreateProjectSubscription = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -3944,7 +3834,7 @@ export type OnUpdateProjectSubscription = {
   onUpdateProject?:  {
     __typename: "Project",
     id: string,
-    name: string,
+    title: string,
     description?: string | null,
     start?: string | null,
     end?: string | null,
@@ -3969,7 +3859,6 @@ export type OnUpdateProjectSubscription = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -3987,9 +3876,14 @@ export type OnUpdateProjectSubscription = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -4001,7 +3895,7 @@ export type OnDeleteProjectSubscription = {
   onDeleteProject?:  {
     __typename: "Project",
     id: string,
-    name: string,
+    title: string,
     description?: string | null,
     start?: string | null,
     end?: string | null,
@@ -4026,7 +3920,6 @@ export type OnDeleteProjectSubscription = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -4044,9 +3937,14 @@ export type OnDeleteProjectSubscription = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -4058,7 +3956,7 @@ export type OnCreateEventSubscription = {
   onCreateEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
+    title: string,
     date?: Array< string > | null,
     description?: string | null,
     wanted?: boolean | null,
@@ -4082,7 +3980,6 @@ export type OnCreateEventSubscription = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -4100,9 +3997,14 @@ export type OnCreateEventSubscription = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -4114,7 +4016,7 @@ export type OnUpdateEventSubscription = {
   onUpdateEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
+    title: string,
     date?: Array< string > | null,
     description?: string | null,
     wanted?: boolean | null,
@@ -4138,7 +4040,6 @@ export type OnUpdateEventSubscription = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -4156,9 +4057,14 @@ export type OnUpdateEventSubscription = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -4170,7 +4076,7 @@ export type OnDeleteEventSubscription = {
   onDeleteEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
+    title: string,
     date?: Array< string > | null,
     description?: string | null,
     wanted?: boolean | null,
@@ -4194,7 +4100,6 @@ export type OnDeleteEventSubscription = {
         skillUserId?: string | null,
         projectUserId?: string | null,
         eventUserId?: string | null,
-        userImageId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -4212,48 +4117,17 @@ export type OnDeleteEventSubscription = {
         userArticleId?: string | null,
         projectArticleId?: string | null,
         eventArticleId?: string | null,
-        articleImageId?: string | null,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    file?:  {
+      __typename: "S3Object",
+      bucket: string,
+      key: string,
+      region: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     userEventId?: string | null,
-  } | null,
-};
-
-export type OnCreateImageSubscription = {
-  onCreateImage?:  {
-    __typename: "Image",
-    id: string,
-    name?: string | null,
-    path?: string | null,
-    identityId: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateImageSubscription = {
-  onUpdateImage?:  {
-    __typename: "Image",
-    id: string,
-    name?: string | null,
-    path?: string | null,
-    identityId: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteImageSubscription = {
-  onDeleteImage?:  {
-    __typename: "Image",
-    id: string,
-    name?: string | null,
-    path?: string | null,
-    identityId: string,
-    createdAt: string,
-    updatedAt: string,
   } | null,
 };

@@ -1,16 +1,21 @@
 <script setup lang="ts">
-const foo = useFoo()
-const hoge = useHoge()
+useHead({ title: 'トップページ' })
 </script>
 <template>
-  <v-card class="ma-5 pa-5">
-    <v-card-title>This is index page.</v-card-title>
-    <v-card-text>{{ foo }}{{ hoge }}</v-card-text>
-    <v-btn width="50" height="50" icon>
-      <v-icon>mdi-circle</v-icon>
-    </v-btn>
-    <v-btn width="50" height="50" icon>
-      <v-icon>mdi-delete</v-icon>
-    </v-btn>
-  </v-card>
+  <layout-public>
+    <div
+      class="d-flex align-center"
+      style="height: calc(var(--vh, 1vh) * 100 - 80px)"
+    >
+      <div style="flex: 1">
+        <atom-text text="Hooks" font-size="text-h2" class="my-2" />
+        <atom-text
+          text="Lumos Circle Site"
+          font-weight="font-weight-regular"
+          class="ml-1"
+        />
+      </div>
+      <div style="flex: 1"></div>
+    </div>
+  </layout-public>
 </template>

@@ -21,10 +21,11 @@ export const createUser = /* GraphQL */ `
       skill {
         items {
           id
-          name
+          title
           createdAt
           updatedAt
           userSkillId
+          articleSkillId
         }
         nextToken
       }
@@ -39,7 +40,6 @@ export const createUser = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
       }
@@ -53,7 +53,6 @@ export const createUser = /* GraphQL */ `
           createdAt
           updatedAt
           userPortfolioId
-          portfolioImageId
           owner
         }
         nextToken
@@ -61,7 +60,7 @@ export const createUser = /* GraphQL */ `
       project {
         items {
           id
-          name
+          title
           description
           start
           end
@@ -76,7 +75,7 @@ export const createUser = /* GraphQL */ `
       event {
         items {
           id
-          name
+          title
           date
           description
           wanted
@@ -87,20 +86,16 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
       skillUserId
       projectUserId
       eventUserId
-      userImageId
       owner
     }
   }
@@ -124,10 +119,11 @@ export const updateUser = /* GraphQL */ `
       skill {
         items {
           id
-          name
+          title
           createdAt
           updatedAt
           userSkillId
+          articleSkillId
         }
         nextToken
       }
@@ -142,7 +138,6 @@ export const updateUser = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
       }
@@ -156,7 +151,6 @@ export const updateUser = /* GraphQL */ `
           createdAt
           updatedAt
           userPortfolioId
-          portfolioImageId
           owner
         }
         nextToken
@@ -164,7 +158,7 @@ export const updateUser = /* GraphQL */ `
       project {
         items {
           id
-          name
+          title
           description
           start
           end
@@ -179,7 +173,7 @@ export const updateUser = /* GraphQL */ `
       event {
         items {
           id
-          name
+          title
           date
           description
           wanted
@@ -190,20 +184,16 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
       skillUserId
       projectUserId
       eventUserId
-      userImageId
       owner
     }
   }
@@ -227,10 +217,11 @@ export const deleteUser = /* GraphQL */ `
       skill {
         items {
           id
-          name
+          title
           createdAt
           updatedAt
           userSkillId
+          articleSkillId
         }
         nextToken
       }
@@ -245,7 +236,6 @@ export const deleteUser = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
       }
@@ -259,7 +249,6 @@ export const deleteUser = /* GraphQL */ `
           createdAt
           updatedAt
           userPortfolioId
-          portfolioImageId
           owner
         }
         nextToken
@@ -267,7 +256,7 @@ export const deleteUser = /* GraphQL */ `
       project {
         items {
           id
-          name
+          title
           description
           start
           end
@@ -282,7 +271,7 @@ export const deleteUser = /* GraphQL */ `
       event {
         items {
           id
-          name
+          title
           date
           description
           wanted
@@ -293,20 +282,16 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
       skillUserId
       projectUserId
       eventUserId
-      userImageId
       owner
     }
   }
@@ -318,7 +303,7 @@ export const createSkill = /* GraphQL */ `
   ) {
     createSkill(input: $input, condition: $condition) {
       id
-      name
+      title
       user {
         items {
           id
@@ -336,7 +321,6 @@ export const createSkill = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -344,6 +328,7 @@ export const createSkill = /* GraphQL */ `
       createdAt
       updatedAt
       userSkillId
+      articleSkillId
     }
   }
 `;
@@ -354,7 +339,7 @@ export const updateSkill = /* GraphQL */ `
   ) {
     updateSkill(input: $input, condition: $condition) {
       id
-      name
+      title
       user {
         items {
           id
@@ -372,7 +357,6 @@ export const updateSkill = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -380,6 +364,7 @@ export const updateSkill = /* GraphQL */ `
       createdAt
       updatedAt
       userSkillId
+      articleSkillId
     }
   }
 `;
@@ -390,7 +375,7 @@ export const deleteSkill = /* GraphQL */ `
   ) {
     deleteSkill(input: $input, condition: $condition) {
       id
-      name
+      title
       user {
         items {
           id
@@ -408,7 +393,6 @@ export const deleteSkill = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -416,6 +400,7 @@ export const deleteSkill = /* GraphQL */ `
       createdAt
       updatedAt
       userSkillId
+      articleSkillId
     }
   }
 `;
@@ -455,25 +440,21 @@ export const createArticle = /* GraphQL */ `
         event {
           nextToken
         }
-        image {
-          id
-          name
-          path
-          identityId
-          createdAt
-          updatedAt
+        file {
+          bucket
+          key
+          region
         }
         createdAt
         updatedAt
         skillUserId
         projectUserId
         eventUserId
-        userImageId
         owner
       }
       project {
         id
-        name
+        title
         description
         start
         end
@@ -485,13 +466,18 @@ export const createArticle = /* GraphQL */ `
         article {
           nextToken
         }
+        file {
+          bucket
+          key
+          region
+        }
         createdAt
         updatedAt
         userProjectId
       }
       event {
         id
-        name
+        title
         date
         description
         wanted
@@ -502,24 +488,31 @@ export const createArticle = /* GraphQL */ `
         article {
           nextToken
         }
+        file {
+          bucket
+          key
+          region
+        }
         createdAt
         updatedAt
         userEventId
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      skill {
+        items {
+          id
+          title
+          createdAt
+          updatedAt
+          userSkillId
+          articleSkillId
+        }
+        nextToken
       }
       createdAt
       updatedAt
       userArticleId
       projectArticleId
       eventArticleId
-      articleImageId
     }
   }
 `;
@@ -559,25 +552,21 @@ export const updateArticle = /* GraphQL */ `
         event {
           nextToken
         }
-        image {
-          id
-          name
-          path
-          identityId
-          createdAt
-          updatedAt
+        file {
+          bucket
+          key
+          region
         }
         createdAt
         updatedAt
         skillUserId
         projectUserId
         eventUserId
-        userImageId
         owner
       }
       project {
         id
-        name
+        title
         description
         start
         end
@@ -589,13 +578,18 @@ export const updateArticle = /* GraphQL */ `
         article {
           nextToken
         }
+        file {
+          bucket
+          key
+          region
+        }
         createdAt
         updatedAt
         userProjectId
       }
       event {
         id
-        name
+        title
         date
         description
         wanted
@@ -606,24 +600,31 @@ export const updateArticle = /* GraphQL */ `
         article {
           nextToken
         }
+        file {
+          bucket
+          key
+          region
+        }
         createdAt
         updatedAt
         userEventId
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      skill {
+        items {
+          id
+          title
+          createdAt
+          updatedAt
+          userSkillId
+          articleSkillId
+        }
+        nextToken
       }
       createdAt
       updatedAt
       userArticleId
       projectArticleId
       eventArticleId
-      articleImageId
     }
   }
 `;
@@ -663,25 +664,21 @@ export const deleteArticle = /* GraphQL */ `
         event {
           nextToken
         }
-        image {
-          id
-          name
-          path
-          identityId
-          createdAt
-          updatedAt
+        file {
+          bucket
+          key
+          region
         }
         createdAt
         updatedAt
         skillUserId
         projectUserId
         eventUserId
-        userImageId
         owner
       }
       project {
         id
-        name
+        title
         description
         start
         end
@@ -693,13 +690,18 @@ export const deleteArticle = /* GraphQL */ `
         article {
           nextToken
         }
+        file {
+          bucket
+          key
+          region
+        }
         createdAt
         updatedAt
         userProjectId
       }
       event {
         id
-        name
+        title
         date
         description
         wanted
@@ -710,24 +712,31 @@ export const deleteArticle = /* GraphQL */ `
         article {
           nextToken
         }
+        file {
+          bucket
+          key
+          region
+        }
         createdAt
         updatedAt
         userEventId
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      skill {
+        items {
+          id
+          title
+          createdAt
+          updatedAt
+          userSkillId
+          articleSkillId
+        }
+        nextToken
       }
       createdAt
       updatedAt
       userArticleId
       projectArticleId
       eventArticleId
-      articleImageId
     }
   }
 `;
@@ -768,34 +777,26 @@ export const createPortfolio = /* GraphQL */ `
         event {
           nextToken
         }
-        image {
-          id
-          name
-          path
-          identityId
-          createdAt
-          updatedAt
+        file {
+          bucket
+          key
+          region
         }
         createdAt
         updatedAt
         skillUserId
         projectUserId
         eventUserId
-        userImageId
         owner
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
       userPortfolioId
-      portfolioImageId
       owner
     }
   }
@@ -837,34 +838,26 @@ export const updatePortfolio = /* GraphQL */ `
         event {
           nextToken
         }
-        image {
-          id
-          name
-          path
-          identityId
-          createdAt
-          updatedAt
+        file {
+          bucket
+          key
+          region
         }
         createdAt
         updatedAt
         skillUserId
         projectUserId
         eventUserId
-        userImageId
         owner
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
       userPortfolioId
-      portfolioImageId
       owner
     }
   }
@@ -906,34 +899,26 @@ export const deletePortfolio = /* GraphQL */ `
         event {
           nextToken
         }
-        image {
-          id
-          name
-          path
-          identityId
-          createdAt
-          updatedAt
+        file {
+          bucket
+          key
+          region
         }
         createdAt
         updatedAt
         skillUserId
         projectUserId
         eventUserId
-        userImageId
         owner
       }
-      image {
-        id
-        name
-        path
-        identityId
-        createdAt
-        updatedAt
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
       userPortfolioId
-      portfolioImageId
       owner
     }
   }
@@ -945,7 +930,7 @@ export const createProject = /* GraphQL */ `
   ) {
     createProject(input: $input, condition: $condition) {
       id
-      name
+      title
       description
       start
       end
@@ -968,7 +953,6 @@ export const createProject = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -984,9 +968,13 @@ export const createProject = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
+      }
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
@@ -1001,7 +989,7 @@ export const updateProject = /* GraphQL */ `
   ) {
     updateProject(input: $input, condition: $condition) {
       id
-      name
+      title
       description
       start
       end
@@ -1024,7 +1012,6 @@ export const updateProject = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -1040,9 +1027,13 @@ export const updateProject = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
+      }
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
@@ -1057,7 +1048,7 @@ export const deleteProject = /* GraphQL */ `
   ) {
     deleteProject(input: $input, condition: $condition) {
       id
-      name
+      title
       description
       start
       end
@@ -1080,7 +1071,6 @@ export const deleteProject = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -1096,9 +1086,13 @@ export const deleteProject = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
+      }
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
@@ -1113,7 +1107,7 @@ export const createEvent = /* GraphQL */ `
   ) {
     createEvent(input: $input, condition: $condition) {
       id
-      name
+      title
       date
       description
       wanted
@@ -1135,7 +1129,6 @@ export const createEvent = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -1151,9 +1144,13 @@ export const createEvent = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
+      }
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
@@ -1168,7 +1165,7 @@ export const updateEvent = /* GraphQL */ `
   ) {
     updateEvent(input: $input, condition: $condition) {
       id
-      name
+      title
       date
       description
       wanted
@@ -1190,7 +1187,6 @@ export const updateEvent = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -1206,9 +1202,13 @@ export const updateEvent = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
+      }
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
@@ -1223,7 +1223,7 @@ export const deleteEvent = /* GraphQL */ `
   ) {
     deleteEvent(input: $input, condition: $condition) {
       id
-      name
+      title
       date
       description
       wanted
@@ -1245,7 +1245,6 @@ export const deleteEvent = /* GraphQL */ `
           skillUserId
           projectUserId
           eventUserId
-          userImageId
           owner
         }
         nextToken
@@ -1261,58 +1260,17 @@ export const deleteEvent = /* GraphQL */ `
           userArticleId
           projectArticleId
           eventArticleId
-          articleImageId
         }
         nextToken
+      }
+      file {
+        bucket
+        key
+        region
       }
       createdAt
       updatedAt
       userEventId
-    }
-  }
-`;
-export const createImage = /* GraphQL */ `
-  mutation CreateImage(
-    $input: CreateImageInput!
-    $condition: ModelImageConditionInput
-  ) {
-    createImage(input: $input, condition: $condition) {
-      id
-      name
-      path
-      identityId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateImage = /* GraphQL */ `
-  mutation UpdateImage(
-    $input: UpdateImageInput!
-    $condition: ModelImageConditionInput
-  ) {
-    updateImage(input: $input, condition: $condition) {
-      id
-      name
-      path
-      identityId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteImage = /* GraphQL */ `
-  mutation DeleteImage(
-    $input: DeleteImageInput!
-    $condition: ModelImageConditionInput
-  ) {
-    deleteImage(input: $input, condition: $condition) {
-      id
-      name
-      path
-      identityId
-      createdAt
-      updatedAt
     }
   }
 `;

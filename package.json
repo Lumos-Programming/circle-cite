@@ -2,6 +2,10 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
+    "build:development": "cross-env MODE=DEVELOPMENT nuxt build",
+    "build:staging": "cross-env MODE=STAGING nuxt build",
+    "build:production": "cross-env MODE=PRODUCTION nuxt build",
+    "start": "PORT=8080 node .output/server/index.mjs",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -17,10 +21,11 @@
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^3.2.0",
-    "nuxt": "3.0.0-rc.11",
+    "nuxt": "3.0.0-rc.12",
     "postcss-html": "^1.5.0",
     "prettier": "^2.7.1",
     "sass": "^1.54.5",
@@ -28,7 +33,15 @@
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-recess-order": "^3.0.0",
     "stylelint-config-standard-scss": "^5.0.0",
+    "the-new-css-reset": "^1.7.3",
     "typescript": "^4.8.2",
-    "vuetify": "^3.0.0-beta.13"
+    "vuetify": "3.0.0"
+  },
+  "dependencies": {
+    "@aws-amplify/api-graphql": "^2.3.19",
+    "@aws-amplify/ui-vue": "^2.4.24",
+    "aws-amplify": "^4.3.37",
+    "nuxt-jsoneditor": "^1.6.2",
+    "uuid": "^9.0.0"
   }
 }
