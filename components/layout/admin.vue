@@ -39,17 +39,16 @@ const pages = [
 </script>
 <template>
   <div
-    class="d-flex flex-nowrap bg-grey-lighten-5"
+    class="d-flex flex-nowrap bg-sub-color"
     style="width: 100vw; min-height: 100vh"
   >
     <!-- NOTE: 画面左側メニュバー -->
-    <!-- TODO: hover時のデザイン変化を実装する -->
     <v-hover v-slot="{ isHovering, props }">
       <v-card
         v-bind="props"
         :class="[
           isHovering ? 'width-200' : 'width-200',
-          'transition-medium-ease-out pa-5 ma-5 position-relative bg-light-blue-darken-4'
+          'transition-medium-ease-out pa-5 ma-5 position-relative bg-main-color'
         ]"
         style="flex: 0 0 200px"
       >
@@ -58,14 +57,16 @@ const pages = [
             font-size="text-h3"
             class="one-line-reader letter-spacing-main"
             text="Hooks"
+            color="text-white"
           />
           <atom-text
             font-size="text-h3"
             class="one-line-reader letter-spacing-main"
             text="Admin"
+            color="text-white"
           />
         </div>
-        <v-divider class="my-2" />
+        <v-divider class="my-2 bg-white" />
         <v-btn
           v-for="page in pages"
           :key="page.title"
@@ -75,13 +76,14 @@ const pages = [
           :ripple="false"
           style="flex: 0"
         >
-          <v-icon class="width-40">{{ page.icon }}</v-icon>
+          <v-icon class="width-40 text-white">{{ page.icon }}</v-icon>
           <atom-text
             :class="[isHovering ? 'width-120' : 'width-120']"
             font-size="text-caption"
             class="one-line-reader"
             style="line-height: 40px !important"
             :text="page.title"
+            color="text-white"
           />
         </v-btn>
         <v-btn
@@ -91,13 +93,14 @@ const pages = [
           style="flex: 0"
           @click="$signOut()"
         >
-          <v-icon class="width-40">mdi-logout</v-icon>
+          <v-icon class="width-40 text-white">mdi-logout</v-icon>
           <atom-text
             :class="[isHovering ? 'width-120' : 'width-120']"
             font-size="text-caption"
             class="one-line-reader"
             style="line-height: 40px !important"
             text="ログアウト"
+            color="text-white"
           />
         </v-btn>
       </v-card>

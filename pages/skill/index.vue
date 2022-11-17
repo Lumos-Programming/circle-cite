@@ -13,12 +13,7 @@ getSkills()
 </script>
 <template>
   <layout-public>
-    <atom-text
-      font-size="text-h4"
-      text="Skills"
-      class="py-10"
-      color="text-light-blue-darken-4"
-    />
+    <atom-text font-size="text-h4" text="Skills" class="py-10" />
     <v-chip-group column>
       <v-hover
         v-for="item in skills"

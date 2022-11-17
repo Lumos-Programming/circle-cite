@@ -61,7 +61,7 @@ const menu = [
 </script>
 <template>
   <div
-    class="w-100 height-80 pt-10 d-flex flex-nowrap position-sticky top-0 z-index-2 bg-grey-lighten-5"
+    class="w-100 height-80 pt-10 d-flex flex-nowrap position-sticky top-0 z-index-2 bg-sub-color"
     style="gap: 0 20px"
   >
     <atom-text
@@ -80,14 +80,12 @@ const menu = [
         @btn-click="item.function()"
       />
     </template>
-    <v-hover v-slot="{ isHovering, props }">
-      <div
-        class="position-relative height-40 width-48"
-        :class="[isHovering ? 'elevation-3 bg-white' : 'bg-grey-lighten-4']"
-        v-bind="props"
-      >
+    <div class="position-relative height-40 width-48 rounded">
+      <v-hover v-slot="{ isHovering, props }">
         <div
-          class="border-solid border-width-1 border-grey-darken-3 rounded position-absolute transition-long-ease-out top-0 right-0 bg-white overflow-hidden"
+          class="border-solid border-width-1 border-grey-darken-4 rounded position-absolute transition-long-ease-out top-0 right-0 bg-white overflow-hidden"
+          :class="[!active && isHovering ? 'elevation-3' : '']"
+          v-bind="props"
           :style="{
             'max-width': '960px',
             width: active ? 'calc(100vw - 40px)' : '48px',
@@ -95,7 +93,7 @@ const menu = [
           }"
         >
           <v-icon
-            class="height-40 position-absolute top-0 right-12"
+            class="height-40 position-absolute top-0 right-12 text-grey-darken-4"
             @click="active = !active"
             >{{ active ? 'mdi-close' : 'mdi-menu' }}
           </v-icon>
@@ -107,16 +105,16 @@ const menu = [
             >
               <atom-text
                 :text="item.text"
-                :color="IsHovering ? 'text-white' : 'text-grey-darken-3'"
+                :color="IsHovering ? 'text-white' : 'text-main-color'"
                 class="w-100 text-center py-4 cursor-pointer transition-short-ease-out"
                 v-bind="Props"
-                :class="[IsHovering ? 'bg-grey-darken-3' : ' bg-white']"
+                :class="[IsHovering ? 'bg-main-color' : ' bg-white']"
                 @click="item.function()"
               />
             </v-hover>
           </div>
         </div>
-      </div>
-    </v-hover>
+      </v-hover>
+    </div>
   </div>
 </template>

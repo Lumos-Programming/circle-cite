@@ -10,7 +10,7 @@ withDefaults(
   {
     fontSize: 'text-subtitle-1',
     fontWeight: 'font-weight-bold',
-    color: 'text-grey-darken-3',
+    color: 'text-brown-darken-2',
     lineHeight: 'line-height-sm'
   }
 )

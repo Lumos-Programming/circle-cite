@@ -16,10 +16,7 @@ withDefaults(
   <v-hover v-slot="{ isHovering, props }">
     <v-btn
       class="height-40 px-4 py-2 transition-medium-ease"
-      :class="[
-        isHovering ? 'elevation-3 background-white' : 'bg-grey-lighten-5',
-        btnClass
-      ]"
+      :class="[isHovering ? 'elevation-3 bg-white' : 'bg-sub-color', btnClass]"
       :ripple="false"
       variant="flat"
       v-bind="props"

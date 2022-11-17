@@ -29,7 +29,7 @@ classベースでデザインするためによく使うstyleをクラス化す�
     box-sizing: border-box;
     background-clip: content-box;
     &:hover {
-      background-color: var.$grey-darken-2;
+      // background-color: var.$grey-darken-2;
     }
   }
 }
