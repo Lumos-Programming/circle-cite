@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const { $getImage } = useNuxtApp()
-const imageUrl = ref<string>('/no_image_s.png')
-const Props = withDefaults(
+withDefaults(
   defineProps<{
     name: string
     path: string
@@ -23,23 +21,16 @@ const Props = withDefaults(
     imgKey: ''
   }
 )
-computed(async () => {
-  if (Props.imgKey) imageUrl.value = await $getImage(Props.imgKey)
-})
 </script>
 <template>
   <v-sheet class="bg-transparent">
     <v-hover v-slot="{ isHovering, props }">
-      <v-card
-        class="w-100 elevation-5 rounded-circle transition-medium-ease"
+      <module-user-icon
+        :img-key="imgKey"
+        :func="() => navigateTo(path)"
         v-bind="props"
-        :style="{
-          transform: isHovering ? 'scale(1.05)' : 'scale(1.0)'
-        }"
-        @click="navigateTo(path)"
-      >
-        <v-img :src="imageUrl" :aspect-ratio="1" cover />
-      </v-card>
+        :style="{ transform: isHovering ? 'scale(1.05)' : 'scale(1.0)' }"
+      />
     </v-hover>
     <atom-text font-size="text-h5" class="text-center my-3" :text="name" />
     <atom-text class="text-center ma-3" :text="belongs" />
