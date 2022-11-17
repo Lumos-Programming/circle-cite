@@ -80,10 +80,10 @@ fetchProject()
     >
       <module-user-small
         v-for="item in project.user.items"
-        :key="item.id"
-        :path="'/member/' + item.id"
-        :img-key="item.file?.key"
-        :name="item.name"
+        :key="item.user.id"
+        :path="'/member/' + item.user.id"
+        :img-key="item.user.file?.key"
+        :name="item.user.name"
         style="flex: 0 1 22%"
       />
     </div>

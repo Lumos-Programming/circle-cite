@@ -48,6 +48,17 @@ fetchEvent()
             mdi-autorenew
           </v-icon>
         </atom-text>
+        <atom-text
+          :text="event.wanted ? '募集中' : '募集終了'"
+          font-size="text-caption"
+          class="rounded-pill text-center border-width-1 border-solid py-1 px-5 mx-2"
+          :class="[
+            event.wanted
+              ? 'border-light-blue-darken-4 bg-light-blue-darken-4'
+              : 'border-grey-darken-1 bg-transparent'
+          ]"
+          :color="event.wanted ? 'text-white' : 'text-grey-darken-1'"
+        />
       </div>
       <v-card class="rounded-lg ma-5">
         <v-img :src="imageUrl" :aspect-ratio="16 / 9" cover />
@@ -75,10 +86,10 @@ fetchEvent()
     >
       <module-user-small
         v-for="item in event.user.items"
-        :key="item.id"
-        :path="'/member/' + item.id"
-        :img-key="item.file?.key"
-        :name="item.name"
+        :key="item.user.id"
+        :path="'/member/' + item.user.id"
+        :img-key="item.user.file?.key"
+        :name="item.user.name"
         style="flex: 0 1 22%"
       />
     </div>
