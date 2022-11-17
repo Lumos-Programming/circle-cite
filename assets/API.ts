@@ -5,8 +5,11 @@
 export type CreateUserInput = {
   id?: string | null,
   name?: string | null,
+  description?: string | null,
   email: string,
   belongs?: string | null,
+  join?: string | null,
+  leave?: string | null,
   discordId?: string | null,
   github?: string | null,
   zenn?: string | null,
@@ -14,9 +17,6 @@ export type CreateUserInput = {
   twitter?: string | null,
   slide?: string | null,
   file?: S3ObjectInput | null,
-  skillUserId?: string | null,
-  projectUserId?: string | null,
-  eventUserId?: string | null,
 };
 
 export type S3ObjectInput = {
@@ -27,8 +27,11 @@ export type S3ObjectInput = {
 
 export type ModelUserConditionInput = {
   name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
   email?: ModelStringInput | null,
   belongs?: ModelStringInput | null,
+  join?: ModelStringInput | null,
+  leave?: ModelStringInput | null,
   discordId?: ModelStringInput | null,
   github?: ModelStringInput | null,
   zenn?: ModelStringInput | null,
@@ -38,9 +41,6 @@ export type ModelUserConditionInput = {
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
-  skillUserId?: ModelIDInput | null,
-  projectUserId?: ModelIDInput | null,
-  eventUserId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -83,75 +83,76 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type User = {
   __typename: "User",
   id: string,
   name?: string | null,
+  description?: string | null,
   email: string,
   belongs?: string | null,
+  join?: string | null,
+  leave?: string | null,
   discordId?: string | null,
   github?: string | null,
   zenn?: string | null,
   qiita?: string | null,
   twitter?: string | null,
   slide?: string | null,
-  skill?: ModelSkillConnection | null,
+  skill?: ModelUserSkillsConnection | null,
   article?: ModelArticleConnection | null,
   portfolio?: ModelPortfolioConnection | null,
-  project?: ModelProjectConnection | null,
-  event?: ModelEventConnection | null,
+  project?: ModelProjectUsersConnection | null,
+  event?: ModelEventUsersConnection | null,
+  link?: ModelUserLinksConnection | null,
   file?: S3Object | null,
   createdAt: string,
   updatedAt: string,
-  skillUserId?: string | null,
-  projectUserId?: string | null,
-  eventUserId?: string | null,
   owner?: string | null,
 };
 
-export type ModelSkillConnection = {
-  __typename: "ModelSkillConnection",
-  items:  Array<Skill | null >,
+export type ModelUserSkillsConnection = {
+  __typename: "ModelUserSkillsConnection",
+  items:  Array<UserSkills | null >,
   nextToken?: string | null,
+};
+
+export type UserSkills = {
+  __typename: "UserSkills",
+  id: string,
+  userID: string,
+  skillID: string,
+  user: User,
+  skill: Skill,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
 };
 
 export type Skill = {
   __typename: "Skill",
   id: string,
   title: string,
-  user?: ModelUserConnection | null,
+  user?: ModelUserSkillsConnection | null,
+  article?: ModelArticleSkillsConnection | null,
   createdAt: string,
   updatedAt: string,
-  userSkillId?: string | null,
-  articleSkillId?: string | null,
 };
 
-export type ModelUserConnection = {
-  __typename: "ModelUserConnection",
-  items:  Array<User | null >,
+export type ModelArticleSkillsConnection = {
+  __typename: "ModelArticleSkillsConnection",
+  items:  Array<ArticleSkills | null >,
   nextToken?: string | null,
 };
 
-export type ModelArticleConnection = {
-  __typename: "ModelArticleConnection",
-  items:  Array<Article | null >,
-  nextToken?: string | null,
+export type ArticleSkills = {
+  __typename: "ArticleSkills",
+  id: string,
+  skillID: string,
+  articleID: string,
+  skill: Skill,
+  article: Article,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type Article = {
@@ -163,7 +164,7 @@ export type Article = {
   user: User,
   project?: Project | null,
   event?: Event | null,
-  skill?: ModelSkillConnection | null,
+  skill?: ModelArticleSkillsConnection | null,
   createdAt: string,
   updatedAt: string,
   userArticleId?: string | null,
@@ -180,12 +181,35 @@ export type Project = {
   end?: string | null,
   wanted?: boolean | null,
   published?: boolean | null,
-  user?: ModelUserConnection | null,
+  user?: ModelProjectUsersConnection | null,
   article?: ModelArticleConnection | null,
   file?: S3Object | null,
   createdAt: string,
   updatedAt: string,
-  userProjectId?: string | null,
+};
+
+export type ModelProjectUsersConnection = {
+  __typename: "ModelProjectUsersConnection",
+  items:  Array<ProjectUsers | null >,
+  nextToken?: string | null,
+};
+
+export type ProjectUsers = {
+  __typename: "ProjectUsers",
+  id: string,
+  userID: string,
+  projectID: string,
+  user: User,
+  project: Project,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type ModelArticleConnection = {
+  __typename: "ModelArticleConnection",
+  items:  Array<Article | null >,
+  nextToken?: string | null,
 };
 
 export type S3Object = {
@@ -203,12 +227,29 @@ export type Event = {
   description?: string | null,
   wanted?: boolean | null,
   published?: boolean | null,
-  user?: ModelUserConnection | null,
+  user?: ModelEventUsersConnection | null,
   article?: ModelArticleConnection | null,
   file?: S3Object | null,
   createdAt: string,
   updatedAt: string,
-  userEventId?: string | null,
+};
+
+export type ModelEventUsersConnection = {
+  __typename: "ModelEventUsersConnection",
+  items:  Array<EventUsers | null >,
+  nextToken?: string | null,
+};
+
+export type EventUsers = {
+  __typename: "EventUsers",
+  id: string,
+  userID: string,
+  eventID: string,
+  user: User,
+  event: Event,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
 };
 
 export type ModelPortfolioConnection = {
@@ -232,23 +273,42 @@ export type Portfolio = {
   owner?: string | null,
 };
 
-export type ModelProjectConnection = {
-  __typename: "ModelProjectConnection",
-  items:  Array<Project | null >,
+export type ModelUserLinksConnection = {
+  __typename: "ModelUserLinksConnection",
+  items:  Array<UserLinks | null >,
   nextToken?: string | null,
 };
 
-export type ModelEventConnection = {
-  __typename: "ModelEventConnection",
-  items:  Array<Event | null >,
-  nextToken?: string | null,
+export type UserLinks = {
+  __typename: "UserLinks",
+  id: string,
+  userID: string,
+  linkID: string,
+  user: User,
+  link: Link,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type Link = {
+  __typename: "Link",
+  id: string,
+  urls: string,
+  likes?: number | null,
+  user?: ModelUserLinksConnection | null,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateUserInput = {
   id: string,
   name?: string | null,
+  description?: string | null,
   email?: string | null,
   belongs?: string | null,
+  join?: string | null,
+  leave?: string | null,
   discordId?: string | null,
   github?: string | null,
   zenn?: string | null,
@@ -256,20 +316,51 @@ export type UpdateUserInput = {
   twitter?: string | null,
   slide?: string | null,
   file?: S3ObjectInput | null,
-  skillUserId?: string | null,
-  projectUserId?: string | null,
-  eventUserId?: string | null,
 };
 
 export type DeleteUserInput = {
   id: string,
 };
 
+export type CreateLinkInput = {
+  id?: string | null,
+  urls: string,
+  likes?: number | null,
+};
+
+export type ModelLinkConditionInput = {
+  urls?: ModelStringInput | null,
+  likes?: ModelIntInput | null,
+  and?: Array< ModelLinkConditionInput | null > | null,
+  or?: Array< ModelLinkConditionInput | null > | null,
+  not?: ModelLinkConditionInput | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type UpdateLinkInput = {
+  id: string,
+  urls?: string | null,
+  likes?: number | null,
+};
+
+export type DeleteLinkInput = {
+  id: string,
+};
+
 export type CreateSkillInput = {
   id?: string | null,
   title: string,
-  userSkillId?: string | null,
-  articleSkillId?: string | null,
 };
 
 export type ModelSkillConditionInput = {
@@ -277,15 +368,27 @@ export type ModelSkillConditionInput = {
   and?: Array< ModelSkillConditionInput | null > | null,
   or?: Array< ModelSkillConditionInput | null > | null,
   not?: ModelSkillConditionInput | null,
-  userSkillId?: ModelIDInput | null,
-  articleSkillId?: ModelIDInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export type UpdateSkillInput = {
   id: string,
   title?: string | null,
-  userSkillId?: string | null,
-  articleSkillId?: string | null,
 };
 
 export type DeleteSkillInput = {
@@ -379,7 +482,6 @@ export type CreateProjectInput = {
   wanted?: boolean | null,
   published?: boolean | null,
   file?: S3ObjectInput | null,
-  userProjectId?: string | null,
 };
 
 export type ModelProjectConditionInput = {
@@ -392,7 +494,6 @@ export type ModelProjectConditionInput = {
   and?: Array< ModelProjectConditionInput | null > | null,
   or?: Array< ModelProjectConditionInput | null > | null,
   not?: ModelProjectConditionInput | null,
-  userProjectId?: ModelIDInput | null,
 };
 
 export type UpdateProjectInput = {
@@ -404,7 +505,6 @@ export type UpdateProjectInput = {
   wanted?: boolean | null,
   published?: boolean | null,
   file?: S3ObjectInput | null,
-  userProjectId?: string | null,
 };
 
 export type DeleteProjectInput = {
@@ -419,7 +519,6 @@ export type CreateEventInput = {
   wanted?: boolean | null,
   published?: boolean | null,
   file?: S3ObjectInput | null,
-  userEventId?: string | null,
 };
 
 export type ModelEventConditionInput = {
@@ -431,7 +530,6 @@ export type ModelEventConditionInput = {
   and?: Array< ModelEventConditionInput | null > | null,
   or?: Array< ModelEventConditionInput | null > | null,
   not?: ModelEventConditionInput | null,
-  userEventId?: ModelIDInput | null,
 };
 
 export type UpdateEventInput = {
@@ -442,18 +540,140 @@ export type UpdateEventInput = {
   wanted?: boolean | null,
   published?: boolean | null,
   file?: S3ObjectInput | null,
-  userEventId?: string | null,
 };
 
 export type DeleteEventInput = {
   id: string,
 };
 
+export type CreateUserSkillsInput = {
+  id?: string | null,
+  userID: string,
+  skillID: string,
+};
+
+export type ModelUserSkillsConditionInput = {
+  userID?: ModelIDInput | null,
+  skillID?: ModelIDInput | null,
+  and?: Array< ModelUserSkillsConditionInput | null > | null,
+  or?: Array< ModelUserSkillsConditionInput | null > | null,
+  not?: ModelUserSkillsConditionInput | null,
+};
+
+export type UpdateUserSkillsInput = {
+  id: string,
+  userID?: string | null,
+  skillID?: string | null,
+};
+
+export type DeleteUserSkillsInput = {
+  id: string,
+};
+
+export type CreateProjectUsersInput = {
+  id?: string | null,
+  userID: string,
+  projectID: string,
+};
+
+export type ModelProjectUsersConditionInput = {
+  userID?: ModelIDInput | null,
+  projectID?: ModelIDInput | null,
+  and?: Array< ModelProjectUsersConditionInput | null > | null,
+  or?: Array< ModelProjectUsersConditionInput | null > | null,
+  not?: ModelProjectUsersConditionInput | null,
+};
+
+export type UpdateProjectUsersInput = {
+  id: string,
+  userID?: string | null,
+  projectID?: string | null,
+};
+
+export type DeleteProjectUsersInput = {
+  id: string,
+};
+
+export type CreateEventUsersInput = {
+  id?: string | null,
+  userID: string,
+  eventID: string,
+};
+
+export type ModelEventUsersConditionInput = {
+  userID?: ModelIDInput | null,
+  eventID?: ModelIDInput | null,
+  and?: Array< ModelEventUsersConditionInput | null > | null,
+  or?: Array< ModelEventUsersConditionInput | null > | null,
+  not?: ModelEventUsersConditionInput | null,
+};
+
+export type UpdateEventUsersInput = {
+  id: string,
+  userID?: string | null,
+  eventID?: string | null,
+};
+
+export type DeleteEventUsersInput = {
+  id: string,
+};
+
+export type CreateUserLinksInput = {
+  id?: string | null,
+  userID: string,
+  linkID: string,
+};
+
+export type ModelUserLinksConditionInput = {
+  userID?: ModelIDInput | null,
+  linkID?: ModelIDInput | null,
+  and?: Array< ModelUserLinksConditionInput | null > | null,
+  or?: Array< ModelUserLinksConditionInput | null > | null,
+  not?: ModelUserLinksConditionInput | null,
+};
+
+export type UpdateUserLinksInput = {
+  id: string,
+  userID?: string | null,
+  linkID?: string | null,
+};
+
+export type DeleteUserLinksInput = {
+  id: string,
+};
+
+export type CreateArticleSkillsInput = {
+  id?: string | null,
+  skillID: string,
+  articleID: string,
+};
+
+export type ModelArticleSkillsConditionInput = {
+  skillID?: ModelIDInput | null,
+  articleID?: ModelIDInput | null,
+  and?: Array< ModelArticleSkillsConditionInput | null > | null,
+  or?: Array< ModelArticleSkillsConditionInput | null > | null,
+  not?: ModelArticleSkillsConditionInput | null,
+};
+
+export type UpdateArticleSkillsInput = {
+  id: string,
+  skillID?: string | null,
+  articleID?: string | null,
+};
+
+export type DeleteArticleSkillsInput = {
+  id: string,
+};
+
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
   email?: ModelStringInput | null,
   belongs?: ModelStringInput | null,
+  join?: ModelStringInput | null,
+  leave?: ModelStringInput | null,
   discordId?: ModelStringInput | null,
   github?: ModelStringInput | null,
   zenn?: ModelStringInput | null,
@@ -463,9 +683,27 @@ export type ModelUserFilterInput = {
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
-  skillUserId?: ModelIDInput | null,
-  projectUserId?: ModelIDInput | null,
-  eventUserId?: ModelIDInput | null,
+};
+
+export type ModelUserConnection = {
+  __typename: "ModelUserConnection",
+  items:  Array<User | null >,
+  nextToken?: string | null,
+};
+
+export type ModelLinkFilterInput = {
+  id?: ModelIDInput | null,
+  urls?: ModelStringInput | null,
+  likes?: ModelIntInput | null,
+  and?: Array< ModelLinkFilterInput | null > | null,
+  or?: Array< ModelLinkFilterInput | null > | null,
+  not?: ModelLinkFilterInput | null,
+};
+
+export type ModelLinkConnection = {
+  __typename: "ModelLinkConnection",
+  items:  Array<Link | null >,
+  nextToken?: string | null,
 };
 
 export type ModelSkillFilterInput = {
@@ -474,8 +712,12 @@ export type ModelSkillFilterInput = {
   and?: Array< ModelSkillFilterInput | null > | null,
   or?: Array< ModelSkillFilterInput | null > | null,
   not?: ModelSkillFilterInput | null,
-  userSkillId?: ModelIDInput | null,
-  articleSkillId?: ModelIDInput | null,
+};
+
+export type ModelSkillConnection = {
+  __typename: "ModelSkillConnection",
+  items:  Array<Skill | null >,
+  nextToken?: string | null,
 };
 
 export type ModelArticleFilterInput = {
@@ -514,7 +756,12 @@ export type ModelProjectFilterInput = {
   and?: Array< ModelProjectFilterInput | null > | null,
   or?: Array< ModelProjectFilterInput | null > | null,
   not?: ModelProjectFilterInput | null,
-  userProjectId?: ModelIDInput | null,
+};
+
+export type ModelProjectConnection = {
+  __typename: "ModelProjectConnection",
+  items:  Array<Project | null >,
+  nextToken?: string | null,
 };
 
 export type ModelEventFilterInput = {
@@ -527,7 +774,57 @@ export type ModelEventFilterInput = {
   and?: Array< ModelEventFilterInput | null > | null,
   or?: Array< ModelEventFilterInput | null > | null,
   not?: ModelEventFilterInput | null,
-  userEventId?: ModelIDInput | null,
+};
+
+export type ModelEventConnection = {
+  __typename: "ModelEventConnection",
+  items:  Array<Event | null >,
+  nextToken?: string | null,
+};
+
+export type ModelUserSkillsFilterInput = {
+  id?: ModelIDInput | null,
+  userID?: ModelIDInput | null,
+  skillID?: ModelIDInput | null,
+  and?: Array< ModelUserSkillsFilterInput | null > | null,
+  or?: Array< ModelUserSkillsFilterInput | null > | null,
+  not?: ModelUserSkillsFilterInput | null,
+};
+
+export type ModelProjectUsersFilterInput = {
+  id?: ModelIDInput | null,
+  userID?: ModelIDInput | null,
+  projectID?: ModelIDInput | null,
+  and?: Array< ModelProjectUsersFilterInput | null > | null,
+  or?: Array< ModelProjectUsersFilterInput | null > | null,
+  not?: ModelProjectUsersFilterInput | null,
+};
+
+export type ModelEventUsersFilterInput = {
+  id?: ModelIDInput | null,
+  userID?: ModelIDInput | null,
+  eventID?: ModelIDInput | null,
+  and?: Array< ModelEventUsersFilterInput | null > | null,
+  or?: Array< ModelEventUsersFilterInput | null > | null,
+  not?: ModelEventUsersFilterInput | null,
+};
+
+export type ModelUserLinksFilterInput = {
+  id?: ModelIDInput | null,
+  userID?: ModelIDInput | null,
+  linkID?: ModelIDInput | null,
+  and?: Array< ModelUserLinksFilterInput | null > | null,
+  or?: Array< ModelUserLinksFilterInput | null > | null,
+  not?: ModelUserLinksFilterInput | null,
+};
+
+export type ModelArticleSkillsFilterInput = {
+  id?: ModelIDInput | null,
+  skillID?: ModelIDInput | null,
+  articleID?: ModelIDInput | null,
+  and?: Array< ModelArticleSkillsFilterInput | null > | null,
+  or?: Array< ModelArticleSkillsFilterInput | null > | null,
+  not?: ModelArticleSkillsFilterInput | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -540,8 +837,11 @@ export type CreateUserMutation = {
     __typename: "User",
     id: string,
     name?: string | null,
+    description?: string | null,
     email: string,
     belongs?: string | null,
+    join?: string | null,
+    leave?: string | null,
     discordId?: string | null,
     github?: string | null,
     zenn?: string | null,
@@ -549,15 +849,15 @@ export type CreateUserMutation = {
     twitter?: string | null,
     slide?: string | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "UserSkills",
         id: string,
-        title: string,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -594,35 +894,41 @@ export type CreateUserMutation = {
       nextToken?: string | null,
     } | null,
     project?:  {
-      __typename: "ModelProjectConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "Project",
+        __typename: "ProjectUsers",
         id: string,
-        title: string,
-        description?: string | null,
-        start?: string | null,
-        end?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        userProjectId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     event?:  {
-      __typename: "ModelEventConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "Event",
+        __typename: "EventUsers",
         id: string,
-        title: string,
-        date?: Array< string > | null,
-        description?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        userEventId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    link?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -634,9 +940,6 @@ export type CreateUserMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    skillUserId?: string | null,
-    projectUserId?: string | null,
-    eventUserId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -651,8 +954,11 @@ export type UpdateUserMutation = {
     __typename: "User",
     id: string,
     name?: string | null,
+    description?: string | null,
     email: string,
     belongs?: string | null,
+    join?: string | null,
+    leave?: string | null,
     discordId?: string | null,
     github?: string | null,
     zenn?: string | null,
@@ -660,15 +966,15 @@ export type UpdateUserMutation = {
     twitter?: string | null,
     slide?: string | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "UserSkills",
         id: string,
-        title: string,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -705,35 +1011,41 @@ export type UpdateUserMutation = {
       nextToken?: string | null,
     } | null,
     project?:  {
-      __typename: "ModelProjectConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "Project",
+        __typename: "ProjectUsers",
         id: string,
-        title: string,
-        description?: string | null,
-        start?: string | null,
-        end?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        userProjectId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     event?:  {
-      __typename: "ModelEventConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "Event",
+        __typename: "EventUsers",
         id: string,
-        title: string,
-        date?: Array< string > | null,
-        description?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        userEventId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    link?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -745,9 +1057,6 @@ export type UpdateUserMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    skillUserId?: string | null,
-    projectUserId?: string | null,
-    eventUserId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -762,8 +1071,11 @@ export type DeleteUserMutation = {
     __typename: "User",
     id: string,
     name?: string | null,
+    description?: string | null,
     email: string,
     belongs?: string | null,
+    join?: string | null,
+    leave?: string | null,
     discordId?: string | null,
     github?: string | null,
     zenn?: string | null,
@@ -771,15 +1083,15 @@ export type DeleteUserMutation = {
     twitter?: string | null,
     slide?: string | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "UserSkills",
         id: string,
-        title: string,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -816,35 +1128,41 @@ export type DeleteUserMutation = {
       nextToken?: string | null,
     } | null,
     project?:  {
-      __typename: "ModelProjectConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "Project",
+        __typename: "ProjectUsers",
         id: string,
-        title: string,
-        description?: string | null,
-        start?: string | null,
-        end?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        userProjectId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     event?:  {
-      __typename: "ModelEventConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "Event",
+        __typename: "EventUsers",
         id: string,
-        title: string,
-        date?: Array< string > | null,
-        description?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        userEventId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    link?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -856,10 +1174,94 @@ export type DeleteUserMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    skillUserId?: string | null,
-    projectUserId?: string | null,
-    eventUserId?: string | null,
     owner?: string | null,
+  } | null,
+};
+
+export type CreateLinkMutationVariables = {
+  input: CreateLinkInput,
+  condition?: ModelLinkConditionInput | null,
+};
+
+export type CreateLinkMutation = {
+  createLink?:  {
+    __typename: "Link",
+    id: string,
+    urls: string,
+    likes?: number | null,
+    user?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateLinkMutationVariables = {
+  input: UpdateLinkInput,
+  condition?: ModelLinkConditionInput | null,
+};
+
+export type UpdateLinkMutation = {
+  updateLink?:  {
+    __typename: "Link",
+    id: string,
+    urls: string,
+    likes?: number | null,
+    user?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteLinkMutationVariables = {
+  input: DeleteLinkInput,
+  condition?: ModelLinkConditionInput | null,
+};
+
+export type DeleteLinkMutation = {
+  deleteLink?:  {
+    __typename: "Link",
+    id: string,
+    urls: string,
+    likes?: number | null,
+    user?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -874,32 +1276,32 @@ export type CreateSkillMutation = {
     id: string,
     title: string,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "UserSkills",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    article?:  {
+      __typename: "ModelArticleSkillsConnection",
+      items:  Array< {
+        __typename: "ArticleSkills",
+        id: string,
+        skillID: string,
+        articleID: string,
+        createdAt: string,
+        updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    userSkillId?: string | null,
-    articleSkillId?: string | null,
   } | null,
 };
 
@@ -914,32 +1316,32 @@ export type UpdateSkillMutation = {
     id: string,
     title: string,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "UserSkills",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    article?:  {
+      __typename: "ModelArticleSkillsConnection",
+      items:  Array< {
+        __typename: "ArticleSkills",
+        id: string,
+        skillID: string,
+        articleID: string,
+        createdAt: string,
+        updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    userSkillId?: string | null,
-    articleSkillId?: string | null,
   } | null,
 };
 
@@ -954,32 +1356,32 @@ export type DeleteSkillMutation = {
     id: string,
     title: string,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "UserSkills",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    article?:  {
+      __typename: "ModelArticleSkillsConnection",
+      items:  Array< {
+        __typename: "ArticleSkills",
+        id: string,
+        skillID: string,
+        articleID: string,
+        createdAt: string,
+        updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    userSkillId?: string | null,
-    articleSkillId?: string | null,
   } | null,
 };
 
@@ -999,8 +1401,11 @@ export type CreateArticleMutation = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -1008,7 +1413,7 @@ export type CreateArticleMutation = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1020,11 +1425,15 @@ export type CreateArticleMutation = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -1035,9 +1444,6 @@ export type CreateArticleMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     project?:  {
@@ -1050,7 +1456,7 @@ export type CreateArticleMutation = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1065,7 +1471,6 @@ export type CreateArticleMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userProjectId?: string | null,
     } | null,
     event?:  {
       __typename: "Event",
@@ -1076,7 +1481,7 @@ export type CreateArticleMutation = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelEventUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1091,18 +1496,16 @@ export type CreateArticleMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userEventId?: string | null,
     } | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelArticleSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "ArticleSkills",
         id: string,
-        title: string,
+        skillID: string,
+        articleID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1130,8 +1533,11 @@ export type UpdateArticleMutation = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -1139,7 +1545,7 @@ export type UpdateArticleMutation = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1151,11 +1557,15 @@ export type UpdateArticleMutation = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -1166,9 +1576,6 @@ export type UpdateArticleMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     project?:  {
@@ -1181,7 +1588,7 @@ export type UpdateArticleMutation = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1196,7 +1603,6 @@ export type UpdateArticleMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userProjectId?: string | null,
     } | null,
     event?:  {
       __typename: "Event",
@@ -1207,7 +1613,7 @@ export type UpdateArticleMutation = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelEventUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1222,18 +1628,16 @@ export type UpdateArticleMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userEventId?: string | null,
     } | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelArticleSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "ArticleSkills",
         id: string,
-        title: string,
+        skillID: string,
+        articleID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1261,8 +1665,11 @@ export type DeleteArticleMutation = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -1270,7 +1677,7 @@ export type DeleteArticleMutation = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1282,11 +1689,15 @@ export type DeleteArticleMutation = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -1297,9 +1708,6 @@ export type DeleteArticleMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     project?:  {
@@ -1312,7 +1720,7 @@ export type DeleteArticleMutation = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1327,7 +1735,6 @@ export type DeleteArticleMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userProjectId?: string | null,
     } | null,
     event?:  {
       __typename: "Event",
@@ -1338,7 +1745,7 @@ export type DeleteArticleMutation = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelEventUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1353,18 +1760,16 @@ export type DeleteArticleMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userEventId?: string | null,
     } | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelArticleSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "ArticleSkills",
         id: string,
-        title: string,
+        skillID: string,
+        articleID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1393,8 +1798,11 @@ export type CreatePortfolioMutation = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -1402,7 +1810,7 @@ export type CreatePortfolioMutation = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1414,11 +1822,15 @@ export type CreatePortfolioMutation = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -1429,9 +1841,6 @@ export type CreatePortfolioMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     file?:  {
@@ -1464,8 +1873,11 @@ export type UpdatePortfolioMutation = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -1473,7 +1885,7 @@ export type UpdatePortfolioMutation = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1485,11 +1897,15 @@ export type UpdatePortfolioMutation = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -1500,9 +1916,6 @@ export type UpdatePortfolioMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     file?:  {
@@ -1535,8 +1948,11 @@ export type DeletePortfolioMutation = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -1544,7 +1960,7 @@ export type DeletePortfolioMutation = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -1556,11 +1972,15 @@ export type DeletePortfolioMutation = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -1571,9 +1991,6 @@ export type DeletePortfolioMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     file?:  {
@@ -1605,24 +2022,14 @@ export type CreateProjectMutation = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "ProjectUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1651,7 +2058,6 @@ export type CreateProjectMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userProjectId?: string | null,
   } | null,
 };
 
@@ -1671,24 +2077,14 @@ export type UpdateProjectMutation = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "ProjectUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1717,7 +2113,6 @@ export type UpdateProjectMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userProjectId?: string | null,
   } | null,
 };
 
@@ -1737,24 +2132,14 @@ export type DeleteProjectMutation = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "ProjectUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1783,7 +2168,6 @@ export type DeleteProjectMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userProjectId?: string | null,
   } | null,
 };
 
@@ -1802,24 +2186,14 @@ export type CreateEventMutation = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "EventUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1848,7 +2222,6 @@ export type CreateEventMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userEventId?: string | null,
   } | null,
 };
 
@@ -1867,24 +2240,14 @@ export type UpdateEventMutation = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "EventUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1913,7 +2276,6 @@ export type UpdateEventMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userEventId?: string | null,
   } | null,
 };
 
@@ -1932,24 +2294,14 @@ export type DeleteEventMutation = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "EventUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1978,7 +2330,1299 @@ export type DeleteEventMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userEventId?: string | null,
+  } | null,
+};
+
+export type CreateUserSkillsMutationVariables = {
+  input: CreateUserSkillsInput,
+  condition?: ModelUserSkillsConditionInput | null,
+};
+
+export type CreateUserSkillsMutation = {
+  createUserSkills?:  {
+    __typename: "UserSkills",
+    id: string,
+    userID: string,
+    skillID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateUserSkillsMutationVariables = {
+  input: UpdateUserSkillsInput,
+  condition?: ModelUserSkillsConditionInput | null,
+};
+
+export type UpdateUserSkillsMutation = {
+  updateUserSkills?:  {
+    __typename: "UserSkills",
+    id: string,
+    userID: string,
+    skillID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteUserSkillsMutationVariables = {
+  input: DeleteUserSkillsInput,
+  condition?: ModelUserSkillsConditionInput | null,
+};
+
+export type DeleteUserSkillsMutation = {
+  deleteUserSkills?:  {
+    __typename: "UserSkills",
+    id: string,
+    userID: string,
+    skillID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateProjectUsersMutationVariables = {
+  input: CreateProjectUsersInput,
+  condition?: ModelProjectUsersConditionInput | null,
+};
+
+export type CreateProjectUsersMutation = {
+  createProjectUsers?:  {
+    __typename: "ProjectUsers",
+    id: string,
+    userID: string,
+    projectID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    project:  {
+      __typename: "Project",
+      id: string,
+      title: string,
+      description?: string | null,
+      start?: string | null,
+      end?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateProjectUsersMutationVariables = {
+  input: UpdateProjectUsersInput,
+  condition?: ModelProjectUsersConditionInput | null,
+};
+
+export type UpdateProjectUsersMutation = {
+  updateProjectUsers?:  {
+    __typename: "ProjectUsers",
+    id: string,
+    userID: string,
+    projectID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    project:  {
+      __typename: "Project",
+      id: string,
+      title: string,
+      description?: string | null,
+      start?: string | null,
+      end?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteProjectUsersMutationVariables = {
+  input: DeleteProjectUsersInput,
+  condition?: ModelProjectUsersConditionInput | null,
+};
+
+export type DeleteProjectUsersMutation = {
+  deleteProjectUsers?:  {
+    __typename: "ProjectUsers",
+    id: string,
+    userID: string,
+    projectID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    project:  {
+      __typename: "Project",
+      id: string,
+      title: string,
+      description?: string | null,
+      start?: string | null,
+      end?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateEventUsersMutationVariables = {
+  input: CreateEventUsersInput,
+  condition?: ModelEventUsersConditionInput | null,
+};
+
+export type CreateEventUsersMutation = {
+  createEventUsers?:  {
+    __typename: "EventUsers",
+    id: string,
+    userID: string,
+    eventID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    event:  {
+      __typename: "Event",
+      id: string,
+      title: string,
+      date?: Array< string > | null,
+      description?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateEventUsersMutationVariables = {
+  input: UpdateEventUsersInput,
+  condition?: ModelEventUsersConditionInput | null,
+};
+
+export type UpdateEventUsersMutation = {
+  updateEventUsers?:  {
+    __typename: "EventUsers",
+    id: string,
+    userID: string,
+    eventID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    event:  {
+      __typename: "Event",
+      id: string,
+      title: string,
+      date?: Array< string > | null,
+      description?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteEventUsersMutationVariables = {
+  input: DeleteEventUsersInput,
+  condition?: ModelEventUsersConditionInput | null,
+};
+
+export type DeleteEventUsersMutation = {
+  deleteEventUsers?:  {
+    __typename: "EventUsers",
+    id: string,
+    userID: string,
+    eventID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    event:  {
+      __typename: "Event",
+      id: string,
+      title: string,
+      date?: Array< string > | null,
+      description?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateUserLinksMutationVariables = {
+  input: CreateUserLinksInput,
+  condition?: ModelUserLinksConditionInput | null,
+};
+
+export type CreateUserLinksMutation = {
+  createUserLinks?:  {
+    __typename: "UserLinks",
+    id: string,
+    userID: string,
+    linkID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    link:  {
+      __typename: "Link",
+      id: string,
+      urls: string,
+      likes?: number | null,
+      user?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateUserLinksMutationVariables = {
+  input: UpdateUserLinksInput,
+  condition?: ModelUserLinksConditionInput | null,
+};
+
+export type UpdateUserLinksMutation = {
+  updateUserLinks?:  {
+    __typename: "UserLinks",
+    id: string,
+    userID: string,
+    linkID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    link:  {
+      __typename: "Link",
+      id: string,
+      urls: string,
+      likes?: number | null,
+      user?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteUserLinksMutationVariables = {
+  input: DeleteUserLinksInput,
+  condition?: ModelUserLinksConditionInput | null,
+};
+
+export type DeleteUserLinksMutation = {
+  deleteUserLinks?:  {
+    __typename: "UserLinks",
+    id: string,
+    userID: string,
+    linkID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    link:  {
+      __typename: "Link",
+      id: string,
+      urls: string,
+      likes?: number | null,
+      user?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateArticleSkillsMutationVariables = {
+  input: CreateArticleSkillsInput,
+  condition?: ModelArticleSkillsConditionInput | null,
+};
+
+export type CreateArticleSkillsMutation = {
+  createArticleSkills?:  {
+    __typename: "ArticleSkills",
+    id: string,
+    skillID: string,
+    articleID: string,
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    article:  {
+      __typename: "Article",
+      id: string,
+      title: string,
+      body?: string | null,
+      published?: boolean | null,
+      user:  {
+        __typename: "User",
+        id: string,
+        name?: string | null,
+        description?: string | null,
+        email: string,
+        belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
+        discordId?: string | null,
+        github?: string | null,
+        zenn?: string | null,
+        qiita?: string | null,
+        twitter?: string | null,
+        slide?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      },
+      project?:  {
+        __typename: "Project",
+        id: string,
+        title: string,
+        description?: string | null,
+        start?: string | null,
+        end?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      event?:  {
+        __typename: "Event",
+        id: string,
+        title: string,
+        date?: Array< string > | null,
+        description?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      skill?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userArticleId?: string | null,
+      projectArticleId?: string | null,
+      eventArticleId?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateArticleSkillsMutationVariables = {
+  input: UpdateArticleSkillsInput,
+  condition?: ModelArticleSkillsConditionInput | null,
+};
+
+export type UpdateArticleSkillsMutation = {
+  updateArticleSkills?:  {
+    __typename: "ArticleSkills",
+    id: string,
+    skillID: string,
+    articleID: string,
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    article:  {
+      __typename: "Article",
+      id: string,
+      title: string,
+      body?: string | null,
+      published?: boolean | null,
+      user:  {
+        __typename: "User",
+        id: string,
+        name?: string | null,
+        description?: string | null,
+        email: string,
+        belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
+        discordId?: string | null,
+        github?: string | null,
+        zenn?: string | null,
+        qiita?: string | null,
+        twitter?: string | null,
+        slide?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      },
+      project?:  {
+        __typename: "Project",
+        id: string,
+        title: string,
+        description?: string | null,
+        start?: string | null,
+        end?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      event?:  {
+        __typename: "Event",
+        id: string,
+        title: string,
+        date?: Array< string > | null,
+        description?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      skill?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userArticleId?: string | null,
+      projectArticleId?: string | null,
+      eventArticleId?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteArticleSkillsMutationVariables = {
+  input: DeleteArticleSkillsInput,
+  condition?: ModelArticleSkillsConditionInput | null,
+};
+
+export type DeleteArticleSkillsMutation = {
+  deleteArticleSkills?:  {
+    __typename: "ArticleSkills",
+    id: string,
+    skillID: string,
+    articleID: string,
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    article:  {
+      __typename: "Article",
+      id: string,
+      title: string,
+      body?: string | null,
+      published?: boolean | null,
+      user:  {
+        __typename: "User",
+        id: string,
+        name?: string | null,
+        description?: string | null,
+        email: string,
+        belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
+        discordId?: string | null,
+        github?: string | null,
+        zenn?: string | null,
+        qiita?: string | null,
+        twitter?: string | null,
+        slide?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      },
+      project?:  {
+        __typename: "Project",
+        id: string,
+        title: string,
+        description?: string | null,
+        start?: string | null,
+        end?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      event?:  {
+        __typename: "Event",
+        id: string,
+        title: string,
+        date?: Array< string > | null,
+        description?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      skill?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userArticleId?: string | null,
+      projectArticleId?: string | null,
+      eventArticleId?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -1991,8 +3635,11 @@ export type GetUserQuery = {
     __typename: "User",
     id: string,
     name?: string | null,
+    description?: string | null,
     email: string,
     belongs?: string | null,
+    join?: string | null,
+    leave?: string | null,
     discordId?: string | null,
     github?: string | null,
     zenn?: string | null,
@@ -2000,15 +3647,15 @@ export type GetUserQuery = {
     twitter?: string | null,
     slide?: string | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "UserSkills",
         id: string,
-        title: string,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2045,35 +3692,41 @@ export type GetUserQuery = {
       nextToken?: string | null,
     } | null,
     project?:  {
-      __typename: "ModelProjectConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "Project",
+        __typename: "ProjectUsers",
         id: string,
-        title: string,
-        description?: string | null,
-        start?: string | null,
-        end?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        userProjectId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     event?:  {
-      __typename: "ModelEventConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "Event",
+        __typename: "EventUsers",
         id: string,
-        title: string,
-        date?: Array< string > | null,
-        description?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        userEventId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    link?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2085,9 +3738,6 @@ export type GetUserQuery = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    skillUserId?: string | null,
-    projectUserId?: string | null,
-    eventUserId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -2105,8 +3755,11 @@ export type ListUsersQuery = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -2114,7 +3767,7 @@ export type ListUsersQuery = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -2126,11 +3779,15 @@ export type ListUsersQuery = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -2141,10 +3798,60 @@ export type ListUsersQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetLinkQueryVariables = {
+  id: string,
+};
+
+export type GetLinkQuery = {
+  getLink?:  {
+    __typename: "Link",
+    id: string,
+    urls: string,
+    likes?: number | null,
+    user?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListLinksQueryVariables = {
+  filter?: ModelLinkFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListLinksQuery = {
+  listLinks?:  {
+    __typename: "ModelLinkConnection",
+    items:  Array< {
+      __typename: "Link",
+      id: string,
+      urls: string,
+      likes?: number | null,
+      user?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2160,32 +3867,32 @@ export type GetSkillQuery = {
     id: string,
     title: string,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "UserSkills",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    article?:  {
+      __typename: "ModelArticleSkillsConnection",
+      items:  Array< {
+        __typename: "ArticleSkills",
+        id: string,
+        skillID: string,
+        articleID: string,
+        createdAt: string,
+        updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    userSkillId?: string | null,
-    articleSkillId?: string | null,
   } | null,
 };
 
@@ -2203,13 +3910,15 @@ export type ListSkillsQuery = {
       id: string,
       title: string,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      userSkillId?: string | null,
-      articleSkillId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2230,8 +3939,11 @@ export type GetArticleQuery = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -2239,7 +3951,7 @@ export type GetArticleQuery = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -2251,11 +3963,15 @@ export type GetArticleQuery = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -2266,9 +3982,6 @@ export type GetArticleQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     project?:  {
@@ -2281,7 +3994,7 @@ export type GetArticleQuery = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -2296,7 +4009,6 @@ export type GetArticleQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userProjectId?: string | null,
     } | null,
     event?:  {
       __typename: "Event",
@@ -2307,7 +4019,7 @@ export type GetArticleQuery = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelEventUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -2322,18 +4034,16 @@ export type GetArticleQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userEventId?: string | null,
     } | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelArticleSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "ArticleSkills",
         id: string,
-        title: string,
+        skillID: string,
+        articleID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2364,8 +4074,11 @@ export type ListArticlesQuery = {
         __typename: "User",
         id: string,
         name?: string | null,
+        description?: string | null,
         email: string,
         belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
         discordId?: string | null,
         github?: string | null,
         zenn?: string | null,
@@ -2374,9 +4087,6 @@ export type ListArticlesQuery = {
         slide?: string | null,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       },
       project?:  {
@@ -2390,7 +4100,6 @@ export type ListArticlesQuery = {
         published?: boolean | null,
         createdAt: string,
         updatedAt: string,
-        userProjectId?: string | null,
       } | null,
       event?:  {
         __typename: "Event",
@@ -2402,10 +4111,9 @@ export type ListArticlesQuery = {
         published?: boolean | null,
         createdAt: string,
         updatedAt: string,
-        userEventId?: string | null,
       } | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelArticleSkillsConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -2434,8 +4142,11 @@ export type GetPortfolioQuery = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -2443,7 +4154,7 @@ export type GetPortfolioQuery = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -2455,11 +4166,15 @@ export type GetPortfolioQuery = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -2470,9 +4185,6 @@ export type GetPortfolioQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     file?:  {
@@ -2508,8 +4220,11 @@ export type ListPortfoliosQuery = {
         __typename: "User",
         id: string,
         name?: string | null,
+        description?: string | null,
         email: string,
         belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
         discordId?: string | null,
         github?: string | null,
         zenn?: string | null,
@@ -2518,9 +4233,6 @@ export type ListPortfoliosQuery = {
         slide?: string | null,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       },
       file?:  {
@@ -2553,24 +4265,14 @@ export type GetProjectQuery = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "ProjectUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -2599,7 +4301,6 @@ export type GetProjectQuery = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userProjectId?: string | null,
   } | null,
 };
 
@@ -2622,7 +4323,7 @@ export type ListProjectsQuery = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -2637,7 +4338,6 @@ export type ListProjectsQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userProjectId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2657,24 +4357,14 @@ export type GetEventQuery = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "EventUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -2703,7 +4393,6 @@ export type GetEventQuery = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userEventId?: string | null,
   } | null,
 };
 
@@ -2725,7 +4414,7 @@ export type ListEventsQuery = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelEventUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -2740,7 +4429,674 @@ export type ListEventsQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userEventId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetUserSkillsQueryVariables = {
+  id: string,
+};
+
+export type GetUserSkillsQuery = {
+  getUserSkills?:  {
+    __typename: "UserSkills",
+    id: string,
+    userID: string,
+    skillID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListUserSkillsQueryVariables = {
+  filter?: ModelUserSkillsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListUserSkillsQuery = {
+  listUserSkills?:  {
+    __typename: "ModelUserSkillsConnection",
+    items:  Array< {
+      __typename: "UserSkills",
+      id: string,
+      userID: string,
+      skillID: string,
+      user:  {
+        __typename: "User",
+        id: string,
+        name?: string | null,
+        description?: string | null,
+        email: string,
+        belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
+        discordId?: string | null,
+        github?: string | null,
+        zenn?: string | null,
+        qiita?: string | null,
+        twitter?: string | null,
+        slide?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      },
+      skill:  {
+        __typename: "Skill",
+        id: string,
+        title: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetProjectUsersQueryVariables = {
+  id: string,
+};
+
+export type GetProjectUsersQuery = {
+  getProjectUsers?:  {
+    __typename: "ProjectUsers",
+    id: string,
+    userID: string,
+    projectID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    project:  {
+      __typename: "Project",
+      id: string,
+      title: string,
+      description?: string | null,
+      start?: string | null,
+      end?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListProjectUsersQueryVariables = {
+  filter?: ModelProjectUsersFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListProjectUsersQuery = {
+  listProjectUsers?:  {
+    __typename: "ModelProjectUsersConnection",
+    items:  Array< {
+      __typename: "ProjectUsers",
+      id: string,
+      userID: string,
+      projectID: string,
+      user:  {
+        __typename: "User",
+        id: string,
+        name?: string | null,
+        description?: string | null,
+        email: string,
+        belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
+        discordId?: string | null,
+        github?: string | null,
+        zenn?: string | null,
+        qiita?: string | null,
+        twitter?: string | null,
+        slide?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      },
+      project:  {
+        __typename: "Project",
+        id: string,
+        title: string,
+        description?: string | null,
+        start?: string | null,
+        end?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetEventUsersQueryVariables = {
+  id: string,
+};
+
+export type GetEventUsersQuery = {
+  getEventUsers?:  {
+    __typename: "EventUsers",
+    id: string,
+    userID: string,
+    eventID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    event:  {
+      __typename: "Event",
+      id: string,
+      title: string,
+      date?: Array< string > | null,
+      description?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListEventUsersQueryVariables = {
+  filter?: ModelEventUsersFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListEventUsersQuery = {
+  listEventUsers?:  {
+    __typename: "ModelEventUsersConnection",
+    items:  Array< {
+      __typename: "EventUsers",
+      id: string,
+      userID: string,
+      eventID: string,
+      user:  {
+        __typename: "User",
+        id: string,
+        name?: string | null,
+        description?: string | null,
+        email: string,
+        belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
+        discordId?: string | null,
+        github?: string | null,
+        zenn?: string | null,
+        qiita?: string | null,
+        twitter?: string | null,
+        slide?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      },
+      event:  {
+        __typename: "Event",
+        id: string,
+        title: string,
+        date?: Array< string > | null,
+        description?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetUserLinksQueryVariables = {
+  id: string,
+};
+
+export type GetUserLinksQuery = {
+  getUserLinks?:  {
+    __typename: "UserLinks",
+    id: string,
+    userID: string,
+    linkID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    link:  {
+      __typename: "Link",
+      id: string,
+      urls: string,
+      likes?: number | null,
+      user?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListUserLinksQueryVariables = {
+  filter?: ModelUserLinksFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListUserLinksQuery = {
+  listUserLinks?:  {
+    __typename: "ModelUserLinksConnection",
+    items:  Array< {
+      __typename: "UserLinks",
+      id: string,
+      userID: string,
+      linkID: string,
+      user:  {
+        __typename: "User",
+        id: string,
+        name?: string | null,
+        description?: string | null,
+        email: string,
+        belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
+        discordId?: string | null,
+        github?: string | null,
+        zenn?: string | null,
+        qiita?: string | null,
+        twitter?: string | null,
+        slide?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      },
+      link:  {
+        __typename: "Link",
+        id: string,
+        urls: string,
+        likes?: number | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetArticleSkillsQueryVariables = {
+  id: string,
+};
+
+export type GetArticleSkillsQuery = {
+  getArticleSkills?:  {
+    __typename: "ArticleSkills",
+    id: string,
+    skillID: string,
+    articleID: string,
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    article:  {
+      __typename: "Article",
+      id: string,
+      title: string,
+      body?: string | null,
+      published?: boolean | null,
+      user:  {
+        __typename: "User",
+        id: string,
+        name?: string | null,
+        description?: string | null,
+        email: string,
+        belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
+        discordId?: string | null,
+        github?: string | null,
+        zenn?: string | null,
+        qiita?: string | null,
+        twitter?: string | null,
+        slide?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      },
+      project?:  {
+        __typename: "Project",
+        id: string,
+        title: string,
+        description?: string | null,
+        start?: string | null,
+        end?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      event?:  {
+        __typename: "Event",
+        id: string,
+        title: string,
+        date?: Array< string > | null,
+        description?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      skill?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userArticleId?: string | null,
+      projectArticleId?: string | null,
+      eventArticleId?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListArticleSkillsQueryVariables = {
+  filter?: ModelArticleSkillsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListArticleSkillsQuery = {
+  listArticleSkills?:  {
+    __typename: "ModelArticleSkillsConnection",
+    items:  Array< {
+      __typename: "ArticleSkills",
+      id: string,
+      skillID: string,
+      articleID: string,
+      skill:  {
+        __typename: "Skill",
+        id: string,
+        title: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      article:  {
+        __typename: "Article",
+        id: string,
+        title: string,
+        body?: string | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+        userArticleId?: string | null,
+        projectArticleId?: string | null,
+        eventArticleId?: string | null,
+      },
+      createdAt: string,
+      updatedAt: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2755,8 +5111,11 @@ export type OnCreateUserSubscription = {
     __typename: "User",
     id: string,
     name?: string | null,
+    description?: string | null,
     email: string,
     belongs?: string | null,
+    join?: string | null,
+    leave?: string | null,
     discordId?: string | null,
     github?: string | null,
     zenn?: string | null,
@@ -2764,15 +5123,15 @@ export type OnCreateUserSubscription = {
     twitter?: string | null,
     slide?: string | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "UserSkills",
         id: string,
-        title: string,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2809,35 +5168,41 @@ export type OnCreateUserSubscription = {
       nextToken?: string | null,
     } | null,
     project?:  {
-      __typename: "ModelProjectConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "Project",
+        __typename: "ProjectUsers",
         id: string,
-        title: string,
-        description?: string | null,
-        start?: string | null,
-        end?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        userProjectId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     event?:  {
-      __typename: "ModelEventConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "Event",
+        __typename: "EventUsers",
         id: string,
-        title: string,
-        date?: Array< string > | null,
-        description?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        userEventId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    link?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2849,9 +5214,6 @@ export type OnCreateUserSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    skillUserId?: string | null,
-    projectUserId?: string | null,
-    eventUserId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -2865,8 +5227,11 @@ export type OnUpdateUserSubscription = {
     __typename: "User",
     id: string,
     name?: string | null,
+    description?: string | null,
     email: string,
     belongs?: string | null,
+    join?: string | null,
+    leave?: string | null,
     discordId?: string | null,
     github?: string | null,
     zenn?: string | null,
@@ -2874,15 +5239,15 @@ export type OnUpdateUserSubscription = {
     twitter?: string | null,
     slide?: string | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "UserSkills",
         id: string,
-        title: string,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2919,35 +5284,41 @@ export type OnUpdateUserSubscription = {
       nextToken?: string | null,
     } | null,
     project?:  {
-      __typename: "ModelProjectConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "Project",
+        __typename: "ProjectUsers",
         id: string,
-        title: string,
-        description?: string | null,
-        start?: string | null,
-        end?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        userProjectId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     event?:  {
-      __typename: "ModelEventConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "Event",
+        __typename: "EventUsers",
         id: string,
-        title: string,
-        date?: Array< string > | null,
-        description?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        userEventId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    link?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2959,9 +5330,6 @@ export type OnUpdateUserSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    skillUserId?: string | null,
-    projectUserId?: string | null,
-    eventUserId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -2975,8 +5343,11 @@ export type OnDeleteUserSubscription = {
     __typename: "User",
     id: string,
     name?: string | null,
+    description?: string | null,
     email: string,
     belongs?: string | null,
+    join?: string | null,
+    leave?: string | null,
     discordId?: string | null,
     github?: string | null,
     zenn?: string | null,
@@ -2984,15 +5355,15 @@ export type OnDeleteUserSubscription = {
     twitter?: string | null,
     slide?: string | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "UserSkills",
         id: string,
-        title: string,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -3029,35 +5400,41 @@ export type OnDeleteUserSubscription = {
       nextToken?: string | null,
     } | null,
     project?:  {
-      __typename: "ModelProjectConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "Project",
+        __typename: "ProjectUsers",
         id: string,
-        title: string,
-        description?: string | null,
-        start?: string | null,
-        end?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        userProjectId?: string | null,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     event?:  {
-      __typename: "ModelEventConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "Event",
+        __typename: "EventUsers",
         id: string,
-        title: string,
-        date?: Array< string > | null,
-        description?: string | null,
-        wanted?: boolean | null,
-        published?: boolean | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        userEventId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    link?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -3069,10 +5446,79 @@ export type OnDeleteUserSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    skillUserId?: string | null,
-    projectUserId?: string | null,
-    eventUserId?: string | null,
     owner?: string | null,
+  } | null,
+};
+
+export type OnCreateLinkSubscription = {
+  onCreateLink?:  {
+    __typename: "Link",
+    id: string,
+    urls: string,
+    likes?: number | null,
+    user?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateLinkSubscription = {
+  onUpdateLink?:  {
+    __typename: "Link",
+    id: string,
+    urls: string,
+    likes?: number | null,
+    user?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteLinkSubscription = {
+  onDeleteLink?:  {
+    __typename: "Link",
+    id: string,
+    urls: string,
+    likes?: number | null,
+    user?:  {
+      __typename: "ModelUserLinksConnection",
+      items:  Array< {
+        __typename: "UserLinks",
+        id: string,
+        userID: string,
+        linkID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -3082,32 +5528,32 @@ export type OnCreateSkillSubscription = {
     id: string,
     title: string,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "UserSkills",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    article?:  {
+      __typename: "ModelArticleSkillsConnection",
+      items:  Array< {
+        __typename: "ArticleSkills",
+        id: string,
+        skillID: string,
+        articleID: string,
+        createdAt: string,
+        updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    userSkillId?: string | null,
-    articleSkillId?: string | null,
   } | null,
 };
 
@@ -3117,32 +5563,32 @@ export type OnUpdateSkillSubscription = {
     id: string,
     title: string,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "UserSkills",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    article?:  {
+      __typename: "ModelArticleSkillsConnection",
+      items:  Array< {
+        __typename: "ArticleSkills",
+        id: string,
+        skillID: string,
+        articleID: string,
+        createdAt: string,
+        updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    userSkillId?: string | null,
-    articleSkillId?: string | null,
   } | null,
 };
 
@@ -3152,32 +5598,32 @@ export type OnDeleteSkillSubscription = {
     id: string,
     title: string,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelUserSkillsConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "UserSkills",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        skillID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    article?:  {
+      __typename: "ModelArticleSkillsConnection",
+      items:  Array< {
+        __typename: "ArticleSkills",
+        id: string,
+        skillID: string,
+        articleID: string,
+        createdAt: string,
+        updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    userSkillId?: string | null,
-    articleSkillId?: string | null,
   } | null,
 };
 
@@ -3192,8 +5638,11 @@ export type OnCreateArticleSubscription = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -3201,7 +5650,7 @@ export type OnCreateArticleSubscription = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3213,11 +5662,15 @@ export type OnCreateArticleSubscription = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -3228,9 +5681,6 @@ export type OnCreateArticleSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     project?:  {
@@ -3243,7 +5693,7 @@ export type OnCreateArticleSubscription = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3258,7 +5708,6 @@ export type OnCreateArticleSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userProjectId?: string | null,
     } | null,
     event?:  {
       __typename: "Event",
@@ -3269,7 +5718,7 @@ export type OnCreateArticleSubscription = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelEventUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3284,18 +5733,16 @@ export type OnCreateArticleSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userEventId?: string | null,
     } | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelArticleSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "ArticleSkills",
         id: string,
-        title: string,
+        skillID: string,
+        articleID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -3318,8 +5765,11 @@ export type OnUpdateArticleSubscription = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -3327,7 +5777,7 @@ export type OnUpdateArticleSubscription = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3339,11 +5789,15 @@ export type OnUpdateArticleSubscription = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -3354,9 +5808,6 @@ export type OnUpdateArticleSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     project?:  {
@@ -3369,7 +5820,7 @@ export type OnUpdateArticleSubscription = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3384,7 +5835,6 @@ export type OnUpdateArticleSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userProjectId?: string | null,
     } | null,
     event?:  {
       __typename: "Event",
@@ -3395,7 +5845,7 @@ export type OnUpdateArticleSubscription = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelEventUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3410,18 +5860,16 @@ export type OnUpdateArticleSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userEventId?: string | null,
     } | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelArticleSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "ArticleSkills",
         id: string,
-        title: string,
+        skillID: string,
+        articleID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -3444,8 +5892,11 @@ export type OnDeleteArticleSubscription = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -3453,7 +5904,7 @@ export type OnDeleteArticleSubscription = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3465,11 +5916,15 @@ export type OnDeleteArticleSubscription = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -3480,9 +5935,6 @@ export type OnDeleteArticleSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     project?:  {
@@ -3495,7 +5947,7 @@ export type OnDeleteArticleSubscription = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3510,7 +5962,6 @@ export type OnDeleteArticleSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userProjectId?: string | null,
     } | null,
     event?:  {
       __typename: "Event",
@@ -3521,7 +5972,7 @@ export type OnDeleteArticleSubscription = {
       wanted?: boolean | null,
       published?: boolean | null,
       user?:  {
-        __typename: "ModelUserConnection",
+        __typename: "ModelEventUsersConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3536,18 +5987,16 @@ export type OnDeleteArticleSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      userEventId?: string | null,
     } | null,
     skill?:  {
-      __typename: "ModelSkillConnection",
+      __typename: "ModelArticleSkillsConnection",
       items:  Array< {
-        __typename: "Skill",
+        __typename: "ArticleSkills",
         id: string,
-        title: string,
+        skillID: string,
+        articleID: string,
         createdAt: string,
         updatedAt: string,
-        userSkillId?: string | null,
-        articleSkillId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -3575,8 +6024,11 @@ export type OnCreatePortfolioSubscription = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -3584,7 +6036,7 @@ export type OnCreatePortfolioSubscription = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3596,11 +6048,15 @@ export type OnCreatePortfolioSubscription = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -3611,9 +6067,6 @@ export type OnCreatePortfolioSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     file?:  {
@@ -3645,8 +6098,11 @@ export type OnUpdatePortfolioSubscription = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -3654,7 +6110,7 @@ export type OnUpdatePortfolioSubscription = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3666,11 +6122,15 @@ export type OnUpdatePortfolioSubscription = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -3681,9 +6141,6 @@ export type OnUpdatePortfolioSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     file?:  {
@@ -3715,8 +6172,11 @@ export type OnDeletePortfolioSubscription = {
       __typename: "User",
       id: string,
       name?: string | null,
+      description?: string | null,
       email: string,
       belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
       discordId?: string | null,
       github?: string | null,
       zenn?: string | null,
@@ -3724,7 +6184,7 @@ export type OnDeletePortfolioSubscription = {
       twitter?: string | null,
       slide?: string | null,
       skill?:  {
-        __typename: "ModelSkillConnection",
+        __typename: "ModelUserSkillsConnection",
         nextToken?: string | null,
       } | null,
       article?:  {
@@ -3736,11 +6196,15 @@ export type OnDeletePortfolioSubscription = {
         nextToken?: string | null,
       } | null,
       project?:  {
-        __typename: "ModelProjectConnection",
+        __typename: "ModelProjectUsersConnection",
         nextToken?: string | null,
       } | null,
       event?:  {
-        __typename: "ModelEventConnection",
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
         nextToken?: string | null,
       } | null,
       file?:  {
@@ -3751,9 +6215,6 @@ export type OnDeletePortfolioSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      skillUserId?: string | null,
-      projectUserId?: string | null,
-      eventUserId?: string | null,
       owner?: string | null,
     },
     file?:  {
@@ -3780,24 +6241,14 @@ export type OnCreateProjectSubscription = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "ProjectUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -3826,7 +6277,6 @@ export type OnCreateProjectSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userProjectId?: string | null,
   } | null,
 };
 
@@ -3841,24 +6291,14 @@ export type OnUpdateProjectSubscription = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "ProjectUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -3887,7 +6327,6 @@ export type OnUpdateProjectSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userProjectId?: string | null,
   } | null,
 };
 
@@ -3902,24 +6341,14 @@ export type OnDeleteProjectSubscription = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelProjectUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "ProjectUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        projectID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -3948,7 +6377,6 @@ export type OnDeleteProjectSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userProjectId?: string | null,
   } | null,
 };
 
@@ -3962,24 +6390,14 @@ export type OnCreateEventSubscription = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "EventUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -4008,7 +6426,6 @@ export type OnCreateEventSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userEventId?: string | null,
   } | null,
 };
 
@@ -4022,24 +6439,14 @@ export type OnUpdateEventSubscription = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "EventUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -4068,7 +6475,6 @@ export type OnUpdateEventSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userEventId?: string | null,
   } | null,
 };
 
@@ -4082,24 +6488,14 @@ export type OnDeleteEventSubscription = {
     wanted?: boolean | null,
     published?: boolean | null,
     user?:  {
-      __typename: "ModelUserConnection",
+      __typename: "ModelEventUsersConnection",
       items:  Array< {
-        __typename: "User",
+        __typename: "EventUsers",
         id: string,
-        name?: string | null,
-        email: string,
-        belongs?: string | null,
-        discordId?: string | null,
-        github?: string | null,
-        zenn?: string | null,
-        qiita?: string | null,
-        twitter?: string | null,
-        slide?: string | null,
+        userID: string,
+        eventID: string,
         createdAt: string,
         updatedAt: string,
-        skillUserId?: string | null,
-        projectUserId?: string | null,
-        eventUserId?: string | null,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -4128,6 +6524,1271 @@ export type OnDeleteEventSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    userEventId?: string | null,
+  } | null,
+};
+
+export type OnCreateUserSkillsSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateUserSkillsSubscription = {
+  onCreateUserSkills?:  {
+    __typename: "UserSkills",
+    id: string,
+    userID: string,
+    skillID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateUserSkillsSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateUserSkillsSubscription = {
+  onUpdateUserSkills?:  {
+    __typename: "UserSkills",
+    id: string,
+    userID: string,
+    skillID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteUserSkillsSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteUserSkillsSubscription = {
+  onDeleteUserSkills?:  {
+    __typename: "UserSkills",
+    id: string,
+    userID: string,
+    skillID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateProjectUsersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateProjectUsersSubscription = {
+  onCreateProjectUsers?:  {
+    __typename: "ProjectUsers",
+    id: string,
+    userID: string,
+    projectID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    project:  {
+      __typename: "Project",
+      id: string,
+      title: string,
+      description?: string | null,
+      start?: string | null,
+      end?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateProjectUsersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateProjectUsersSubscription = {
+  onUpdateProjectUsers?:  {
+    __typename: "ProjectUsers",
+    id: string,
+    userID: string,
+    projectID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    project:  {
+      __typename: "Project",
+      id: string,
+      title: string,
+      description?: string | null,
+      start?: string | null,
+      end?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteProjectUsersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteProjectUsersSubscription = {
+  onDeleteProjectUsers?:  {
+    __typename: "ProjectUsers",
+    id: string,
+    userID: string,
+    projectID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    project:  {
+      __typename: "Project",
+      id: string,
+      title: string,
+      description?: string | null,
+      start?: string | null,
+      end?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateEventUsersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateEventUsersSubscription = {
+  onCreateEventUsers?:  {
+    __typename: "EventUsers",
+    id: string,
+    userID: string,
+    eventID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    event:  {
+      __typename: "Event",
+      id: string,
+      title: string,
+      date?: Array< string > | null,
+      description?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateEventUsersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateEventUsersSubscription = {
+  onUpdateEventUsers?:  {
+    __typename: "EventUsers",
+    id: string,
+    userID: string,
+    eventID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    event:  {
+      __typename: "Event",
+      id: string,
+      title: string,
+      date?: Array< string > | null,
+      description?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteEventUsersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteEventUsersSubscription = {
+  onDeleteEventUsers?:  {
+    __typename: "EventUsers",
+    id: string,
+    userID: string,
+    eventID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    event:  {
+      __typename: "Event",
+      id: string,
+      title: string,
+      date?: Array< string > | null,
+      description?: string | null,
+      wanted?: boolean | null,
+      published?: boolean | null,
+      user?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateUserLinksSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateUserLinksSubscription = {
+  onCreateUserLinks?:  {
+    __typename: "UserLinks",
+    id: string,
+    userID: string,
+    linkID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    link:  {
+      __typename: "Link",
+      id: string,
+      urls: string,
+      likes?: number | null,
+      user?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateUserLinksSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateUserLinksSubscription = {
+  onUpdateUserLinks?:  {
+    __typename: "UserLinks",
+    id: string,
+    userID: string,
+    linkID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    link:  {
+      __typename: "Link",
+      id: string,
+      urls: string,
+      likes?: number | null,
+      user?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteUserLinksSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteUserLinksSubscription = {
+  onDeleteUserLinks?:  {
+    __typename: "UserLinks",
+    id: string,
+    userID: string,
+    linkID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      email: string,
+      belongs?: string | null,
+      join?: string | null,
+      leave?: string | null,
+      discordId?: string | null,
+      github?: string | null,
+      zenn?: string | null,
+      qiita?: string | null,
+      twitter?: string | null,
+      slide?: string | null,
+      skill?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleConnection",
+        nextToken?: string | null,
+      } | null,
+      portfolio?:  {
+        __typename: "ModelPortfolioConnection",
+        nextToken?: string | null,
+      } | null,
+      project?:  {
+        __typename: "ModelProjectUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      event?:  {
+        __typename: "ModelEventUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      link?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      file?:  {
+        __typename: "S3Object",
+        bucket: string,
+        key: string,
+        region: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    link:  {
+      __typename: "Link",
+      id: string,
+      urls: string,
+      likes?: number | null,
+      user?:  {
+        __typename: "ModelUserLinksConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateArticleSkillsSubscription = {
+  onCreateArticleSkills?:  {
+    __typename: "ArticleSkills",
+    id: string,
+    skillID: string,
+    articleID: string,
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    article:  {
+      __typename: "Article",
+      id: string,
+      title: string,
+      body?: string | null,
+      published?: boolean | null,
+      user:  {
+        __typename: "User",
+        id: string,
+        name?: string | null,
+        description?: string | null,
+        email: string,
+        belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
+        discordId?: string | null,
+        github?: string | null,
+        zenn?: string | null,
+        qiita?: string | null,
+        twitter?: string | null,
+        slide?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      },
+      project?:  {
+        __typename: "Project",
+        id: string,
+        title: string,
+        description?: string | null,
+        start?: string | null,
+        end?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      event?:  {
+        __typename: "Event",
+        id: string,
+        title: string,
+        date?: Array< string > | null,
+        description?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      skill?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userArticleId?: string | null,
+      projectArticleId?: string | null,
+      eventArticleId?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateArticleSkillsSubscription = {
+  onUpdateArticleSkills?:  {
+    __typename: "ArticleSkills",
+    id: string,
+    skillID: string,
+    articleID: string,
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    article:  {
+      __typename: "Article",
+      id: string,
+      title: string,
+      body?: string | null,
+      published?: boolean | null,
+      user:  {
+        __typename: "User",
+        id: string,
+        name?: string | null,
+        description?: string | null,
+        email: string,
+        belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
+        discordId?: string | null,
+        github?: string | null,
+        zenn?: string | null,
+        qiita?: string | null,
+        twitter?: string | null,
+        slide?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      },
+      project?:  {
+        __typename: "Project",
+        id: string,
+        title: string,
+        description?: string | null,
+        start?: string | null,
+        end?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      event?:  {
+        __typename: "Event",
+        id: string,
+        title: string,
+        date?: Array< string > | null,
+        description?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      skill?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userArticleId?: string | null,
+      projectArticleId?: string | null,
+      eventArticleId?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteArticleSkillsSubscription = {
+  onDeleteArticleSkills?:  {
+    __typename: "ArticleSkills",
+    id: string,
+    skillID: string,
+    articleID: string,
+    skill:  {
+      __typename: "Skill",
+      id: string,
+      title: string,
+      user?:  {
+        __typename: "ModelUserSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      article?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    article:  {
+      __typename: "Article",
+      id: string,
+      title: string,
+      body?: string | null,
+      published?: boolean | null,
+      user:  {
+        __typename: "User",
+        id: string,
+        name?: string | null,
+        description?: string | null,
+        email: string,
+        belongs?: string | null,
+        join?: string | null,
+        leave?: string | null,
+        discordId?: string | null,
+        github?: string | null,
+        zenn?: string | null,
+        qiita?: string | null,
+        twitter?: string | null,
+        slide?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      },
+      project?:  {
+        __typename: "Project",
+        id: string,
+        title: string,
+        description?: string | null,
+        start?: string | null,
+        end?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      event?:  {
+        __typename: "Event",
+        id: string,
+        title: string,
+        date?: Array< string > | null,
+        description?: string | null,
+        wanted?: boolean | null,
+        published?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      skill?:  {
+        __typename: "ModelArticleSkillsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userArticleId?: string | null,
+      projectArticleId?: string | null,
+      eventArticleId?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
