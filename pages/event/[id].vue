@@ -29,7 +29,7 @@ fetchEvent()
     <div class="mx-5">
       <atom-text font-size="text-h4" :text="event.title" class="mt-16" />
       <div
-        class="d-flex flex-nowrap justify-start bg-transparent mt-2 mb-2"
+        class="d-flex flex-nowrap justify-start bg-transparent my-2"
         style="gap: 0 10px"
       >
         <atom-text
