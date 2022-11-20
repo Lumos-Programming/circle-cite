@@ -54,9 +54,6 @@ classベースでデザインするためによく使うstyleをクラス化す�
     'Yu Gothic Medium', '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN',
     'ヒラギノ角ゴ ProN W3', 'メイリオ' !important;
 }
-.letter-spacing-main {
-  letter-spacing: 1px !important;
-}
 
 $transition: ease, ease-out, ease-in, ease-in-out;
 $transition-time: (
@@ -180,5 +177,8 @@ $line-height: (
   }
   .border-radius-#{$i} {
     border-radius: $i * 1px !important;
+  }
+  .letter-spacing-#{$i} {
+    letter-spacing: $i * 0.1px !important;
   }
 }
