@@ -3,9 +3,10 @@
     class="bg-sub-color overflow-hidden designed-scrollbar"
     style="min-height: calc(var(--vh, 1vh) * 100)"
   >
-    <div :style="{ maxWidth: '960px' }" class="mx-5 mx-md-auto">
+    <div :style="{ maxWidth: '960px' }" class="mx-md-auto">
       <module-header />
       <slot />
     </div>
+    <module-footer />
   </div>
 </template>
