@@ -16,7 +16,7 @@ withDefaults(
   <v-hover v-slot="{ isHovering, props }">
     <v-btn
       class="height-40 px-4 py-2 transition-medium-ease"
-      :class="[isHovering ? 'elevation-3 bg-white' : 'bg-sub-color', btnClass]"
+      :class="[isHovering ? 'bg-main-color' : 'bg-white', btnClass]"
       :ripple="false"
       variant="flat"
       v-bind="props"
@@ -26,6 +26,7 @@ withDefaults(
       <atom-text
         :text="text"
         line-height="line-height-lg"
+        :color="isHovering ? 'text-white' : 'text-grey-darken-4'"
         :class="[textClass]"
       />
     </v-btn>

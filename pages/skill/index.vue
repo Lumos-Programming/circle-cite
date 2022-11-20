@@ -22,11 +22,11 @@ getSkills()
       >
         <v-chip
           :ripple="false"
-          class="ma-2 elevation-5 transition-short-ease-out"
+          class="ma-2 transition-short-ease-out"
           :class="[
             isHovering
-              ? 'text-white bg-grey-darken-3'
-              : 'bg-white grey-darken-3'
+              ? 'text-white bg-main-color'
+              : 'bg-white text-grey-darken-4'
           ]"
           variant="elevated"
           prepend-icon="mdi-music-accidental-sharp"

@@ -61,13 +61,13 @@ const menu = [
 </script>
 <template>
   <div
-    class="w-100 height-80 pt-10 d-flex flex-nowrap position-sticky top-0 z-index-2 bg-sub-color"
-    style="gap: 0 20px"
+    class="bg-white border-solid border-width-1 border-grey-darken-4 height-48 pl-4 mt-10 mx-5 d-flex flex-nowrap position-sticky top-0 z-index-2 rounded"
+    style="gap: 0 20px; width: calc(100% - 40px)"
   >
     <atom-text
       text="Hooks"
       font-size="text-h5"
-      line-height="line-height-40"
+      line-height="line-height-48"
       class="cursor-pointer"
       @click="navigateTo('/')"
     />
@@ -77,23 +77,25 @@ const menu = [
         v-for="item in menu.filter((v) => v.outside)"
         :key="item.text"
         :text="item.text"
+        btn-class="my-1"
         @btn-click="item.function()"
       />
     </template>
-    <div class="position-relative height-40 width-48 rounded">
+    <div class="position-relative height-48 width-72 rounded">
       <v-hover v-slot="{ isHovering, props }">
         <div
-          class="border-solid border-width-1 border-grey-darken-4 rounded position-absolute transition-long-ease-out top-0 right-0 bg-white overflow-hidden"
-          :class="[!active && isHovering ? 'elevation-3' : '']"
+          class="border-solid border-width-1 border-gery-darken-4 rounded position-absolute transition-medium-ease top-n1 right-n1 overflow-hidden"
+          :class="[!active && isHovering ? 'bg-main-color' : 'bg-white']"
           v-bind="props"
           :style="{
-            'max-width': '960px',
-            width: active ? 'calc(100vw - 40px)' : '48px',
-            height: active ? 'calc(var(--vh) * 100 - 80px)' : '40px'
+            'max-width': 'calc(960px - 40px)',
+            width: active ? 'calc(100vw - 80px)' : '72px',
+            height: active ? 'calc(var(--vh) * 100 - 80px)' : '48px'
           }"
         >
           <v-icon
-            class="height-40 position-absolute top-0 right-12 text-grey-darken-4"
+            class="height-48 position-absolute top-0 right-23"
+            :class="!active && isHovering ? 'text-white' : 'text-grey-darken-4'"
             @click="active = !active"
             >{{ active ? 'mdi-close' : 'mdi-menu' }}
           </v-icon>
@@ -105,7 +107,7 @@ const menu = [
             >
               <atom-text
                 :text="item.text"
-                :color="IsHovering ? 'text-white' : 'text-main-color'"
+                :color="IsHovering ? 'text-white' : 'text-grey-darken-4'"
                 class="w-100 text-center py-4 cursor-pointer transition-short-ease-out"
                 v-bind="Props"
                 :class="[IsHovering ? 'bg-main-color' : ' bg-white']"

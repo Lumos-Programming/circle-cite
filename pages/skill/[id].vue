@@ -25,7 +25,11 @@ fetchSkill()
       ]"
     />
     <div class="mx-5">
-      <atom-text font-size="text-h4" :text="skill.title" class="mt-16" />
+      <atom-text
+        font-size="text-h4"
+        :text="'#' + (skill.title || '')"
+        class="mt-16"
+      />
     </div>
     <atom-text
       font-size="text-h5"
