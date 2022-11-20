@@ -40,6 +40,8 @@
   "dependencies": {
     "@aws-amplify/api-graphql": "^2.3.19",
     "@aws-amplify/ui-vue": "^2.4.24",
+    "@tiptap/starter-kit": "^2.0.0-beta.202",
+    "@tiptap/vue-3": "^2.0.0-beta.202",
     "aws-amplify": "^4.3.37",
     "nuxt-jsoneditor": "^1.6.2",
     "uuid": "^9.0.0"
