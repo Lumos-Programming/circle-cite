@@ -10,15 +10,10 @@ import '@aws-amplify/ui-vue/styles.css'
 <template>
   <layout-public>
     <Authenticator class="mt-16">
-      <template #default="{ user, signOut }">
-        <h1 class="ma-5">Hello {{ user.username }}!</h1>
+      <template #default="{ signOut }">
+        <h1 class="ma-5">ログイン中です.......</h1>
         <v-btn variant="outlined" class="ma-5" @click="signOut">Sign Out</v-btn>
       </template>
     </Authenticator>
-    <!-- <v-card>
-      <v-text-field v-model="email" />
-      <v-text-field v-model="password" />
-      <v-text-field v-model="totp" />
-    </v-card> -->
   </layout-public>
 </template>
