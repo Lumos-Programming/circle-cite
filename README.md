@@ -25,3 +25,7 @@
 5. ローカルで`git checkout main(or develop)` & `git pull origin main(or develop)`
 6. `git branch -D feature/{イシュー番号}`
 7. お疲れ様でした！
+
+### **その他注意事項等**
+
+- vue3-easy-data-table は vuetify3 で v-data-table が再実装され使えるようになるまでの代用ライブラリとして入れています。v-data-table が使えるようになったら適宜抜いて下さい。

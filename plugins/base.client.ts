@@ -69,7 +69,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           navigator.clipboard.writeText(text)
         }
       },
-      getYMD: (string: string, separator = '/') => {
+      getYMD: (string: string | null = '', separator = '/') => {
         if (!string) return ''
         const date = new Date(string)
         return (
@@ -79,6 +79,14 @@ export default defineNuxtPlugin((nuxtApp) => {
           separator +
           ('0' + date.getDate()).slice(-2)
         )
+      },
+      isObject: (v) => {
+        return v !== null && typeof v === 'object' && !Array.isArray(v)
+      },
+      findItem: (array: any[], key: string, value: any) => {
+        const item = array.find((v) => v[key] === value)
+        if (item) return item
+        return null
       }
     }
   }

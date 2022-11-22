@@ -20,7 +20,7 @@ fetchEvent()
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5"
+      class="my-5 ml-5"
       :items="[
         { title: 'event', to: '/event', disabled: false },
         { title: event.title, to: '/event', disabled: true }
@@ -66,7 +66,7 @@ fetchEvent()
       <div class="d-flex flex-wrap flex-sm-nowrap my-2">
         <atom-text text="日時：" />
         <atom-text
-          :text="event.date?.join('、') || ''"
+          :text="event.date?.join('、')"
           font-weight="font-weight-regular"
         />
       </div>
@@ -86,10 +86,10 @@ fetchEvent()
     >
       <module-user-small
         v-for="item in event.user.items"
-        :key="item.user.id"
-        :path="'/member/' + item.user.id"
-        :img-key="item.user.file?.key"
-        :name="item.user.name"
+        :key="item?.user.id"
+        :path="'/member/' + item?.user.id"
+        :img-key="item?.user.file?.key"
+        :name="item?.user.name"
         style="flex: 0 1 22%"
       />
     </div>
@@ -101,11 +101,11 @@ fetchEvent()
     >
       <module-content-medium
         v-for="item in event.article.items"
-        :key="item.id"
-        :path="'/article/' + item.id"
-        :created-at="item.createdAt"
-        :updated-at="item.updatedAt"
-        :title="item.title"
+        :key="item?.id"
+        :path="'/article/' + item?.id"
+        :created-at="item?.createdAt"
+        :updated-at="item?.updatedAt"
+        :title="item?.title"
         style="flex: 0 1 30%"
       />
     </div>

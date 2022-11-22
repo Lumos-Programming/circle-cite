@@ -20,7 +20,7 @@ getProjects()
         v-for="item in projects"
         :key="item.id"
         :path="'/project/' + item.id"
-        :img-key="item.file?.key || ''"
+        :img-key="item.file?.key"
         :created-at="item.createdAt"
         :updated-at="item.updatedAt"
         :title="item.title"

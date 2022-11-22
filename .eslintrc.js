@@ -14,6 +14,9 @@ module.exports = {
     'prettier'
   ],
   plugins: [],
+  settings: {
+    'import/ignore': [/v-data-table.ts$/]
+  },
   rules: {
     // global settings
     semi: [2, 'never'],

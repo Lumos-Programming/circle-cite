@@ -1,62 +1,38 @@
 <script setup lang="ts">
-import { User, CreateUserInput, ListUsersQuery } from '~/assets/API'
-import { createUser, deleteUser, updateUser } from '~/assets/graphql/mutations'
-import { listUsers } from '~/assets/graphql/queries'
-const { $getYMD, $listQuery, $baseMutation } = useNuxtApp()
-const users = ref<User[]>([])
-const getUsers = async () => {
-  users.value = await $listQuery<ListUsersQuery, User>({
-    name: 'listUsers',
-    query: listUsers
+import { Link, CreateLinkInput, ListLinksQuery } from '~/assets/API'
+import { createLink, deleteLink, updateLink } from '~/assets/graphql/mutations'
+import { listLinks } from '~/assets/graphql/queries'
+const { $listQuery, $baseMutation } = useNuxtApp()
+const links = ref<Link[]>([])
+const getLinks = async () => {
+  links.value = await $listQuery<ListLinksQuery, Link>({
+    name: 'listLinks',
+    query: listLinks
   })
 }
-const filterAttr = (item: User) => {
+const filterAttr = (item: Link) => {
   return {
     id: item.id,
-    name: item.name || '',
-    email: item.email || '',
-    description: item.description || '',
-    belongs: item.belongs || '',
-    join: item.join || null,
-    leave: item.leave || null,
-    discordId: item.discordId || '',
-    github: item.github || '',
-    zenn: item.zenn || '',
-    qiita: item.qiita || '',
-    twitter: item.twitter || '',
-    slide: item.slide || '',
-    file: item.file || null
+    urls: item.urls || '',
+    likes: item.likes || 0
   }
 }
-const input = ref<CreateUserInput>({
-  name: '',
-  email: '',
-  description: '',
-  belongs: '',
-  join: $getYMD(new Date().toLocaleString(), '-'),
-  leave: $getYMD(new Date().toLocaleString(), '-'),
-  discordId: '',
-  github: '',
-  zenn: '',
-  qiita: '',
-  twitter: '',
-  slide: '',
-  file: null
+const input = ref<CreateLinkInput>({
+  urls: '',
+  likes: 0
 })
 const headers = [
   { text: 'id', value: 'id' },
-  { text: 'name', value: 'name' },
-  { text: 'email', value: 'email' },
-  { text: 'belongs', value: 'belongs' },
+  { text: 'urls', value: 'urls' },
+  { text: 'likes', value: 'likes' },
   { text: 'oparation', value: 'oparation' }
 ]
-getUsers()
-// TODO: 初回ログイン時にemalの取り扱いを調整すること
+getLinks()
 // TODO: valiidationを掛けること
 </script>
 <template>
   <layout-admin>
-    <atom-text font-size="text-h4" text="Users" />
+    <atom-text font-size="text-h4" text="Links" />
     <atom-breadcrumbs class="mb-5" />
     <v-card class="pa-5">
       <div class="d-flex my-2">
@@ -67,8 +43,8 @@ getUsers()
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
             $baseMutation({
-              name: 'createUser',
-              query: createUser,
+              name: 'createLink',
+              query: createLink,
               input
             })
           "
@@ -91,12 +67,12 @@ getUsers()
         <atom-button
           text="再取得"
           btn-class="border-solid border-width-1 border-grey-darken-4"
-          @btn-click="getUsers()"
+          @btn-click="getLinks()"
         />
       </div>
       <easy-data-table
         :headers="headers"
-        :items="users"
+        :items="links"
         header-item-class-name="text-subtitle-2 font-weight-bold line-height-36"
         body-row-class-name="height-48"
         buttons-pagination
@@ -104,7 +80,7 @@ getUsers()
       >
         <template #expand="item">
           <json-editor
-            v-model="users[item.index - 1]"
+            v-model="links[item.index - 1]"
             height="400"
             mode="tree"
           />
@@ -116,9 +92,9 @@ getUsers()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'updateUser',
-                  query: updateUser,
-                  input: filterAttr($findItem(users, 'id', item.id))
+                  name: 'updateLink',
+                  query: updateLink,
+                  input: filterAttr($findItem(links, 'id', item.id))
                 })
               "
             ></v-btn>
@@ -127,8 +103,8 @@ getUsers()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'deleteUser',
-                  query: deleteUser,
+                  name: 'deleteLink',
+                  query: deleteLink,
                   input: { id: item.id }
                 })
               "

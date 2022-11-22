@@ -74,7 +74,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             clearError()
           })
       },
-      getImage: async (key: string): Promise<string> => {
+      getImage: async (key = ''): Promise<string> => {
         // NOTE: keyは{prptected or public or private}/{identityId}/{random uuid}/{file name}.{extension}の形式
         // NOTE: 返り値はデフォルト15分の有効期限付き署名付きURL(String)
         if (!key) return '/no_image.png'

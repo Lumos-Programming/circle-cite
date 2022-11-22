@@ -26,9 +26,19 @@ const pages = [
     path: '/admin/event'
   },
   {
+    title: 'ポートフォリオ',
+    icon: 'mdi-briefcase-outline',
+    path: '/admin/portfolio'
+  },
+  {
     title: 'スキルタグ',
     icon: 'mdi-tag-outline',
     path: '/admin/skill'
+  },
+  {
+    title: 'リンク集',
+    icon: 'mdi-link',
+    path: '/admin/link'
   }
   // {
   //   title: '設定',
