@@ -20,7 +20,7 @@ getEvents()
         v-for="item in events"
         :key="item.id"
         :path="'/event/' + item.id"
-        :img-key="item.file?.key || ''"
+        :img-key="item.file?.key"
         :created-at="item.createdAt"
         :updated-at="item.updatedAt"
         :title="item.title"

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    name: string
+    name: string | null
     path: string
-    belongs: string
-    github: string
-    twitter: string
-    qiita: string
-    zenn: string
+    belongs: string | null
+    github: string | null
+    twitter: string | null
+    qiita: string | null
+    zenn: string | null
     imgKey: string
   }>(),
   {

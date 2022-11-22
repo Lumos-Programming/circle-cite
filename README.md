@@ -79,4 +79,4 @@
 
 ### **その他注意事項等**
 
-- vue3-table-lite は vuetify3 で v-data-table が再実装され使えるようになるまでの代用ライブラリとして入れています。v-data-table が使えるようになったら適宜抜いて下さい。
+- vue3-easy-data-table は vuetify3 で v-data-table が再実装され使えるようになるまでの代用ライブラリとして入れています。v-data-table が使えるようになったら適宜抜いて下さい。

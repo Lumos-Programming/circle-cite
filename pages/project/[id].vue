@@ -20,7 +20,7 @@ fetchProject()
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5"
+      class="my-5 ml-5"
       :items="[
         { title: 'project', to: '/project', disabled: false },
         { title: project.title, to: '/project', disabled: true }
@@ -54,15 +54,9 @@ fetchProject()
       </v-card>
       <div class="d-flex flex-wrap flex-sm-nowrap my-2">
         <atom-text text="期間：" />
-        <atom-text
-          :text="project.start || ''"
-          font-weight="font-weight-regular"
-        />
+        <atom-text :text="project.start" font-weight="font-weight-regular" />
         <atom-text text=" ~ " font-weight="font-weight-regular" />
-        <atom-text
-          :text="project.end || ''"
-          font-weight="font-weight-regular"
-        />
+        <atom-text :text="project.end" font-weight="font-weight-regular" />
       </div>
       <div class="d-flex flex-wrap flex-sm-nowrap my-2">
         <atom-text text="概要：" />
@@ -80,10 +74,10 @@ fetchProject()
     >
       <module-user-small
         v-for="item in project.user.items"
-        :key="item.user.id"
-        :path="'/member/' + item.user.id"
-        :img-key="item.user.file?.key"
-        :name="item.user.name"
+        :key="item?.user.id"
+        :path="'/member/' + item?.user.id"
+        :img-key="item?.user.file?.key"
+        :name="item?.user.name"
         style="flex: 0 1 22%"
       />
     </div>
@@ -95,11 +89,11 @@ fetchProject()
     >
       <module-content-medium
         v-for="item in project.article.items"
-        :key="item.id"
-        :path="'/article/' + item.id"
-        :created-at="item.createdAt"
-        :updated-at="item.updatedAt"
-        :title="item.title"
+        :key="item?.id"
+        :path="'/article/' + item?.id"
+        :created-at="item?.createdAt"
+        :updated-at="item?.updatedAt"
+        :title="item?.title"
         style="flex: 0 1 30%"
       />
     </div>

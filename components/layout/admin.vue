@@ -26,6 +26,11 @@ const pages = [
     path: '/admin/event'
   },
   {
+    title: 'ポートフォリオ',
+    icon: 'mdi-account-group',
+    path: '/admin/portfolio'
+  },
+  {
     title: 'スキルタグ',
     icon: 'mdi-tag-outline',
     path: '/admin/skill'

@@ -16,7 +16,7 @@ fetchArticle()
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5"
+      class="my-5 ml-5"
       :items="[
         { title: 'article', to: '/article', disabled: false },
         { title: article.title, to: '/article', disabled: true }
@@ -52,7 +52,7 @@ fetchArticle()
         <atom-text
           font-size="text-caption"
           font-weight="font-weight-regular"
-          :text="article.user?.name || ''"
+          :text="article.user?.name"
           class="cursor-pointer"
           style="text-decoration: underline"
           @click="navigateTo('/member/' + article.user.id)"
@@ -61,7 +61,7 @@ fetchArticle()
       <v-chip-group v-if="article.skill?.items.length" column>
         <v-hover
           v-for="item in article.skill.items"
-          :key="item.id"
+          :key="item?.id"
           v-slot="{ isHovering, props }"
         >
           <v-chip
@@ -76,9 +76,9 @@ fetchArticle()
             prepend-icon="mdi-music-accidental-sharp"
             v-bind="props"
             link
-            :to="'/skill/' + item.id"
+            :to="'/skill/' + item?.id"
           >
-            {{ item.skill.title }}
+            {{ item?.skill.title }}
           </v-chip>
         </v-hover>
       </v-chip-group>

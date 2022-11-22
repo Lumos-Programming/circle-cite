@@ -18,10 +18,10 @@ fetchUser()
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5"
+      class="my-5 ml-5"
       :items="[
         { title: 'member', to: '/member', disabled: false },
-        { title: user.name, to: '/member/' + user.id, disabled: true }
+        { title: user.name || 'you', to: '/member/' + user.id, disabled: true }
       ]"
     />
     <div class="d-flex flex-nowrap mx-5 mt-16">
@@ -77,7 +77,7 @@ fetchUser()
         </div>
         <atom-text text="自己紹介" class="mt-5" />
         <atom-text
-          :text="user.description || ''"
+          :text="user.description"
           font-weight="font-weight-regular"
           class="mt-2"
         />
@@ -91,11 +91,11 @@ fetchUser()
     >
       <module-content-medium
         v-for="item in user.article.items"
-        :key="item.id"
-        :path="'/article/' + item.id"
-        :created-at="item.createdAt"
-        :updated-at="item.updatedAt"
-        :title="item.title"
+        :key="item?.id"
+        :path="'/article/' + item?.id"
+        :created-at="item?.createdAt"
+        :updated-at="item?.updatedAt"
+        :title="item?.title"
         style="flex: 0 1 30%"
       />
     </div>

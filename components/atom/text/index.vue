@@ -1,13 +1,14 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    text?: string
+    text: string | null
     fontSize?: string
     fontWeight?: string
     color?: string
     lineHeight?: string
   }>(),
   {
+    text: '',
     fontSize: 'text-subtitle-1',
     fontWeight: 'font-weight-bold',
     color: 'text-grey-darken-4',

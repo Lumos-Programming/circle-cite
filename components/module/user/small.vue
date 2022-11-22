@@ -1,7 +1,7 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    name: string
+    name: string | null
     path: string
     imgKey: string
   }>(),

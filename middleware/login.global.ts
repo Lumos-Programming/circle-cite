@@ -11,11 +11,11 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     return navigateTo(to.path.substring(0, to.path.length - 1))
   }
   if (!regexp.whiteList.test(to.path)) return navigateTo('/')
+  const user = await Auth.currentUserInfo()
+  if (user) setMyProfile(user)
+  setSignedIn(!!user)
+  if (!isProd) console.log('user', user)
   if (to.path.includes('admin')) {
-    const user = await Auth.currentUserInfo()
-    if (user) setMyProfile(user)
-    else setSignedIn(false)
-    if (!isProd) console.log('user', user)
     if (!isSignedIn.value) return navigateTo('/login')
   }
 })
