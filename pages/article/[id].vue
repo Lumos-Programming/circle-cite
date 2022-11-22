@@ -16,7 +16,7 @@ fetchArticle()
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5 ml-5"
+      class="my-5"
       :items="[
         { title: 'article', to: '/article', disabled: false },
         { title: article.title, to: '/article', disabled: true }

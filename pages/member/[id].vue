@@ -18,7 +18,7 @@ fetchUser()
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5 ml-5"
+      class="my-5"
       :items="[
         { title: 'member', to: '/member', disabled: false },
         { title: user.name || 'you', to: '/member/' + user.id, disabled: true }
@@ -83,9 +83,35 @@ fetchUser()
         />
       </div>
     </div>
-    <atom-text font-size="text-h5" text="関連記事" class="mt-16 mx-5" />
+    <atom-text
+      v-if="user?.portfolio?.items.length"
+      font-size="text-h5"
+      text="ポートフォリオ"
+      class="mt-16 mx-5"
+    />
     <div
-      v-if="user?.article?.items"
+      v-if="user?.portfolio?.items.length"
+      class="d-flex flex-wrap ma-5"
+      style="gap: 60px 5%"
+    >
+      <module-content-medium
+        v-for="item in user.portfolio.items"
+        :key="item?.id"
+        :path="'/portfolio/' + item?.id"
+        :created-at="item?.createdAt"
+        :updated-at="item?.updatedAt"
+        :title="item?.title"
+        style="flex: 0 1 30%"
+      />
+    </div>
+    <atom-text
+      v-if="user?.article?.items.length"
+      font-size="text-h5"
+      text="執筆記事"
+      class="mt-16 mx-5"
+    />
+    <div
+      v-if="user?.article?.items.length"
       class="d-flex flex-wrap ma-5"
       style="gap: 60px 5%"
     >

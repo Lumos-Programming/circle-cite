@@ -5,7 +5,7 @@ const Props = withDefaults(
   defineProps<{
     createdAt: string
     updatedAt: string
-    title: string
+    title: string | null
     path: string
     imgKey: string
   }>(),

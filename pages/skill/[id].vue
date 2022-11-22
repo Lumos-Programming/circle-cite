@@ -18,7 +18,7 @@ fetchSkill()
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5 ml-5"
+      class="my-5"
       :items="[
         { title: 'skill', to: '/skill', disabled: false },
         { title: skill.title, to: '/skill', disabled: true }

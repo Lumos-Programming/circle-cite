@@ -20,7 +20,7 @@ fetchEvent()
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5 ml-5"
+      class="my-5"
       :items="[
         { title: 'event', to: '/event', disabled: false },
         { title: event.title, to: '/event', disabled: true }
@@ -80,7 +80,7 @@ fetchEvent()
     </div>
     <atom-text font-size="text-h5" text="参加メンバー" class="mt-16 mx-5" />
     <div
-      v-if="event?.user?.items"
+      v-if="event?.user?.items.length"
       class="d-flex flex-nowrap ma-5 pa-2 overflow-x-auto"
       style="gap: 60px 4%"
     >
@@ -93,9 +93,20 @@ fetchEvent()
         style="flex: 0 1 22%"
       />
     </div>
-    <atom-text font-size="text-h5" text="関連記事" class="mt-16 mx-5" />
+    <atom-text
+      v-else
+      text="残念、まだいないようです。"
+      class="mt-2 mx-5"
+      font-weight="font-weight-regular"
+    />
+    <atom-text
+      v-if="event?.article?.items.length"
+      font-size="text-h5"
+      text="関連記事"
+      class="mt-16 mx-5"
+    />
     <div
-      v-if="event?.article?.items"
+      v-if="event?.article?.items.length"
       class="d-flex flex-wrap ma-5"
       style="gap: 60px 5%"
     >

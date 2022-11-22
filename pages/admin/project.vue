@@ -19,7 +19,7 @@ const filterAttr = (item: Project) => {
     id: item.id,
     title: item.title || '',
     start: item.start || $getYMD(new Date().toLocaleString(), '-'),
-    end: item.start || $getYMD(new Date().toLocaleString(), '-'),
+    end: item.end || $getYMD(new Date().toLocaleString(), '-'),
     description: item.description || '',
     wanted: item.wanted || false,
     published: item.published || false,
