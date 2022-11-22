@@ -13,17 +13,17 @@ const getLinks = async () => {
 const filterAttr = (item: Link) => {
   return {
     id: item.id,
-    urls: item.urls || '',
+    url: item.url || '',
     likes: item.likes || 0
   }
 }
 const input = ref<CreateLinkInput>({
-  urls: '',
+  url: '',
   likes: 0
 })
 const headers = [
   { text: 'id', value: 'id' },
-  { text: 'urls', value: 'urls' },
+  { text: 'url', value: 'url' },
   { text: 'likes', value: 'likes' },
   { text: 'oparation', value: 'oparation' }
 ]
