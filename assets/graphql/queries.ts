@@ -157,7 +157,7 @@ export const getLink = /* GraphQL */ `
   query GetLink($id: ID!) {
     getLink(id: $id) {
       id
-      urls
+      url
       likes
       user {
         items {
@@ -184,7 +184,7 @@ export const listLinks = /* GraphQL */ `
     listLinks(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        urls
+        url
         likes
         user {
           nextToken
@@ -1084,7 +1084,7 @@ export const getUserLinks = /* GraphQL */ `
       }
       link {
         id
-        urls
+        url
         likes
         user {
           nextToken
@@ -1129,7 +1129,7 @@ export const listUserLinks = /* GraphQL */ `
         }
         link {
           id
-          urls
+          url
           likes
           createdAt
           updatedAt

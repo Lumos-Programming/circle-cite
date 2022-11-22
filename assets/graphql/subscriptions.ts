@@ -303,7 +303,7 @@ export const onCreateLink = /* GraphQL */ `
   subscription OnCreateLink {
     onCreateLink {
       id
-      urls
+      url
       likes
       user {
         items {
@@ -325,7 +325,7 @@ export const onUpdateLink = /* GraphQL */ `
   subscription OnUpdateLink {
     onUpdateLink {
       id
-      urls
+      url
       likes
       user {
         items {
@@ -347,7 +347,7 @@ export const onDeleteLink = /* GraphQL */ `
   subscription OnDeleteLink {
     onDeleteLink {
       id
-      urls
+      url
       likes
       user {
         items {
@@ -1926,7 +1926,7 @@ export const onCreateUserLinks = /* GraphQL */ `
       }
       link {
         id
-        urls
+        url
         likes
         user {
           nextToken
@@ -1989,7 +1989,7 @@ export const onUpdateUserLinks = /* GraphQL */ `
       }
       link {
         id
-        urls
+        url
         likes
         user {
           nextToken
@@ -2052,7 +2052,7 @@ export const onDeleteUserLinks = /* GraphQL */ `
       }
       link {
         id
-        urls
+        url
         likes
         user {
           nextToken

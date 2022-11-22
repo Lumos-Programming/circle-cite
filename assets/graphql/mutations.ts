@@ -315,7 +315,7 @@ export const createLink = /* GraphQL */ `
   ) {
     createLink(input: $input, condition: $condition) {
       id
-      urls
+      url
       likes
       user {
         items {
@@ -340,7 +340,7 @@ export const updateLink = /* GraphQL */ `
   ) {
     updateLink(input: $input, condition: $condition) {
       id
-      urls
+      url
       likes
       user {
         items {
@@ -365,7 +365,7 @@ export const deleteLink = /* GraphQL */ `
   ) {
     deleteLink(input: $input, condition: $condition) {
       id
-      urls
+      url
       likes
       user {
         items {
@@ -2019,7 +2019,7 @@ export const createUserLinks = /* GraphQL */ `
       }
       link {
         id
-        urls
+        url
         likes
         user {
           nextToken
@@ -2085,7 +2085,7 @@ export const updateUserLinks = /* GraphQL */ `
       }
       link {
         id
-        urls
+        url
         likes
         user {
           nextToken
@@ -2151,7 +2151,7 @@ export const deleteUserLinks = /* GraphQL */ `
       }
       link {
         id
-        urls
+        url
         likes
         user {
           nextToken

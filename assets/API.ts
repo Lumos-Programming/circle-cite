@@ -294,7 +294,7 @@ export type UserLinks = {
 export type Link = {
   __typename: "Link",
   id: string,
-  urls: string,
+  url: string,
   likes?: number | null,
   user?: ModelUserLinksConnection | null,
   createdAt: string,
@@ -324,12 +324,12 @@ export type DeleteUserInput = {
 
 export type CreateLinkInput = {
   id?: string | null,
-  urls: string,
+  url: string,
   likes?: number | null,
 };
 
 export type ModelLinkConditionInput = {
-  urls?: ModelStringInput | null,
+  url?: ModelStringInput | null,
   likes?: ModelIntInput | null,
   and?: Array< ModelLinkConditionInput | null > | null,
   or?: Array< ModelLinkConditionInput | null > | null,
@@ -350,7 +350,7 @@ export type ModelIntInput = {
 
 export type UpdateLinkInput = {
   id: string,
-  urls?: string | null,
+  url?: string | null,
   likes?: number | null,
 };
 
@@ -693,7 +693,7 @@ export type ModelUserConnection = {
 
 export type ModelLinkFilterInput = {
   id?: ModelIDInput | null,
-  urls?: ModelStringInput | null,
+  url?: ModelStringInput | null,
   likes?: ModelIntInput | null,
   and?: Array< ModelLinkFilterInput | null > | null,
   or?: Array< ModelLinkFilterInput | null > | null,
@@ -1187,7 +1187,7 @@ export type CreateLinkMutation = {
   createLink?:  {
     __typename: "Link",
     id: string,
-    urls: string,
+    url: string,
     likes?: number | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
@@ -1216,7 +1216,7 @@ export type UpdateLinkMutation = {
   updateLink?:  {
     __typename: "Link",
     id: string,
-    urls: string,
+    url: string,
     likes?: number | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
@@ -1245,7 +1245,7 @@ export type DeleteLinkMutation = {
   deleteLink?:  {
     __typename: "Link",
     id: string,
-    urls: string,
+    url: string,
     likes?: number | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
@@ -3188,7 +3188,7 @@ export type CreateUserLinksMutation = {
     link:  {
       __typename: "Link",
       id: string,
-      urls: string,
+      url: string,
       likes?: number | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
@@ -3266,7 +3266,7 @@ export type UpdateUserLinksMutation = {
     link:  {
       __typename: "Link",
       id: string,
-      urls: string,
+      url: string,
       likes?: number | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
@@ -3344,7 +3344,7 @@ export type DeleteUserLinksMutation = {
     link:  {
       __typename: "Link",
       id: string,
-      urls: string,
+      url: string,
       likes?: number | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
@@ -3812,7 +3812,7 @@ export type GetLinkQuery = {
   getLink?:  {
     __typename: "Link",
     id: string,
-    urls: string,
+    url: string,
     likes?: number | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
@@ -3844,7 +3844,7 @@ export type ListLinksQuery = {
     items:  Array< {
       __typename: "Link",
       id: string,
-      urls: string,
+      url: string,
       likes?: number | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
@@ -4910,7 +4910,7 @@ export type GetUserLinksQuery = {
     link:  {
       __typename: "Link",
       id: string,
-      urls: string,
+      url: string,
       likes?: number | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
@@ -4961,7 +4961,7 @@ export type ListUserLinksQuery = {
       link:  {
         __typename: "Link",
         id: string,
-        urls: string,
+        url: string,
         likes?: number | null,
         createdAt: string,
         updatedAt: string,
@@ -5454,7 +5454,7 @@ export type OnCreateLinkSubscription = {
   onCreateLink?:  {
     __typename: "Link",
     id: string,
-    urls: string,
+    url: string,
     likes?: number | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
@@ -5478,7 +5478,7 @@ export type OnUpdateLinkSubscription = {
   onUpdateLink?:  {
     __typename: "Link",
     id: string,
-    urls: string,
+    url: string,
     likes?: number | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
@@ -5502,7 +5502,7 @@ export type OnDeleteLinkSubscription = {
   onDeleteLink?:  {
     __typename: "Link",
     id: string,
-    urls: string,
+    url: string,
     likes?: number | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
@@ -7372,7 +7372,7 @@ export type OnCreateUserLinksSubscription = {
     link:  {
       __typename: "Link",
       id: string,
-      urls: string,
+      url: string,
       likes?: number | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
@@ -7449,7 +7449,7 @@ export type OnUpdateUserLinksSubscription = {
     link:  {
       __typename: "Link",
       id: string,
-      urls: string,
+      url: string,
       likes?: number | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
@@ -7526,7 +7526,7 @@ export type OnDeleteUserLinksSubscription = {
     link:  {
       __typename: "Link",
       id: string,
-      urls: string,
+      url: string,
       likes?: number | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
