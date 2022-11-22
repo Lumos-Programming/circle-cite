@@ -68,8 +68,8 @@ const menu = [
 </script>
 <template>
   <div
-    class="bg-white border-solid border-width-1 border-grey-darken-4 height-48 pl-4 mt-10 mx-5 d-flex flex-nowrap position-sticky top-0 z-index-2 rounded"
-    style="gap: 0 20px; width: calc(100% - 40px)"
+    class="bg-white border-solid border-width-1 border-grey-darken-4 height-48 pl-4 mt-10 w-100 d-flex flex-nowrap position-sticky top-0 z-index-2 rounded"
+    style="gap: 0 20px"
   >
     <atom-text
       text="Hooks"
@@ -96,8 +96,8 @@ const menu = [
           :class="[!active && isHovering ? 'bg-main-color' : 'bg-white']"
           v-bind="props"
           :style="{
-            'max-width': 'calc(960px - 40px)',
-            width: active ? 'calc(100vw - 80px)' : '72px',
+            'max-width': '960px',
+            width: active ? 'calc(100vw - 40px)' : '72px',
             height: active ? 'calc(var(--vh) * 100 - 80px)' : '48px'
           }"
         >

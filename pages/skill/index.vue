@@ -14,7 +14,7 @@ getSkills()
 <template>
   <layout-public>
     <atom-text font-size="text-h4" text="Skills" class="py-10" />
-    <v-chip-group column>
+    <v-chip-group column class="ml-n3">
       <v-hover
         v-for="item in skills"
         :key="item.id"
