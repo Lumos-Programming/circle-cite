@@ -29,8 +29,13 @@ export default defineNuxtConfig({
     transpile: ['vuetify']
   },
   vite: {
+    resolve: {
+      alias: {
+        './runtimeConfig': './runtimeConfig.browser'
+      }
+    },
     define: {
-      global: {},
+      'window.global': {},
       'process.env.DEBUG': false
     },
     server: {
