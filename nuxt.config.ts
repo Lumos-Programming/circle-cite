@@ -21,8 +21,8 @@ export default defineNuxtConfig({
     }
   },
   typescript: {
-    shim: false
-    // strict: true
+    shim: false,
+    strict: true
   },
   css: ['the-new-css-reset', 'vuetify/styles', '@/assets/css/index.scss'],
   build: {
