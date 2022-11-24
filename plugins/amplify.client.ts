@@ -1,5 +1,4 @@
-import { GraphQLQuery, GraphQLResult } from '@aws-amplify/api'
-import { GraphQLOptions } from '@aws-amplify/api-graphql'
+import { GraphQLQuery } from '@aws-amplify/api'
 import { StorageAccessLevel } from '@aws-amplify/storage'
 import { API, Auth, Storage } from 'aws-amplify'
 import { v4 as uuidv4 } from 'uuid'

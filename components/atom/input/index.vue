@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { S3ObjectInput } from '~~/assets/API'
-const { $makeFileObjectForMutation } = useNuxtApp()
+const { $makeS3Object } = useNuxtApp()
 const richText = ['body']
 const textArea = ['description']
 const file = ['file']
@@ -19,7 +19,7 @@ const emit = defineEmits<{
   (e: 'update:model-value', value: any): void
 }>()
 const onImageChange = async (e: any) => {
-  const file = await $makeFileObjectForMutation('protected', e.target?.files[0])
+  const file = await $makeS3Object('protected', e.target?.files[0])
   emit('update:model-value', file)
 }
 const fixArray = (values: any[], index: number, target: any) => {
