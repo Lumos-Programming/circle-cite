@@ -19,6 +19,7 @@
     "@mdi/font": "^7.0.96",
     "@mdi/js": "^7.0.96",
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
     "cross-env": "^7.0.3",
@@ -44,7 +45,6 @@
     "@tiptap/vue-3": "^2.0.0-beta.202",
     "aws-amplify": "^4.3.37",
     "nuxt-jsoneditor": "^1.6.2",
-    "uuid": "^9.0.0",
     "vue3-easy-data-table": "^1.5.15"
   }
 }
