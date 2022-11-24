@@ -20,7 +20,7 @@ const filterAttr = (item: Skill) => {
     title: item.title || ''
   }
 }
-const input = ref<CreateSkillInput>({
+const input = ref<CreateSkillInput & { [key: string]: any }>({
   title: ''
 })
 const headers = [
@@ -51,14 +51,14 @@ getSkills()
           "
         />
       </div>
-      <div v-for="item in Object.keys(input)" class="d-flex">
+      <div v-for="[key, item] in Object.entries(input)" class="d-flex">
         <atom-text
-          :text="item"
+          :text="key"
           font-size="text-subtitle-2"
           line-height="line-height-40"
           style="flex: 0 0 120px"
         />
-        <atom-input v-model="input[item]" :value="input[item]" :label="item" />
+        <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
     </v-card>
     <v-card class="pa-5 my-5">

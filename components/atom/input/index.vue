@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { S3Object } from '~~/assets/API'
+import { S3ObjectInput } from '~~/assets/API'
 const { $makeFileObjectForMutation } = useNuxtApp()
 const richText = ['body']
 const textArea = ['description']
@@ -8,7 +8,7 @@ const file = ['file']
 withDefaults(
   defineProps<{
     label: string
-    value: string | number | boolean | S3Object | any[] | null
+    value: string | number | boolean | S3ObjectInput | any[] | null
   }>(),
   {
     label: '',

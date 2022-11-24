@@ -1,21 +1,29 @@
-import { GraphQLQuery } from '@aws-amplify/api'
+import { GraphQLQuery, GraphQLResult } from '@aws-amplify/api'
+import { GraphQLOptions } from '@aws-amplify/api-graphql'
 import { StorageAccessLevel } from '@aws-amplify/storage'
 import { API, Auth, Storage } from 'aws-amplify'
 import { v4 as uuidv4 } from 'uuid'
-import awsConfig from '~/assets/aws-exports'
 export default defineNuxtPlugin((nuxtApp) => {
   const config = nuxtApp.$config
   const isProd = config.public.isProd
   const { isSignedIn } = useLoginState()
   return {
     provide: {
-      getQuery: async <T, S>({ name, query, variables = {} }): Promise<S> => {
+      getQuery: async <T, S>({
+        name,
+        query,
+        variables = {}
+      }: {
+        name: string
+        query: string
+        variables?: object
+      }): Promise<S> => {
         return await API.graphql<GraphQLQuery<T>>({
           query,
           variables,
           authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
         })
-          .then((res) => {
+          .then((res: any) => {
             if (!isProd) console.log(res.data[name])
             return res.data[name]
           })
@@ -24,13 +32,18 @@ export default defineNuxtPlugin((nuxtApp) => {
             clearError()
           })
       },
-      listQuery: async <T, S>({
+      listQuery: async <T, R>({
         name,
         query,
         filter = {},
         multiple = 1
-      }): Promise<S[]> => {
-        const items = []
+      }: {
+        name: string
+        query: string
+        filter?: object
+        multiple?: number
+      }): Promise<R[]> => {
+        const items: R[] = []
         const variables = {
           limit: config.public.limit * multiple,
           nextToken: null,
@@ -39,7 +52,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         const callbackQuery = async () => {
           try {
             // NOTE: DynamoDBのscanの1MB制限に達するとnextTokenが返される
-            const result = await API.graphql<GraphQLQuery<T>>({
+            const result: any = await API.graphql<GraphQLQuery<T>>({
               query,
               variables,
               authMode: isSignedIn.value
@@ -60,12 +73,20 @@ export default defineNuxtPlugin((nuxtApp) => {
         if (!isProd) console.log(items)
         return items
       },
-      baseMutation: async <T, S>({ name, query, input }): Promise<S> => {
+      baseMutation: async <T, S>({
+        name,
+        query,
+        input = {}
+      }: {
+        name: string
+        query: string
+        input?: object
+      }): Promise<S> => {
         return await API.graphql<GraphQLQuery<T>>({
           query,
           variables: { input }
         })
-          .then((res) => {
+          .then((res: any) => {
             if (!isProd) console.log(res.data[name])
             return res.data[name]
           })
@@ -91,15 +112,13 @@ export default defineNuxtPlugin((nuxtApp) => {
           identityId: item[1]
         })
       },
-      makeFileObjectForMutation: async (
+      makeS3Object: async (
         level: StorageAccessLevel = 'protected',
         file: File
       ) => {
         if (!file) return
-        const bucket = awsConfig.aws_user_files_s3_bucket
-        const region = awsConfig.aws_user_files_s3_bucket_region
-        const { name, type: mimeType } = file
-        const [, , , extension] = /([^.]+)(\.(\w+))?$/.exec(name)
+        const { name, type, size } = file
+        const extension = type.split('/')[1]
         const { identityId } = await Auth.currentCredentials()
         const key =
           level +
@@ -110,41 +129,32 @@ export default defineNuxtPlugin((nuxtApp) => {
           (extension && '.') +
           extension
         return {
-          bucket,
           key,
-          region,
-          mimeType,
-          localUri: file
+          name,
+          size,
+          type,
+          identityId
         }
       },
-      createImage: async (
+      putImage: async (
+        key: string,
         level: StorageAccessLevel = 'protected',
         file: File
       ) => {
         if (!file) return
-        const { name, type } = file
-        const [, , , extension] = /([^.]+)(\.(\w+))?$/.exec(name)
-        const { identityId } = await Auth.currentCredentials()
-        const key =
-          level +
-          '/' +
-          identityId +
-          '/' +
-          uuidv4() +
-          (extension && '.') +
-          extension
-        await Storage.put(key, file, {
+        return await Storage.put(key, file, {
           level,
-          contentType: type
+          contentType: file.type
         }).catch((e) => {
           if (!isProd) console.log('createImage', e)
         })
       },
-      deleteImage: async (
+      removeImage: async (
         key: string,
         level: StorageAccessLevel = 'protected'
       ) => {
-        await Storage.remove(key, {
+        if (!key || !level) return
+        return await Storage.remove(key, {
           level
         }).catch((e) => {
           console.log('deleteImage', e)

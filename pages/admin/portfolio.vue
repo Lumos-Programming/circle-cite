@@ -29,7 +29,7 @@ const filterAttr = (item: Portfolio) => {
     file: item.file || null
   }
 }
-const input = ref<CreatePortfolioInput>({
+const input = ref<CreatePortfolioInput & { [key: string]: any }>({
   title: '',
   url: '',
   description: '',
@@ -67,14 +67,14 @@ getPortfolios()
           "
         />
       </div>
-      <div v-for="item in Object.keys(input)" class="d-flex">
+      <div v-for="[key, item] in Object.entries(input)" class="d-flex">
         <atom-text
-          :text="item"
+          :text="key"
           font-size="text-subtitle-2"
           line-height="line-height-40"
           style="flex: 0 0 120px"
         />
-        <atom-input v-model="input[item]" :value="input[item]" :label="item" />
+        <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
     </v-card>
     <v-card class="pa-5 my-5">
