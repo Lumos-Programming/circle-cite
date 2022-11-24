@@ -91,9 +91,11 @@ export const getUser = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -141,9 +143,11 @@ export const listUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -290,9 +294,11 @@ export const getArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -313,9 +319,11 @@ export const getArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -334,9 +342,11 @@ export const getArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -464,18 +474,22 @@ export const getPortfolio = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
         owner
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -516,9 +530,11 @@ export const listPortfolios = /* GraphQL */ `
           owner
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -565,9 +581,11 @@ export const getProject = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -596,9 +614,11 @@ export const listProjects = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -642,9 +662,11 @@ export const getEvent = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -672,9 +694,11 @@ export const listEvents = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -722,9 +746,11 @@ export const getUserSkills = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -830,9 +856,11 @@ export const getProjectUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -853,9 +881,11 @@ export const getProjectUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -953,9 +983,11 @@ export const getEventUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -975,9 +1007,11 @@ export const getEventUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1074,9 +1108,11 @@ export const getUserLinks = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt

@@ -94,9 +94,11 @@ export const createUser = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -196,9 +198,11 @@ export const updateUser = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -298,9 +302,11 @@ export const deleteUser = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -528,9 +534,11 @@ export const createArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -551,9 +559,11 @@ export const createArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -572,9 +582,11 @@ export const createArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -640,9 +652,11 @@ export const updateArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -663,9 +677,11 @@ export const updateArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -684,9 +700,11 @@ export const updateArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -752,9 +770,11 @@ export const deleteArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -775,9 +795,11 @@ export const deleteArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -796,9 +818,11 @@ export const deleteArticle = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -865,18 +889,22 @@ export const createPortfolio = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
         owner
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -929,18 +957,22 @@ export const updatePortfolio = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
         owner
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -993,18 +1025,22 @@ export const deletePortfolio = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
         owner
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -1052,9 +1088,11 @@ export const createProject = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -1100,9 +1138,11 @@ export const updateProject = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -1148,9 +1188,11 @@ export const deleteProject = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -1195,9 +1237,11 @@ export const createEvent = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -1242,9 +1286,11 @@ export const updateEvent = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -1289,9 +1335,11 @@ export const deleteEvent = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -1340,9 +1388,11 @@ export const createUserSkills = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1408,9 +1458,11 @@ export const updateUserSkills = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1476,9 +1528,11 @@ export const deleteUserSkills = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1544,9 +1598,11 @@ export const createProjectUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1567,9 +1623,11 @@ export const createProjectUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1622,9 +1680,11 @@ export const updateProjectUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1645,9 +1705,11 @@ export const updateProjectUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1700,9 +1762,11 @@ export const deleteProjectUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1723,9 +1787,11 @@ export const deleteProjectUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1778,9 +1844,11 @@ export const createEventUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1800,9 +1868,11 @@ export const createEventUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1855,9 +1925,11 @@ export const updateEventUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1877,9 +1949,11 @@ export const updateEventUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1932,9 +2006,11 @@ export const deleteEventUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1954,9 +2030,11 @@ export const deleteEventUsers = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -2009,9 +2087,11 @@ export const createUserLinks = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -2075,9 +2155,11 @@ export const updateUserLinks = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -2141,9 +2223,11 @@ export const deleteUserLinks = /* GraphQL */ `
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
