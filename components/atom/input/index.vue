@@ -19,7 +19,8 @@ const emit = defineEmits<{
   (e: 'update:model-value', value: any): void
 }>()
 const onImageChange = async (e: any) => {
-  const file = await $makeS3Object('protected', e.target?.files[0])
+  if (!e.target?.files.length) return
+  const file = await $makeS3Object(e.target?.files[0])
   emit('update:model-value', file)
 }
 const fixArray = (values: any[], index: number, target: any) => {

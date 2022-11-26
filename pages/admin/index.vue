@@ -24,7 +24,6 @@ const articles = ref<CreateArticleInput[]>([])
 const projects = ref<CreateProjectInput[]>([])
 const events = ref<CreateEventInput[]>([])
 const skills = ref<CreateSkillInput[]>([])
-const start = performance.now()
 members.value = await $listQuery<ListUsersQuery, CreateUserInput>({
   query: listUsers
 })
@@ -40,8 +39,6 @@ events.value = await $listQuery<ListEventsQuery, CreateEventInput>({
 skills.value = await $listQuery<ListSkillsQuery, CreateSkillInput>({
   query: listSkills
 })
-const end = performance.now()
-console.log(end - start)
 </script>
 <template>
   <layout-admin>

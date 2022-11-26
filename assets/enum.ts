@@ -1,4 +1,4 @@
-export const regexp = {
+export const Regexp = {
   normalize: /\/$/,
   public: /(^\/(login)?$|^(\/(event|project|skill|article|member))?(\/\d+)?$)/,
   whiteList:
