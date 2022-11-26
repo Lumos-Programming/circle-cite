@@ -26,23 +26,18 @@ const events = ref<CreateEventInput[]>([])
 const skills = ref<CreateSkillInput[]>([])
 const start = performance.now()
 members.value = await $listQuery<ListUsersQuery, CreateUserInput>({
-  name: 'listUsers',
   query: listUsers
 })
 articles.value = await $listQuery<ListArticlesQuery, CreateArticleInput>({
-  name: 'listArticles',
   query: listArticles
 })
 projects.value = await $listQuery<ListProjectsQuery, CreateProjectInput>({
-  name: 'listProjects',
   query: listProjects
 })
 events.value = await $listQuery<ListEventsQuery, CreateEventInput>({
-  name: 'listEvents',
   query: listEvents
 })
 skills.value = await $listQuery<ListSkillsQuery, CreateSkillInput>({
-  name: 'listSkills',
   query: listSkills
 })
 const end = performance.now()

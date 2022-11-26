@@ -7,7 +7,6 @@ const event = ref<Event>({} as Event)
 const imageUrl = ref<string>('/no_image.png')
 const fetchEvent = async () => {
   event.value = await $getQuery<GetEventQuery, Event>({
-    name: 'getEvent',
     query: getEvent,
     variables: {
       id: params.id || null

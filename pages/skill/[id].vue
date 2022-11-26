@@ -6,7 +6,6 @@ const { params } = useRoute()
 const skill = ref<Skill>({} as Skill)
 const fetchSkill = async () => {
   skill.value = await $getQuery<GetSkillQuery, Skill>({
-    name: 'getSkill',
     query: getSkill,
     variables: {
       id: params.id || null

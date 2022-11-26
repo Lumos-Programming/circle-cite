@@ -5,10 +5,7 @@ import { listLinks } from '~/assets/graphql/queries'
 const { $listQuery, $baseMutation } = useNuxtApp()
 const links = ref<Link[]>([])
 const getLinks = async () => {
-  links.value = await $listQuery<ListLinksQuery, Link>({
-    name: 'listLinks',
-    query: listLinks
-  })
+  links.value = await $listQuery<ListLinksQuery, Link>({ query: listLinks })
 }
 const filterAttr = (item: Link) => {
   return {

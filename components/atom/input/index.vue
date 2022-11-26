@@ -126,6 +126,7 @@ const fixArray = (values: any[], index: number, target: any) => {
     <input
       v-else-if="file.includes(label)"
       type="file"
+      accept="image/*"
       label="File input"
       density="compact"
       clearable

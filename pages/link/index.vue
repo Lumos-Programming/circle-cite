@@ -5,7 +5,6 @@ const { $listQuery } = useNuxtApp()
 const links = ref<Link[]>([])
 const getLinks = async () => {
   links.value = await $listQuery<ListLinksQuery, Link>({
-    name: 'listLinks',
     query: listLinks
   })
 }

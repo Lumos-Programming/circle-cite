@@ -9,11 +9,9 @@ export default defineNuxtPlugin((nuxtApp) => {
   return {
     provide: {
       getQuery: async <T, S>({
-        name,
         query,
         variables = {}
       }: {
-        name: string
         query: string
         variables?: object
       }): Promise<S> => {
@@ -23,21 +21,22 @@ export default defineNuxtPlugin((nuxtApp) => {
           authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
         })
           .then((res: any) => {
+            const name =
+              Object.keys(res.data).length && Object.keys(res.data)[0]
+            if (!name) return
             if (!isProd) console.log(res.data[name])
             return res.data[name]
           })
           .catch((e) => {
-            if (!isProd) console.log(name + ':', e)
+            if (!isProd) console.log(e)
             clearError()
           })
       },
       listQuery: async <T, R>({
-        name,
         query,
         filter = {},
         multiple = 1
       }: {
-        name: string
         query: string
         filter?: object
         multiple?: number
@@ -58,13 +57,16 @@ export default defineNuxtPlugin((nuxtApp) => {
                 ? 'AMAZON_COGNITO_USER_POOLS'
                 : 'AWS_IAM'
             })
+            const name =
+              Object.keys(result.data).length && Object.keys(result.data)[0]
+            if (!name) return
             items.push(...(result.data[name]?.items || []))
             if (result.data[name]?.nextToken) {
               variables.nextToken = result.data[name].nextToken
               await callbackQuery()
             }
           } catch (e) {
-            if (!isProd) console.log(name + ':', e)
+            if (!isProd) console.log(e)
             clearError()
           }
         }

@@ -10,7 +10,6 @@ const { $listQuery, $baseMutation } = useNuxtApp()
 const articles = ref<Article[]>([])
 const getArticles = async () => {
   articles.value = await $listQuery<ListArticlesQuery, Article>({
-    name: 'listArticles',
     query: listArticles
   })
 }

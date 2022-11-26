@@ -5,7 +5,6 @@ const { $listQuery } = useNuxtApp()
 const users = ref<User[]>([])
 const getUsers = async () => {
   users.value = await $listQuery<ListUsersQuery, User>({
-    name: 'listUsers',
     query: listUsers
   })
 }

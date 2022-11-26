@@ -5,10 +5,7 @@ import { listUsers } from '~/assets/graphql/queries'
 const { $getYMD, $listQuery, $baseMutation } = useNuxtApp()
 const users = ref<User[]>([])
 const getUsers = async () => {
-  users.value = await $listQuery<ListUsersQuery, User>({
-    name: 'listUsers',
-    query: listUsers
-  })
+  users.value = await $listQuery<ListUsersQuery, User>({ query: listUsers })
 }
 const filterAttr = (item: User) => {
   return {

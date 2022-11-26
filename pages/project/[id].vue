@@ -7,7 +7,6 @@ const project = ref<Project>({} as Project)
 const imageUrl = ref<string>('/no_image.png')
 const fetchProject = async () => {
   project.value = await $getQuery<GetProjectQuery, Project>({
-    name: 'getProject',
     query: getProject,
     variables: {
       id: params.id || null

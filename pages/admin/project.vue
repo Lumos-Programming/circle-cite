@@ -10,7 +10,6 @@ const { $getYMD, $listQuery, $baseMutation } = useNuxtApp()
 const projects = ref<Project[]>([])
 const getProjects = async () => {
   projects.value = await $listQuery<ListProjectsQuery, Project>({
-    name: 'listProjects',
     query: listProjects
   })
 }

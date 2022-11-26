@@ -9,10 +9,7 @@ import { listSkills } from '~/assets/graphql/queries'
 const { $listQuery, $baseMutation } = useNuxtApp()
 const skills = ref<Skill[]>([])
 const getSkills = async () => {
-  skills.value = await $listQuery<ListSkillsQuery, Skill>({
-    name: 'listSkills',
-    query: listSkills
-  })
+  skills.value = await $listQuery<ListSkillsQuery, Skill>({ query: listSkills })
 }
 const filterAttr = (item: Skill) => {
   return {

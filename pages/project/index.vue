@@ -5,7 +5,6 @@ const { $listQuery } = useNuxtApp()
 const projects = ref<Project[]>([])
 const getProjects = async () => {
   projects.value = await $listQuery<ListProjectsQuery, Project>({
-    name: 'listProjects',
     query: listProjects,
     filter: { published: { eq: true } }
   })

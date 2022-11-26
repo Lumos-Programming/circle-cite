@@ -5,7 +5,6 @@ const { $listQuery } = useNuxtApp()
 const events = ref<Event[]>([])
 const getEvents = async () => {
   events.value = await $listQuery<ListEventsQuery, Event>({
-    name: 'listEvents',
     query: listEvents,
     filter: { published: { eq: true } }
   })

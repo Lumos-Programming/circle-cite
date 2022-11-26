@@ -5,7 +5,6 @@ const { $listQuery } = useNuxtApp()
 const portfolios = ref<Portfolio[]>([])
 const getPortfolios = async () => {
   portfolios.value = await $listQuery<ListPortfoliosQuery, Portfolio>({
-    name: 'listPortfolios',
     query: listPortfolios,
     filter: { published: { eq: true } }
   })

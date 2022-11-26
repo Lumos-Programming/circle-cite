@@ -9,10 +9,7 @@ import { listEvents } from '~/assets/graphql/queries'
 const { $getYMD, $listQuery, $baseMutation } = useNuxtApp()
 const events = ref<Event[]>([])
 const getEvents = async () => {
-  events.value = await $listQuery<ListEventsQuery, Event>({
-    name: 'listEvents',
-    query: listEvents
-  })
+  events.value = await $listQuery<ListEventsQuery, Event>({ query: listEvents })
 }
 const filterAttr = (item: Event) => {
   return {

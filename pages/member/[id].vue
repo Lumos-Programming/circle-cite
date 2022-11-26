@@ -6,7 +6,6 @@ const { params } = useRoute()
 const user = ref<User>({} as User)
 const fetchUser = async () => {
   user.value = await $getQuery<GetUserQuery, User>({
-    name: 'getUser',
     query: getUser,
     variables: {
       id: params.id || null

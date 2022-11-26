@@ -6,7 +6,6 @@ const { params } = useRoute()
 const article = ref<Article>({} as Article)
 const fetchArticle = async () => {
   article.value = await $getQuery<GetArticleQuery, Article>({
-    name: 'getArticle',
     query: getArticle,
     variables: { id: params.id || null }
   })
