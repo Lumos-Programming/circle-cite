@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { isAdmin } = useLoginState()
 const pages = [
   {
     title: '管理画面トップ',
@@ -73,7 +74,7 @@ const pages = [
             font-size="text-h3"
             class="one-line-reader letter-spacing-main letter-spacing-30"
             text="Admin"
-            color="text-white"
+            :color="isAdmin ? 'text-accent-color' : 'text-white'"
           />
         </div>
         <v-divider class="my-2 bg-white" />

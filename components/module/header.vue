@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
-const { isSignedIn } = useLoginState()
+const { isSignedIn, isAdmin } = useLoginState()
 const { xs } = useDisplay()
 const active = ref<boolean>(false)
 const menu = [
@@ -75,7 +75,13 @@ const menu = [
       text="Hooks"
       font-size="text-h5"
       line-height="line-height-48"
-      :color="isSignedIn ? 'text-main-color' : 'text-grey-darken-4'"
+      :color="
+        isSignedIn
+          ? isAdmin
+            ? 'text-accent-color'
+            : 'text-main-color'
+          : 'text-grey-darken-4'
+      "
       class="cursor-pointer"
       @click="navigateTo('/')"
     />

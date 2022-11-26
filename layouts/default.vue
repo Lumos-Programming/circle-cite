@@ -10,8 +10,10 @@ useHead({
 })
 const listener = (data: HubCapsule) => {
   setAdmin(
-    data.payload.data.signInUserSession.accessToken.payload['cognito:groups'] &&
-      data.payload.data.signInUserSession.accessToken.payload[
+    data.payload.data?.signInUserSession.accessToken.payload[
+      'cognito:groups'
+    ] &&
+      data.payload.data?.signInUserSession.accessToken.payload[
         'cognito:groups'
       ].includes('Admin')
   )
