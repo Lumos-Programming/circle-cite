@@ -50,7 +50,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         const callbackQuery = async () => {
           try {
             // NOTE: DynamoDBのscanの1MB制限に達するとnextTokenが返される
-            const result: any = await API.graphql<GraphQLQuery<T>>({
+            const res: any = await API.graphql<GraphQLQuery<T>>({
               query,
               variables,
               authMode: isSignedIn.value
@@ -58,11 +58,11 @@ export default defineNuxtPlugin((nuxtApp) => {
                 : 'AWS_IAM'
             })
             const name =
-              Object.keys(result.data).length && Object.keys(result.data)[0]
+              Object.keys(res.data).length && Object.keys(res.data)[0]
             if (!name) return
-            items.push(...(result.data[name]?.items || []))
-            if (result.data[name]?.nextToken) {
-              variables.nextToken = result.data[name].nextToken
+            items.push(...(res.data[name]?.items || []))
+            if (res.data[name]?.nextToken) {
+              variables.nextToken = res.data[name].nextToken
               await callbackQuery()
             }
           } catch (e) {
@@ -75,11 +75,9 @@ export default defineNuxtPlugin((nuxtApp) => {
         return items
       },
       baseMutation: async <T, S>({
-        name,
         query,
         input = {}
       }: {
-        name: string
         query: string
         input?: object
       }): Promise<S> => {
@@ -88,6 +86,9 @@ export default defineNuxtPlugin((nuxtApp) => {
           variables: { input }
         })
           .then((res: any) => {
+            const name =
+              Object.keys(res.data).length && Object.keys(res.data)[0]
+            if (!name) return
             if (!isProd) console.log(res.data[name])
             return res.data[name]
           })

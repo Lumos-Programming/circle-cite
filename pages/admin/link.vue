@@ -40,7 +40,6 @@ getLinks()
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
             $baseMutation({
-              name: 'createLink',
               query: createLink,
               input
             })
@@ -89,7 +88,6 @@ getLinks()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'updateLink',
                   query: updateLink,
                   input: filterAttr($findItem(links, 'id', item.id))
                 })
@@ -100,7 +98,6 @@ getLinks()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'deleteLink',
                   query: deleteLink,
                   input: { id: item.id }
                 })

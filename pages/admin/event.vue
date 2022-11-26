@@ -53,7 +53,6 @@ getEvents()
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
             $baseMutation({
-              name: 'createEvent',
               query: createEvent,
               input
             })
@@ -102,7 +101,6 @@ getEvents()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'updateEvent',
                   query: updateEvent,
                   input: filterAttr($findItem(events, 'id', item.id))
                 })
@@ -113,7 +111,6 @@ getEvents()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'deleteEvent',
                   query: deleteEvent,
                   input: { id: item.id }
                 })

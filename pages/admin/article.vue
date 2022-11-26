@@ -54,7 +54,6 @@ getArticles()
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
             $baseMutation({
-              name: 'createArticle',
               query: createArticle,
               input
             })
@@ -103,7 +102,6 @@ getArticles()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'updateArticle',
                   query: updateArticle,
                   input: filterAttr($findItem(articles, 'id', item.id))
                 })
@@ -114,7 +112,6 @@ getArticles()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'deleteArticle',
                   query: deleteArticle,
                   input: { id: item.id }
                 })

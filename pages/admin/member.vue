@@ -64,7 +64,6 @@ getUsers()
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
             $baseMutation({
-              name: 'createUser',
               query: createUser,
               input
             })
@@ -113,7 +112,6 @@ getUsers()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'updateUser',
                   query: updateUser,
                   input: filterAttr($findItem(users, 'id', item.id))
                 })
@@ -124,7 +122,6 @@ getUsers()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'deleteUser',
                   query: deleteUser,
                   input: { id: item.id }
                 })

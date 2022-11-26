@@ -57,7 +57,6 @@ getProjects()
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
             $baseMutation({
-              name: 'createProject',
               query: createProject,
               input
             })
@@ -106,7 +105,6 @@ getProjects()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'updateProject',
                   query: updateProject,
                   input: filterAttr($findItem(projects, 'id', item.id))
                 })
@@ -117,7 +115,6 @@ getProjects()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'deleteProject',
                   query: deleteProject,
                   input: { id: item.id }
                 })

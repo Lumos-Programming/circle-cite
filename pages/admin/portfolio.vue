@@ -59,7 +59,6 @@ getPortfolios()
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
             $baseMutation({
-              name: 'createPortfolio',
               query: createPortfolio,
               input
             })
@@ -108,7 +107,6 @@ getPortfolios()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'updatePortfolio',
                   query: updatePortfolio,
                   input: filterAttr($findItem(portfolios, 'id', item.id))
                 })
@@ -119,7 +117,6 @@ getPortfolios()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'deletePortfolio',
                   query: deletePortfolio,
                   input: { id: item.id }
                 })

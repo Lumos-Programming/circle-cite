@@ -41,7 +41,6 @@ getSkills()
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
             $baseMutation({
-              name: 'createSkill',
               query: createSkill,
               input
             })
@@ -90,7 +89,6 @@ getSkills()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'updateSkill',
                   query: updateSkill,
                   input: filterAttr($findItem(skills, 'id', item.id))
                 })
@@ -101,7 +99,6 @@ getSkills()
               variant="plain"
               @click="
                 $baseMutation({
-                  name: 'deleteSkill',
                   query: deleteSkill,
                   input: { id: item.id }
                 })
