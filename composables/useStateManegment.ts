@@ -7,9 +7,15 @@ export const useLoginState = () => {
   const setSignedIn = (isSignedIn: Ref<boolean>) => (v: boolean) => {
     isSignedIn.value = v
   }
+  const isAdmin = useState<boolean>('isAdmin', () => false)
+  const setAdmin = (isAdmin: Ref<boolean>) => (v: boolean) => {
+    isAdmin.value = v
+  }
   return {
     isSignedIn: readonly(isSignedIn),
-    setSignedIn: setSignedIn(isSignedIn)
+    setSignedIn: setSignedIn(isSignedIn),
+    isAdmin: readonly(isAdmin),
+    setAdmin: setAdmin(isAdmin)
   }
 }
 

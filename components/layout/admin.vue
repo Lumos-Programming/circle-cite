@@ -65,13 +65,13 @@ const pages = [
         <div class="height-120 ml-1 mt-10">
           <atom-text
             font-size="text-h3"
-            class="one-line-reader letter-spacing-main"
+            class="one-line-reader letter-spacing-main letter-spacing-30"
             text="Hooks"
             color="text-white"
           />
           <atom-text
             font-size="text-h3"
-            class="one-line-reader letter-spacing-main"
+            class="one-line-reader letter-spacing-main letter-spacing-30"
             text="Admin"
             color="text-white"
           />
