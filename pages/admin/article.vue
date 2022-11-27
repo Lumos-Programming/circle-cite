@@ -56,7 +56,7 @@ getArticles()
           @btn-click="
             $baseMutation({
               query: createArticle,
-              input
+              input: $filterAttr(input)
             })
           "
         />
@@ -104,7 +104,15 @@ getArticles()
               @click="
                 $baseMutation({
                   query: updateArticle,
-                  input: filterAttr($findItem(articles, 'id', item.id))
+                  input: $filterAttr(articles[item.index - 1], [
+                    'id',
+                    'title',
+                    'body',
+                    'published',
+                    'userArticleId',
+                    'projectArticleId',
+                    'eventArticleId'
+                  ])
                 })
               "
             ></v-btn>

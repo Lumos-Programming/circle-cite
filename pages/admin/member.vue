@@ -1,46 +1,17 @@
 <script setup lang="ts">
-import { User, CreateUserInput, ListUsersQuery } from '~/assets/API'
+import { User, UpdateUserInput, ListUsersQuery } from '~/assets/API'
 import { FileInput } from '~/assets/type'
-import { createUser, deleteUser, updateUser } from '~/assets/graphql/mutations'
+import { deleteUser, updateUser } from '~/assets/graphql/mutations'
 import { listUsers } from '~/assets/graphql/queries'
-const { $getYMD, $listQuery, $extendMutation } = useNuxtApp()
+const { $listQuery, $extendMutation } = useNuxtApp()
+const { myUser } = useMyUser()
 const users = ref<User[]>([])
 const getUsers = async () => {
   users.value = await $listQuery<ListUsersQuery, User>({ query: listUsers })
 }
-const filterAttr = (item: User) => {
-  return {
-    id: item.id,
-    name: item.name || '',
-    email: item.email || '',
-    description: item.description || '',
-    belongs: item.belongs || '',
-    join: item.join || null,
-    leave: item.leave || null,
-    discordId: item.discordId || '',
-    github: item.github || '',
-    zenn: item.zenn || '',
-    qiita: item.qiita || '',
-    twitter: item.twitter || '',
-    slide: item.slide || '',
-    file: item.file || null
-  }
-}
-const input = ref<FileInput<CreateUserInput>>({
-  name: '',
-  email: '',
-  description: '',
-  belongs: '',
-  join: $getYMD(new Date().toLocaleString(), '-'),
-  leave: $getYMD(new Date().toLocaleString(), '-'),
-  discordId: '',
-  github: '',
-  zenn: '',
-  qiita: '',
-  twitter: '',
-  slide: '',
-  file: null
-})
+const input = ref<FileInput<UpdateUserInput>>(
+  JSON.parse(JSON.stringify(myUser.value))
+)
 const headers = [
   { text: 'id', value: 'id' },
   { text: 'name', value: 'name' },
@@ -58,17 +29,33 @@ getUsers()
     <atom-breadcrumbs class="mb-5" />
     <v-card class="pa-5">
       <div class="d-flex my-2">
-        <atom-text text="新規作成" font-size="text-h6" class="my-2" />
+        <atom-text text="プロフィール変更" font-size="text-h6" class="my-2" />
         <v-spacer />
         <atom-button
-          text="新規作成"
+          text="更新"
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
             $extendMutation({
-              type: 'create',
+              type: 'update',
               key: input.file?.key || '',
-              query: createUser,
-              input
+              query: updateUser,
+              input: $filterAttr(input, [
+                'id',
+                'name',
+                'email',
+                'description',
+                'belongs',
+                'join',
+                'leave',
+                'discordId',
+                'github',
+                'zenn',
+                'qiita',
+                'twitter',
+                'slide',
+                'file'
+              ]),
+              file: input.file?.file
             })
           "
         />
@@ -82,6 +69,7 @@ getUsers()
         />
         <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
+      {{ input }}
     </v-card>
     <v-card class="pa-5 my-5">
       <div class="d-flex my-2">
@@ -118,7 +106,22 @@ getUsers()
                   type: 'update',
                   key: input.file?.key || '',
                   query: updateUser,
-                  input: filterAttr($findItem(users, 'id', item.id))
+                  input: $filterAttr(users[item.index - 1], [
+                    'id',
+                    'name',
+                    'email',
+                    'description',
+                    'belongs',
+                    'join',
+                    'leave',
+                    'discordId',
+                    'github',
+                    'zenn',
+                    'qiita',
+                    'twitter',
+                    'slide',
+                    'file'
+                  ])
                 })
               "
             ></v-btn>

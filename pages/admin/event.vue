@@ -12,17 +12,6 @@ const events = ref<Event[]>([])
 const getEvents = async () => {
   events.value = await $listQuery<ListEventsQuery, Event>({ query: listEvents })
 }
-const filterAttr = (item: Event) => {
-  return {
-    id: item.id,
-    title: item.title || '',
-    date: item.date || [],
-    description: item.description || '',
-    wanted: item.wanted || false,
-    published: item.published || false,
-    file: item.file || null
-  }
-}
 const input = ref<FileInput<CreateEventInput>>({
   title: '',
   date: [$getYMD(new Date().toLocaleString(), '-')],
@@ -57,7 +46,8 @@ getEvents()
               type: 'create',
               key: input.file?.key || '',
               query: createEvent,
-              input
+              input: $filterAttr(input),
+              file: input.file?.file
             })
           "
         />
@@ -107,7 +97,15 @@ getEvents()
                   type: 'update',
                   key: input.file?.key || '',
                   query: updateEvent,
-                  input: filterAttr($findItem(events, 'id', item.id))
+                  input: $filterAttr(events[item.index - 1], [
+                    'id',
+                    'title',
+                    'date',
+                    'description',
+                    'wanted',
+                    'published',
+                    'file'
+                  ])
                 })
               "
             ></v-btn>

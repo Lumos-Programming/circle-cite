@@ -8,17 +8,20 @@ const Props = withDefaults(
     title: string | null
     path: string
     imgKey: string
+    identityId: string
   }>(),
   {
     createdAt: '',
     updatedAt: '',
     title: '',
     path: '/',
-    imgKey: ''
+    imgKey: '',
+    identityId: ''
   }
 )
 computed(async () => {
-  if (Props.imgKey) imageUrl.value = await $getImage(Props.imgKey)
+  if (Props.imgKey)
+    imageUrl.value = await $getImage(Props.imgKey, Props.identityId)
 })
 </script>
 <template>

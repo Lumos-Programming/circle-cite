@@ -9,7 +9,7 @@ const getEvents = async () => {
     filter: { published: { eq: true } }
   })
 }
-getEvents()
+await getEvents()
 </script>
 <template>
   <layout-public>

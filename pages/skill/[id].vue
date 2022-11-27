@@ -12,7 +12,7 @@ const fetchSkill = async () => {
     }
   })
 }
-fetchSkill()
+await fetchSkill()
 </script>
 <template>
   <layout-public>

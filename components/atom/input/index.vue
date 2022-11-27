@@ -136,6 +136,7 @@ const fixArray = (values: any[], index: number, target: any) => {
       :model-value="value"
       density="compact"
       clearable
+      :disabled="label === 'id' || label === 'email'"
       class="text-main-color"
       @update:model-value="$emit('update:model-value', $event)"
     />

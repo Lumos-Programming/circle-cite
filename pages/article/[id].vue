@@ -10,7 +10,7 @@ const fetchArticle = async () => {
     variables: { id: params.id || null }
   })
 }
-fetchArticle()
+await fetchArticle()
 </script>
 <template>
   <layout-public>

@@ -12,7 +12,7 @@ const fetchUser = async () => {
     }
   })
 }
-fetchUser()
+await fetchUser()
 </script>
 <template>
   <layout-public>
@@ -25,7 +25,11 @@ fetchUser()
     />
     <div class="d-flex flex-nowrap mx-5 mt-16">
       <div class="mx-5" style="flex: 0 0 200px">
-        <module-user-icon :img-key="user.file?.key" />
+        <module-user-icon
+          :img-key="user.file?.key"
+          :identityId="user.file?.identityId"
+          :func="() => {}"
+        />
       </div>
 
       <div class="ma-10" style="flex: 1 0 200px">

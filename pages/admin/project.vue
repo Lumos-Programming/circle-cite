@@ -14,18 +14,6 @@ const getProjects = async () => {
     query: listProjects
   })
 }
-const filterAttr = (item: Project) => {
-  return {
-    id: item.id,
-    title: item.title || '',
-    start: item.start || $getYMD(new Date().toLocaleString(), '-'),
-    end: item.end || $getYMD(new Date().toLocaleString(), '-'),
-    description: item.description || '',
-    wanted: item.wanted || false,
-    published: item.published || false,
-    file: item.file || null
-  }
-}
 const input = ref<FileInput<CreateProjectInput>>({
   title: '',
   description: '',
@@ -61,7 +49,7 @@ getProjects()
               type: 'create',
               key: input.file?.key || '',
               query: createProject,
-              input,
+              input: $filterAttr(input),
               file: input.file?.file
             })
           "
@@ -77,7 +65,6 @@ getProjects()
         <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
     </v-card>
-    {{ input }}
     <v-card class="pa-5 my-5">
       <div class="d-flex my-2">
         <atom-text text="一括取得" font-size="text-h6" class="my-2" />
@@ -113,7 +100,16 @@ getProjects()
                   type: 'update',
                   key: input.file?.key || '',
                   query: updateProject,
-                  input: filterAttr($findItem(projects, 'id', item.id))
+                  input: $filterAttr(projects[item.index - 1], [
+                    'id',
+                    'title',
+                    'start',
+                    'end',
+                    'description',
+                    'wanted',
+                    'published',
+                    'file'
+                  ])
                 })
               "
             ></v-btn>

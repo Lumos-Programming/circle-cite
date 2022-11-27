@@ -12,9 +12,12 @@ const fetchEvent = async () => {
       id: params.id || null
     }
   })
-  imageUrl.value = await $getImage(event.value.file?.key)
+  imageUrl.value = await $getImage(
+    event.value.file?.key,
+    event.value.file?.identityId
+  )
 }
-fetchEvent()
+await fetchEvent()
 </script>
 <template>
   <layout-public>

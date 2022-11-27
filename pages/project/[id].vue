@@ -12,9 +12,12 @@ const fetchProject = async () => {
       id: params.id || null
     }
   })
-  imageUrl.value = await $getImage(project.value.file?.key)
+  imageUrl.value = await $getImage(
+    project.value.file?.key,
+    project.value.file?.identityId
+  )
 }
-fetchProject()
+await fetchProject()
 </script>
 <template>
   <layout-public>

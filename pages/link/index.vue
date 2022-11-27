@@ -8,7 +8,7 @@ const getLinks = async () => {
     query: listLinks
   })
 }
-getLinks()
+await getLinks()
 </script>
 <template>
   <layout-public>

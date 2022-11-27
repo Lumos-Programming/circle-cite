@@ -12,12 +12,6 @@ const skills = ref<Skill[]>([])
 const getSkills = async () => {
   skills.value = await $listQuery<ListSkillsQuery, Skill>({ query: listSkills })
 }
-const filterAttr = (item: Skill) => {
-  return {
-    id: item.id,
-    title: item.title || ''
-  }
-}
 const input = ref<IndexSignature<CreateSkillInput>>({
   title: ''
 })
@@ -43,7 +37,7 @@ getSkills()
           @btn-click="
             $baseMutation({
               query: createSkill,
-              input
+              input: $filterAttr(input)
             })
           "
         />
@@ -91,7 +85,7 @@ getSkills()
               @click="
                 $baseMutation({
                   query: updateSkill,
-                  input: filterAttr($findItem(skills, 'id', item.id))
+                  input: $filterAttr(skills[item.index - 1], ['id', 'title'])
                 })
               "
             ></v-btn>

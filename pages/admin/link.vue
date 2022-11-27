@@ -8,13 +8,6 @@ const links = ref<Link[]>([])
 const getLinks = async () => {
   links.value = await $listQuery<ListLinksQuery, Link>({ query: listLinks })
 }
-const filterAttr = (item: Link) => {
-  return {
-    id: item.id,
-    url: item.url || '',
-    likes: item.likes || 0
-  }
-}
 const input = ref<IndexSignature<CreateLinkInput>>({
   url: '',
   likes: 0
@@ -42,7 +35,7 @@ getLinks()
           @btn-click="
             $baseMutation({
               query: createLink,
-              input
+              input: $filterAttr(input)
             })
           "
         />
@@ -90,7 +83,11 @@ getLinks()
               @click="
                 $baseMutation({
                   query: updateLink,
-                  input: filterAttr($findItem(links, 'id', item.id))
+                  input: $filterAttr(links[item.index - 1], [
+                    'id',
+                    'url',
+                    'likes'
+                  ])
                 })
               "
             ></v-btn>

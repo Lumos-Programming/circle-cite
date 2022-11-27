@@ -8,7 +8,7 @@ const getSkills = async () => {
     query: listSkills
   })
 }
-getSkills()
+await getSkills()
 </script>
 <template>
   <layout-public>

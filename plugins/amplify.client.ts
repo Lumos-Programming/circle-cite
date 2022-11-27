@@ -115,8 +115,8 @@ export default defineNuxtPlugin((nuxtApp) => {
             variables: { input }
           })
           const name = Object.keys(data).length && Object.keys(data)[0]
-          if (!name || !key) return null
           if (!isProd) console.log(data[name])
+          if (!name || !key) return null
           if (type === 'delete' || type === 'update')
             await nuxtApp.$removeImage(key)
           if (type === 'create' || type === 'update')

@@ -20,13 +20,19 @@ export const useLoginState = () => {
 }
 
 // マイプロフィールの管理
-export const useMyProfile = () => {
-  const myProfile = useState<User>('myProfile')
-  const setMyProfile = (myProfile: Ref<User>) => (v: User) => {
-    myProfile.value = v
+export const useMyUser = () => {
+  const cognitoUser = useState<any>('cognitoUser', () => ({}))
+  const setCognitoUser = (cognitoUser: Ref<any>) => (v: any) => {
+    cognitoUser.value = v
+  }
+  const myUser = useState<User>('myUser', () => ({} as User))
+  const setMyUser = (myUser: Ref<User>) => (v: User) => {
+    myUser.value = v
   }
   return {
-    myProfile: readonly(myProfile),
-    setMyProfile: setMyProfile(myProfile)
+    cognitoUser: readonly(cognitoUser),
+    setCognitoUser: setCognitoUser(cognitoUser),
+    myUser: readonly(myUser),
+    setMyUser: setMyUser(myUser)
   }
 }

@@ -18,17 +18,6 @@ const getPortfolios = async () => {
     query: listPortfolios
   })
 }
-const filterAttr = (item: Portfolio) => {
-  return {
-    id: item.id,
-    title: item.title || '',
-    url: item.url || '',
-    description: item.description || '',
-    userPortfolioId: item.userPortfolioId || '',
-    published: item.published || false,
-    file: item.file || null
-  }
-}
 const input = ref<FileInput<CreatePortfolioInput>>({
   title: '',
   url: '',
@@ -63,7 +52,8 @@ getPortfolios()
               type: 'create',
               key: input.file?.key || '',
               query: createPortfolio,
-              input
+              input: $filterAttr(input),
+              file: input.file?.file
             })
           "
         />
@@ -113,7 +103,15 @@ getPortfolios()
                   type: 'update',
                   key: input.file?.key || '',
                   query: updatePortfolio,
-                  input: filterAttr($findItem(portfolios, 'id', item.id))
+                  input: $filterAttr(portfolios[item.index - 1], [
+                    'id',
+                    'title',
+                    'url',
+                    'description',
+                    'published',
+                    'file',
+                    'userPortfolioId'
+                  ])
                 })
               "
             ></v-btn>

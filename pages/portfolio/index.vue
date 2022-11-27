@@ -9,7 +9,7 @@ const getPortfolios = async () => {
     filter: { published: { eq: true } }
   })
 }
-getPortfolios()
+await getPortfolios()
 </script>
 <template>
   <layout-public>

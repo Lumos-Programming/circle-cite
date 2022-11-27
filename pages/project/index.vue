@@ -9,7 +9,7 @@ const getProjects = async () => {
     filter: { published: { eq: true } }
   })
 }
-getProjects()
+await getProjects()
 </script>
 <template>
   <layout-public>

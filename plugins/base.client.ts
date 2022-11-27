@@ -92,7 +92,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       filterAttr: (
         object: { [key: string]: any },
         attr: string[] = Object.keys(object)
-      ): object => {
+      ): any => {
         return attr.reduce((v: object, c) => {
           if (InputAttr.File.includes(c) && nuxtApp.$isObject(object[c])) {
             return {
