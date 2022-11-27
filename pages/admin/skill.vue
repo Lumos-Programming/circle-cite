@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Skill, CreateSkillInput, ListSkillsQuery } from '~/assets/API'
+import { IndexSignature } from '~/assets/type'
 import {
   createSkill,
   deleteSkill,
@@ -17,7 +18,7 @@ const filterAttr = (item: Skill) => {
     title: item.title || ''
   }
 }
-const input = ref<CreateSkillInput & { [key: string]: any }>({
+const input = ref<IndexSignature<CreateSkillInput>>({
   title: ''
 })
 const headers = [

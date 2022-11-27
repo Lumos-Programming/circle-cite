@@ -93,9 +93,42 @@ export default defineNuxtPlugin((nuxtApp) => {
             return res.data[name]
           })
           .catch((e) => {
-            if (!isProd) console.log(name + ':', e)
+            if (!isProd) console.log(e)
             clearError()
           })
+      },
+      extendMutation: async <T, S>({
+        type = 'create',
+        key,
+        query,
+        input = {},
+        file
+      }: {
+        type: 'create' | 'update' | 'delete'
+        key: string
+        query: string
+        input?: object
+        file?: File
+      }): Promise<S | null> => {
+        try {
+          if (!key) return null
+          const { data }: any = await API.graphql<GraphQLQuery<T>>({
+            query,
+            variables: { input }
+          })
+          const name = Object.keys(data).length && Object.keys(data)[0]
+          if (!isProd) console.log(data[name])
+          if (!name) return null
+          if (type === 'delete' || type === 'update')
+            await nuxtApp.$removeImage(key)
+          if (type === 'create' || type === 'update')
+            await nuxtApp.$putImage(key, file)
+          return data[name]
+        } catch (e) {
+          if (!isProd) console.log(e)
+          clearError()
+          return null
+        }
       },
       getImage: async (key = ''): Promise<string> => {
         // NOTE: keyは{prptected or public or private}/{identityId}/{random uuid}/{file name}.{extension}の形式
@@ -115,8 +148,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         })
       },
       makeS3Object: async (
-        level: StorageAccessLevel = 'protected',
-        file: File
+        file: File,
+        level: StorageAccessLevel = 'protected'
       ) => {
         if (!file) return
         const { name, type, size } = file
@@ -135,13 +168,14 @@ export default defineNuxtPlugin((nuxtApp) => {
           name,
           size,
           type,
-          identityId
+          identityId,
+          file
         }
       },
       putImage: async (
         key: string,
-        level: StorageAccessLevel = 'protected',
-        file: File
+        file: File,
+        level: StorageAccessLevel = 'protected'
       ) => {
         if (!file) return
         return await Storage.put(key, file, {

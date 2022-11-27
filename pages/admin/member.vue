@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { User, CreateUserInput, ListUsersQuery } from '~/assets/API'
+import { FileInput } from '~/assets/type'
 import { createUser, deleteUser, updateUser } from '~/assets/graphql/mutations'
 import { listUsers } from '~/assets/graphql/queries'
-const { $getYMD, $listQuery, $baseMutation } = useNuxtApp()
+const { $getYMD, $listQuery, $extendMutation } = useNuxtApp()
 const users = ref<User[]>([])
 const getUsers = async () => {
   users.value = await $listQuery<ListUsersQuery, User>({ query: listUsers })
@@ -25,7 +26,7 @@ const filterAttr = (item: User) => {
     file: item.file || null
   }
 }
-const input = ref<CreateUserInput & { [key: string]: any }>({
+const input = ref<FileInput<CreateUserInput>>({
   name: '',
   email: '',
   description: '',
@@ -63,7 +64,9 @@ getUsers()
           text="新規作成"
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
-            $baseMutation({
+            $extendMutation({
+              type: 'create',
+              key: input.file?.key || '',
               query: createUser,
               input
             })
@@ -111,7 +114,9 @@ getUsers()
               icon="mdi-update"
               variant="plain"
               @click="
-                $baseMutation({
+                $extendMutation({
+                  type: 'update',
+                  key: input.file?.key || '',
                   query: updateUser,
                   input: filterAttr($findItem(users, 'id', item.id))
                 })
@@ -121,7 +126,9 @@ getUsers()
               icon="mdi-delete"
               variant="plain"
               @click="
-                $baseMutation({
+                $extendMutation({
+                  type: 'delete',
+                  key: input.file?.key || '',
                   query: deleteUser,
                   input: { id: item.id }
                 })

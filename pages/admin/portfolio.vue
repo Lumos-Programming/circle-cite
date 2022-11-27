@@ -4,13 +4,14 @@ import {
   CreatePortfolioInput,
   ListPortfoliosQuery
 } from '~/assets/API'
+import { FileInput } from '~/assets/type'
 import {
   createPortfolio,
   deletePortfolio,
   updatePortfolio
 } from '~/assets/graphql/mutations'
 import { listPortfolios } from '~/assets/graphql/queries'
-const { $listQuery, $baseMutation } = useNuxtApp()
+const { $listQuery, $extendMutation } = useNuxtApp()
 const portfolios = ref<Portfolio[]>([])
 const getPortfolios = async () => {
   portfolios.value = await $listQuery<ListPortfoliosQuery, Portfolio>({
@@ -28,7 +29,7 @@ const filterAttr = (item: Portfolio) => {
     file: item.file || null
   }
 }
-const input = ref<CreatePortfolioInput & { [key: string]: any }>({
+const input = ref<FileInput<CreatePortfolioInput>>({
   title: '',
   url: '',
   description: '',
@@ -58,7 +59,9 @@ getPortfolios()
           text="新規作成"
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
-            $baseMutation({
+            $extendMutation({
+              type: 'create',
+              key: input.file?.key || '',
               query: createPortfolio,
               input
             })
@@ -106,7 +109,9 @@ getPortfolios()
               icon="mdi-update"
               variant="plain"
               @click="
-                $baseMutation({
+                $extendMutation({
+                  type: 'update',
+                  key: input.file?.key || '',
                   query: updatePortfolio,
                   input: filterAttr($findItem(portfolios, 'id', item.id))
                 })
@@ -116,7 +121,9 @@ getPortfolios()
               icon="mdi-delete"
               variant="plain"
               @click="
-                $baseMutation({
+                $extendMutation({
+                  type: 'delete',
+                  key: input.file?.key || '',
                   query: deletePortfolio,
                   input: { id: item.id }
                 })

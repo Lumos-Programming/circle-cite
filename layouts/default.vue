@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Hub } from 'aws-amplify'
 import { HubCapsule } from '@aws-amplify/core'
-import { regexp } from '~/assets/enum'
+import { Regexp } from '~/assets/enum'
 const { path } = useRoute()
 const { setSignedIn, setAdmin } = useLoginState()
 useHead({
@@ -19,7 +19,7 @@ const listener = (data: HubCapsule) => {
   )
   if (data.payload.event === 'signOut') {
     setSignedIn(false)
-    if (!regexp.public.test(path)) return navigateTo('/login')
+    if (!Regexp.public.test(path)) return navigateTo('/login')
   }
   if (data.payload.event === 'signIn') {
     setSignedIn(true)

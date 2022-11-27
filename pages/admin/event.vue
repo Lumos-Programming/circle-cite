@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { Event, CreateEventInput, ListEventsQuery } from '~/assets/API'
+import { FileInput } from '~/assets/type'
 import {
   createEvent,
   deleteEvent,
   updateEvent
 } from '~/assets/graphql/mutations'
 import { listEvents } from '~/assets/graphql/queries'
-const { $getYMD, $listQuery, $baseMutation } = useNuxtApp()
+const { $getYMD, $listQuery, $extendMutation } = useNuxtApp()
 const events = ref<Event[]>([])
 const getEvents = async () => {
   events.value = await $listQuery<ListEventsQuery, Event>({ query: listEvents })
@@ -22,7 +23,7 @@ const filterAttr = (item: Event) => {
     file: item.file || null
   }
 }
-const input = ref<CreateEventInput & { [key: string]: any }>({
+const input = ref<FileInput<CreateEventInput>>({
   title: '',
   date: [$getYMD(new Date().toLocaleString(), '-')],
   description: '',
@@ -52,7 +53,9 @@ getEvents()
           text="新規作成"
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
-            $baseMutation({
+            $extendMutation({
+              type: 'create',
+              key: input.file?.key || '',
               query: createEvent,
               input
             })
@@ -100,7 +103,9 @@ getEvents()
               icon="mdi-update"
               variant="plain"
               @click="
-                $baseMutation({
+                $extendMutation({
+                  type: 'update',
+                  key: input.file?.key || '',
                   query: updateEvent,
                   input: filterAttr($findItem(events, 'id', item.id))
                 })
@@ -110,7 +115,9 @@ getEvents()
               icon="mdi-delete"
               variant="plain"
               @click="
-                $baseMutation({
+                $extendMutation({
+                  type: 'delete',
+                  key: input.file?.key || '',
                   query: deleteEvent,
                   input: { id: item.id }
                 })

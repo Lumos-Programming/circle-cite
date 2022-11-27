@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { Project, CreateProjectInput, ListProjectsQuery } from '~/assets/API'
+import { FileInput } from '~/assets/type'
 import {
   createProject,
   deleteProject,
   updateProject
 } from '~/assets/graphql/mutations'
 import { listProjects } from '~/assets/graphql/queries'
-const { $getYMD, $listQuery, $baseMutation } = useNuxtApp()
+const { $getYMD, $listQuery, $extendMutation } = useNuxtApp()
 const projects = ref<Project[]>([])
 const getProjects = async () => {
   projects.value = await $listQuery<ListProjectsQuery, Project>({
@@ -25,7 +26,7 @@ const filterAttr = (item: Project) => {
     file: item.file || null
   }
 }
-const input = ref<CreateProjectInput & { [key: string]: any }>({
+const input = ref<FileInput<CreateProjectInput>>({
   title: '',
   description: '',
   start: $getYMD(new Date().toLocaleString(), '-'),
@@ -56,9 +57,12 @@ getProjects()
           text="新規作成"
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="
-            $baseMutation({
+            $extendMutation({
+              type: 'create',
+              key: input.file?.key || '',
               query: createProject,
-              input
+              input,
+              file: input.file?.file
             })
           "
         />
@@ -73,6 +77,7 @@ getProjects()
         <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
     </v-card>
+    {{ input }}
     <v-card class="pa-5 my-5">
       <div class="d-flex my-2">
         <atom-text text="一括取得" font-size="text-h6" class="my-2" />
@@ -104,7 +109,9 @@ getProjects()
               icon="mdi-update"
               variant="plain"
               @click="
-                $baseMutation({
+                $extendMutation({
+                  type: 'update',
+                  key: input.file?.key || '',
                   query: updateProject,
                   input: filterAttr($findItem(projects, 'id', item.id))
                 })
@@ -114,7 +121,9 @@ getProjects()
               icon="mdi-delete"
               variant="plain"
               @click="
-                $baseMutation({
+                $extendMutation({
+                  type: 'delete',
+                  key: input.file?.key || '',
                   query: deleteProject,
                   input: { id: item.id }
                 })

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Article, CreateArticleInput, ListArticlesQuery } from '~/assets/API'
+import { FileInput } from '~/assets/type'
 import {
   createArticle,
   deleteArticle,
@@ -24,7 +25,7 @@ const filterAttr = (item: Article) => {
     eventArticleId: item.eventArticleId || null
   }
 }
-const input = ref<CreateArticleInput & { [key: string]: any }>({
+const input = ref<FileInput<CreateArticleInput>>({
   title: '',
   body: '',
   published: false,

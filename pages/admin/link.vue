@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Link, CreateLinkInput, ListLinksQuery } from '~/assets/API'
+import { IndexSignature } from '~/assets/type'
 import { createLink, deleteLink, updateLink } from '~/assets/graphql/mutations'
 import { listLinks } from '~/assets/graphql/queries'
 const { $listQuery, $baseMutation } = useNuxtApp()
@@ -14,7 +15,7 @@ const filterAttr = (item: Link) => {
     likes: item.likes || 0
   }
 }
-const input = ref<CreateLinkInput & { [key: string]: any }>({
+const input = ref<IndexSignature<CreateLinkInput>>({
   url: '',
   likes: 0
 })
