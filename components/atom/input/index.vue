@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { S3ObjectInput } from '~~/assets/API'
+import { InputAttr } from '~~/assets/enum'
 const { $makeS3Object } = useNuxtApp()
-const richText = ['body']
-const textArea = ['description']
-const file = ['file']
 
 withDefaults(
   defineProps<{
@@ -34,7 +32,7 @@ const fixArray = (values: any[], index: number, target: any) => {
     <div class="w-100">
       <template v-for="(v, i) in value">
         <v-textarea
-          v-if="textArea.includes(label)"
+          v-if="InputAttr.TextArea.includes(label)"
           :model-value="v"
           density="compact"
           clearable
@@ -104,12 +102,12 @@ const fixArray = (values: any[], index: number, target: any) => {
   </template>
   <template v-else>
     <module-tiptap
-      v-if="richText.includes(label)"
+      v-if="InputAttr.RichText.includes(label)"
       :model-value="value"
       @update:model-value="$emit('update:model-value', $event)"
     />
     <v-textarea
-      v-else-if="textArea.includes(label)"
+      v-else-if="InputAttr.TextArea.includes(label)"
       :model-value="value"
       density="compact"
       clearable
@@ -125,7 +123,7 @@ const fixArray = (values: any[], index: number, target: any) => {
       @update:model-value="$emit('update:model-value', $event)"
     />
     <input
-      v-else-if="file.includes(label)"
+      v-else-if="InputAttr.File.includes(label)"
       type="file"
       accept="image/*"
       label="File input"

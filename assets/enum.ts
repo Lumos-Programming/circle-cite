@@ -4,3 +4,8 @@ export const Regexp = {
   whiteList:
     /(^\/(login)?$|^(\/admin)?(\/(event|project|skill|article|member))?(\/.+)?$)/
 }
+export const InputAttr = {
+  RichText: ['body'],
+  TextArea: ['description'],
+  File: ['file']
+}

@@ -1,5 +1,4 @@
 import { GraphQLQuery } from '@aws-amplify/api'
-import { StorageAccessLevel } from '@aws-amplify/storage'
 import { API, Auth, Storage } from 'aws-amplify'
 import { v4 as uuidv4 } from 'uuid'
 export default defineNuxtPlugin((nuxtApp) => {
@@ -111,14 +110,13 @@ export default defineNuxtPlugin((nuxtApp) => {
         file?: File
       }): Promise<S | null> => {
         try {
-          if (!key) return null
           const { data }: any = await API.graphql<GraphQLQuery<T>>({
             query,
             variables: { input }
           })
           const name = Object.keys(data).length && Object.keys(data)[0]
+          if (!name || !key) return null
           if (!isProd) console.log(data[name])
-          if (!name) return null
           if (type === 'delete' || type === 'update')
             await nuxtApp.$removeImage(key)
           if (type === 'create' || type === 'update')
@@ -130,39 +128,21 @@ export default defineNuxtPlugin((nuxtApp) => {
           return null
         }
       },
-      getImage: async (key = ''): Promise<string> => {
-        // NOTE: keyは{prptected or public or private}/{identityId}/{random uuid}/{file name}.{extension}の形式
+      getImage: async (key = '', identityId = ''): Promise<string> => {
+        // NOTE: keyは{random uuid}.{extension}の形式
         // NOTE: 返り値はデフォルト15分の有効期限付き署名付きURL(String)
         if (!key) return '/no_image.png'
-        const item = key.split('/')
-        if (item.length !== 4) return '/no_image.png'
-        if (
-          item[0] !== 'protected' &&
-          item[0] !== 'public' &&
-          item[0] !== 'private'
-        )
-          return '/no_image.png'
         return await Storage.get(key, {
-          level: item[0] as StorageAccessLevel,
-          identityId: item[1]
+          level: 'protected',
+          identityId
         })
       },
-      makeS3Object: async (
-        file: File,
-        level: StorageAccessLevel = 'protected'
-      ) => {
+      makeS3Object: async (file: File) => {
         if (!file) return
         const { name, type, size } = file
         const extension = type.split('/')[1]
         const { identityId } = await Auth.currentCredentials()
-        const key =
-          level +
-          '/' +
-          identityId +
-          '/' +
-          uuidv4() +
-          (extension && '.') +
-          extension
+        const key = uuidv4() + (extension && '.') + extension
         return {
           key,
           name,
@@ -172,26 +152,19 @@ export default defineNuxtPlugin((nuxtApp) => {
           file
         }
       },
-      putImage: async (
-        key: string,
-        file: File,
-        level: StorageAccessLevel = 'protected'
-      ) => {
-        if (!file) return
+      putImage: async (key: string, file: File) => {
+        if (!file || !key) return
         return await Storage.put(key, file, {
-          level,
+          level: 'protected',
           contentType: file.type
         }).catch((e) => {
           if (!isProd) console.log('createImage', e)
         })
       },
-      removeImage: async (
-        key: string,
-        level: StorageAccessLevel = 'protected'
-      ) => {
-        if (!key || !level) return
+      removeImage: async (key: string) => {
+        if (!key) return
         return await Storage.remove(key, {
-          level
+          level: 'protected'
         }).catch((e) => {
           console.log('deleteImage', e)
         })

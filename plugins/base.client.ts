@@ -1,3 +1,4 @@
+import { InputAttr } from '~~/assets/enum'
 export default defineNuxtPlugin((nuxtApp) => {
   const setFillHeight = () => {
     const vh = window.innerHeight * 0.01
@@ -80,13 +81,36 @@ export default defineNuxtPlugin((nuxtApp) => {
           ('0' + date.getDate()).slice(-2)
         )
       },
-      isObject: (v) => {
+      isObject: (v: object) => {
         return v !== null && typeof v === 'object' && !Array.isArray(v)
       },
       findItem: (array: any[], key: string, value: any) => {
         const item = array.find((v) => v[key] === value)
         if (item) return item
         return null
+      },
+      filterAttr: (
+        object: { [key: string]: any },
+        attr: string[] = Object.keys(object)
+      ): object => {
+        return attr.reduce((v: object, c) => {
+          if (InputAttr.File.includes(c) && nuxtApp.$isObject(object[c])) {
+            return {
+              ...v,
+              [c]: nuxtApp.$filterAttr(object[c], [
+                'key',
+                'name',
+                'size',
+                'type',
+                'identityId'
+              ])
+            }
+          } else
+            return {
+              ...v,
+              [c]: object[c]
+            }
+        }, {})
       }
     }
   }

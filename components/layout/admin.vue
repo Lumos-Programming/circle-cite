@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { isAdmin } = useLoginState()
+const { isSignedIn, isAdmin } = useLoginState()
 const pages = [
   {
     title: '管理画面トップ',
@@ -68,13 +68,25 @@ const pages = [
             font-size="text-h3"
             class="one-line-reader letter-spacing-main letter-spacing-30"
             text="Hooks"
-            color="text-white"
+            :color="
+              isSignedIn
+                ? isAdmin
+                  ? 'text-accent-color'
+                  : 'text-white'
+                : 'text-main-color'
+            "
           />
           <atom-text
             font-size="text-h3"
             class="one-line-reader letter-spacing-main letter-spacing-30"
             text="Admin"
-            :color="isAdmin ? 'text-accent-color' : 'text-white'"
+            :color="
+              isSignedIn
+                ? isAdmin
+                  ? 'text-accent-color'
+                  : 'text-white'
+                : 'text-main-color'
+            "
           />
         </div>
         <v-divider class="my-2 bg-white" />
