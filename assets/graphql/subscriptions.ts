@@ -37,6 +37,31 @@ export const onCreateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -44,6 +69,12 @@ export const onCreateUser = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -73,6 +104,31 @@ export const onCreateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -85,6 +141,19 @@ export const onCreateUser = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -95,10 +164,30 @@ export const onCreateUser = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -130,6 +219,31 @@ export const onCreateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -167,6 +281,31 @@ export const onCreateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -179,6 +318,19 @@ export const onCreateUser = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -207,6 +359,31 @@ export const onCreateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -218,6 +395,19 @@ export const onCreateUser = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -246,6 +436,31 @@ export const onCreateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -254,6 +469,9 @@ export const onCreateUser = /* GraphQL */ `
             id
             url
             likes
+            user {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -311,6 +529,31 @@ export const onUpdateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -318,6 +561,12 @@ export const onUpdateUser = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -347,6 +596,31 @@ export const onUpdateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -359,6 +633,19 @@ export const onUpdateUser = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -369,10 +656,30 @@ export const onUpdateUser = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -404,6 +711,31 @@ export const onUpdateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -441,6 +773,31 @@ export const onUpdateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -453,6 +810,19 @@ export const onUpdateUser = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -481,6 +851,31 @@ export const onUpdateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -492,6 +887,19 @@ export const onUpdateUser = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -520,6 +928,31 @@ export const onUpdateUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -528,6 +961,9 @@ export const onUpdateUser = /* GraphQL */ `
             id
             url
             likes
+            user {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -585,6 +1021,31 @@ export const onDeleteUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -592,6 +1053,12 @@ export const onDeleteUser = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -621,6 +1088,31 @@ export const onDeleteUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -633,6 +1125,19 @@ export const onDeleteUser = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -643,10 +1148,30 @@ export const onDeleteUser = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -678,6 +1203,31 @@ export const onDeleteUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -715,6 +1265,31 @@ export const onDeleteUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -727,6 +1302,19 @@ export const onDeleteUser = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -755,6 +1343,31 @@ export const onDeleteUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -766,6 +1379,19 @@ export const onDeleteUser = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -794,6 +1420,31 @@ export const onDeleteUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -802,6 +1453,9 @@ export const onDeleteUser = /* GraphQL */ `
             id
             url
             likes
+            user {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -849,6 +1503,31 @@ export const onCreateLink = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -857,6 +1536,9 @@ export const onCreateLink = /* GraphQL */ `
             id
             url
             likes
+            user {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -896,6 +1578,31 @@ export const onUpdateLink = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -904,6 +1611,9 @@ export const onUpdateLink = /* GraphQL */ `
             id
             url
             likes
+            user {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -943,6 +1653,31 @@ export const onDeleteLink = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -951,6 +1686,9 @@ export const onDeleteLink = /* GraphQL */ `
             id
             url
             likes
+            user {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -989,6 +1727,31 @@ export const onCreateSkill = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -996,6 +1759,12 @@ export const onCreateSkill = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1013,6 +1782,12 @@ export const onCreateSkill = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1021,6 +1796,48 @@ export const onCreateSkill = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1061,6 +1878,31 @@ export const onUpdateSkill = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -1068,6 +1910,12 @@ export const onUpdateSkill = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1085,6 +1933,12 @@ export const onUpdateSkill = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1093,6 +1947,48 @@ export const onUpdateSkill = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1133,6 +2029,31 @@ export const onDeleteSkill = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -1140,6 +2061,12 @@ export const onDeleteSkill = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1157,6 +2084,12 @@ export const onDeleteSkill = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1165,6 +2098,48 @@ export const onDeleteSkill = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1207,6 +2182,30 @@ export const onCreateArticle = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1219,6 +2218,48 @@ export const onCreateArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1234,6 +2275,31 @@ export const onCreateArticle = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -1246,6 +2312,35 @@ export const onCreateArticle = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1257,6 +2352,34 @@ export const onCreateArticle = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1268,6 +2391,31 @@ export const onCreateArticle = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1298,6 +2446,35 @@ export const onCreateArticle = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1310,6 +2487,48 @@ export const onCreateArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1340,6 +2559,34 @@ export const onCreateArticle = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1352,6 +2599,48 @@ export const onCreateArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1378,6 +2667,12 @@ export const onCreateArticle = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1386,6 +2681,48 @@ export const onCreateArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1431,6 +2768,30 @@ export const onUpdateArticle = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1443,6 +2804,48 @@ export const onUpdateArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1458,6 +2861,31 @@ export const onUpdateArticle = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -1470,6 +2898,35 @@ export const onUpdateArticle = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1481,6 +2938,34 @@ export const onUpdateArticle = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1492,6 +2977,31 @@ export const onUpdateArticle = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1522,6 +3032,35 @@ export const onUpdateArticle = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1534,6 +3073,48 @@ export const onUpdateArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1564,6 +3145,34 @@ export const onUpdateArticle = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1576,6 +3185,48 @@ export const onUpdateArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1602,6 +3253,12 @@ export const onUpdateArticle = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1610,6 +3267,48 @@ export const onUpdateArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1655,6 +3354,30 @@ export const onDeleteArticle = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1667,6 +3390,48 @@ export const onDeleteArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1682,6 +3447,31 @@ export const onDeleteArticle = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -1694,6 +3484,35 @@ export const onDeleteArticle = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1705,6 +3524,34 @@ export const onDeleteArticle = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1716,6 +3563,31 @@ export const onDeleteArticle = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1746,6 +3618,35 @@ export const onDeleteArticle = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1758,6 +3659,48 @@ export const onDeleteArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1788,6 +3731,34 @@ export const onDeleteArticle = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1800,6 +3771,48 @@ export const onDeleteArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1826,6 +3839,12 @@ export const onDeleteArticle = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1834,6 +3853,48 @@ export const onDeleteArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1880,6 +3941,30 @@ export const onCreatePortfolio = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1892,6 +3977,48 @@ export const onCreatePortfolio = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1907,6 +4034,31 @@ export const onCreatePortfolio = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -1919,6 +4071,35 @@ export const onCreatePortfolio = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1930,6 +4111,34 @@ export const onCreatePortfolio = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1941,6 +4150,31 @@ export const onCreatePortfolio = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1999,6 +4233,30 @@ export const onUpdatePortfolio = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2011,6 +4269,48 @@ export const onUpdatePortfolio = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -2026,6 +4326,31 @@ export const onUpdatePortfolio = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -2038,6 +4363,35 @@ export const onUpdatePortfolio = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2049,6 +4403,34 @@ export const onUpdatePortfolio = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2060,6 +4442,31 @@ export const onUpdatePortfolio = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2118,6 +4525,30 @@ export const onDeletePortfolio = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2130,6 +4561,48 @@ export const onDeletePortfolio = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -2145,6 +4618,31 @@ export const onDeletePortfolio = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -2157,6 +4655,35 @@ export const onDeletePortfolio = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2168,6 +4695,34 @@ export const onDeletePortfolio = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2179,6 +4734,31 @@ export const onDeletePortfolio = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2239,6 +4819,31 @@ export const onCreateProject = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2251,6 +4856,19 @@ export const onCreateProject = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2280,6 +4898,31 @@ export const onCreateProject = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2292,6 +4935,19 @@ export const onCreateProject = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2302,10 +4958,30 @@ export const onCreateProject = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -2357,6 +5033,31 @@ export const onUpdateProject = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2369,6 +5070,19 @@ export const onUpdateProject = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2398,6 +5112,31 @@ export const onUpdateProject = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2410,6 +5149,19 @@ export const onUpdateProject = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2420,10 +5172,30 @@ export const onUpdateProject = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -2475,6 +5247,31 @@ export const onDeleteProject = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2487,6 +5284,19 @@ export const onDeleteProject = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2516,6 +5326,31 @@ export const onDeleteProject = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2528,6 +5363,19 @@ export const onDeleteProject = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2538,10 +5386,30 @@ export const onDeleteProject = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -2592,6 +5460,31 @@ export const onCreateEvent = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2603,6 +5496,19 @@ export const onCreateEvent = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2632,6 +5538,31 @@ export const onCreateEvent = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2644,6 +5575,19 @@ export const onCreateEvent = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2654,10 +5598,30 @@ export const onCreateEvent = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -2708,6 +5672,31 @@ export const onUpdateEvent = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2719,6 +5708,19 @@ export const onUpdateEvent = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2748,6 +5750,31 @@ export const onUpdateEvent = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2760,6 +5787,19 @@ export const onUpdateEvent = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2770,10 +5810,30 @@ export const onUpdateEvent = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -2824,6 +5884,31 @@ export const onDeleteEvent = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2835,6 +5920,19 @@ export const onDeleteEvent = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2864,6 +5962,31 @@ export const onDeleteEvent = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2876,6 +5999,19 @@ export const onDeleteEvent = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2886,10 +6022,30 @@ export const onDeleteEvent = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -2937,6 +6093,30 @@ export const onCreateUserSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2949,6 +6129,48 @@ export const onCreateUserSkills = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -2964,6 +6186,31 @@ export const onCreateUserSkills = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -2976,6 +6223,35 @@ export const onCreateUserSkills = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2987,6 +6263,34 @@ export const onCreateUserSkills = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2998,6 +6302,31 @@ export const onCreateUserSkills = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3023,6 +6352,30 @@ export const onCreateUserSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3034,6 +6387,23 @@ export const onCreateUserSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -3073,6 +6443,30 @@ export const onUpdateUserSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3085,6 +6479,48 @@ export const onUpdateUserSkills = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -3100,6 +6536,31 @@ export const onUpdateUserSkills = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -3112,6 +6573,35 @@ export const onUpdateUserSkills = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3123,6 +6613,34 @@ export const onUpdateUserSkills = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3134,6 +6652,31 @@ export const onUpdateUserSkills = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3159,6 +6702,30 @@ export const onUpdateUserSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3170,6 +6737,23 @@ export const onUpdateUserSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -3209,6 +6793,30 @@ export const onDeleteUserSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3221,6 +6829,48 @@ export const onDeleteUserSkills = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -3236,6 +6886,31 @@ export const onDeleteUserSkills = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -3248,6 +6923,35 @@ export const onDeleteUserSkills = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3259,6 +6963,34 @@ export const onDeleteUserSkills = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3270,6 +7002,31 @@ export const onDeleteUserSkills = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3295,6 +7052,30 @@ export const onDeleteUserSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3306,6 +7087,23 @@ export const onDeleteUserSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -3345,6 +7143,30 @@ export const onCreateProjectUsers = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3357,6 +7179,48 @@ export const onCreateProjectUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -3372,6 +7236,31 @@ export const onCreateProjectUsers = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -3384,6 +7273,35 @@ export const onCreateProjectUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3395,6 +7313,34 @@ export const onCreateProjectUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3406,6 +7352,31 @@ export const onCreateProjectUsers = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3436,6 +7407,35 @@ export const onCreateProjectUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3448,6 +7448,48 @@ export const onCreateProjectUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -3497,6 +7539,30 @@ export const onUpdateProjectUsers = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3509,6 +7575,48 @@ export const onUpdateProjectUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -3524,6 +7632,31 @@ export const onUpdateProjectUsers = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -3536,6 +7669,35 @@ export const onUpdateProjectUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3547,6 +7709,34 @@ export const onUpdateProjectUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3558,6 +7748,31 @@ export const onUpdateProjectUsers = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3588,6 +7803,35 @@ export const onUpdateProjectUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3600,6 +7844,48 @@ export const onUpdateProjectUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -3649,6 +7935,30 @@ export const onDeleteProjectUsers = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3661,6 +7971,48 @@ export const onDeleteProjectUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -3676,6 +8028,31 @@ export const onDeleteProjectUsers = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -3688,6 +8065,35 @@ export const onDeleteProjectUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3699,6 +8105,34 @@ export const onDeleteProjectUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3710,6 +8144,31 @@ export const onDeleteProjectUsers = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3740,6 +8199,35 @@ export const onDeleteProjectUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3752,6 +8240,48 @@ export const onDeleteProjectUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -3801,6 +8331,30 @@ export const onCreateEventUsers = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3813,6 +8367,48 @@ export const onCreateEventUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -3828,6 +8424,31 @@ export const onCreateEventUsers = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -3840,6 +8461,35 @@ export const onCreateEventUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3851,6 +8501,34 @@ export const onCreateEventUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3862,6 +8540,31 @@ export const onCreateEventUsers = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3891,6 +8594,34 @@ export const onCreateEventUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3903,6 +8634,48 @@ export const onCreateEventUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -3952,6 +8725,30 @@ export const onUpdateEventUsers = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -3964,6 +8761,48 @@ export const onUpdateEventUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -3979,6 +8818,31 @@ export const onUpdateEventUsers = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -3991,6 +8855,35 @@ export const onUpdateEventUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4002,6 +8895,34 @@ export const onUpdateEventUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4013,6 +8934,31 @@ export const onUpdateEventUsers = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4042,6 +8988,34 @@ export const onUpdateEventUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4054,6 +9028,48 @@ export const onUpdateEventUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -4103,6 +9119,30 @@ export const onDeleteEventUsers = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4115,6 +9155,48 @@ export const onDeleteEventUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -4130,6 +9212,31 @@ export const onDeleteEventUsers = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -4142,6 +9249,35 @@ export const onDeleteEventUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4153,6 +9289,34 @@ export const onDeleteEventUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4164,6 +9328,31 @@ export const onDeleteEventUsers = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4193,6 +9382,34 @@ export const onDeleteEventUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4205,6 +9422,48 @@ export const onDeleteEventUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -4254,6 +9513,30 @@ export const onCreateUserLinks = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4266,6 +9549,48 @@ export const onCreateUserLinks = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -4281,6 +9606,31 @@ export const onCreateUserLinks = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -4293,6 +9643,35 @@ export const onCreateUserLinks = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4304,6 +9683,34 @@ export const onCreateUserLinks = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4315,6 +9722,31 @@ export const onCreateUserLinks = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4341,6 +9773,31 @@ export const onCreateUserLinks = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4381,6 +9838,30 @@ export const onUpdateUserLinks = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4393,6 +9874,48 @@ export const onUpdateUserLinks = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -4408,6 +9931,31 @@ export const onUpdateUserLinks = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -4420,6 +9968,35 @@ export const onUpdateUserLinks = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4431,6 +10008,34 @@ export const onUpdateUserLinks = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4442,6 +10047,31 @@ export const onUpdateUserLinks = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4468,6 +10098,31 @@ export const onUpdateUserLinks = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4508,6 +10163,30 @@ export const onDeleteUserLinks = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4520,6 +10199,48 @@ export const onDeleteUserLinks = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -4535,6 +10256,31 @@ export const onDeleteUserLinks = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -4547,6 +10293,35 @@ export const onDeleteUserLinks = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4558,6 +10333,34 @@ export const onDeleteUserLinks = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4569,6 +10372,31 @@ export const onDeleteUserLinks = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4595,6 +10423,31 @@ export const onDeleteUserLinks = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4624,6 +10477,30 @@ export const onCreateArticleSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4635,6 +10512,23 @@ export const onCreateArticleSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -4663,21 +10557,75 @@ export const onCreateArticleSkills = /* GraphQL */ `
           twitter
           slide
           skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
             nextToken
           }
           project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           file {
@@ -4700,9 +10648,28 @@ export const onCreateArticleSkills = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -4723,9 +10690,28 @@ export const onCreateArticleSkills = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -4743,6 +10729,23 @@ export const onCreateArticleSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -4773,6 +10776,30 @@ export const onUpdateArticleSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4784,6 +10811,23 @@ export const onUpdateArticleSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -4812,21 +10856,75 @@ export const onUpdateArticleSkills = /* GraphQL */ `
           twitter
           slide
           skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
             nextToken
           }
           project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           file {
@@ -4849,9 +10947,28 @@ export const onUpdateArticleSkills = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -4872,9 +10989,28 @@ export const onUpdateArticleSkills = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -4892,6 +11028,23 @@ export const onUpdateArticleSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -4922,6 +11075,30 @@ export const onDeleteArticleSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -4933,6 +11110,23 @@ export const onDeleteArticleSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -4961,21 +11155,75 @@ export const onDeleteArticleSkills = /* GraphQL */ `
           twitter
           slide
           skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
             nextToken
           }
           project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           file {
@@ -4998,9 +11246,28 @@ export const onDeleteArticleSkills = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -5021,9 +11288,28 @@ export const onDeleteArticleSkills = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -5041,6 +11327,23 @@ export const onDeleteArticleSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }

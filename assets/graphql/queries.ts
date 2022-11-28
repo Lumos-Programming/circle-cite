@@ -37,6 +37,31 @@ export const getUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -44,6 +69,12 @@ export const getUser = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -73,6 +104,31 @@ export const getUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -85,6 +141,19 @@ export const getUser = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -95,10 +164,30 @@ export const getUser = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -130,6 +219,31 @@ export const getUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -167,6 +281,31 @@ export const getUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -179,6 +318,19 @@ export const getUser = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -207,6 +359,31 @@ export const getUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -218,6 +395,19 @@ export const getUser = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -246,6 +436,31 @@ export const getUser = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -254,6 +469,9 @@ export const getUser = /* GraphQL */ `
             id
             url
             likes
+            user {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -302,6 +520,30 @@ export const listUsers = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -314,6 +556,48 @@ export const listUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -329,6 +613,31 @@ export const listUsers = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -341,6 +650,35 @@ export const listUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -352,6 +690,34 @@ export const listUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -363,6 +729,31 @@ export const listUsers = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -409,6 +800,31 @@ export const getLink = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -417,6 +833,9 @@ export const getLink = /* GraphQL */ `
             id
             url
             likes
+            user {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -447,6 +866,31 @@ export const listLinks = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -484,6 +928,31 @@ export const getSkill = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -491,6 +960,12 @@ export const getSkill = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -508,6 +983,12 @@ export const getSkill = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -516,6 +997,48 @@ export const getSkill = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -547,6 +1070,30 @@ export const listSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -558,6 +1105,23 @@ export const listSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -596,6 +1160,30 @@ export const getArticle = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -608,6 +1196,48 @@ export const getArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -623,6 +1253,31 @@ export const getArticle = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -635,6 +1290,35 @@ export const getArticle = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -646,6 +1330,34 @@ export const getArticle = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -657,6 +1369,31 @@ export const getArticle = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -687,6 +1424,35 @@ export const getArticle = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -699,6 +1465,48 @@ export const getArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -729,6 +1537,34 @@ export const getArticle = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -741,6 +1577,48 @@ export const getArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -767,6 +1645,12 @@ export const getArticle = /* GraphQL */ `
           skill {
             id
             title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -775,6 +1659,48 @@ export const getArticle = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -821,21 +1747,75 @@ export const listArticles = /* GraphQL */ `
           twitter
           slide
           skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
             nextToken
           }
           project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           file {
@@ -858,9 +1838,28 @@ export const listArticles = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -881,9 +1880,28 @@ export const listArticles = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -901,6 +1919,23 @@ export const listArticles = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -943,6 +1978,30 @@ export const getPortfolio = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -955,6 +2014,48 @@ export const getPortfolio = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -970,6 +2071,31 @@ export const getPortfolio = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -982,6 +2108,35 @@ export const getPortfolio = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -993,6 +2148,34 @@ export const getPortfolio = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1004,6 +2187,31 @@ export const getPortfolio = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1063,21 +2271,75 @@ export const listPortfolios = /* GraphQL */ `
           twitter
           slide
           skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
             nextToken
           }
           project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           file {
@@ -1136,6 +2398,31 @@ export const getProject = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -1148,6 +2435,19 @@ export const getProject = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -1177,6 +2477,31 @@ export const getProject = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -1189,6 +2514,19 @@ export const getProject = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -1199,10 +2537,30 @@ export const getProject = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -1245,6 +2603,35 @@ export const listProjects = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1257,6 +2644,48 @@ export const listProjects = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1307,6 +2736,31 @@ export const getEvent = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -1318,6 +2772,19 @@ export const getEvent = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -1347,6 +2814,31 @@ export const getEvent = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -1359,6 +2851,19 @@ export const getEvent = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -1369,10 +2874,30 @@ export const getEvent = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -1414,6 +2939,34 @@ export const listEvents = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1426,6 +2979,48 @@ export const listEvents = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1473,6 +3068,30 @@ export const getUserSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1485,6 +3104,48 @@ export const getUserSkills = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1500,6 +3161,31 @@ export const getUserSkills = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -1512,6 +3198,35 @@ export const getUserSkills = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1523,6 +3238,34 @@ export const getUserSkills = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1534,6 +3277,31 @@ export const getUserSkills = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1559,6 +3327,30 @@ export const getUserSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1570,6 +3362,23 @@ export const getUserSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -1610,21 +3419,75 @@ export const listUserSkills = /* GraphQL */ `
           twitter
           slide
           skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
             nextToken
           }
           project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           file {
@@ -1642,9 +3505,24 @@ export const listUserSkills = /* GraphQL */ `
           id
           title
           user {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -1683,6 +3561,30 @@ export const getProjectUsers = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1695,6 +3597,48 @@ export const getProjectUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1710,6 +3654,31 @@ export const getProjectUsers = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -1722,6 +3691,35 @@ export const getProjectUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1733,6 +3731,34 @@ export const getProjectUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1744,6 +3770,31 @@ export const getProjectUsers = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1774,6 +3825,35 @@ export const getProjectUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1786,6 +3866,48 @@ export const getProjectUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1836,21 +3958,75 @@ export const listProjectUsers = /* GraphQL */ `
           twitter
           slide
           skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
             nextToken
           }
           project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           file {
@@ -1873,9 +4049,28 @@ export const listProjectUsers = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -1921,6 +4116,30 @@ export const getEventUsers = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1933,6 +4152,48 @@ export const getEventUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -1948,6 +4209,31 @@ export const getEventUsers = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -1960,6 +4246,35 @@ export const getEventUsers = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1971,6 +4286,34 @@ export const getEventUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -1982,6 +4325,31 @@ export const getEventUsers = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2011,6 +4379,34 @@ export const getEventUsers = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2023,6 +4419,48 @@ export const getEventUsers = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -2073,21 +4511,75 @@ export const listEventUsers = /* GraphQL */ `
           twitter
           slide
           skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
             nextToken
           }
           project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           file {
@@ -2109,9 +4601,28 @@ export const listEventUsers = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -2157,6 +4668,30 @@ export const getUserLinks = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2169,6 +4704,48 @@ export const getUserLinks = /* GraphQL */ `
             title
             body
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
             createdAt
             updatedAt
             userArticleId
@@ -2184,6 +4761,31 @@ export const getUserLinks = /* GraphQL */ `
             url
             description
             published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             userPortfolioId
@@ -2196,6 +4798,35 @@ export const getUserLinks = /* GraphQL */ `
             id
             userID
             projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2207,6 +4838,34 @@ export const getUserLinks = /* GraphQL */ `
             id
             userID
             eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2218,6 +4877,31 @@ export const getUserLinks = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2244,6 +4928,31 @@ export const getUserLinks = /* GraphQL */ `
             id
             userID
             linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2285,21 +4994,75 @@ export const listUserLinks = /* GraphQL */ `
           twitter
           slide
           skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
             nextToken
           }
           project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           file {
@@ -2318,6 +5081,14 @@ export const listUserLinks = /* GraphQL */ `
           url
           likes
           user {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           createdAt
@@ -2345,6 +5116,30 @@ export const getArticleSkills = /* GraphQL */ `
             id
             userID
             skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             owner
@@ -2356,6 +5151,23 @@ export const getArticleSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -2384,21 +5196,75 @@ export const getArticleSkills = /* GraphQL */ `
           twitter
           slide
           skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
             nextToken
           }
           project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           file {
@@ -2421,9 +5287,28 @@ export const getArticleSkills = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -2444,9 +5329,28 @@ export const getArticleSkills = /* GraphQL */ `
           wanted
           published
           user {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             nextToken
           }
           file {
@@ -2464,6 +5368,23 @@ export const getArticleSkills = /* GraphQL */ `
             id
             skillID
             articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
             createdAt
             updatedAt
           }
@@ -2495,9 +5416,24 @@ export const listArticleSkills = /* GraphQL */ `
           id
           title
           user {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           article {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -2522,6 +5458,31 @@ export const listArticleSkills = /* GraphQL */ `
             qiita
             twitter
             slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
             owner
@@ -2534,6 +5495,19 @@ export const listArticleSkills = /* GraphQL */ `
             end
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
@@ -2544,10 +5518,30 @@ export const listArticleSkills = /* GraphQL */ `
             description
             wanted
             published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
             createdAt
             updatedAt
           }
           skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
