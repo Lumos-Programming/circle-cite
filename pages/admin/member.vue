@@ -69,7 +69,6 @@ getUsers()
         />
         <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
-      {{ input }}
     </v-card>
     <v-card class="pa-5 my-5">
       <div class="d-flex my-2">

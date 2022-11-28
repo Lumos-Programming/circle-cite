@@ -1,10 +1,36 @@
 <script setup lang="ts">
-import { Event, GetEventQuery } from '~/assets/API'
+import {
+  Event,
+  GetEventQuery,
+  EventUsers,
+  CreateEventUsersInput,
+  DeleteEventUsersInput
+} from '~/assets/API'
 import { getEvent } from '~/assets/graphql/queries'
-const { $getQuery, $getImage } = useNuxtApp()
+import { createEventUsers, deleteEventUsers } from '~/assets/graphql/mutations'
+const { $getQuery, $getImage, $baseMutation } = useNuxtApp()
 const { params } = useRoute()
+const { isSignedIn } = useLoginState()
+const { myUser } = useMyUser()
 const event = ref<Event>({} as Event)
 const imageUrl = ref<string>('/no_image.png')
+const enterEvent = async () => {
+  await $baseMutation<CreateEventUsersInput, EventUsers>({
+    query: createEventUsers,
+    input: { userID: myUser.value.id, eventID: params.id }
+  })
+}
+const leaveEvent = async () => {
+  const res = event.value.user?.items.filter(
+    (v) => v?.userID === myUser.value.id
+  )
+  if (res?.length === 1 && res?.[0]?.id) {
+    await $baseMutation<DeleteEventUsersInput, EventUsers>({
+      query: deleteEventUsers,
+      input: { id: res[0].id }
+    })
+  }
+}
 const fetchEvent = async () => {
   event.value = await $getQuery<GetEventQuery, Event>({
     query: getEvent,
@@ -29,7 +55,17 @@ await fetchEvent()
       ]"
     />
     <div class="mx-5">
-      <atom-text font-size="text-h4" :text="event.title" class="mt-16" />
+      <div class="d-flex mt-16 justify-space-between">
+        <atom-text font-size="text-h4" :text="event.title" />
+        <template v-if="isSignedIn">
+          <atom-button
+            v-if="!event.user?.items.map((v) => v?.userID).includes(myUser.id)"
+            text="参加する"
+            @btn-click="enterEvent()"
+          />
+          <atom-button v-else text="参加をやめる" @btn-click="leaveEvent()" />
+        </template>
+      </div>
       <div
         class="d-flex flex-nowrap justify-start bg-transparent my-2"
         style="gap: 0 10px"
@@ -91,6 +127,7 @@ await fetchEvent()
         :key="item?.user.id"
         :path="'/member/' + item?.user.id"
         :img-key="item?.user.file?.key"
+        :identity-id="item?.user.file?.identityId"
         :name="item?.user.name"
         style="flex: 0 1 22%"
       />
@@ -98,7 +135,7 @@ await fetchEvent()
     <atom-text
       v-else
       text="残念、まだいないようです。"
-      class="mt-2 mx-5"
+      class="my-2 mx-5"
       font-weight="font-weight-regular"
     />
     <atom-text
@@ -112,12 +149,10 @@ await fetchEvent()
       class="d-flex flex-wrap ma-5"
       style="gap: 60px 5%"
     >
-      <module-content-medium
+      <module-content-small
         v-for="item in event.article.items"
         :key="item?.id"
         :path="'/article/' + item?.id"
-        :created-at="item?.createdAt"
-        :updated-at="item?.updatedAt"
         :title="item?.title"
         style="flex: 0 1 30%"
       />

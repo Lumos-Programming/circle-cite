@@ -19,10 +19,7 @@ const Props = withDefaults(
     identityId: ''
   }
 )
-computed(async () => {
-  if (Props.imgKey)
-    imageUrl.value = await $getImage(Props.imgKey, Props.identityId)
-})
+imageUrl.value = await $getImage(Props.imgKey, Props.identityId)
 </script>
 <template>
   <v-sheet class="bg-transparent">

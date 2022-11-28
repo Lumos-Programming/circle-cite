@@ -46,9 +46,12 @@ const explains = [
             text="参加する"
             btn-class="border-solid border-width-1 border-grey-darken-4"
             @btn-click="
-              navigateTo('https://twitter.com/lumos_program', {
-                external: true
-              })
+              navigateTo(
+                'https://docs.google.com/forms/d/e/1FAIpQLScELKrFqpJTevbm9I452dZnDABjFiFErp2aaSWKqW5HCW_ktg/viewform',
+                {
+                  external: true
+                }
+              )
             "
           />
           <atom-button
@@ -108,9 +111,12 @@ const explains = [
         text="参加する"
         btn-class="border-solid border-width-1 border-grey-darken-4"
         @btn-click="
-          navigateTo('https://twitter.com/lumos_program', {
-            external: true
-          })
+          navigateTo(
+            'https://docs.google.com/forms/d/e/1FAIpQLScELKrFqpJTevbm9I452dZnDABjFiFErp2aaSWKqW5HCW_ktg/viewform',
+            {
+              external: true
+            }
+          )
         "
       />
       <atom-button
