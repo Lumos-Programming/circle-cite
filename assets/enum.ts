@@ -9,3 +9,11 @@ export const InputAttr = {
   TextArea: ['description'],
   File: ['file']
 }
+export const OgpKey = [
+  'title',
+  'description',
+  'image',
+  'type',
+  'siteName',
+  'url'
+] as const

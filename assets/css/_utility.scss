@@ -126,6 +126,12 @@ $mix-blend-mode: normal, luminosity, screen, unset;
   .opacity-dot#{$i} {
     opacity: 0.1 * $i !important;
   }
+  .line-clamp-#{$i} {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $i;
+  }
 }
 $line-height: (
   'xs': 1,

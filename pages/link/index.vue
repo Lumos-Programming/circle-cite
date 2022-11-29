@@ -13,5 +13,14 @@ await getLinks()
 <template>
   <layout-public>
     <atom-text font-size="text-h4" text="Link" class="py-10" />
+    <div class="d-flex flex-wrap" style="gap: 30px 0%">
+      <module-content-ogp
+        v-for="item in links"
+        :key="item.id"
+        :url="item.url"
+        :likes="item.likes"
+      >
+      </module-content-ogp>
+    </div>
   </layout-public>
 </template>

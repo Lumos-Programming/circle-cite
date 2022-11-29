@@ -16,23 +16,32 @@ export default defineNuxtPlugin((nuxtApp) => {
   return {
     provide: {
       options: ({
+        key,
         method = 'GET',
         headers = {
           'Content-Type': 'application/json; charset=utf-8',
           'Access-Control-Allow-Origin': '*'
         },
-        body = null
+        body = null,
+        lazy = true,
+        cache = true
       }: {
+        key?: string
         method?: string
         headers?: { [key: string]: string }
         body?: string | null | FormData
+        lazy?: boolean
+        cache?: boolean
       } = {}) => ({
+        key,
         baseURL: config.public.baseUrl || '',
         body,
         method,
         headers: {
           ...headers
-        }
+        },
+        lazy,
+        initialCache: cache
       }),
       baseFetch: async <T>(path: string, options = nuxtApp.$options()) => {
         if (!isProd) console.log(options)
@@ -111,6 +120,11 @@ export default defineNuxtPlugin((nuxtApp) => {
               [c]: object[c]
             }
         }, {})
+      },
+      snakeCase: (str: string): string => {
+        return str.replace(/[A-Z]/g, function (s) {
+          return '_' + s.charAt(0).toLowerCase()
+        })
       }
     }
   }
