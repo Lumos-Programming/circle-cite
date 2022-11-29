@@ -19,7 +19,7 @@ const headers = [
   { text: 'belongs', value: 'belongs' },
   { text: 'oparation', value: 'oparation' }
 ]
-getUsers()
+await getUsers()
 // TODO: 初回ログイン時にemalの取り扱いを調整すること
 // TODO: valiidationを掛けること
 </script>

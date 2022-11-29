@@ -1,9 +1,13 @@
 import { Auth } from 'aws-amplify'
 import { Regexp } from '~/assets/enum'
+import { User, ListUsersQuery } from '~/assets/API'
+import { listUsers } from '~/assets/graphql/queries'
+import { createUser } from '~/assets/graphql/mutations'
 import { useLoginState, useMyUser } from '~/composables/useStateManegment'
 export default defineNuxtRouteMiddleware(async (to, from) => {
+  const { $listQuery, $baseMutation, $filterAttr } = useNuxtApp()
   const { isSignedIn, setSignedIn, setAdmin } = useLoginState()
-  const { setCognitoUser } = useMyUser()
+  const { setCognitoUser, setMyUser } = useMyUser()
   const config = useRuntimeConfig()
   const isProd = config.public.isProd
   if (!isProd) console.log(from.path + '=>' + to.path)
@@ -12,9 +16,42 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   }
   if (!Regexp.whiteList.test(to.path)) return navigateTo('/')
   const user = await Auth.currentUserPoolUser().catch(() => clearError())
-  if (user) setCognitoUser(user)
+  if (!isProd) console.log('currentUserPoolUser', user)
   setSignedIn(!!user)
-  if (!isProd) console.log('user', user)
+  if (user) {
+    setCognitoUser(user)
+    const self = await $listQuery<ListUsersQuery, User>({
+      query: listUsers,
+      // @ts-ignore
+      filter: { email: { eq: user.attributes.email } }
+    })
+    if (self.length === 1) {
+      setMyUser(
+        $filterAttr(self[0], [
+          'id',
+          'name',
+          'email',
+          'description',
+          'belongs',
+          'join',
+          'leave',
+          'discordId',
+          'github',
+          'zenn',
+          'qiita',
+          'twitter',
+          'slide',
+          'file'
+        ])
+      )
+    } else if (!self.length) {
+      const res = await $baseMutation({
+        query: createUser,
+        input: { name: 'ゲストさん', email: user.attributes.email }
+      })
+      console.log('作成', res)
+    }
+  }
   if (to.path.includes('admin')) {
     if (isSignedIn.value) {
       setAdmin(
