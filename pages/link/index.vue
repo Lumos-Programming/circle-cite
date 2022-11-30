@@ -21,6 +21,7 @@ await getLinks()
         :url="item.url"
         :likes="item.likes || 0"
         :users="item.user?.items"
+        @update:users="item.user?.items ? (item.user.items = $event) : null"
       >
       </module-content-ogp>
     </div>

@@ -19,6 +19,9 @@ const props = withDefaults(
     users: () => []
   }
 )
+const emit = defineEmits<{
+  (e: 'update:users', value: any[]): void
+}>()
 const isHovering = ref<boolean>(false)
 const userIds = computed(() => {
   return props.users.map((v) => v.user.id)
@@ -27,10 +30,11 @@ const userIds = computed(() => {
 const pushLike = async (type: 'like' | 'unlike' = 'like') => {
   if (!myUser.value.id) return
   if (type === 'like') {
-    await $baseMutation({
+    const userLink = await $baseMutation({
       query: createUserLinks,
       input: { linkID: props.id, userID: myUser.value.id }
     })
+    await emit('update:users', [...props.users, userLink])
   } else if (type === 'unlike') {
     const userLinks = props.users.find((v) => v.user.id === myUser.value.id)
     if (!userLinks) return
@@ -38,6 +42,10 @@ const pushLike = async (type: 'like' | 'unlike' = 'like') => {
       query: deleteUserLinks,
       input: { id: userLinks.id }
     })
+    await emit(
+      'update:users',
+      props.users.filter((v) => v.user.id !== myUser.value.id)
+    )
   }
 }
 
