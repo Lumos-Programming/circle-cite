@@ -11,3 +11,12 @@ type MetaKey<T extends readonly unknown[]> = T[number]
 export type Metadata = {
   [k in MetaKey<typeof OgpKey>]?: string
 }
+export type SnackbarTypeList = 'info' | 'warning' | 'alert' | 'success'
+export type SnackbarType = {
+  id?: number
+  icon?: string
+  text?: string
+  color?: string
+  background?: string
+  timeout?: number
+}
