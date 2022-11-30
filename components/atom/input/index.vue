@@ -101,7 +101,7 @@ const fixArray = (values: any[], index: number, target: any) => {
   <template v-else>
     <module-tiptap
       v-if="InputAttr.RichText.includes(label)"
-      :model-value="value"
+      :model-value="String(value)"
       @update:model-value="$emit('update:model-value', $event)"
     />
     <v-textarea

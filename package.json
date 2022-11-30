@@ -41,6 +41,10 @@
   "dependencies": {
     "@aws-amplify/api-graphql": "^2.3.19",
     "@aws-amplify/ui-vue": "^2.4.24",
+    "@tiptap/extension-highlight": "^2.0.0-beta.204",
+    "@tiptap/extension-image": "^2.0.0-beta.204",
+    "@tiptap/extension-text-align": "^2.0.0-beta.204",
+    "@tiptap/extension-typography": "^2.0.0-beta.204",
     "@tiptap/starter-kit": "^2.0.0-beta.202",
     "@tiptap/vue-3": "^2.0.0-beta.202",
     "aws-amplify": "^4.3.37",
