@@ -2,7 +2,6 @@
 import { S3ObjectInput } from '~~/assets/API'
 import { InputAttr } from '~~/assets/enum'
 const { $makeS3Object } = useNuxtApp()
-
 withDefaults(
   defineProps<{
     label: string
@@ -25,7 +24,6 @@ const fixArray = (values: any[], index: number, target: any) => {
   values[index] = target
   return values
 }
-// TODO:読み込み時に以前の画像データ(File Object)を再現する処理追加（多分aws-sdk 使う模様）
 </script>
 <template>
   <template v-if="Array.isArray(value)">
@@ -57,7 +55,7 @@ const fixArray = (values: any[], index: number, target: any) => {
           :model-value="v"
           hide-details
           density="compact"
-          class="text-main-color"
+          :class="v === true ? 'text-main-color' : 'text-grey-darken-4'"
           prepend-icon="mdi-plus"
           append-icon="mdi-minus"
           @click:append="
@@ -119,18 +117,49 @@ const fixArray = (values: any[], index: number, target: any) => {
       :model-value="value"
       hide-details
       density="compact"
-      class="text-main-color"
+      :class="value === true ? 'text-main-color' : 'text-grey-darken-4'"
       @update:model-value="$emit('update:model-value', $event)"
     />
-    <input
+    <div
       v-else-if="InputAttr.File.includes(label)"
-      type="file"
-      accept="image/*"
-      label="File input"
-      density="compact"
-      clearable
-      @change="onImageChange($event)"
-    />
+      class="d-flex flex-nowrap"
+      :style="{ width: 'calc(100% - 120px)' }"
+    >
+      <label
+        class="border-width-1 border-main-color border-solid rounded width-100 height-26 my-2 text-center cursor-pointer"
+      >
+        <input
+          id="fileTarget"
+          type="file"
+          accept="image/*"
+          class="d-none"
+          @change="onImageChange($event)"
+        />
+        <atom-text
+          text="ファイル選択"
+          font-size="text-caption"
+          font-weight="font-weight-regular"
+          line-height="line-height-lg"
+          class="my-1"
+        />
+      </label>
+      <atom-text
+        :text="value?.name || 'ファイルが選択されていません'"
+        font-size="text-caption"
+        font-weight="font-weight-regular"
+        line-height="line-height-lg"
+        class="my-3 mx-2 line-clamp-1"
+        :style="{ width: 'calc(100% - 118px)' }"
+      />
+      <v-icon
+        v-if="value?.name"
+        size="18"
+        class="my-3"
+        @click="$emit('update:model-value', null)"
+        >mdi-close
+      </v-icon>
+    </div>
+
     <v-text-field
       v-else
       :model-value="value"
