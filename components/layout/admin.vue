@@ -56,7 +56,7 @@ const pages = [
     <!-- NOTE: 画面左側メニュバー -->
     <v-card
       :class="[
-        'transition-medium-ease-out pa-5 position-relative bg-main-color'
+        'transition-medium-ease-out pa-5 position-relative bg-main-color rounded-0'
       ]"
       style="flex: 0 0 200px"
     >
@@ -121,9 +121,10 @@ const pages = [
       </v-btn>
     </v-card>
     <div
-      class="pt-16 px-5 overflow-y-auto scrollbar-hidden"
+      class="pt-16 px-5 overflow-y-auto scrollbar-hidden position-relative"
       :style="{ flex: '1', height: 'calc(100vh - 40px)' }"
     >
+      <atom-menu-icon />
       <slot />
     </div>
   </div>
