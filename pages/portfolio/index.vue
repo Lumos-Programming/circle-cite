@@ -14,5 +14,19 @@ await getPortfolios()
 <template>
   <layout-public>
     <atom-text font-size="text-h4" text="Portfolio" class="py-10" />
+    <div class="d-flex flex-wrap" style="gap: 60px 5%">
+      <module-content-medium
+        v-for="item in portfolios"
+        :key="item.id"
+        :func="navigateTo(item.url, { external: true })"
+        :img-key="item.file?.key"
+        :identity-id="item.file?.identityId"
+        :created-at="item.createdAt"
+        :updated-at="item.updatedAt"
+        :title="item.title"
+        style="flex: 0 1 30%"
+      >
+      </module-content-medium>
+    </div>
   </layout-public>
 </template>

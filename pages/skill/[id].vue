@@ -58,7 +58,7 @@ await fetchSkill()
       <module-content-medium
         v-for="item in skill.article?.items"
         :key="item?.article.id"
-        :path="'/article/' + item?.article.id"
+        :func="navigateTo('/article/' + item?.article.id)"
         :created-at="item?.article.createdAt"
         :updated-at="item?.article.updatedAt"
         :title="item?.article.title"

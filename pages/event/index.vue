@@ -18,8 +18,9 @@ await getEvents()
       <module-content-medium
         v-for="item in events"
         :key="item.id"
-        :path="'/event/' + item.id"
+        :func="navigateTo('/event/' + item.id)"
         :img-key="item.file?.key"
+        :identity-id="item.file?.identityId"
         :created-at="item.createdAt"
         :updated-at="item.updatedAt"
         :title="item.title"

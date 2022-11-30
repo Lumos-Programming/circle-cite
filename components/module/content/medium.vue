@@ -6,7 +6,7 @@ const Props = withDefaults(
     createdAt: string
     updatedAt: string
     title: string | null
-    path: string
+    func: any
     imgKey: string
     identityId: string
   }>(),
@@ -14,7 +14,7 @@ const Props = withDefaults(
     createdAt: '',
     updatedAt: '',
     title: '',
-    path: '/',
+    func: () => null,
     imgKey: '',
     identityId: ''
   }
@@ -30,7 +30,7 @@ imageUrl.value = await $getImage(Props.imgKey, Props.identityId)
         :style="{
           transform: isHovering ? 'scale(1.05)' : 'scale(1.0)'
         }"
-        @click="navigateTo(path)"
+        @click="func()"
       >
         <v-img :src="imageUrl" :aspect-ratio="16 / 9" cover />
       </v-card>
@@ -57,8 +57,12 @@ imageUrl.value = await $getImage(Props.imgKey, Props.identityId)
       </atom-text>
     </div>
     <slot />
-    <atom-text font-size="text-h6" line-height="line-height-lg" class="ml-1">
-      <NuxtLink :to="path">{{ title }}</NuxtLink>
-    </atom-text>
+    <atom-text
+      :text="title"
+      font-size="text-h6"
+      line-height="line-height-lg"
+      class="ml-1"
+      @click="func()"
+    />
   </v-sheet>
 </template>

@@ -18,8 +18,9 @@ await getProjects()
       <module-content-medium
         v-for="item in projects"
         :key="item.id"
-        :path="'/project/' + item.id"
+        :func="navigateTo('/project/' + item.id)"
         :img-key="item.file?.key"
+        :identity-id="item.file?.identityId"
         :created-at="item.createdAt"
         :updated-at="item.updatedAt"
         :title="item.title"

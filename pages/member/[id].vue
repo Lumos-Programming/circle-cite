@@ -100,7 +100,7 @@ await fetchUser()
       <module-content-medium
         v-for="item in user.portfolio.items"
         :key="item?.id"
-        :path="'/portfolio/' + item?.id"
+        :func="navigateTo('/portfolio/' + item?.id)"
         :created-at="item?.createdAt"
         :updated-at="item?.updatedAt"
         :title="item?.title"
@@ -121,7 +121,7 @@ await fetchUser()
       <module-content-medium
         v-for="item in user.article.items"
         :key="item?.id"
-        :path="'/article/' + item?.id"
+        :func="navigateTo('/article/' + item?.id)"
         :created-at="item?.createdAt"
         :updated-at="item?.updatedAt"
         :title="item?.title"
