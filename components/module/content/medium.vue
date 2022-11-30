@@ -6,7 +6,6 @@ const Props = withDefaults(
     createdAt: string
     updatedAt: string
     title: string | null
-    func: any
     imgKey: string
     identityId: string
   }>(),
@@ -14,7 +13,6 @@ const Props = withDefaults(
     createdAt: '',
     updatedAt: '',
     title: '',
-    func: () => null,
     imgKey: '',
     identityId: ''
   }
@@ -30,7 +28,7 @@ imageUrl.value = await $getImage(Props.imgKey, Props.identityId)
         :style="{
           transform: isHovering ? 'scale(1.05)' : 'scale(1.0)'
         }"
-        @click="func()"
+        @click="$emit('click-func')"
       >
         <v-img :src="imageUrl" :aspect-ratio="16 / 9" cover />
       </v-card>
@@ -62,7 +60,7 @@ imageUrl.value = await $getImage(Props.imgKey, Props.identityId)
       font-size="text-h6"
       line-height="line-height-lg"
       class="ml-1"
-      @click="func()"
+      @click="$emit('click-func')"
     />
   </v-sheet>
 </template>

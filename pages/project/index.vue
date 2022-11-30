@@ -18,13 +18,13 @@ await getProjects()
       <module-content-medium
         v-for="item in projects"
         :key="item.id"
-        :func="navigateTo('/project/' + item.id)"
         :img-key="item.file?.key"
         :identity-id="item.file?.identityId"
         :created-at="item.createdAt"
         :updated-at="item.updatedAt"
         :title="item.title"
         style="flex: 0 1 30%"
+        @click-func="navigateTo('/project/' + item.id)"
       >
         <atom-text
           :text="item.wanted ? '募集中' : '募集終了'"

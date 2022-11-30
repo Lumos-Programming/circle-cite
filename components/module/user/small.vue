@@ -20,9 +20,9 @@ withDefaults(
       <module-user-icon
         :img-key="imgKey"
         :identityId="identityId"
-        :func="() => navigateTo(path)"
         v-bind="props"
         :style="{ transform: isHovering ? 'scale(1.05)' : 'scale(1.0)' }"
+        @click-func="navigateTo(path)"
       />
     </v-hover>
     <atom-text font-size="text-h5" class="text-center my-3" :text="name" />

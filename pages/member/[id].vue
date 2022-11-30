@@ -28,7 +28,6 @@ await fetchUser()
         <module-user-icon
           :img-key="user.file?.key"
           :identityId="user.file?.identityId"
-          :func="() => {}"
         />
       </div>
 
@@ -100,11 +99,11 @@ await fetchUser()
       <module-content-medium
         v-for="item in user.portfolio.items"
         :key="item?.id"
-        :func="navigateTo('/portfolio/' + item?.id)"
         :created-at="item?.createdAt"
         :updated-at="item?.updatedAt"
         :title="item?.title"
         style="flex: 0 1 30%"
+        @click-func="navigateTo('/portfolio/' + item?.id)"
       />
     </div>
     <atom-text
@@ -121,11 +120,11 @@ await fetchUser()
       <module-content-medium
         v-for="item in user.article.items"
         :key="item?.id"
-        :func="navigateTo('/article/' + item?.id)"
         :created-at="item?.createdAt"
         :updated-at="item?.updatedAt"
         :title="item?.title"
         style="flex: 0 1 30%"
+        @click-func="navigateTo('/article/' + item?.id)"
       />
     </div>
   </layout-public>

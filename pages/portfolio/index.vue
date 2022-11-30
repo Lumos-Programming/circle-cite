@@ -18,13 +18,13 @@ await getPortfolios()
       <module-content-medium
         v-for="item in portfolios"
         :key="item.id"
-        :func="navigateTo(item.url, { external: true })"
         :img-key="item.file?.key"
         :identity-id="item.file?.identityId"
         :created-at="item.createdAt"
         :updated-at="item.updatedAt"
         :title="item.title"
         style="flex: 0 1 30%"
+        @click-func="navigateTo(item.url, { external: true })"
       >
       </module-content-medium>
     </div>

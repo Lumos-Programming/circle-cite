@@ -5,10 +5,8 @@ const props = withDefaults(
   defineProps<{
     imgKey: string
     identityId: string
-    func: () => void
   }>(),
   {
-    func: () => navigateTo('/'),
     imgKey: '',
     identityId: ''
   }
@@ -18,7 +16,7 @@ imageUrl.value = await $getImage(props.imgKey, props.identityId)
 <template>
   <v-card
     class="w-100 elevation-5 rounded-circle transition-medium-ease"
-    @click="func()"
+    @click="$emit('click-func')"
   >
     <v-img :src="imageUrl" lazy-src="/no_image_s.png" :aspect-ratio="1" cover />
   </v-card>

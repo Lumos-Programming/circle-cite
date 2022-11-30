@@ -150,9 +150,9 @@ await fetchProject()
       <module-content-medium
         v-for="item in project.article.items"
         :key="item?.id"
-        :func="navigateTo('/article/' + item?.id)"
         :title="item?.title"
         style="flex: 0 1 30%"
+        @click-func="navigateTo('/article/' + item?.id)"
       />
     </div>
   </layout-public>
