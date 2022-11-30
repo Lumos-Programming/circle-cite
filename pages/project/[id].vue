@@ -17,22 +17,27 @@ const { isSignedIn } = useLoginState()
 const { myUser } = useMyUser()
 const project = ref<Project>({} as Project)
 const imageUrl = ref<string>('/no_image.png')
-const enterProject = async () => {
-  await $baseMutation<CreateProjectUsersInput, ProjectUsers>({
+const enter = async () => {
+  const res = await $baseMutation<CreateProjectUsersInput, ProjectUsers>({
     query: createProjectUsers,
     input: { userID: myUser.value.id, projectID: params.id }
   })
+  if (!project.value.user?.items) return
+  project.value.user.items.push(res)
 }
-const leaveProject = async () => {
-  const res = project.value.user?.items.filter(
+const leave = async () => {
+  const res = project.value.user?.items.find(
     (v) => v?.userID === myUser.value.id
   )
-  if (res?.length === 1 && res?.[0]?.id) {
-    await $baseMutation<DeleteProjectUsersInput, ProjectUsers>({
-      query: deleteProjectUsers,
-      input: { id: res[0].id }
-    })
-  }
+  if (!res) return
+  await $baseMutation<DeleteProjectUsersInput, ProjectUsers>({
+    query: deleteProjectUsers,
+    input: { id: res.id }
+  })
+  if (!project.value.user?.items.length) return
+  project.value.user.items = project.value.user?.items.filter(
+    (v) => v?.userID !== myUser.value.id
+  )
 }
 const fetchProject = async () => {
   project.value = await $getQuery<GetProjectQuery, Project>({
@@ -66,9 +71,9 @@ await fetchProject()
               !project.user?.items.map((v) => v?.userID).includes(myUser.id)
             "
             text="参加する"
-            @btn-click="enterProject()"
+            @btn-click="enter()"
           />
-          <atom-button v-else text="参加をやめる" @btn-click="leaveProject()" />
+          <atom-button v-else text="参加をやめる" @btn-click="leave()" />
         </template>
       </div>
       <div

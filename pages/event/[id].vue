@@ -14,22 +14,25 @@ const { isSignedIn } = useLoginState()
 const { myUser } = useMyUser()
 const event = ref<Event>({} as Event)
 const imageUrl = ref<string>('/no_image.png')
-const enterEvent = async () => {
-  await $baseMutation<CreateEventUsersInput, EventUsers>({
+const enter = async () => {
+  const res = await $baseMutation<CreateEventUsersInput, EventUsers>({
     query: createEventUsers,
     input: { userID: myUser.value.id, eventID: params.id }
   })
+  if (!event.value.user?.items) return
+  event.value.user.items.push(res)
 }
-const leaveEvent = async () => {
-  const res = event.value.user?.items.filter(
-    (v) => v?.userID === myUser.value.id
+const leave = async () => {
+  const res = event.value.user?.items.find((v) => v?.userID === myUser.value.id)
+  if (!res) return
+  await $baseMutation<DeleteEventUsersInput, EventUsers>({
+    query: deleteEventUsers,
+    input: { id: res.id }
+  })
+  if (!event.value.user?.items.length) return
+  event.value.user.items = event.value.user?.items.filter(
+    (v) => v?.userID !== myUser.value.id
   )
-  if (res?.length === 1 && res?.[0]?.id) {
-    await $baseMutation<DeleteEventUsersInput, EventUsers>({
-      query: deleteEventUsers,
-      input: { id: res[0].id }
-    })
-  }
 }
 const fetchEvent = async () => {
   event.value = await $getQuery<GetEventQuery, Event>({
@@ -61,9 +64,9 @@ await fetchEvent()
           <atom-button
             v-if="!event.user?.items.map((v) => v?.userID).includes(myUser.id)"
             text="参加する"
-            @btn-click="enterEvent()"
+            @btn-click="enter()"
           />
-          <atom-button v-else text="参加をやめる" @btn-click="leaveEvent()" />
+          <atom-button v-else text="参加をやめる" @btn-click="leave()" />
         </template>
       </div>
       <div
