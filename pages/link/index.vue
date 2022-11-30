@@ -16,9 +16,11 @@ await getLinks()
     <div class="d-flex flex-wrap" style="gap: 30px 0%">
       <module-content-ogp
         v-for="item in links"
+        :id="item.id"
         :key="item.id"
         :url="item.url"
-        :likes="item.likes"
+        :likes="item.likes || 0"
+        :users="item.user?.items"
       >
       </module-content-ogp>
     </div>

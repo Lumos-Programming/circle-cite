@@ -82,7 +82,8 @@ export default defineNuxtPlugin((nuxtApp) => {
       }): Promise<S> => {
         return await API.graphql<GraphQLQuery<T>>({
           query,
-          variables: { input }
+          variables: { input },
+          authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
         })
           .then((res: any) => {
             const name =
@@ -112,7 +113,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         try {
           const { data }: any = await API.graphql<GraphQLQuery<T>>({
             query,
-            variables: { input }
+            variables: { input },
+            authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
           })
           const name = Object.keys(data).length && Object.keys(data)[0]
           if (!isProd) console.log(data[name])

@@ -1,20 +1,46 @@
 <script setup lang="ts">
 import { OgpKey } from '~/assets/enum'
 import { Metadata } from '~/assets/type'
-const { $baseFetch, $options, $snakeCase } = useNuxtApp()
+import { createUserLinks, deleteUserLinks } from '~/assets/graphql/mutations'
+const { $baseFetch, $options, $snakeCase, $baseMutation } = useNuxtApp()
+const { myUser } = useMyUser()
 const props = withDefaults(
   defineProps<{
+    id: string
     title: string | null
     url: string
-    likes: number | null
+    likes: number
+    users: any[]
   }>(),
   {
     title: '',
     url: '/',
-    likes: 0
+    likes: 0,
+    users: () => []
   }
 )
 const isHovering = ref<boolean>(false)
+const userIds = computed(() => {
+  return props.users.map((v) => v.user.id)
+})
+
+const pushLike = async (type: 'like' | 'unlike' = 'like') => {
+  if (!myUser.value.id) return
+  if (type === 'like') {
+    await $baseMutation({
+      query: createUserLinks,
+      input: { linkID: props.id, userID: myUser.value.id }
+    })
+  } else if (type === 'unlike') {
+    const userLinks = props.users.find((v) => v.user.id === myUser.value.id)
+    if (!userLinks) return
+    await $baseMutation({
+      query: deleteUserLinks,
+      input: { id: userLinks.id }
+    })
+  }
+}
+
 const metadata: Metadata = {}
 // OGP metadata を取得
 const { data, error } = await $baseFetch(
@@ -40,14 +66,12 @@ for (let i = 0, len = OgpKey.length; i < len; i++) {
     ?.getAttribute('content')
   metadata[v] = content !== null ? content : undefined
 }
-console.log('metadata', props.url, metadata)
 </script>
 <template>
   <v-sheet
     class="d-flex py-2 px-5 height-150 rounded-lg transition-long-ease-out cursor-pointer"
     :class="isHovering ? 'bg-main-color' : 'bg-white'"
     style="flex: 0 0 100%"
-    @click="navigateTo(url, { external: true })"
     @mouseover="isHovering = true"
     @mouseleave="isHovering = false"
   >
@@ -58,6 +82,7 @@ console.log('metadata', props.url, metadata)
         line-height="line-height-lg"
         :color="isHovering ? 'text-white' : 'text-grey-darken-4'"
         class="line-clamp-1 my-2"
+        @click="navigateTo(url, { external: true })"
       />
       <atom-text
         :text="metadata.description"
@@ -66,6 +91,7 @@ console.log('metadata', props.url, metadata)
         font-weight="font-weight-regular"
         :color="isHovering ? 'text-white' : 'text-grey-darken-4'"
         class="height-63 line-clamp-3"
+        @click="navigateTo(url, { external: true })"
       />
       <div
         class="d-flex flex-nowrap mt-2"
@@ -75,17 +101,23 @@ console.log('metadata', props.url, metadata)
           size="16"
           style="flex: 0 0 18px; margin: 1px"
           :class="isHovering ? 'text-white' : 'text-grey-darken-4'"
+          @click="
+            userIds.includes(myUser.id) ? pushLike('unlike') : pushLike('like')
+          "
         >
-          mdi-heart-outline
+          {{ userIds.includes(myUser.id) ? 'mdi-heart' : 'mdi-heart-outline' }}
         </v-icon>
         <atom-text
-          :text="String(likes)"
+          :text="String(userIds.length)"
           font-size="text-caption"
           line-height="line-height-lg"
           font-weight="font-weight-regular"
           :color="isHovering ? 'text-white' : 'text-grey-darken-4'"
           class="mx-1"
           style="flex: 0 0 30px"
+          @click="
+            userIds.includes(myUser.id) ? pushLike('unlike') : pushLike('like')
+          "
         />
         <atom-text
           :text="metadata.url"
@@ -103,6 +135,7 @@ console.log('metadata', props.url, metadata)
       lazySrc="/no_image.png"
       style="flex: 1 1 30%"
       class="d-none d-sm-block"
+      @click="navigateTo(url, { external: true })"
     />
   </v-sheet>
 </template>
