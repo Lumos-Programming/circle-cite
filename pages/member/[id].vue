@@ -50,7 +50,7 @@ await fetchUser()
             font-weight="font-weight-regular"
           />
         </div>
-        <div class="d-flex flex-nowra justify-startp" style="gap: 0 10px">
+        <div class="d-flex flex-nowra justify-start" style="gap: 0 10px">
           <atom-button-circle
             @btn-click="navigateTo(user.github, { external: true })"
           >

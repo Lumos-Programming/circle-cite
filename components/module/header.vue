@@ -63,6 +63,12 @@ const menu = [
     function: () => navigateTo('/login'),
     outside: true,
     path: '/login'
+  },
+  {
+    text: '管理画面',
+    function: () => navigateTo('/admin'),
+    outside: false,
+    path: '/admin'
   }
 ]
 </script>

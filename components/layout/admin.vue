@@ -2,7 +2,7 @@
 const { isSignedIn, isAdmin } = useLoginState()
 const pages = [
   {
-    title: '管理画面トップ',
+    title: 'トップ',
     icon: 'mdi-home',
     path: '/admin'
   },
@@ -54,82 +54,74 @@ const pages = [
     style="width: 100vw; min-height: 100vh"
   >
     <!-- NOTE: 画面左側メニュバー -->
-    <v-hover v-slot="{ isHovering, props }">
-      <v-card
-        v-bind="props"
-        :class="[
-          isHovering ? 'width-200' : 'width-200',
-          'transition-medium-ease-out pa-5 ma-5 position-relative bg-main-color'
-        ]"
+    <v-card
+      :class="[
+        'transition-medium-ease-out pa-5 position-relative bg-main-color'
+      ]"
+      style="flex: 0 0 200px"
+    >
+      <div class="height-120 ml-1 mt-10">
+        <atom-text
+          font-size="text-h3"
+          class="one-line-reader letter-spacing-30"
+          text="Hooks"
+          :color="
+            isSignedIn
+              ? isAdmin
+                ? 'text-accent-color'
+                : 'text-white'
+              : 'text-main-color'
+          "
+        />
+        <atom-text
+          font-size="text-h3"
+          class="one-line-reader letter-spacing-30"
+          text="Admin"
+          :color="
+            isSignedIn
+              ? isAdmin
+                ? 'text-accent-color'
+                : 'text-white'
+              : 'text-main-color'
+          "
+        />
+      </div>
+      <v-divider class="my-2 bg-white" />
+      <v-btn
+        v-for="page in pages"
+        :key="page.title"
+        :to="page.path"
+        class="height-40 my-1"
+        variant="text"
+        :ripple="false"
         style="flex: 0 0 200px"
       >
-        <div class="height-120 ml-1 mt-10">
-          <atom-text
-            font-size="text-h3"
-            class="one-line-reader letter-spacing-main letter-spacing-30"
-            text="Hooks"
-            :color="
-              isSignedIn
-                ? isAdmin
-                  ? 'text-accent-color'
-                  : 'text-white'
-                : 'text-main-color'
-            "
-          />
-          <atom-text
-            font-size="text-h3"
-            class="one-line-reader letter-spacing-main letter-spacing-30"
-            text="Admin"
-            :color="
-              isSignedIn
-                ? isAdmin
-                  ? 'text-accent-color'
-                  : 'text-white'
-                : 'text-main-color'
-            "
-          />
-        </div>
-        <v-divider class="my-2 bg-white" />
-        <v-btn
-          v-for="page in pages"
-          :key="page.title"
-          :to="page.path"
-          class="width-160 height-40 my-1"
-          variant="text"
-          :ripple="false"
-          style="flex: 0"
-        >
-          <v-icon class="width-40 text-white">{{ page.icon }}</v-icon>
-          <atom-text
-            :class="[isHovering ? 'width-120' : 'width-120']"
-            font-size="text-caption"
-            class="one-line-reader"
-            style="line-height: 40px !important"
-            :text="page.title"
-            color="text-white"
-          />
-        </v-btn>
-        <v-btn
-          class="width-160 height-40 my-1 position-absolute bottom-20 left-20"
-          variant="text"
-          :ripple="false"
-          style="flex: 0"
-          @click="$signOut()"
-        >
-          <v-icon class="width-40 text-white">mdi-logout</v-icon>
-          <atom-text
-            :class="[isHovering ? 'width-120' : 'width-120']"
-            font-size="text-caption"
-            class="one-line-reader"
-            style="line-height: 40px !important"
-            text="ログアウト"
-            color="text-white"
-          />
-        </v-btn>
-      </v-card>
-    </v-hover>
+        <v-icon class="width-40 text-white">{{ page.icon }}</v-icon>
+        <atom-text
+          font-size="text-caption"
+          class="width-120 one-line-reader line-height-40"
+          :text="page.title"
+          color="text-white"
+        />
+      </v-btn>
+      <v-btn
+        class="height-40 my-1 px-0 position-absolute bottom-20 left-20"
+        variant="text"
+        :ripple="false"
+        style="flex: 0 0 200px"
+        @click="$signOut()"
+      >
+        <v-icon class="width-40 text-white">mdi-logout</v-icon>
+        <atom-text
+          font-size="text-caption"
+          class="width-120 one-line-reader line-height-40"
+          text="ログアウト"
+          color="text-white"
+        />
+      </v-btn>
+    </v-card>
     <div
-      class="pt-16 mx-5 overflow-y-auto scrollbar-hidden"
+      class="pt-16 px-5 overflow-y-auto scrollbar-hidden"
       :style="{ flex: '1', height: 'calc(100vh - 40px)' }"
     >
       <slot />
