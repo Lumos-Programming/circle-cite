@@ -121,6 +121,16 @@ export default defineNuxtPlugin((nuxtApp) => {
             }
         }, {})
       },
+      excludeAttr: (
+        object: { [key: string]: any },
+        attr: string[] = []
+      ): any => {
+        const res = JSON.parse(JSON.stringify(object))
+        for (let i = 0, len = attr.length; i < len; i++) {
+          delete res[attr[i]]
+        }
+        return res
+      },
       snakeCase: (str: string): string => {
         return str.replace(/[A-Z]/g, function (s) {
           return '_' + s.charAt(0).toLowerCase()

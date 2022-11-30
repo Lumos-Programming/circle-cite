@@ -12,6 +12,7 @@ const { $getQuery, $getImage, $baseMutation } = useNuxtApp()
 const { params } = useRoute()
 const { isSignedIn } = useLoginState()
 const { myUser } = useMyUser()
+const { banEdit } = useEditState()
 const event = ref<Event>({} as Event)
 const imageUrl = ref<string>('/no_image.png')
 const enter = async () => {
@@ -63,10 +64,16 @@ await fetchEvent()
         <template v-if="isSignedIn">
           <atom-button
             v-if="!event.user?.items.map((v) => v?.userID).includes(myUser.id)"
+            :loading="banEdit"
             text="参加する"
             @btn-click="enter()"
           />
-          <atom-button v-else text="参加をやめる" @btn-click="leave()" />
+          <atom-button
+            v-else
+            :loading="banEdit"
+            text="参加をやめる"
+            @btn-click="leave()"
+          />
         </template>
       </div>
       <div

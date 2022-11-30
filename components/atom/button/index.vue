@@ -4,11 +4,13 @@ withDefaults(
     text: string
     btnClass: string
     textClass: string
+    loading: boolean
   }>(),
   {
     text: '',
     btnClass: '',
-    textClass: ''
+    textClass: '',
+    loading: false
   }
 )
 </script>
@@ -17,6 +19,7 @@ withDefaults(
     <v-btn
       class="height-40 px-4 py-2 transition-medium-ease"
       :class="[isHovering ? 'bg-main-color' : 'bg-white', btnClass]"
+      :loading="loading"
       :ripple="false"
       variant="flat"
       v-bind="props"

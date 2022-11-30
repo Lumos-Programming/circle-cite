@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Article, CreateArticleInput, ListArticlesQuery } from '~/assets/API'
+import { Article, UpdateArticleInput, ListArticlesQuery } from '~/assets/API'
 import { FileInput } from '~/assets/type'
 import {
   createArticle,
@@ -7,38 +7,31 @@ import {
   updateArticle
 } from '~/assets/graphql/mutations'
 import { listArticles } from '~/assets/graphql/queries'
-const { $listQuery, $baseMutation } = useNuxtApp()
+const { $listQuery, $baseMutation, $filterAttr, $excludeAttr } = useNuxtApp()
+const { banEdit } = useEditState()
 const articles = ref<Article[]>([])
 const getArticles = async () => {
   articles.value = await $listQuery<ListArticlesQuery, Article>({
     query: listArticles
   })
 }
-const filterAttr = (item: Article) => {
-  return {
-    id: item.id,
-    title: item.title || '',
-    body: item.body || '',
-    published: item.published || false,
-    userArticleId: item.userArticleId || null,
-    projectArticleId: item.projectArticleId || null,
-    eventArticleId: item.eventArticleId || null
-  }
+const mutateArticle = async () => {
+  await $baseMutation({
+    query: input.value.id ? updateArticle : createArticle,
+    input: input.value.id ? input.value : $excludeAttr(input.value, ['id'])
+  })
 }
-const input = ref<FileInput<CreateArticleInput>>({
+const defaultInput = {
+  id: '',
   title: '',
   body: '',
   published: false,
   userArticleId: null,
   projectArticleId: null,
   eventArticleId: null
-})
-const headers = [
-  { text: 'id', value: 'id' },
-  { text: 'title', value: 'title' },
-  { text: 'published', value: 'published' },
-  { text: 'oparation', value: 'oparation' }
-]
+}
+const input = ref<FileInput<UpdateArticleInput>>(defaultInput)
+const headers = ['id', 'title', 'published', 'oparation']
 getArticles()
 // TODO: valiidationを掛けること
 </script>
@@ -48,17 +41,23 @@ getArticles()
     <atom-breadcrumbs class="mb-5" />
     <v-card class="pa-5">
       <div class="d-flex my-2">
-        <atom-text text="新規作成" font-size="text-h6" class="my-2" />
+        <atom-text
+          :text="input.id ? input.id + 'の更新' : '新規作成'"
+          font-size="text-h6"
+          class="my-2"
+        />
         <v-spacer />
         <atom-button
-          text="新規作成"
+          :loading="banEdit"
+          text="リセット"
+          btn-class="border-solid border-width-1 border-grey-darken-4 mr-3"
+          @btn-click="input = defaultInput"
+        />
+        <atom-button
+          :loading="banEdit"
+          :text="input.id ? '更新' : '新規作成'"
           btn-class="border-solid border-width-1 border-grey-darken-4"
-          @btn-click="
-            $baseMutation({
-              query: createArticle,
-              input: $filterAttr(input)
-            })
-          "
+          @btn-click="mutateArticle()"
         />
       </div>
       <div v-for="[key, item] in Object.entries(input)" class="d-flex">
@@ -76,56 +75,53 @@ getArticles()
         <atom-text text="一括取得" font-size="text-h6" class="my-2" />
         <v-spacer />
         <atom-button
+          :loading="banEdit"
           text="再取得"
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="getArticles()"
         />
       </div>
       <easy-data-table
-        :headers="headers"
+        :headers="
+          headers.map((v) => {
+            return { text: v, value: v }
+          })
+        "
         :items="articles"
         header-item-class-name="text-subtitle-2 font-weight-bold line-height-36"
-        body-row-class-name="height-48"
+        body-row-class-name="height-36 line-height-36 one-line-reader"
         buttons-pagination
         show-index
       >
-        <template #expand="item">
-          <json-editor
-            v-model="articles[item.index - 1]"
-            height="400"
-            mode="tree"
-          />
-        </template>
         <template #item-oparation="item">
           <div class="d-flex flex-nowrap">
-            <v-btn
-              icon="mdi-update"
-              variant="plain"
+            <v-icon
+              size="24"
+              class="ma-2"
               @click="
-                $baseMutation({
-                  query: updateArticle,
-                  input: $filterAttr(articles[item.index - 1], [
-                    'id',
-                    'title',
-                    'body',
-                    'published',
-                    'userArticleId',
-                    'projectArticleId',
-                    'eventArticleId'
-                  ])
-                })
+                input = $filterAttr(articles[item.index - 1], [
+                  'id',
+                  'title',
+                  'body',
+                  'published',
+                  'userArticleId',
+                  'projectArticleId',
+                  'eventArticleId'
+                ])
               "
-            ></v-btn>
-            <v-btn
-              icon="mdi-delete"
-              variant="plain"
+              >mdi-pencil
+            </v-icon>
+            <v-icon
+              size="24"
+              class="ma-2"
               @click="
                 $baseMutation({
                   query: deleteArticle,
                   input: { id: item.id }
                 })
               "
-            ></v-btn>
+              >mdi-delete
+            </v-icon>
           </div>
         </template>
       </easy-data-table>

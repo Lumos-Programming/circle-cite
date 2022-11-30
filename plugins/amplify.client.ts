@@ -5,6 +5,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   const config = nuxtApp.$config
   const isProd = config.public.isProd
   const { isSignedIn } = useLoginState()
+  const { addSnackbar } = useSnackbar()
+  const { setBanEdit } = useEditState()
   return {
     provide: {
       getQuery: async <T, S>({
@@ -14,6 +16,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         query: string
         variables?: object
       }): Promise<S> => {
+        setBanEdit(true)
         return await API.graphql<GraphQLQuery<T>>({
           query,
           variables,
@@ -24,11 +27,13 @@ export default defineNuxtPlugin((nuxtApp) => {
               Object.keys(res.data).length && Object.keys(res.data)[0]
             if (!name) return
             if (!isProd) console.log(res.data[name])
+            setBanEdit(false)
             return res.data[name]
           })
           .catch((e) => {
             if (!isProd) console.log(e)
             clearError()
+            setBanEdit(false)
           })
       },
       listQuery: async <T, R>({
@@ -40,6 +45,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         filter?: object
         multiple?: number
       }): Promise<R[]> => {
+        setBanEdit(true)
         const items: R[] = []
         const variables = {
           limit: config.public.limit * multiple,
@@ -71,6 +77,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         }
         await callbackQuery()
         if (!isProd) console.log(items)
+        setBanEdit(false)
         return items
       },
       baseMutation: async <T, S>({
@@ -80,6 +87,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         query: string
         input?: object
       }): Promise<S> => {
+        setBanEdit(true)
         return await API.graphql<GraphQLQuery<T>>({
           query,
           variables: { input },
@@ -90,11 +98,15 @@ export default defineNuxtPlugin((nuxtApp) => {
               Object.keys(res.data).length && Object.keys(res.data)[0]
             if (!name) return
             if (!isProd) console.log(res.data[name])
+            addSnackbar({ text: '保存が完了しました' })
+            setBanEdit(false)
             return res.data[name]
           })
           .catch((e) => {
             if (!isProd) console.log(e)
+            addSnackbar({ type: 'alert', text: '保存に失敗しました' })
             clearError()
+            setBanEdit(false)
           })
       },
       extendMutation: async <T, S>({
@@ -111,6 +123,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         file?: File
       }): Promise<S | null> => {
         try {
+          setBanEdit(true)
           const { data }: any = await API.graphql<GraphQLQuery<T>>({
             query,
             variables: { input },
@@ -119,14 +132,20 @@ export default defineNuxtPlugin((nuxtApp) => {
           const name = Object.keys(data).length && Object.keys(data)[0]
           if (!isProd) console.log(data[name])
           if (!name || !key) return null
-          if (type === 'delete' || type === 'update')
+          if (type === 'delete' || type === 'update') {
             await nuxtApp.$removeImage(key)
-          if (type === 'create' || type === 'update')
+          }
+          if (type === 'create' || type === 'update') {
             await nuxtApp.$putImage(key, file)
+          }
+          addSnackbar({ text: '保存が完了しました' })
+          setBanEdit(false)
           return data[name]
         } catch (e) {
           if (!isProd) console.log(e)
+          addSnackbar({ type: 'alert', text: '保存に失敗しました' })
           clearError()
+          setBanEdit(false)
           return null
         }
       },

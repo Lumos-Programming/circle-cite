@@ -81,3 +81,15 @@ export const useSnackbar = () => {
     setSnackbars: setSnackbars(snackbars)
   }
 }
+
+// banEditなど編集状態の管理
+export const useEditState = () => {
+  const banEdit = useState<boolean>('banEdit', () => false)
+  const setBanEdit = (banEdit: Ref<boolean>) => (v: boolean) => {
+    banEdit.value = v
+  }
+  return {
+    banEdit: readonly(banEdit),
+    setBanEdit: setBanEdit(banEdit)
+  }
+}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Skill, CreateSkillInput, ListSkillsQuery } from '~/assets/API'
+import { Skill, UpdateSkillInput, ListSkillsQuery } from '~/assets/API'
 import { IndexSignature } from '~/assets/type'
 import {
   createSkill,
@@ -7,20 +7,25 @@ import {
   updateSkill
 } from '~/assets/graphql/mutations'
 import { listSkills } from '~/assets/graphql/queries'
-const { $listQuery, $baseMutation } = useNuxtApp()
+const { $listQuery, $baseMutation, $filterAttr, $excludeAttr } = useNuxtApp()
+const { banEdit } = useEditState()
 const skills = ref<Skill[]>([])
 const getSkills = async () => {
   skills.value = await $listQuery<ListSkillsQuery, Skill>({ query: listSkills })
 }
-const input = ref<IndexSignature<CreateSkillInput>>({
+const mutateSkill = async () => {
+  await $baseMutation({
+    query: input.value.id ? updateSkill : createSkill,
+    input: input.value.id ? input.value : $excludeAttr(input.value, ['id'])
+  })
+}
+const defaultInput = {
+  id: '',
   title: ''
-})
-const headers = [
-  { text: 'id', value: 'id' },
-  { text: 'title', value: 'title' },
-  { text: 'oparation', value: 'oparation' }
-]
-getSkills()
+}
+const input = ref<IndexSignature<UpdateSkillInput>>(defaultInput)
+const headers = ['id', 'title', 'oparation']
+await getSkills()
 // TODO: valiidationを掛けること
 </script>
 <template>
@@ -29,17 +34,23 @@ getSkills()
     <atom-breadcrumbs class="mb-5" />
     <v-card class="pa-5">
       <div class="d-flex my-2">
-        <atom-text text="新規作成" font-size="text-h6" class="my-2" />
+        <atom-text
+          :text="input.id ? input.id + 'の更新' : '新規作成'"
+          font-size="text-h6"
+          class="my-2"
+        />
         <v-spacer />
         <atom-button
-          text="新規作成"
+          :loading="banEdit"
+          text="リセット"
+          btn-class="border-solid border-width-1 border-grey-darken-4 mr-3"
+          @btn-click="input = defaultInput"
+        />
+        <atom-button
+          :loading="banEdit"
+          :text="input.id ? '更新' : '新規作成'"
           btn-class="border-solid border-width-1 border-grey-darken-4"
-          @btn-click="
-            $baseMutation({
-              query: createSkill,
-              input: $filterAttr(input)
-            })
-          "
+          @btn-click="mutateSkill()"
         />
       </div>
       <div v-for="[key, item] in Object.entries(input)" class="d-flex">
@@ -57,48 +68,45 @@ getSkills()
         <atom-text text="一括取得" font-size="text-h6" class="my-2" />
         <v-spacer />
         <atom-button
+          :loading="banEdit"
           text="再取得"
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="getSkills()"
         />
       </div>
       <easy-data-table
-        :headers="headers"
+        :headers="
+          headers.map((v) => {
+            return { text: v, value: v }
+          })
+        "
         :items="skills"
         header-item-class-name="text-subtitle-2 font-weight-bold line-height-36"
-        body-row-class-name="height-48"
+        body-row-class-name="height-36 line-height-36 one-line-reader"
         buttons-pagination
         show-index
       >
-        <template #expand="item">
-          <json-editor
-            v-model="skills[item.index - 1]"
-            height="400"
-            mode="tree"
-          />
-        </template>
         <template #item-oparation="item">
           <div class="d-flex flex-nowrap">
-            <v-btn
-              icon="mdi-update"
-              variant="plain"
+            <v-icon
+              size="24"
+              class="ma-2"
               @click="
-                $baseMutation({
-                  query: updateSkill,
-                  input: $filterAttr(skills[item.index - 1], ['id', 'title'])
-                })
+                input = $filterAttr(skills[item.index - 1], ['id', 'title'])
               "
-            ></v-btn>
-            <v-btn
-              icon="mdi-delete"
-              variant="plain"
+              >mdi-pencil
+            </v-icon>
+            <v-icon
+              size="24"
+              class="ma-2"
               @click="
                 $baseMutation({
                   query: deleteSkill,
                   input: { id: item.id }
                 })
               "
-            ></v-btn>
+              >mdi-delete
+            </v-icon>
           </div>
         </template>
       </easy-data-table>

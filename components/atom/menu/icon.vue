@@ -79,7 +79,6 @@ const menu = [
         :class="[!active && isHovering ? 'bg-main-color' : 'bg-white']"
         v-bind="props"
         :style="{
-          'max-width': '960px',
           width: active ? 'calc(100vw - 240px)' : '72px',
           height: active ? 'calc(var(--vh) * 100 - 104px)' : '48px'
         }"
