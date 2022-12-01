@@ -1,28 +1,40 @@
 <script setup lang="ts">
 import { validation } from '~/assets/validation'
 const { $baseFetch, $options } = useNuxtApp()
+const { banEdit } = useEditState()
 const name = ref<string>('')
 const body = ref<string>('')
-const config = useRuntimeConfig()
 const submit = async () => {
-  // console.log(config.public.discordwebhook)
-  // console.log(JSON.stringify({ username: name.value, content: body.value }))
+  const content =
+    '「' +
+    name.value +
+    '」さんからお問い合わせがありました！\n\nお問い合わせ内容\n' +
+    body.value
   const { data, error } = await $baseFetch(
     '/api/discord',
     $options({
+      key: content,
       method: 'POST',
-      body: JSON.stringify({ username: name.value, content: body.value })
+      body: JSON.stringify({
+        username: 'サークルサイトからのお問い合わせ',
+        content
+      })
     })
   )
-  console.log(data, error)
 }
 </script>
 <template>
   <layout-public>
     <atom-text font-size="text-h4" text="Contact" class="py-10" />
     <atom-text
-      text="このページは作成途中のためまだ動作しません。"
-      class="mb-2"
+      text="お問い合わせや申込みはこちらよりお願いいたします"
+      class="mb-3"
+    />
+    <atom-text
+      text="* 参加希望の方、他団体の方、横浜国立大学進学を考えている高校生の方など様々な方からのご連絡お待ちしております"
+      font-size="text-caption"
+      font-weight="font-weight-regular"
+      class="mb-10"
     />
     <atom-text text="お名前" class="mb-2" />
     <v-text-field
@@ -40,6 +52,11 @@ const submit = async () => {
       clearable
       :rules="[validation.required, validation.maxString(500)]"
     />
-    <!-- <atom-button text="送信" btnClass="w-100" @btn-click="submit()" /> -->
+    <atom-button
+      text="送信"
+      btnClass="w-100"
+      :loading="banEdit"
+      @btn-click="submit()"
+    />
   </layout-public>
 </template>

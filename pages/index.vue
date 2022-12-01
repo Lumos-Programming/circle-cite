@@ -45,14 +45,7 @@ const explains = [
           <atom-button
             text="参加する"
             btn-class="border-solid border-width-1 border-grey-darken-4"
-            @btn-click="
-              navigateTo(
-                'https://docs.google.com/forms/d/e/1FAIpQLScELKrFqpJTevbm9I452dZnDABjFiFErp2aaSWKqW5HCW_ktg/viewform',
-                {
-                  external: true
-                }
-              )
-            "
+            @btn-click="navigateTo('/contact')"
           />
           <atom-button
             text="話だけでも聞いてみる"
@@ -110,14 +103,7 @@ const explains = [
       <atom-button
         text="参加する"
         btn-class="border-solid border-width-1 border-grey-darken-4"
-        @btn-click="
-          navigateTo(
-            'https://docs.google.com/forms/d/e/1FAIpQLScELKrFqpJTevbm9I452dZnDABjFiFErp2aaSWKqW5HCW_ktg/viewform',
-            {
-              external: true
-            }
-          )
-        "
+        @btn-click="navigateTo('/contact')"
       />
       <atom-button
         text="話だけでも聞いてみる"
