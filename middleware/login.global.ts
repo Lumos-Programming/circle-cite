@@ -49,9 +49,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         query: createUser,
         input: { name: 'ゲストさん', email: user.attributes.email }
       })
-      console.log('作成', res)
+      if (!isProd) console.log('新規User作成', res)
     }
   }
+  if (to.path.includes('login') && isSignedIn.value) return navigateTo('/admin')
   if (to.path.includes('admin')) {
     if (isSignedIn.value) {
       setAdmin(
