@@ -1,5 +1,7 @@
 import { InputAttr } from '~~/assets/enum'
 export default defineNuxtPlugin((nuxtApp) => {
+  const { addSnackbar } = useSnackbar()
+  const { setBanEdit } = useEditState()
   const setFillHeight = () => {
     const vh = window.innerHeight * 0.01
     document.documentElement.style.setProperty('--vh', `${vh}px`)
@@ -44,15 +46,22 @@ export default defineNuxtPlugin((nuxtApp) => {
         initialCache: cache
       }),
       baseFetch: async <T>(path: string, options = nuxtApp.$options()) => {
+        setBanEdit(true)
         if (!isProd) console.log(options)
         const { data, error, refresh } = await useFetch(path, {
           ...options,
           onResponseError({ request, response, options }) {
             if (!isProd) console.log(response)
+            if (options.method !== 'GET') {
+              addSnackbar({ type: 'alert', text: '送信に失敗しました' })
+            }
           }
         })
         if (error.value) clearError()
-        else if (!data.value) await refresh()
+        if (options.method !== 'GET') {
+          addSnackbar({ type: 'success', text: '送信が完了しました' })
+        }
+        setBanEdit(false)
         return { data: data.value as T, error: error.value as any }
       },
       itemsSort: (

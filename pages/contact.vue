@@ -10,8 +10,8 @@ const submit = async () => {
     name.value +
     '」さんからお問い合わせがありました！\n\nお問い合わせ内容\n' +
     body.value
-  const { data, error } = await $baseFetch(
-    '/api/discord',
+  await $baseFetch(
+    '/discord',
     $options({
       key: content,
       method: 'POST',

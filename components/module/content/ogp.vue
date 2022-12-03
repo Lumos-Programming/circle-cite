@@ -52,7 +52,7 @@ const pushLike = async (type: 'like' | 'unlike' = 'like') => {
 const metadata: Metadata = {}
 // OGP metadata を取得
 const { data, error } = await $baseFetch(
-  '/api/ogp',
+  '/ogp',
   $options({
     key: props.url,
     method: 'POST',
