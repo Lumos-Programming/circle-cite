@@ -30,6 +30,8 @@ export default defineNuxtConfig({
     transpile: ['vuetify']
   },
   modules: [],
+  buildModules: [],
+  serverMiddleware: [],
   vite: {
     resolve: {
       alias: {
