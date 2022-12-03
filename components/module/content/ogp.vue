@@ -68,7 +68,7 @@ for (let i = 0, len = OgpKey.length; i < len; i++) {
   if (!data) continue
   const v = OgpKey[i]
   const parser = new DOMParser()
-  const dom = parser.parseFromString(data, 'text/html')
+  const dom = parser.parseFromString(String(data), 'text/html')
   const content = dom
     .querySelector(`meta[property='og:${$snakeCase(v)}']`)
     ?.getAttribute('content')

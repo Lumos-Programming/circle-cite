@@ -29,6 +29,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ['vuetify']
   },
+  vuetify: {
+    treeShake: true
+  },
   vite: {
     resolve: {
       alias: {
@@ -43,16 +46,11 @@ export default defineNuxtConfig({
       watch: {
         usePolling: true
       }
-      // proxy: {
-      //   '/api/discord': {
-      //     target: process.env.DISCORDWEBHOOK,
-      //     rewrite: (path) => path.replace(/^\/api\/discord/, ''),
-      //     changeOrigin: true
-      //   }
-      // }
     }
   },
-  // modules: [],
+  modules: [],
+  buildModules: [],
+  // serverMiddleware: [],
   runtimeConfig: {
     public: {
       isProd: process.env.MODE?.toUpperCase() === 'PRODUCTION' || false,
