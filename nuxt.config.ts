@@ -1,3 +1,4 @@
+import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
   ssr: false,
   app: {
@@ -28,9 +29,7 @@ export default defineNuxtConfig({
   build: {
     transpile: ['vuetify']
   },
-  vuetify: {
-    treeShake: true
-  },
+  modules: [],
   vite: {
     resolve: {
       alias: {
@@ -47,7 +46,6 @@ export default defineNuxtConfig({
       }
     }
   },
-  modules: [],
   runtimeConfig: {
     public: {
       isProd: process.env.MODE?.toUpperCase() === 'PRODUCTION' || false,
