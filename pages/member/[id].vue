@@ -6,19 +6,18 @@ const { params } = useRoute()
 const user = ref<User>({} as User)
 const fetchUser = async () => {
   user.value = await $getQuery<GetUserQuery, User>({
-    name: 'getUser',
     query: getUser,
     variables: {
       id: params.id || null
     }
   })
 }
-fetchUser()
+await fetchUser()
 </script>
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5 ml-5"
+      class="my-5"
       :items="[
         { title: 'member', to: '/member', disabled: false },
         { title: user.name || 'you', to: '/member/' + user.id, disabled: true }
@@ -26,7 +25,10 @@ fetchUser()
     />
     <div class="d-flex flex-nowrap mx-5 mt-16">
       <div class="mx-5" style="flex: 0 0 200px">
-        <module-user-icon :img-key="user.file?.key" />
+        <module-user-icon
+          :img-key="user.file?.key"
+          :identityId="user.file?.identityId"
+        />
       </div>
 
       <div class="ma-10" style="flex: 1 0 200px">
@@ -48,7 +50,7 @@ fetchUser()
             font-weight="font-weight-regular"
           />
         </div>
-        <div class="d-flex flex-nowra justify-startp" style="gap: 0 10px">
+        <div class="d-flex flex-nowra justify-start" style="gap: 0 10px">
           <atom-button-circle
             @btn-click="navigateTo(user.github, { external: true })"
           >
@@ -83,20 +85,46 @@ fetchUser()
         />
       </div>
     </div>
-    <atom-text font-size="text-h5" text="関連記事" class="mt-16 mx-5" />
+    <atom-text
+      v-if="user?.portfolio?.items.length"
+      font-size="text-h5"
+      text="ポートフォリオ"
+      class="mt-16 mx-5"
+    />
     <div
-      v-if="user?.article?.items"
+      v-if="user?.portfolio?.items.length"
+      class="d-flex flex-wrap ma-5"
+      style="gap: 60px 5%"
+    >
+      <module-content-medium
+        v-for="item in user.portfolio.items"
+        :key="item?.id"
+        :created-at="item?.createdAt"
+        :updated-at="item?.updatedAt"
+        :title="item?.title"
+        style="flex: 0 1 30%"
+        @click-func="navigateTo('/portfolio/' + item?.id)"
+      />
+    </div>
+    <atom-text
+      v-if="user?.article?.items.length"
+      font-size="text-h5"
+      text="執筆記事"
+      class="mt-16 mx-5"
+    />
+    <div
+      v-if="user?.article?.items.length"
       class="d-flex flex-wrap ma-5"
       style="gap: 60px 5%"
     >
       <module-content-medium
         v-for="item in user.article.items"
         :key="item?.id"
-        :path="'/article/' + item?.id"
         :created-at="item?.createdAt"
         :updated-at="item?.updatedAt"
         :title="item?.title"
         style="flex: 0 1 30%"
+        @click-func="navigateTo('/article/' + item?.id)"
       />
     </div>
   </layout-public>

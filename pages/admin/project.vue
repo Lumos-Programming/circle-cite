@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { Project, CreateProjectInput, ListProjectsQuery } from '~/assets/API'
+import { Project, UpdateProjectInput, ListProjectsQuery } from '~/assets/API'
+import { FileInput } from '~/assets/type'
 import {
   createProject,
   deleteProject,
   updateProject
 } from '~/assets/graphql/mutations'
 import { listProjects } from '~/assets/graphql/queries'
-const { $getYMD, $listQuery, $baseMutation } = useNuxtApp()
+const { $getYMD, $listQuery, $extendMutation, $filterAttr, $excludeAttr } =
+  useNuxtApp()
+const { banEdit } = useEditState()
 const projects = ref<Project[]>([])
 const getProjects = async () => {
   projects.value = await $listQuery<ListProjectsQuery, Project>({
-    name: 'listProjects',
     query: listProjects
   })
 }
-const filterAttr = (item: Project) => {
-  return {
-    id: item.id,
-    title: item.title || '',
-    start: item.start || $getYMD(new Date().toLocaleString(), '-'),
-    end: item.start || $getYMD(new Date().toLocaleString(), '-'),
-    description: item.description || '',
-    wanted: item.wanted || false,
-    published: item.published || false,
-    file: item.file || null
-  }
+const mutateProject = async () => {
+  await $extendMutation({
+    type: input.value.id ? 'update' : 'create',
+    key: input.value.file?.key || '',
+    query: input.value.id ? updateProject : createProject,
+    input: input.value.id ? input.value : $excludeAttr(input.value, ['id']),
+    file: input.value.file?.file
+  })
 }
-const input = ref<CreateProjectInput>({
+const defaultInput = {
+  id: '',
   title: '',
   description: '',
   start: $getYMD(new Date().toLocaleString(), '-'),
@@ -34,15 +34,10 @@ const input = ref<CreateProjectInput>({
   wanted: false,
   published: false,
   file: null
-})
-const headers = [
-  { text: 'id', value: 'id' },
-  { text: 'title', value: 'title' },
-  { text: 'wanted', value: 'wanted' },
-  { text: 'published', value: 'published' },
-  { text: 'oparation', value: 'oparation' }
-]
-getProjects()
+}
+const input = ref<FileInput<UpdateProjectInput>>(defaultInput)
+const headers = ['id', 'title', 'wanted', 'published', 'oparation']
+await getProjects()
 // TODO: valiidationを掛けること
 </script>
 <template>
@@ -51,28 +46,33 @@ getProjects()
     <atom-breadcrumbs class="mb-5" />
     <v-card class="pa-5">
       <div class="d-flex my-2">
-        <atom-text text="新規作成" font-size="text-h6" class="my-2" />
+        <atom-text
+          :text="input.id ? input.id + 'の更新' : '新規作成'"
+          font-size="text-h6"
+          class="my-2"
+        />
         <v-spacer />
         <atom-button
-          text="新規作成"
+          :loading="banEdit"
+          text="リセット"
+          btn-class="border-solid border-width-1 border-grey-darken-4 mr-3"
+          @btn-click="input = defaultInput"
+        />
+        <atom-button
+          :loading="banEdit"
+          :text="input.id ? '更新' : '新規作成'"
           btn-class="border-solid border-width-1 border-grey-darken-4"
-          @btn-click="
-            $baseMutation({
-              name: 'createProject',
-              query: createProject,
-              input
-            })
-          "
+          @btn-click="mutateProject()"
         />
       </div>
-      <div v-for="item in Object.keys(input)" class="d-flex">
+      <div v-for="[key, item] in Object.entries(input)" class="d-flex">
         <atom-text
-          :text="item"
+          :text="key"
           font-size="text-subtitle-2"
           line-height="line-height-40"
           style="flex: 0 0 120px"
         />
-        <atom-input v-model="input[item]" :value="input[item]" :label="item" />
+        <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
     </v-card>
     <v-card class="pa-5 my-5">
@@ -80,50 +80,56 @@ getProjects()
         <atom-text text="一括取得" font-size="text-h6" class="my-2" />
         <v-spacer />
         <atom-button
+          :loading="banEdit"
           text="再取得"
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="getProjects()"
         />
       </div>
       <easy-data-table
-        :headers="headers"
+        :headers="
+          headers.map((v) => {
+            return { text: v, value: v }
+          })
+        "
         :items="projects"
         header-item-class-name="text-subtitle-2 font-weight-bold line-height-36"
-        body-row-class-name="height-48"
+        body-row-class-name="height-36 line-height-36 one-line-reader"
         buttons-pagination
         show-index
       >
-        <template #expand="item">
-          <json-editor
-            v-model="projects[item.index - 1]"
-            height="400"
-            mode="tree"
-          />
-        </template>
         <template #item-oparation="item">
           <div class="d-flex flex-nowrap">
-            <v-btn
-              icon="mdi-update"
-              variant="plain"
+            <v-icon
+              size="24"
+              class="ma-2"
               @click="
-                $baseMutation({
-                  name: 'updateProject',
-                  query: updateProject,
-                  input: filterAttr($findItem(projects, 'id', item.id))
-                })
+                input = $filterAttr(projects[item.index - 1], [
+                  'id',
+                  'title',
+                  'start',
+                  'end',
+                  'description',
+                  'wanted',
+                  'published',
+                  'file'
+                ])
               "
-            ></v-btn>
-            <v-btn
-              icon="mdi-delete"
-              variant="plain"
+              >mdi-pencil
+            </v-icon>
+            <v-icon
+              size="24"
+              class="ma-2"
               @click="
-                $baseMutation({
-                  name: 'deleteProject',
+                $extendMutation({
+                  type: 'delete',
+                  key: input.file?.key || '',
                   query: deleteProject,
                   input: { id: item.id }
                 })
               "
-            ></v-btn>
+              >mdi-delete
+            </v-icon>
           </div>
         </template>
       </easy-data-table>

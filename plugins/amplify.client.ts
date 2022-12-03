@@ -1,36 +1,52 @@
 import { GraphQLQuery } from '@aws-amplify/api'
-import { StorageAccessLevel } from '@aws-amplify/storage'
 import { API, Auth, Storage } from 'aws-amplify'
 import { v4 as uuidv4 } from 'uuid'
-import awsConfig from '~/assets/aws-exports'
 export default defineNuxtPlugin((nuxtApp) => {
   const config = nuxtApp.$config
   const isProd = config.public.isProd
   const { isSignedIn } = useLoginState()
+  const { addSnackbar } = useSnackbar()
+  const { setBanEdit } = useEditState()
   return {
     provide: {
-      getQuery: async <T, S>({ name, query, variables = {} }): Promise<S> => {
+      getQuery: async <T, S>({
+        query,
+        variables = {}
+      }: {
+        query: string
+        variables?: object
+      }): Promise<S> => {
+        setBanEdit(true)
         return await API.graphql<GraphQLQuery<T>>({
           query,
           variables,
           authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
         })
-          .then((res) => {
+          .then((res: any) => {
+            const name =
+              Object.keys(res.data).length && Object.keys(res.data)[0]
+            if (!name) return
             if (!isProd) console.log(res.data[name])
+            setBanEdit(false)
             return res.data[name]
           })
           .catch((e) => {
-            if (!isProd) console.log(name + ':', e)
+            if (!isProd) console.log(e)
             clearError()
+            setBanEdit(false)
           })
       },
-      listQuery: async <T, S>({
-        name,
+      listQuery: async <T, R>({
         query,
         filter = {},
         multiple = 1
-      }): Promise<S[]> => {
-        const items = []
+      }: {
+        query: string
+        filter?: object
+        multiple?: number
+      }): Promise<R[]> => {
+        setBanEdit(true)
+        const items: R[] = []
         const variables = {
           limit: config.public.limit * multiple,
           nextToken: null,
@@ -39,113 +55,137 @@ export default defineNuxtPlugin((nuxtApp) => {
         const callbackQuery = async () => {
           try {
             // NOTE: DynamoDBのscanの1MB制限に達するとnextTokenが返される
-            const result = await API.graphql<GraphQLQuery<T>>({
+            const res: any = await API.graphql<GraphQLQuery<T>>({
               query,
               variables,
               authMode: isSignedIn.value
                 ? 'AMAZON_COGNITO_USER_POOLS'
                 : 'AWS_IAM'
             })
-            items.push(...(result.data[name]?.items || []))
-            if (result.data[name]?.nextToken) {
-              variables.nextToken = result.data[name].nextToken
+            const name =
+              Object.keys(res.data).length && Object.keys(res.data)[0]
+            if (!name) return
+            items.push(...(res.data[name]?.items || []))
+            if (res.data[name]?.nextToken) {
+              variables.nextToken = res.data[name].nextToken
               await callbackQuery()
             }
           } catch (e) {
-            if (!isProd) console.log(name + ':', e)
+            if (!isProd) console.log(e)
             clearError()
           }
         }
         await callbackQuery()
         if (!isProd) console.log(items)
+        setBanEdit(false)
         return items
       },
-      baseMutation: async <T, S>({ name, query, input }): Promise<S> => {
+      baseMutation: async <T, S>({
+        query,
+        input = {}
+      }: {
+        query: string
+        input?: object
+      }): Promise<S> => {
+        setBanEdit(true)
         return await API.graphql<GraphQLQuery<T>>({
           query,
-          variables: { input }
+          variables: { input },
+          authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
         })
-          .then((res) => {
+          .then((res: any) => {
+            const name =
+              Object.keys(res.data).length && Object.keys(res.data)[0]
+            if (!name) return
             if (!isProd) console.log(res.data[name])
+            addSnackbar({ text: '保存が完了しました' })
+            setBanEdit(false)
             return res.data[name]
           })
           .catch((e) => {
-            if (!isProd) console.log(name + ':', e)
+            if (!isProd) console.log(e)
+            addSnackbar({ type: 'alert', text: '保存に失敗しました' })
             clearError()
+            setBanEdit(false)
           })
       },
-      getImage: async (key = ''): Promise<string> => {
-        // NOTE: keyは{prptected or public or private}/{identityId}/{random uuid}/{file name}.{extension}の形式
-        // NOTE: 返り値はデフォルト15分の有効期限付き署名付きURL(String)
-        if (!key) return '/no_image.png'
-        const item = key.split('/')
-        if (item.length !== 4) return '/no_image.png'
-        if (
-          item[0] !== 'protected' &&
-          item[0] !== 'public' &&
-          item[0] !== 'private'
-        )
-          return '/no_image.png'
-        return await Storage.get(key, {
-          level: item[0] as StorageAccessLevel,
-          identityId: item[1]
-        })
-      },
-      makeFileObjectForMutation: async (
-        level: StorageAccessLevel = 'protected',
-        file: File
-      ) => {
-        if (!file) return
-        const bucket = awsConfig.aws_user_files_s3_bucket
-        const region = awsConfig.aws_user_files_s3_bucket_region
-        const { name, type: mimeType } = file
-        const [, , , extension] = /([^.]+)(\.(\w+))?$/.exec(name)
-        const { identityId } = await Auth.currentCredentials()
-        const key =
-          level +
-          '/' +
-          identityId +
-          '/' +
-          uuidv4() +
-          (extension && '.') +
-          extension
-        return {
-          bucket,
-          key,
-          region,
-          mimeType,
-          localUri: file
+      extendMutation: async <T, S>({
+        type = 'create',
+        key,
+        query,
+        input = {},
+        file
+      }: {
+        type: 'create' | 'update' | 'delete'
+        key: string
+        query: string
+        input?: object
+        file?: File
+      }): Promise<S | null> => {
+        try {
+          setBanEdit(true)
+          const { data }: any = await API.graphql<GraphQLQuery<T>>({
+            query,
+            variables: { input },
+            authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
+          })
+          const name = Object.keys(data).length && Object.keys(data)[0]
+          if (!isProd) console.log(data[name])
+          if (!name || !key) return null
+          if (type === 'delete' || type === 'update') {
+            await nuxtApp.$removeImage(key)
+          }
+          if (type === 'create' || type === 'update') {
+            await nuxtApp.$putImage(key, file)
+          }
+          addSnackbar({ text: '保存が完了しました' })
+          setBanEdit(false)
+          return data[name]
+        } catch (e) {
+          if (!isProd) console.log(e)
+          addSnackbar({ type: 'alert', text: '保存に失敗しました' })
+          clearError()
+          setBanEdit(false)
+          return null
         }
       },
-      createImage: async (
-        level: StorageAccessLevel = 'protected',
-        file: File
-      ) => {
+      getImage: async (key = '', identityId = ''): Promise<string> => {
+        // NOTE: keyは{random uuid}.{extension}の形式
+        // NOTE: 返り値はデフォルト15分の有効期限付き署名付きURL(String)
+        if (!key) return '/no_image.png'
+        return await Storage.get(key, {
+          level: 'protected',
+          identityId
+        })
+      },
+      makeS3Object: async (file: File) => {
         if (!file) return
-        const { name, type } = file
-        const [, , , extension] = /([^.]+)(\.(\w+))?$/.exec(name)
+        const { name, type, size } = file
+        const extension = type.split('/')[1]
         const { identityId } = await Auth.currentCredentials()
-        const key =
-          level +
-          '/' +
-          identityId +
-          '/' +
-          uuidv4() +
-          (extension && '.') +
-          extension
-        await Storage.put(key, file, {
-          level,
-          contentType: type
+        const key = uuidv4() + (extension && '.') + extension
+        return {
+          key,
+          name,
+          size,
+          type,
+          identityId,
+          file
+        }
+      },
+      putImage: async (key: string, file: File) => {
+        if (!file || !key) return
+        return await Storage.put(key, file, {
+          level: 'protected',
+          contentType: file.type
         }).catch((e) => {
           if (!isProd) console.log('createImage', e)
         })
       },
-      deleteImage: async (
-        key: string,
-        level: StorageAccessLevel = 'protected'
-      ) => {
-        await Storage.remove(key, {
-          level
+      removeImage: async (key: string) => {
+        if (!key) return
+        return await Storage.remove(key, {
+          level: 'protected'
         }).catch((e) => {
           console.log('deleteImage', e)
         })

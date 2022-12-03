@@ -6,17 +6,16 @@ const { params } = useRoute()
 const article = ref<Article>({} as Article)
 const fetchArticle = async () => {
   article.value = await $getQuery<GetArticleQuery, Article>({
-    name: 'getArticle',
     query: getArticle,
     variables: { id: params.id || null }
   })
 }
-fetchArticle()
+await fetchArticle()
 </script>
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5 ml-5"
+      class="my-5"
       :items="[
         { title: 'article', to: '/article', disabled: false },
         { title: article.title, to: '/article', disabled: true }

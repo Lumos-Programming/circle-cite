@@ -6,19 +6,18 @@ const { params } = useRoute()
 const skill = ref<Skill>({} as Skill)
 const fetchSkill = async () => {
   skill.value = await $getQuery<GetSkillQuery, Skill>({
-    name: 'getSkill',
     query: getSkill,
     variables: {
       id: params.id || null
     }
   })
 }
-fetchSkill()
+await fetchSkill()
 </script>
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5 ml-5"
+      class="my-5"
       :items="[
         { title: 'skill', to: '/skill', disabled: false },
         { title: skill.title, to: '/skill', disabled: true }
@@ -59,11 +58,11 @@ fetchSkill()
       <module-content-medium
         v-for="item in skill.article?.items"
         :key="item?.article.id"
-        :path="'/article/' + item?.article.id"
         :created-at="item?.article.createdAt"
         :updated-at="item?.article.updatedAt"
         :title="item?.article.title"
         style="flex: 0 1 30%"
+        @click-func="navigateTo('/article/' + item?.article.id)"
       />
     </div>
   </layout-public>

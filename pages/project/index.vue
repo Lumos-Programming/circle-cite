@@ -5,12 +5,11 @@ const { $listQuery } = useNuxtApp()
 const projects = ref<Project[]>([])
 const getProjects = async () => {
   projects.value = await $listQuery<ListProjectsQuery, Project>({
-    name: 'listProjects',
     query: listProjects,
     filter: { published: { eq: true } }
   })
 }
-getProjects()
+await getProjects()
 </script>
 <template>
   <layout-public>
@@ -19,12 +18,13 @@ getProjects()
       <module-content-medium
         v-for="item in projects"
         :key="item.id"
-        :path="'/project/' + item.id"
         :img-key="item.file?.key"
+        :identity-id="item.file?.identityId"
         :created-at="item.createdAt"
         :updated-at="item.updatedAt"
         :title="item.title"
         style="flex: 0 1 30%"
+        @click-func="navigateTo('/project/' + item.id)"
       >
         <atom-text
           :text="item.wanted ? '募集中' : '募集終了'"

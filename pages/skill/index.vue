@@ -5,11 +5,10 @@ const { $listQuery } = useNuxtApp()
 const skills = ref<Skill[]>([])
 const getSkills = async () => {
   skills.value = await $listQuery<ListSkillsQuery, Skill>({
-    name: 'listSkills',
     query: listSkills
   })
 }
-getSkills()
+await getSkills()
 </script>
 <template>
   <layout-public>

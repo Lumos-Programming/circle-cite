@@ -1,46 +1,40 @@
 <script setup lang="ts">
-import { Event, CreateEventInput, ListEventsQuery } from '~/assets/API'
+import { Event, UpdateEventInput, ListEventsQuery } from '~/assets/API'
+import { FileInput } from '~/assets/type'
 import {
   createEvent,
   deleteEvent,
   updateEvent
 } from '~/assets/graphql/mutations'
 import { listEvents } from '~/assets/graphql/queries'
-const { $getYMD, $listQuery, $baseMutation } = useNuxtApp()
+const { $getYMD, $listQuery, $extendMutation, $filterAttr, $excludeAttr } =
+  useNuxtApp()
+const { banEdit } = useEditState()
 const events = ref<Event[]>([])
 const getEvents = async () => {
-  events.value = await $listQuery<ListEventsQuery, Event>({
-    name: 'listEvents',
-    query: listEvents
+  events.value = await $listQuery<ListEventsQuery, Event>({ query: listEvents })
+}
+const mutateEvent = async () => {
+  await $extendMutation({
+    type: input.value.id ? 'update' : 'create',
+    key: input.value.file?.key || '',
+    query: input.value.id ? updateEvent : createEvent,
+    input: input.value.id ? input.value : $excludeAttr(input.value, ['id']),
+    file: input.value.file?.file
   })
 }
-const filterAttr = (item: Event) => {
-  return {
-    id: item.id,
-    title: item.title || '',
-    date: item.date || [],
-    description: item.description || '',
-    wanted: item.wanted || false,
-    published: item.published || false,
-    file: item.file || null
-  }
-}
-const input = ref<CreateEventInput>({
+const defaultInput = {
+  id: '',
   title: '',
   date: [$getYMD(new Date().toLocaleString(), '-')],
   description: '',
   wanted: false,
   published: false,
   file: null
-})
-const headers = [
-  { text: 'id', value: 'id' },
-  { text: 'title', value: 'title' },
-  { text: 'wanted', value: 'wanted' },
-  { text: 'published', value: 'published' },
-  { text: 'oparation', value: 'oparation' }
-]
-getEvents()
+}
+const input = ref<FileInput<UpdateEventInput>>(defaultInput)
+const headers = ['id', 'title', 'wanted', 'published', 'oparation']
+await getEvents()
 // TODO: valiidationを掛けること
 </script>
 <template>
@@ -49,28 +43,33 @@ getEvents()
     <atom-breadcrumbs class="mb-5" />
     <v-card class="pa-5">
       <div class="d-flex my-2">
-        <atom-text text="新規作成" font-size="text-h6" class="my-2" />
+        <atom-text
+          :text="input.id ? input.id + 'の更新' : '新規作成'"
+          font-size="text-h6"
+          class="my-2"
+        />
         <v-spacer />
         <atom-button
-          text="新規作成"
+          :loading="banEdit"
+          text="リセット"
+          btn-class="border-solid border-width-1 border-grey-darken-4 mr-3"
+          @btn-click="input = defaultInput"
+        />
+        <atom-button
+          :loading="banEdit"
+          :text="input.id ? '更新' : '新規作成'"
           btn-class="border-solid border-width-1 border-grey-darken-4"
-          @btn-click="
-            $baseMutation({
-              name: 'createEvent',
-              query: createEvent,
-              input
-            })
-          "
+          @btn-click="mutateEvent()"
         />
       </div>
-      <div v-for="item in Object.keys(input)" class="d-flex">
+      <div v-for="[key, item] in Object.entries(input)" class="d-flex">
         <atom-text
-          :text="item"
+          :text="key"
           font-size="text-subtitle-2"
           line-height="line-height-40"
           style="flex: 0 0 120px"
         />
-        <atom-input v-model="input[item]" :value="input[item]" :label="item" />
+        <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
     </v-card>
     <v-card class="pa-5 my-5">
@@ -78,50 +77,55 @@ getEvents()
         <atom-text text="一括取得" font-size="text-h6" class="my-2" />
         <v-spacer />
         <atom-button
+          :loading="banEdit"
           text="再取得"
           btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="getEvents()"
         />
       </div>
       <easy-data-table
-        :headers="headers"
+        :headers="
+          headers.map((v) => {
+            return { text: v, value: v }
+          })
+        "
         :items="events"
         header-item-class-name="text-subtitle-2 font-weight-bold line-height-36"
-        body-row-class-name="height-48"
+        body-row-class-name="height-36 line-height-36 one-line-reader"
         buttons-pagination
         show-index
       >
-        <template #expand="item">
-          <json-editor
-            v-model="events[item.index - 1]"
-            height="400"
-            mode="tree"
-          />
-        </template>
         <template #item-oparation="item">
           <div class="d-flex flex-nowrap">
-            <v-btn
-              icon="mdi-update"
-              variant="plain"
+            <v-icon
+              size="24"
+              class="ma-2"
               @click="
-                $baseMutation({
-                  name: 'updateEvent',
-                  query: updateEvent,
-                  input: filterAttr($findItem(events, 'id', item.id))
-                })
+                input = $filterAttr(events[item.index - 1], [
+                  'id',
+                  'title',
+                  'date',
+                  'description',
+                  'wanted',
+                  'published',
+                  'file'
+                ])
               "
-            ></v-btn>
-            <v-btn
-              icon="mdi-delete"
-              variant="plain"
+              >mdi-pencil
+            </v-icon>
+            <v-icon
+              size="24"
+              class="ma-2"
               @click="
-                $baseMutation({
-                  name: 'deleteEvent',
+                $extendMutation({
+                  type: 'delete',
+                  key: input.file?.key || '',
                   query: deleteEvent,
                   input: { id: item.id }
                 })
               "
-            ></v-btn>
+              >mdi-delete
+            </v-icon>
           </div>
         </template>
       </easy-data-table>

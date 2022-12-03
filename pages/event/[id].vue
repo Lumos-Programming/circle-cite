@@ -1,33 +1,81 @@
 <script setup lang="ts">
-import { Event, GetEventQuery } from '~/assets/API'
+import {
+  Event,
+  GetEventQuery,
+  EventUsers,
+  CreateEventUsersInput,
+  DeleteEventUsersInput
+} from '~/assets/API'
 import { getEvent } from '~/assets/graphql/queries'
-const { $getQuery, $getImage } = useNuxtApp()
+import { createEventUsers, deleteEventUsers } from '~/assets/graphql/mutations'
+const { $getQuery, $getImage, $baseMutation } = useNuxtApp()
 const { params } = useRoute()
+const { isSignedIn } = useLoginState()
+const { myUser } = useMyUser()
+const { banEdit } = useEditState()
 const event = ref<Event>({} as Event)
 const imageUrl = ref<string>('/no_image.png')
+const enter = async () => {
+  const res = await $baseMutation<CreateEventUsersInput, EventUsers>({
+    query: createEventUsers,
+    input: { userID: myUser.value.id, eventID: params.id }
+  })
+  if (!event.value.user?.items) return
+  event.value.user.items.push(res)
+}
+const leave = async () => {
+  const res = event.value.user?.items.find((v) => v?.userID === myUser.value.id)
+  if (!res) return
+  await $baseMutation<DeleteEventUsersInput, EventUsers>({
+    query: deleteEventUsers,
+    input: { id: res.id }
+  })
+  if (!event.value.user?.items.length) return
+  event.value.user.items = event.value.user?.items.filter(
+    (v) => v?.userID !== myUser.value.id
+  )
+}
 const fetchEvent = async () => {
   event.value = await $getQuery<GetEventQuery, Event>({
-    name: 'getEvent',
     query: getEvent,
     variables: {
       id: params.id || null
     }
   })
-  imageUrl.value = await $getImage(event.value.file?.key)
+  imageUrl.value = await $getImage(
+    event.value.file?.key,
+    event.value.file?.identityId
+  )
 }
-fetchEvent()
+await fetchEvent()
 </script>
 <template>
   <layout-public>
     <atom-breadcrumbs
-      class="my-5 ml-5"
+      class="my-5"
       :items="[
         { title: 'event', to: '/event', disabled: false },
         { title: event.title, to: '/event', disabled: true }
       ]"
     />
     <div class="mx-5">
-      <atom-text font-size="text-h4" :text="event.title" class="mt-16" />
+      <div class="d-flex mt-16 justify-space-between">
+        <atom-text font-size="text-h4" :text="event.title" />
+        <template v-if="isSignedIn">
+          <atom-button
+            v-if="!event.user?.items.map((v) => v?.userID).includes(myUser.id)"
+            :loading="banEdit"
+            text="参加する"
+            @btn-click="enter()"
+          />
+          <atom-button
+            v-else
+            :loading="banEdit"
+            text="参加をやめる"
+            @btn-click="leave()"
+          />
+        </template>
+      </div>
       <div
         class="d-flex flex-nowrap justify-start bg-transparent my-2"
         style="gap: 0 10px"
@@ -80,7 +128,7 @@ fetchEvent()
     </div>
     <atom-text font-size="text-h5" text="参加メンバー" class="mt-16 mx-5" />
     <div
-      v-if="event?.user?.items"
+      v-if="event?.user?.items.length"
       class="d-flex flex-nowrap ma-5 pa-2 overflow-x-auto"
       style="gap: 60px 4%"
     >
@@ -89,22 +137,32 @@ fetchEvent()
         :key="item?.user.id"
         :path="'/member/' + item?.user.id"
         :img-key="item?.user.file?.key"
+        :identity-id="item?.user.file?.identityId"
         :name="item?.user.name"
         style="flex: 0 1 22%"
       />
     </div>
-    <atom-text font-size="text-h5" text="関連記事" class="mt-16 mx-5" />
+    <atom-text
+      v-else
+      text="残念、まだいないようです。"
+      class="my-2 mx-5"
+      font-weight="font-weight-regular"
+    />
+    <atom-text
+      v-if="event?.article?.items.length"
+      font-size="text-h5"
+      text="関連記事"
+      class="mt-16 mx-5"
+    />
     <div
-      v-if="event?.article?.items"
+      v-if="event?.article?.items.length"
       class="d-flex flex-wrap ma-5"
       style="gap: 60px 5%"
     >
-      <module-content-medium
+      <module-content-small
         v-for="item in event.article.items"
         :key="item?.id"
         :path="'/article/' + item?.id"
-        :created-at="item?.createdAt"
-        :updated-at="item?.updatedAt"
         :title="item?.title"
         style="flex: 0 1 30%"
       />

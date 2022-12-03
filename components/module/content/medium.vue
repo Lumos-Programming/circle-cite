@@ -5,21 +5,19 @@ const Props = withDefaults(
   defineProps<{
     createdAt: string
     updatedAt: string
-    title: string
-    path: string
+    title: string | null
     imgKey: string
+    identityId: string
   }>(),
   {
     createdAt: '',
     updatedAt: '',
     title: '',
-    path: '/',
-    imgKey: ''
+    imgKey: '',
+    identityId: ''
   }
 )
-computed(async () => {
-  if (Props.imgKey) imageUrl.value = await $getImage(Props.imgKey)
-})
+imageUrl.value = await $getImage(Props.imgKey, Props.identityId)
 </script>
 <template>
   <v-sheet class="bg-transparent">
@@ -30,7 +28,7 @@ computed(async () => {
         :style="{
           transform: isHovering ? 'scale(1.05)' : 'scale(1.0)'
         }"
-        @click="navigateTo(path)"
+        @click="$emit('click-func')"
       >
         <v-img :src="imageUrl" :aspect-ratio="16 / 9" cover />
       </v-card>
@@ -57,8 +55,12 @@ computed(async () => {
       </atom-text>
     </div>
     <slot />
-    <atom-text font-size="text-h6" line-height="line-height-lg" class="ml-1">
-      <NuxtLink :to="path">{{ title }}</NuxtLink>
-    </atom-text>
+    <atom-text
+      :text="title"
+      font-size="text-h6"
+      line-height="line-height-lg"
+      class="ml-1"
+      @click="$emit('click-func')"
+    />
   </v-sheet>
 </template>

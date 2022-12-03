@@ -19,13 +19,14 @@
     "@mdi/font": "^7.0.96",
     "@mdi/js": "^7.0.96",
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^3.2.0",
-    "nuxt": "3.0.0",
+    "nuxt": "3.0.0-rc.4",
     "postcss-html": "^1.5.0",
     "prettier": "^2.7.1",
     "sass": "^1.54.5",
@@ -40,11 +41,19 @@
   "dependencies": {
     "@aws-amplify/api-graphql": "^2.3.19",
     "@aws-amplify/ui-vue": "^2.4.24",
+    "@tiptap/extension-highlight": "^2.0.0-beta.204",
+    "@tiptap/extension-image": "^2.0.0-beta.204",
+    "@tiptap/extension-text-align": "^2.0.0-beta.204",
+    "@tiptap/extension-typography": "^2.0.0-beta.204",
     "@tiptap/starter-kit": "^2.0.0-beta.202",
     "@tiptap/vue-3": "^2.0.0-beta.202",
     "aws-amplify": "^4.3.37",
-    "nuxt-jsoneditor": "^1.6.2",
-    "uuid": "^9.0.0",
     "vue3-easy-data-table": "^1.5.15"
+  },
+  "resolutions": {
+    "nuxi": "3.0.0-rc.4",
+    "@nuxt/schema": "3.0.0-rc.4",
+    "@nuxt/vite-builder": "3.0.0-rc.4",
+    "@nuxt/kit": "3.0.0-rc.4"
   }
 }

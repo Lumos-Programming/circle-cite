@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { S3Object } from '~~/assets/API'
-const { $makeFileObjectForMutation } = useNuxtApp()
-const richText = ['body']
-const textArea = ['description']
-const file = ['file']
-
+import { S3ObjectInput } from '~~/assets/API'
+import { InputAttr } from '~~/assets/enum'
+const { $makeS3Object } = useNuxtApp()
 withDefaults(
   defineProps<{
     label: string
-    value: string | number | boolean | S3Object | any[] | null
+    value: string | number | boolean | S3ObjectInput | any[] | null
   }>(),
   {
     label: '',
@@ -19,21 +16,21 @@ const emit = defineEmits<{
   (e: 'update:model-value', value: any): void
 }>()
 const onImageChange = async (e: any) => {
-  const file = await $makeFileObjectForMutation('protected', e.target?.files[0])
+  if (!e.target?.files.length) return
+  const file = await $makeS3Object(e.target?.files[0])
   emit('update:model-value', file)
 }
 const fixArray = (values: any[], index: number, target: any) => {
   values[index] = target
   return values
 }
-// TODO:読み込み時に以前の画像データ(File Object)を再現する処理追加（多分aws-sdk 使う模様）
 </script>
 <template>
   <template v-if="Array.isArray(value)">
     <div class="w-100">
       <template v-for="(v, i) in value">
         <v-textarea
-          v-if="textArea.includes(label)"
+          v-if="InputAttr.TextArea.includes(label)"
           :model-value="v"
           density="compact"
           clearable
@@ -58,7 +55,7 @@ const fixArray = (values: any[], index: number, target: any) => {
           :model-value="v"
           hide-details
           density="compact"
-          class="text-main-color"
+          :class="v === true ? 'text-main-color' : 'text-grey-darken-4'"
           prepend-icon="mdi-plus"
           append-icon="mdi-minus"
           @click:append="
@@ -103,12 +100,12 @@ const fixArray = (values: any[], index: number, target: any) => {
   </template>
   <template v-else>
     <module-tiptap
-      v-if="richText.includes(label)"
-      :model-value="value"
+      v-if="InputAttr.RichText.includes(label)"
+      :model-value="String(value)"
       @update:model-value="$emit('update:model-value', $event)"
     />
     <v-textarea
-      v-else-if="textArea.includes(label)"
+      v-else-if="InputAttr.TextArea.includes(label)"
       :model-value="value"
       density="compact"
       clearable
@@ -120,22 +117,55 @@ const fixArray = (values: any[], index: number, target: any) => {
       :model-value="value"
       hide-details
       density="compact"
-      class="text-main-color"
+      :class="value === true ? 'text-main-color' : 'text-grey-darken-4'"
       @update:model-value="$emit('update:model-value', $event)"
     />
-    <input
-      v-else-if="file.includes(label)"
-      type="file"
-      label="File input"
-      density="compact"
-      clearable
-      @change="onImageChange($event)"
-    />
+    <div
+      v-else-if="InputAttr.File.includes(label)"
+      class="d-flex flex-nowrap"
+      :style="{ width: 'calc(100% - 120px)' }"
+    >
+      <label
+        class="border-width-1 border-main-color border-solid rounded width-100 height-26 my-2 text-center cursor-pointer"
+      >
+        <input
+          id="fileTarget"
+          type="file"
+          accept="image/*"
+          class="d-none"
+          @change="onImageChange($event)"
+        />
+        <atom-text
+          text="ファイル選択"
+          font-size="text-caption"
+          font-weight="font-weight-regular"
+          line-height="line-height-lg"
+          class="my-1"
+        />
+      </label>
+      <atom-text
+        :text="value?.name || 'ファイルが選択されていません'"
+        font-size="text-caption"
+        font-weight="font-weight-regular"
+        line-height="line-height-lg"
+        class="my-3 mx-2 line-clamp-1"
+        :style="{ width: 'calc(100% - 118px)' }"
+      />
+      <v-icon
+        v-if="value?.name"
+        size="18"
+        class="my-3"
+        @click="$emit('update:model-value', null)"
+        >mdi-close
+      </v-icon>
+    </div>
+
     <v-text-field
       v-else
       :model-value="value"
       density="compact"
       clearable
+      :disabled="label === 'id' || label === 'email'"
       class="text-main-color"
       @update:model-value="$emit('update:model-value', $event)"
     />

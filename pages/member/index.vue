@@ -5,11 +5,10 @@ const { $listQuery } = useNuxtApp()
 const users = ref<User[]>([])
 const getUsers = async () => {
   users.value = await $listQuery<ListUsersQuery, User>({
-    name: 'listUsers',
     query: listUsers
   })
 }
-getUsers()
+await getUsers()
 </script>
 <template>
   <layout-public>
@@ -26,6 +25,7 @@ getUsers()
         :twitter="item.twitter"
         :qiita="item.qiita"
         :zenn="item.zenn"
+        :identityId="item.file?.identityId"
         style="flex: 0 1 30%; padding: 0 3%"
       />
     </div>

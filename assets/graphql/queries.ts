@@ -23,6 +23,61 @@ export const getUser = /* GraphQL */ `
           id
           userID
           skillID
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          skill {
+            id
+            title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
           owner
@@ -35,6 +90,106 @@ export const getUser = /* GraphQL */ `
           title
           body
           published
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          project {
+            id
+            title
+            description
+            start
+            end
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
+          event {
+            id
+            title
+            date
+            description
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
+          skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
           userArticleId
@@ -50,6 +205,56 @@ export const getUser = /* GraphQL */ `
           url
           description
           published
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
           userPortfolioId
@@ -62,6 +267,73 @@ export const getUser = /* GraphQL */ `
           id
           userID
           projectID
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          project {
+            id
+            title
+            description
+            start
+            end
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
           owner
@@ -73,6 +345,72 @@ export const getUser = /* GraphQL */ `
           id
           userID
           eventID
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          event {
+            id
+            title
+            date
+            description
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
           owner
@@ -84,6 +422,59 @@ export const getUser = /* GraphQL */ `
           id
           userID
           linkID
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          link {
+            id
+            url
+            likes
+            user {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
           owner
@@ -91,9 +482,11 @@ export const getUser = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -123,27 +516,256 @@ export const listUsers = /* GraphQL */ `
         twitter
         slide
         skill {
+          items {
+            id
+            userID
+            skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         portfolio {
+          items {
+            id
+            title
+            url
+            description
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            userPortfolioId
+            owner
+          }
           nextToken
         }
         project {
+          items {
+            id
+            userID
+            projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         event {
+          items {
+            id
+            userID
+            eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         link {
+          items {
+            id
+            userID
+            linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -157,13 +779,66 @@ export const getLink = /* GraphQL */ `
   query GetLink($id: ID!) {
     getLink(id: $id) {
       id
-      urls
+      url
       likes
       user {
         items {
           id
           userID
           linkID
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          link {
+            id
+            url
+            likes
+            user {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
           owner
@@ -184,9 +859,42 @@ export const listLinks = /* GraphQL */ `
     listLinks(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        urls
+        url
         likes
         user {
+          items {
+            id
+            userID
+            linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         createdAt
@@ -206,6 +914,61 @@ export const getSkill = /* GraphQL */ `
           id
           userID
           skillID
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          skill {
+            id
+            title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
           owner
@@ -217,6 +980,71 @@ export const getSkill = /* GraphQL */ `
           id
           skillID
           articleID
+          skill {
+            id
+            title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          article {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           createdAt
           updatedAt
         }
@@ -238,9 +1066,65 @@ export const listSkills = /* GraphQL */ `
         id
         title
         user {
+          items {
+            id
+            userID
+            skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            skillID
+            articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -272,27 +1156,256 @@ export const getArticle = /* GraphQL */ `
         twitter
         slide
         skill {
+          items {
+            id
+            userID
+            skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         portfolio {
+          items {
+            id
+            title
+            url
+            description
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            userPortfolioId
+            owner
+          }
           nextToken
         }
         project {
+          items {
+            id
+            userID
+            projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         event {
+          items {
+            id
+            userID
+            eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         link {
+          items {
+            id
+            userID
+            linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -307,15 +1420,107 @@ export const getArticle = /* GraphQL */ `
         wanted
         published
         user {
+          items {
+            id
+            userID
+            projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -328,15 +1533,106 @@ export const getArticle = /* GraphQL */ `
         wanted
         published
         user {
+          items {
+            id
+            userID
+            eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -346,6 +1642,71 @@ export const getArticle = /* GraphQL */ `
           id
           skillID
           articleID
+          skill {
+            id
+            title
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          article {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           createdAt
           updatedAt
         }
@@ -385,6 +1746,85 @@ export const listArticles = /* GraphQL */ `
           qiita
           twitter
           slide
+          skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
+            nextToken
+          }
+          project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
           owner
@@ -397,6 +1837,38 @@ export const listArticles = /* GraphQL */ `
           end
           wanted
           published
+          user {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
         }
@@ -407,10 +1879,66 @@ export const listArticles = /* GraphQL */ `
           description
           wanted
           published
+          user {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
         }
         skill {
+          items {
+            id
+            skillID
+            articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -446,36 +1974,267 @@ export const getPortfolio = /* GraphQL */ `
         twitter
         slide
         skill {
+          items {
+            id
+            userID
+            skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         portfolio {
+          items {
+            id
+            title
+            url
+            description
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            userPortfolioId
+            owner
+          }
           nextToken
         }
         project {
+          items {
+            id
+            userID
+            projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         event {
+          items {
+            id
+            userID
+            eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         link {
+          items {
+            id
+            userID
+            linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
         owner
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -511,14 +2270,95 @@ export const listPortfolios = /* GraphQL */ `
           qiita
           twitter
           slide
+          skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
+            nextToken
+          }
+          project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
           owner
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -544,6 +2384,73 @@ export const getProject = /* GraphQL */ `
           id
           userID
           projectID
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          project {
+            id
+            title
+            description
+            start
+            end
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
           owner
@@ -556,6 +2463,106 @@ export const getProject = /* GraphQL */ `
           title
           body
           published
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          project {
+            id
+            title
+            description
+            start
+            end
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
+          event {
+            id
+            title
+            date
+            description
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
+          skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
           userArticleId
@@ -565,9 +2572,11 @@ export const getProject = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -590,15 +2599,107 @@ export const listProjects = /* GraphQL */ `
         wanted
         published
         user {
+          items {
+            id
+            userID
+            projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -621,6 +2722,72 @@ export const getEvent = /* GraphQL */ `
           id
           userID
           eventID
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          event {
+            id
+            title
+            date
+            description
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
           owner
@@ -633,6 +2800,106 @@ export const getEvent = /* GraphQL */ `
           title
           body
           published
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          project {
+            id
+            title
+            description
+            start
+            end
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
+          event {
+            id
+            title
+            date
+            description
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
+          skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
           userArticleId
@@ -642,9 +2909,11 @@ export const getEvent = /* GraphQL */ `
         nextToken
       }
       file {
-        bucket
         key
-        region
+        name
+        size
+        type
+        identityId
       }
       createdAt
       updatedAt
@@ -666,15 +2935,106 @@ export const listEvents = /* GraphQL */ `
         wanted
         published
         user {
+          items {
+            id
+            userID
+            eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -704,27 +3064,256 @@ export const getUserSkills = /* GraphQL */ `
         twitter
         slide
         skill {
+          items {
+            id
+            userID
+            skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         portfolio {
+          items {
+            id
+            title
+            url
+            description
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            userPortfolioId
+            owner
+          }
           nextToken
         }
         project {
+          items {
+            id
+            userID
+            projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         event {
+          items {
+            id
+            userID
+            eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         link {
+          items {
+            id
+            userID
+            linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -734,9 +3323,65 @@ export const getUserSkills = /* GraphQL */ `
         id
         title
         user {
+          items {
+            id
+            userID
+            skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            skillID
+            articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -773,6 +3418,85 @@ export const listUserSkills = /* GraphQL */ `
           qiita
           twitter
           slide
+          skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
+            nextToken
+          }
+          project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
           owner
@@ -780,6 +3504,27 @@ export const listUserSkills = /* GraphQL */ `
         skill {
           id
           title
+          user {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -812,27 +3557,256 @@ export const getProjectUsers = /* GraphQL */ `
         twitter
         slide
         skill {
+          items {
+            id
+            userID
+            skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         portfolio {
+          items {
+            id
+            title
+            url
+            description
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            userPortfolioId
+            owner
+          }
           nextToken
         }
         project {
+          items {
+            id
+            userID
+            projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         event {
+          items {
+            id
+            userID
+            eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         link {
+          items {
+            id
+            userID
+            linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -847,15 +3821,107 @@ export const getProjectUsers = /* GraphQL */ `
         wanted
         published
         user {
+          items {
+            id
+            userID
+            projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -891,6 +3957,85 @@ export const listProjectUsers = /* GraphQL */ `
           qiita
           twitter
           slide
+          skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
+            nextToken
+          }
+          project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
           owner
@@ -903,6 +4048,38 @@ export const listProjectUsers = /* GraphQL */ `
           end
           wanted
           published
+          user {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
         }
@@ -935,27 +4112,256 @@ export const getEventUsers = /* GraphQL */ `
         twitter
         slide
         skill {
+          items {
+            id
+            userID
+            skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         portfolio {
+          items {
+            id
+            title
+            url
+            description
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            userPortfolioId
+            owner
+          }
           nextToken
         }
         project {
+          items {
+            id
+            userID
+            projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         event {
+          items {
+            id
+            userID
+            eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         link {
+          items {
+            id
+            userID
+            linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -969,15 +4375,106 @@ export const getEventUsers = /* GraphQL */ `
         wanted
         published
         user {
+          items {
+            id
+            userID
+            eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1013,6 +4510,85 @@ export const listEventUsers = /* GraphQL */ `
           qiita
           twitter
           slide
+          skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
+            nextToken
+          }
+          project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
           owner
@@ -1024,6 +4600,38 @@ export const listEventUsers = /* GraphQL */ `
           description
           wanted
           published
+          user {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
         }
@@ -1056,27 +4664,256 @@ export const getUserLinks = /* GraphQL */ `
         twitter
         slide
         skill {
+          items {
+            id
+            userID
+            skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            title
+            body
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            skill {
+              nextToken
+            }
+            createdAt
+            updatedAt
+            userArticleId
+            projectArticleId
+            eventArticleId
+          }
           nextToken
         }
         portfolio {
+          items {
+            id
+            title
+            url
+            description
+            published
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            userPortfolioId
+            owner
+          }
           nextToken
         }
         project {
+          items {
+            id
+            userID
+            projectID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            project {
+              id
+              title
+              description
+              start
+              end
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         event {
+          items {
+            id
+            userID
+            eventID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            event {
+              id
+              title
+              date
+              description
+              wanted
+              published
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         link {
+          items {
+            id
+            userID
+            linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         file {
-          bucket
           key
-          region
+          name
+          size
+          type
+          identityId
         }
         createdAt
         updatedAt
@@ -1084,9 +4921,42 @@ export const getUserLinks = /* GraphQL */ `
       }
       link {
         id
-        urls
+        url
         likes
         user {
+          items {
+            id
+            userID
+            linkID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            link {
+              id
+              url
+              likes
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         createdAt
@@ -1123,14 +4993,104 @@ export const listUserLinks = /* GraphQL */ `
           qiita
           twitter
           slide
+          skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
+            nextToken
+          }
+          project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
           owner
         }
         link {
           id
-          urls
+          url
           likes
+          user {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -1152,9 +5112,65 @@ export const getArticleSkills = /* GraphQL */ `
         id
         title
         user {
+          items {
+            id
+            userID
+            skillID
+            user {
+              id
+              name
+              description
+              email
+              belongs
+              join
+              leave
+              discordId
+              github
+              zenn
+              qiita
+              twitter
+              slide
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         article {
+          items {
+            id
+            skillID
+            articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -1179,6 +5195,85 @@ export const getArticleSkills = /* GraphQL */ `
           qiita
           twitter
           slide
+          skill {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          portfolio {
+            items {
+              id
+              title
+              url
+              description
+              published
+              createdAt
+              updatedAt
+              userPortfolioId
+              owner
+            }
+            nextToken
+          }
+          project {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          event {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          link {
+            items {
+              id
+              userID
+              linkID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
           owner
@@ -1191,6 +5286,38 @@ export const getArticleSkills = /* GraphQL */ `
           end
           wanted
           published
+          user {
+            items {
+              id
+              userID
+              projectID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
         }
@@ -1201,10 +5328,66 @@ export const getArticleSkills = /* GraphQL */ `
           description
           wanted
           published
+          user {
+            items {
+              id
+              userID
+              eventID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            nextToken
+          }
+          file {
+            key
+            name
+            size
+            type
+            identityId
+          }
           createdAt
           updatedAt
         }
         skill {
+          items {
+            id
+            skillID
+            articleID
+            skill {
+              id
+              title
+              createdAt
+              updatedAt
+            }
+            article {
+              id
+              title
+              body
+              published
+              createdAt
+              updatedAt
+              userArticleId
+              projectArticleId
+              eventArticleId
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -1232,6 +5415,27 @@ export const listArticleSkills = /* GraphQL */ `
         skill {
           id
           title
+          user {
+            items {
+              id
+              userID
+              skillID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          article {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -1240,6 +5444,106 @@ export const listArticleSkills = /* GraphQL */ `
           title
           body
           published
+          user {
+            id
+            name
+            description
+            email
+            belongs
+            join
+            leave
+            discordId
+            github
+            zenn
+            qiita
+            twitter
+            slide
+            skill {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            portfolio {
+              nextToken
+            }
+            project {
+              nextToken
+            }
+            event {
+              nextToken
+            }
+            link {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          project {
+            id
+            title
+            description
+            start
+            end
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
+          event {
+            id
+            title
+            date
+            description
+            wanted
+            published
+            user {
+              nextToken
+            }
+            article {
+              nextToken
+            }
+            file {
+              key
+              name
+              size
+              type
+              identityId
+            }
+            createdAt
+            updatedAt
+          }
+          skill {
+            items {
+              id
+              skillID
+              articleID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
           userArticleId

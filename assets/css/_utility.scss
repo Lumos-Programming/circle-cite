@@ -73,7 +73,7 @@ $cursor: alias, all-scroll, cell, copy, context-menu, crosshair, default, grab,
   vertical-text, zoom-in, zoom-out, unset;
 @each $i in $cursor {
   .cursor-#{$i} {
-    cursor: $i;
+    cursor: $i !important;
   }
 }
 $vertical-align: text-bottom, text-top, sub, super;
@@ -125,6 +125,12 @@ $mix-blend-mode: normal, luminosity, screen, unset;
   }
   .opacity-dot#{$i} {
     opacity: 0.1 * $i !important;
+  }
+  .line-clamp-#{$i} {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $i;
   }
 }
 $line-height: (

@@ -1,3 +1,4 @@
+import { InputAttr } from '~~/assets/enum'
 export default defineNuxtPlugin((nuxtApp) => {
   const setFillHeight = () => {
     const vh = window.innerHeight * 0.01
@@ -15,23 +16,32 @@ export default defineNuxtPlugin((nuxtApp) => {
   return {
     provide: {
       options: ({
+        key,
         method = 'GET',
         headers = {
           'Content-Type': 'application/json; charset=utf-8',
           'Access-Control-Allow-Origin': '*'
         },
-        body = null
+        body = null,
+        lazy = true,
+        cache = true
       }: {
+        key?: string
         method?: string
         headers?: { [key: string]: string }
         body?: string | null | FormData
+        lazy?: boolean
+        cache?: boolean
       } = {}) => ({
+        key,
         baseURL: config.public.baseUrl || '',
         body,
         method,
         headers: {
           ...headers
-        }
+        },
+        lazy,
+        initialCache: cache
       }),
       baseFetch: async <T>(path: string, options = nuxtApp.$options()) => {
         if (!isProd) console.log(options)
@@ -80,13 +90,51 @@ export default defineNuxtPlugin((nuxtApp) => {
           ('0' + date.getDate()).slice(-2)
         )
       },
-      isObject: (v) => {
+      isObject: (v: object) => {
         return v !== null && typeof v === 'object' && !Array.isArray(v)
       },
       findItem: (array: any[], key: string, value: any) => {
         const item = array.find((v) => v[key] === value)
         if (item) return item
         return null
+      },
+      filterAttr: (
+        object: { [key: string]: any },
+        attr: string[] = Object.keys(object)
+      ): any => {
+        return attr.reduce((v: object, c) => {
+          if (InputAttr.File.includes(c) && nuxtApp.$isObject(object[c])) {
+            return {
+              ...v,
+              [c]: nuxtApp.$filterAttr(object[c], [
+                'key',
+                'name',
+                'size',
+                'type',
+                'identityId'
+              ])
+            }
+          } else
+            return {
+              ...v,
+              [c]: object[c]
+            }
+        }, {})
+      },
+      excludeAttr: (
+        object: { [key: string]: any },
+        attr: string[] = []
+      ): any => {
+        const res = JSON.parse(JSON.stringify(object))
+        for (let i = 0, len = attr.length; i < len; i++) {
+          delete res[attr[i]]
+        }
+        return res
+      },
+      snakeCase: (str: string): string => {
+        return str.replace(/[A-Z]/g, function (s) {
+          return '_' + s.charAt(0).toLowerCase()
+        })
       }
     }
   }

@@ -1,64 +1,133 @@
 <script setup lang="ts">
-import {
-  CreateArticleInput,
-  CreateEventInput,
-  CreateProjectInput,
-  CreateSkillInput,
-  CreateUserInput,
-  ListArticlesQuery,
-  ListEventsQuery,
-  ListProjectsQuery,
-  ListSkillsQuery,
-  ListUsersQuery
-} from '~/assets/API'
-import {
-  listArticles,
-  listEvents,
-  listProjects,
-  listSkills,
-  listUsers
-} from '~/assets/graphql/queries'
-const { $listQuery } = useNuxtApp()
-const members = ref<CreateUserInput[]>([])
-const articles = ref<CreateArticleInput[]>([])
-const projects = ref<CreateProjectInput[]>([])
-const events = ref<CreateEventInput[]>([])
-const skills = ref<CreateSkillInput[]>([])
-const start = performance.now()
-members.value = await $listQuery<ListUsersQuery, CreateUserInput>({
-  name: 'listUsers',
-  query: listUsers
-})
-articles.value = await $listQuery<ListArticlesQuery, CreateArticleInput>({
-  name: 'listArticles',
-  query: listArticles
-})
-projects.value = await $listQuery<ListProjectsQuery, CreateProjectInput>({
-  name: 'listProjects',
-  query: listProjects
-})
-events.value = await $listQuery<ListEventsQuery, CreateEventInput>({
-  name: 'listEvents',
-  query: listEvents
-})
-skills.value = await $listQuery<ListSkillsQuery, CreateSkillInput>({
-  name: 'listSkills',
-  query: listSkills
-})
-const end = performance.now()
-console.log(end - start)
+import { User, GetUserQuery } from '~/assets/API'
+import { getUser } from '~/assets/graphql/queries'
+const { $getQuery } = useNuxtApp()
+const { myUser } = useMyUser()
+const user = ref<User>({} as User)
+const fetchUser = async () => {
+  if (!myUser.value.id) return
+  user.value = await $getQuery<GetUserQuery, User>({
+    query: getUser,
+    variables: {
+      id: myUser.value.id
+    }
+  })
+}
+await fetchUser()
 </script>
 <template>
   <layout-admin>
     <atom-text font-size="text-h4" text="Admin Top" />
-    <atom-breadcrumbs class="mb-5" />
-    <v-card class="pa-5">
-      <atom-text font-size="text-h6" text="Overview(仮置き)" class="mb-3" />
-      <atom-text :text="'Member : ' + members.length" class="mb-1" />
-      <atom-text :text="'Article : ' + articles.length" class="mb-1" />
-      <atom-text :text="'Project : ' + projects.length" class="mb-1" />
-      <atom-text :text="'Event : ' + events.length" class="mb-1" />
-      <atom-text :text="'Skill : ' + skills.length" class="mb-1" />
-    </v-card>
+    <atom-breadcrumbs
+      class="my-5"
+      :items="[
+        { title: 'member', to: '/member', disabled: false },
+        { title: user.name || 'you', to: '/member/' + user.id, disabled: true }
+      ]"
+    />
+    <div class="d-flex flex-wrap mt-16">
+      <div class="mx-5" style="flex: 0 0 200px">
+        <module-user-icon
+          :img-key="user.file?.key"
+          :identityId="user.file?.identityId"
+        />
+      </div>
+
+      <div class="my-5" style="flex: 1 0 200px">
+        <atom-text font-size="text-h4" :text="user.name" />
+        <atom-text
+          :text="user.belongs"
+          font-weight="font-weight-regular"
+          class="my-2"
+        />
+        <div class="d-flex flex-nowrap justify-start my-2" style="gap: 0 10px">
+          <atom-text
+            font-size="text-caption"
+            :text="'加入日：' + $getYMD(user.join)"
+            font-weight="font-weight-regular"
+          />
+          <atom-text
+            font-size="text-caption"
+            :text="'卒業日：' + $getYMD(user.leave)"
+            font-weight="font-weight-regular"
+          />
+        </div>
+        <div class="d-flex flex-nowra justify-start" style="gap: 0 10px">
+          <atom-button-circle
+            @btn-click="navigateTo(user.github, { external: true })"
+          >
+            <v-img src="/github.svg" class="width-24 height-24 ma-2" />
+          </atom-button-circle>
+          <atom-button-circle
+            @btn-click="navigateTo(user.twitter, { external: true })"
+          >
+            <v-img src="/twitter.svg" class="width-24 height-24 ma-2" />
+          </atom-button-circle>
+          <atom-button-circle
+            @btn-click="navigateTo(user.qiita, { external: true })"
+          >
+            <v-img src="/qiita.png" class="width-24 height-24 ma-2" />
+          </atom-button-circle>
+          <atom-button-circle
+            @btn-click="navigateTo(user.zenn, { external: true })"
+          >
+            <v-img src="/zenn.svg" class="width-24 height-24 ma-2" />
+          </atom-button-circle>
+          <atom-button-circle
+            @btn-click="navigateTo(user.slide, { external: true })"
+          >
+            <v-img src="/slideshare.png" class="width-24 height-24 ma-2" />
+          </atom-button-circle>
+        </div>
+        <atom-text text="自己紹介" class="mt-5" />
+        <atom-text
+          :text="user.description"
+          font-weight="font-weight-regular"
+          class="mt-2"
+        />
+      </div>
+    </div>
+    <atom-text
+      v-if="user?.portfolio?.items.length"
+      font-size="text-h5"
+      text="ポートフォリオ"
+      class="mt-16"
+    />
+    <div
+      v-if="user?.portfolio?.items.length"
+      class="d-flex flex-wrap my-5"
+      style="gap: 60px 10%"
+    >
+      <module-content-medium
+        v-for="item in user.portfolio.items"
+        :key="item?.id"
+        :created-at="item?.createdAt"
+        :updated-at="item?.updatedAt"
+        :title="item?.title"
+        style="flex: 0 1 45%"
+        @click-func="navigateTo('/portfolio/' + item?.id)"
+      />
+    </div>
+    <atom-text
+      v-if="user?.article?.items.length"
+      font-size="text-h5"
+      text="執筆記事"
+      class="mt-16"
+    />
+    <div
+      v-if="user?.article?.items.length"
+      class="d-flex flex-wrap my-5"
+      style="gap: 60px 10%"
+    >
+      <module-content-medium
+        v-for="item in user.article.items"
+        :key="item?.id"
+        :created-at="item?.createdAt"
+        :updated-at="item?.updatedAt"
+        :title="item?.title"
+        style="flex: 0 1 45%"
+        @click-func="navigateTo('/article/' + item?.id)"
+      />
+    </div>
   </layout-admin>
 </template>
