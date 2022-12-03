@@ -24,7 +24,7 @@ await getPortfolios()
         :updated-at="item.updatedAt"
         :title="item.title"
         style="flex: 0 1 30%"
-        @click-func="navigateTo(item.url, { external: true })"
+        @click-func="$externalLink(item.url)"
       >
       </module-content-medium>
     </div>

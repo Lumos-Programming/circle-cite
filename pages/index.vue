@@ -50,11 +50,7 @@ const explains = [
           <atom-button
             text="話だけでも聞いてみる"
             btn-class="border-solid border-width-1 border-grey-darken-4"
-            @btn-click="
-              navigateTo('https://twitter.com/lumos_program', {
-                external: true
-              })
-            "
+            @btn-click="$externalLink('https://twitter.com/lumos_program')"
           />
         </div>
       </div>
@@ -108,11 +104,7 @@ const explains = [
       <atom-button
         text="話だけでも聞いてみる"
         btn-class="border-solid border-width-1 border-grey-darken-4"
-        @btn-click="
-          navigateTo('https://twitter.com/lumos_program', {
-            external: true
-          })
-        "
+        @btn-click="$externalLink('https://twitter.com/lumos_program')"
       />
     </div>
   </layout-public>
