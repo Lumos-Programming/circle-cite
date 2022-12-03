@@ -58,7 +58,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           }
         })
         if (error.value) clearError()
-        if (options.method !== 'GET') {
+        else if (options.method !== 'GET') {
           addSnackbar({ type: 'success', text: '送信が完了しました' })
         }
         setBanEdit(false)
