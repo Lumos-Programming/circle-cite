@@ -51,6 +51,9 @@
     "vue3-easy-data-table": "^1.5.15"
   },
   "resolutions": {
-    "nuxi": "3.0.0-rc.4"
+    "nuxi": "3.0.0-rc.4",
+    "@nuxt/schema": "3.0.0-rc.4",
+    "@nuxt/vite-builder": "3.0.0-rc.4",
+    "@nuxt/kit": "3.0.0-rc.4"
   }
 }
