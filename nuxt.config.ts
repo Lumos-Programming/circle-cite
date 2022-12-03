@@ -29,6 +29,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ['vuetify']
   },
+  vuetify: {
+    treeShake: true
+  },
   modules: [],
   buildModules: [],
   serverMiddleware: [],
