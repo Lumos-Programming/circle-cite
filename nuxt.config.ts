@@ -1,4 +1,3 @@
-import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
   ssr: false,
   app: {
@@ -49,8 +48,6 @@ export default defineNuxtConfig({
     }
   },
   modules: [],
-  buildModules: [],
-  // serverMiddleware: [],
   runtimeConfig: {
     public: {
       isProd: process.env.MODE?.toUpperCase() === 'PRODUCTION' || false,
