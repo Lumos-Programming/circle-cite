@@ -1,4 +1,3 @@
-import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
   ssr: false,
   app: {
@@ -33,8 +32,6 @@ export default defineNuxtConfig({
     treeShake: true
   },
   modules: [],
-  buildModules: [],
-  serverMiddleware: [],
   vite: {
     resolve: {
       alias: {
@@ -54,7 +51,7 @@ export default defineNuxtConfig({
           target:
             'https://discord.com/api/webhooks/1041681585063333918/j0FnI7IIEgYELSvpzHxfi50UZ75OCnf51VCyZmi0D6u7REN2u5mFK6JjaKr778W6pw-2',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/discord/, '')
+          rewrite: (path: string) => path.replace(/^\/discord/, '')
         }
       }
     }
