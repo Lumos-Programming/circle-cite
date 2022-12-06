@@ -13,10 +13,10 @@ export const InputAttr = {
 export const OgpKey = [
   'title',
   'description',
-  'image',
-  'type',
-  'siteName',
-  'url'
+  'image'
+  // 'type',
+  // 'siteName',
+  // 'url'
 ] as const
 export const iconTypes: { [key in SnackbarTypeList]: SnackbarType } = {
   info: {
