@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { User, GetUserQuery } from '~/assets/API'
+import { Greetings } from '~/assets/enum'
 import { getUser } from '~/assets/graphql/queries'
 const { $getQuery } = useNuxtApp()
 const { myUser } = useMyUser()
@@ -19,109 +20,16 @@ await fetchUser()
   <layout-admin>
     <atom-text font-size="text-h4" text="Admin Top" />
     <atom-breadcrumbs
-      class="my-5"
-      :items="[
-        { title: 'member', to: '/member', disabled: false },
-        {
-          title: user?.name || 'you',
-          to: '/member/' + user?.id,
-          disabled: true
-        }
-      ]"
+      class="mb-5"
+      :items="[{ title: 'admin', to: '/admin', disabled: true }]"
     />
-    <div class="d-flex flex-wrap mt-16">
-      <div class="mx-5" style="flex: 0 0 200px">
-        <module-user-icon
-          :img-key="user?.file?.key"
-          :identityId="user?.file?.identityId"
-        />
-      </div>
-
-      <div class="my-5" style="flex: 1 0 200px">
-        <atom-text font-size="text-h4" :text="user?.name" />
-        <atom-text
-          :text="user?.belongs"
-          font-weight="font-weight-regular"
-          class="my-2"
-        />
-        <div class="d-flex flex-nowrap justify-start my-2" style="gap: 0 10px">
-          <atom-text
-            font-size="text-caption"
-            :text="'加入日：' + $getYMD(user?.join)"
-            font-weight="font-weight-regular"
-          />
-          <atom-text
-            font-size="text-caption"
-            :text="'卒業日：' + $getYMD(user?.leave)"
-            font-weight="font-weight-regular"
-          />
-        </div>
-        <div class="d-flex flex-nowra justify-start" style="gap: 0 10px">
-          <atom-button-circle @btn-click="$externalLink(user?.github)">
-            <v-img src="/github.svg" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle @btn-click="$externalLink(user?.twitter)">
-            <v-img src="/twitter.svg" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle @btn-click="$externalLink(user?.qiita)">
-            <v-img src="/qiita.png" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle @btn-click="$externalLink(user?.zenn)">
-            <v-img src="/zenn.svg" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle @btn-click="$externalLink(user?.slide)">
-            <v-img src="/slideshare.png" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-        </div>
-        <atom-text text="自己紹介" class="mt-5" />
-        <atom-text
-          :text="user?.description"
-          font-weight="font-weight-regular"
-          class="mt-2"
-        />
-      </div>
-    </div>
     <atom-text
-      v-if="user?.portfolio?.items.length"
       font-size="text-h5"
-      text="ポートフォリオ"
-      class="mt-16"
+      :text="
+        Greetings(user?.name || '')[
+          Math.floor(Math.random() * Greetings().length)
+        ]
+      "
     />
-    <div
-      v-if="user?.portfolio?.items.length"
-      class="d-flex flex-wrap my-5"
-      style="gap: 60px 10%"
-    >
-      <module-content-medium
-        v-for="item in user?.portfolio.items"
-        :key="item?.id"
-        :created-at="item?.createdAt"
-        :updated-at="item?.updatedAt"
-        :title="item?.title"
-        style="flex: 0 1 45%"
-        @click-func="navigateTo('/portfolio/' + item?.id)"
-      />
-    </div>
-    <atom-text
-      v-if="user?.article?.items.length"
-      font-size="text-h5"
-      text="執筆記事"
-      class="mt-16"
-    />
-    <div
-      v-if="user?.article?.items.length"
-      class="d-flex flex-wrap my-5"
-      style="gap: 60px 10%"
-    >
-      <module-content-medium
-        v-for="item in user?.article.items"
-        :key="item?.id"
-        :created-at="item?.createdAt"
-        :updated-at="item?.updatedAt"
-        :title="item?.title"
-        style="flex: 0 1 45%"
-        @click-func="navigateTo('/article/' + item?.id)"
-      />
-    </div>
   </layout-admin>
 </template>

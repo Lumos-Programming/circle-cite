@@ -56,72 +56,58 @@ const pages = [
     <!-- NOTE: 画面左側メニュバー -->
     <v-card
       :class="[
-        'transition-medium-ease-out pa-5 position-relative bg-main-color rounded-0'
+        'transition-medium-ease-out pa-5 position-relative bg-transparent rounded-0 elevation-0'
       ]"
       style="flex: 0 0 200px"
     >
-      <div class="height-120 ml-1 mt-10">
-        <atom-text
-          font-size="text-h3"
-          class="one-line-reader letter-spacing-30"
-          text="Hooks"
-          :color="
-            isSignedIn
-              ? isAdmin
-                ? 'text-accent-color'
-                : 'text-white'
-              : 'text-main-color'
-          "
-        />
-        <atom-text
-          font-size="text-h3"
-          class="one-line-reader letter-spacing-30"
-          text="Admin"
-          :color="
-            isSignedIn
-              ? isAdmin
-                ? 'text-accent-color'
-                : 'text-white'
-              : 'text-main-color'
-          "
-        />
-      </div>
-      <v-divider class="my-2 bg-white" />
+      <atom-text
+        font-size="text-h3"
+        class="ml-1 one-line-reader letter-spacing-30"
+        text="Hooks"
+        line-height="line-height-70"
+        :color="
+          isSignedIn
+            ? isAdmin
+              ? 'text-accent-color'
+              : 'text-grey-darken-4'
+            : 'text-main-color'
+        "
+      />
+      <v-divider class="my-2 bg-grey-darken-4" />
       <v-btn
         v-for="page in pages"
         :key="page.title"
         :to="page.path"
-        class="height-40 my-1"
+        class="widht-200 height-40 my-1"
         variant="text"
         :ripple="false"
-        style="flex: 0 0 200px"
       >
-        <v-icon class="width-40 text-white">{{ page.icon }}</v-icon>
+        <v-icon class="width-40 text-grey-darken-4">{{ page.icon }}</v-icon>
         <atom-text
           font-size="text-caption"
           class="width-120 one-line-reader line-height-40"
           :text="page.title"
-          color="text-white"
+          color="text-grey-darken-4"
         />
       </v-btn>
+      <v-divider class="my-2 bg-grey-darken-4" />
       <v-btn
-        class="height-40 my-1 px-0 position-absolute bottom-20 left-20"
+        class="widht-200 height-40 my-1 px-0 position-absolute bottom-20 left-20"
         variant="text"
         :ripple="false"
-        style="flex: 0 0 200px"
         @click="$signOut()"
       >
-        <v-icon class="width-40 text-white">mdi-logout</v-icon>
+        <v-icon class="width-40 text-grey-darken-4">mdi-logout</v-icon>
         <atom-text
           font-size="text-caption"
           class="width-120 one-line-reader line-height-40"
           text="ログアウト"
-          color="text-white"
+          color="text-grey-darken-4"
         />
       </v-btn>
     </v-card>
     <div
-      class="pt-16 px-5 overflow-y-auto scrollbar-hidden position-relative"
+      class="pt-5 px-5 overflow-y-auto scrollbar-hidden position-relative"
       :style="{ flex: '1', height: 'calc(100vh - 40px)' }"
     >
       <atom-menu-icon />
