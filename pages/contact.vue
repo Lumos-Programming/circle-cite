@@ -10,17 +10,30 @@ const submit = async () => {
     name.value +
     '」さんからお問い合わせがありました！\n\nお問い合わせ内容\n' +
     body.value
-  await $baseFetch(
-    // '/discord',
+  // await $baseFetch(
+  //   // '/discord',
+  //   'https://discord.com/api/webhooks/1041681585063333918/j0FnI7IIEgYELSvpzHxfi50UZ75OCnf51VCyZmi0D6u7REN2u5mFK6JjaKr778W6pw-2',
+  //   $options({
+  //     key: content,
+  //     method: 'POST',
+  //     body: JSON.stringify({
+  //       username: 'サークルサイトからのお問い合わせ',
+  //       content
+  //     })
+  //   })
+  // )
+  $fetch(
     'https://discord.com/api/webhooks/1041681585063333918/j0FnI7IIEgYELSvpzHxfi50UZ75OCnf51VCyZmi0D6u7REN2u5mFK6JjaKr778W6pw-2',
-    $options({
-      key: content,
+    {
       method: 'POST',
       body: JSON.stringify({
         username: 'サークルサイトからのお問い合わせ',
         content
-      })
-    })
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
   )
 }
 </script>
