@@ -46,13 +46,20 @@ export default defineNuxtConfig({
       watch: {
         usePolling: true
       },
-      proxy: {
-        '/discord': {
-          target:
-            'https://discord.com/api/webhooks/1041681585063333918/j0FnI7IIEgYELSvpzHxfi50UZ75OCnf51VCyZmi0D6u7REN2u5mFK6JjaKr778W6pw-2',
-          changeOrigin: true,
-          rewrite: (path: string) => path.replace(/^\/discord/, '')
+      proxy: {}
+    }
+  },
+  nitro: {
+    devProxy: {
+      '/discord': {
+        target:
+          'https://discord.com/api/webhooks/1041681585063333918/j0FnI7IIEgYELSvpzHxfi50UZ75OCnf51VCyZmi0D6u7REN2u5mFK6JjaKr778W6pw-2',
+        changeOrigin: true,
+        hostRewrite: true,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
         }
+        // rewrite: (path: string) => path.replace(/^\/discord/, '')
       }
     }
   },
