@@ -51,29 +51,47 @@ const pushLike = async (type: 'like' | 'unlike' = 'like') => {
 
 const metadata: Metadata = {}
 // OGP metadata を取得
-const { data, error } = await $baseFetch(
-  '/ogp',
-  $options({
-    key: props.url,
-    method: 'POST',
-    body: JSON.stringify({ url: props.url }),
-    headers: {
-      'Content-Type': 'text/plain',
-      'Access-Control-Allow-Origin': '*'
-    },
-    cache: false
-  })
-)
-for (let i = 0, len = OgpKey.length; i < len; i++) {
-  if (!data) continue
-  const v = OgpKey[i]
-  const parser = new DOMParser()
-  const dom = parser.parseFromString(String(data), 'text/html')
-  const content = dom
-    .querySelector(`meta[property='og:${$snakeCase(v)}']`)
-    ?.getAttribute('content')
-  metadata[v] = content !== null ? content : undefined
-}
+// const { data, error } = await $baseFetch(
+//   props.url,
+//   $options({
+//     key: props.url,
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'text/html',
+//       'Access-Control-Allow-Origin': '*'
+//     }
+//   })
+// )
+// const { data, error } = await $baseFetch(
+//   '/api/ogp',
+//   $options({
+//     key: props.url,
+//     method: 'POST',
+//     body: JSON.stringify({ url: props.url }),
+//     headers: {
+//       'Content-Type': 'text/plain'
+//       // 'Access-Control-Allow-Origin': '*'
+//     },
+//     cache: false
+//   })
+// )
+const res = await $fetch(props.url, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'text/plain'
+  }
+})
+console.log(String(res))
+// for (let i = 0, len = OgpKey.length; i < len; i++) {
+//   if (!data) continue
+//   const v = OgpKey[i]
+//   const parser = new DOMParser()
+//   const dom = parser.parseFromString(String(data), 'text/html')
+//   const content = dom
+//     .querySelector(`meta[property='og:${$snakeCase(v)}']`)
+//     ?.getAttribute('content')
+//   metadata[v] = content !== null ? content : undefined
+// }
 </script>
 <template>
   <v-sheet
