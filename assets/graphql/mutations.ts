@@ -471,7 +471,9 @@ export const createUser = /* GraphQL */ `
           link {
             id
             url
-            likes
+            title
+            image
+            description
             user {
               nextToken
             }
@@ -966,7 +968,9 @@ export const updateUser = /* GraphQL */ `
           link {
             id
             url
-            likes
+            title
+            image
+            description
             user {
               nextToken
             }
@@ -1461,7 +1465,9 @@ export const deleteUser = /* GraphQL */ `
           link {
             id
             url
-            likes
+            title
+            image
+            description
             user {
               nextToken
             }
@@ -1495,7 +1501,9 @@ export const createLink = /* GraphQL */ `
     createLink(input: $input, condition: $condition) {
       id
       url
-      likes
+      title
+      image
+      description
       user {
         items {
           id
@@ -1547,7 +1555,9 @@ export const createLink = /* GraphQL */ `
           link {
             id
             url
-            likes
+            title
+            image
+            description
             user {
               nextToken
             }
@@ -1573,7 +1583,9 @@ export const updateLink = /* GraphQL */ `
     updateLink(input: $input, condition: $condition) {
       id
       url
-      likes
+      title
+      image
+      description
       user {
         items {
           id
@@ -1625,7 +1637,9 @@ export const updateLink = /* GraphQL */ `
           link {
             id
             url
-            likes
+            title
+            image
+            description
             user {
               nextToken
             }
@@ -1651,7 +1665,9 @@ export const deleteLink = /* GraphQL */ `
     deleteLink(input: $input, condition: $condition) {
       id
       url
-      likes
+      title
+      image
+      description
       user {
         items {
           id
@@ -1703,7 +1719,9 @@ export const deleteLink = /* GraphQL */ `
           link {
             id
             url
-            likes
+            title
+            image
+            description
             user {
               nextToken
             }
@@ -2442,7 +2460,9 @@ export const createArticle = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -3031,7 +3051,9 @@ export const updateArticle = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -3620,7 +3642,9 @@ export const deleteArticle = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -4210,7 +4234,9 @@ export const createPortfolio = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -4505,7 +4531,9 @@ export const updatePortfolio = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -4800,7 +4828,9 @@ export const deletePortfolio = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -6389,7 +6419,9 @@ export const createUserSkills = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -6742,7 +6774,9 @@ export const updateUserSkills = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -7095,7 +7129,9 @@ export const deleteUserSkills = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -7448,7 +7484,9 @@ export const createProjectUsers = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -7847,7 +7885,9 @@ export const updateProjectUsers = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -8246,7 +8286,9 @@ export const deleteProjectUsers = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -8645,7 +8687,9 @@ export const createEventUsers = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -9042,7 +9086,9 @@ export const updateEventUsers = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -9439,7 +9485,9 @@ export const deleteEventUsers = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -9836,7 +9884,9 @@ export const createUserLinks = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -9860,7 +9910,9 @@ export const createUserLinks = /* GraphQL */ `
       link {
         id
         url
-        likes
+        title
+        image
+        description
         user {
           items {
             id
@@ -9887,7 +9939,9 @@ export const createUserLinks = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -10164,7 +10218,9 @@ export const updateUserLinks = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -10188,7 +10244,9 @@ export const updateUserLinks = /* GraphQL */ `
       link {
         id
         url
-        likes
+        title
+        image
+        description
         user {
           items {
             id
@@ -10215,7 +10273,9 @@ export const updateUserLinks = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -10492,7 +10552,9 @@ export const deleteUserLinks = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -10516,7 +10578,9 @@ export const deleteUserLinks = /* GraphQL */ `
       link {
         id
         url
-        likes
+        title
+        image
+        description
         user {
           items {
             id
@@ -10543,7 +10607,9 @@ export const deleteUserLinks = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
