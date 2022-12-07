@@ -17,8 +17,7 @@ const mutateLink = async () => {
 }
 const defaultInput = {
   id: '',
-  url: '',
-  likes: 0
+  url: ''
 }
 const input = ref<IndexSignature<UpdateLinkInput>>(defaultInput)
 const headers = ['id', 'url', 'oparation']
@@ -88,13 +87,7 @@ await getLinks()
             <v-icon
               size="24"
               class="ma-2"
-              @click="
-                input = $filterAttr(links[item.index - 1], [
-                  'id',
-                  'url',
-                  'likes'
-                ])
-              "
+              @click="input = $filterAttr(links[item.index - 1], ['id', 'url'])"
               >mdi-pencil
             </v-icon>
             <v-icon

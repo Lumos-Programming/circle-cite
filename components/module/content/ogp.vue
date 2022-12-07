@@ -9,13 +9,11 @@ const props = withDefaults(
     id: string
     title: string | null
     url: string
-    likes: number
     users: any[]
   }>(),
   {
     title: '',
     url: '/',
-    likes: 0,
     users: () => []
   }
 )

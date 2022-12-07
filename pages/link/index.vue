@@ -19,7 +19,6 @@ await getLinks()
         :id="item.id"
         :key="item.id"
         :url="item.url"
-        :likes="item.likes || 0"
         :users="item.user?.items"
         @update:users="item.user?.items ? (item.user.items = $event) : null"
       >
