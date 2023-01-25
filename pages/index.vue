@@ -33,6 +33,7 @@ const explains = [
           font-size="text-h3"
           class="mb-10 letter-spacing-30"
         />
+        <v-text-field variant="plain" />
         <atom-text
           text="Lumosは初心者から経験者まで幅広く在籍する"
           class="ml-1 letter-spacing-10"

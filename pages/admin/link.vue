@@ -26,9 +26,7 @@ await getLinks()
 </script>
 <template>
   <layout-admin>
-    <atom-text font-size="text-h4" text="Links" />
-    <atom-breadcrumbs class="mb-5" />
-    <v-card class="pa-5">
+    <div>
       <div class="d-flex my-2">
         <atom-text
           :text="input.id ? input.id + 'の更新' : '新規作成'"
@@ -58,8 +56,8 @@ await getLinks()
         />
         <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
-    </v-card>
-    <v-card class="pa-5 my-5">
+    </div>
+    <div class="my-5">
       <div class="d-flex my-2">
         <atom-text text="一括取得" font-size="text-h6" class="my-2" />
         <v-spacer />
@@ -104,6 +102,6 @@ await getLinks()
           </div>
         </template>
       </easy-data-table>
-    </v-card>
+    </div>
   </layout-admin>
 </template>
