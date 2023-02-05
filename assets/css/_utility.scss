@@ -132,6 +132,10 @@ $mix-blend-mode: normal, luminosity, screen, unset;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: $i;
   }
+  .flex-#{$i} {
+    flex-grow: $i;
+    flex-shrink: $i;
+  }
 }
 $line-height: (
   'xs': 1,
@@ -148,6 +152,9 @@ $line-height: (
 @for $i from 0 through 100 {
   .line-height-#{$i} {
     line-height: $i * 1px !important;
+  }
+  .w-#{$i} {
+    width: $i * 1% !important;
   }
 }
 @for $i from 0 through 200 {
@@ -180,6 +187,18 @@ $line-height: (
   }
   .width-#{$i} {
     width: $i * 1px !important;
+  }
+  .min-height-#{$i} {
+    min-height: $i * 1px !important;
+  }
+  .min-width-#{$i} {
+    min-width: $i * 1px !important;
+  }
+  .max-height-#{$i} {
+    max-height: $i * 1px !important;
+  }
+  .max-width-#{$i} {
+    max-width: $i * 1px !important;
   }
   .border-radius-#{$i} {
     border-radius: $i * 1px !important;

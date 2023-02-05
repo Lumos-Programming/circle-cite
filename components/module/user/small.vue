@@ -15,7 +15,7 @@ withDefaults(
 )
 </script>
 <template>
-  <v-sheet class="bg-transparent">
+  <v-sheet class="w-100 bg-transparent">
     <v-hover v-slot="{ isHovering, props }">
       <module-user-icon
         :img-key="imgKey"

@@ -9,13 +9,11 @@ const props = withDefaults(
     id: string
     title: string | null
     url: string
-    likes: number
     users: any[]
   }>(),
   {
     title: '',
     url: '/',
-    likes: 0,
     users: () => []
   }
 )
@@ -52,16 +50,14 @@ const pushLike = async (type: 'like' | 'unlike' = 'like') => {
 const metadata: Metadata = {}
 // OGP metadata を取得
 const { data, error } = await $baseFetch(
-  '/api/ogp',
+  props.url,
   $options({
     key: props.url,
-    method: 'POST',
-    body: JSON.stringify({ url: props.url }),
+    method: 'GET',
     headers: {
       'Content-Type': 'text/plain',
       'Access-Control-Allow-Origin': '*'
-    },
-    cache: false
+    }
   })
 )
 for (let i = 0, len = OgpKey.length; i < len; i++) {
@@ -128,7 +124,7 @@ for (let i = 0, len = OgpKey.length; i < len; i++) {
           "
         />
         <atom-text
-          :text="metadata.url"
+          :text="url"
           font-size="text-caption"
           line-height="line-height-lg"
           font-weight="font-weight-regular"

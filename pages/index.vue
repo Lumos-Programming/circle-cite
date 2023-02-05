@@ -14,7 +14,7 @@ const explains = [
 <template>
   <layout-public>
     <div
-      class="d-flex align-center bg-sub-color"
+      class="d-flex align-center"
       style="height: calc(var(--vh, 1vh) * 90 - 88px)"
     >
       <div style="flex: 3" class="mr-sm-16">
@@ -33,6 +33,7 @@ const explains = [
           font-size="text-h3"
           class="mb-10 letter-spacing-30"
         />
+        <v-text-field variant="plain" />
         <atom-text
           text="Lumosは初心者から経験者まで幅広く在籍する"
           class="ml-1 letter-spacing-10"
@@ -109,9 +110,7 @@ const explains = [
         text="話だけでも聞いてみる"
         btn-class="border-solid border-width-1 border-grey-darken-4"
         @btn-click="
-          navigateTo('https://twitter.com/lumos_program', {
-            external: true
-          })
+          navigateTo('https://twitter.com/lumos_program', { external: true })
         "
       />
     </div>

@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { User, GetUserQuery } from '~/assets/API'
+import { User, UpdateUserInput, GetUserQuery } from '~/assets/API'
+import { Greetings } from '~/assets/enum'
+import { FileInput } from '~/assets/type'
+import { updateUser } from '~/assets/graphql/mutations'
 import { getUser } from '~/assets/graphql/queries'
-const { $getQuery } = useNuxtApp()
-const { myUser } = useMyUser()
+const { $getQuery, $extendMutation, $filterAttr } = useNuxtApp()
+const { myUser, setMyUser } = useMyUser()
 const user = ref<User>({} as User)
 const fetchUser = async () => {
   if (!myUser.value.id) return
@@ -13,121 +16,85 @@ const fetchUser = async () => {
     }
   })
 }
+const updateMyUser = async () => {
+  const res = await $extendMutation({
+    type: 'update',
+    key: input.value.file?.key || '',
+    query: updateUser,
+    input: $filterAttr(input.value, [
+      'id',
+      'name',
+      'email',
+      'description',
+      'belongs',
+      'join',
+      'leave',
+      'discordId',
+      'github',
+      'zenn',
+      'qiita',
+      'twitter',
+      'slide',
+      'file'
+    ]),
+    file: input.value.file?.file
+  })
+  await setMyUser(
+    $filterAttr(res as User, [
+      'id',
+      'name',
+      'email',
+      'description',
+      'belongs',
+      'join',
+      'leave',
+      'discordId',
+      'github',
+      'zenn',
+      'qiita',
+      'twitter',
+      'slide',
+      'file'
+    ])
+  )
+}
+const input = ref<FileInput<UpdateUserInput>>(
+  JSON.parse(JSON.stringify(myUser.value))
+)
 await fetchUser()
 </script>
 <template>
   <layout-admin>
-    <atom-text font-size="text-h4" text="Admin Top" />
-    <atom-breadcrumbs
-      class="my-5"
-      :items="[
-        { title: 'member', to: '/member', disabled: false },
-        { title: user.name || 'you', to: '/member/' + user.id, disabled: true }
-      ]"
-    />
-    <div class="d-flex flex-wrap mt-16">
-      <div class="mx-5" style="flex: 0 0 200px">
-        <module-user-icon
-          :img-key="user.file?.key"
-          :identityId="user.file?.identityId"
+    <div class="d-flex">
+      <v-img
+        src="mushimegane_man.png"
+        class="width-42 height-64 mx-3 flex-grow-0"
+      />
+      <div class="ma-2 pa-3 rounded-lg bg-grey-darken-3">
+        <atom-text
+          :text="
+            Greetings(user?.name || '')[
+              Math.floor(Math.random() * Greetings().length)
+            ]
+          "
+          color="text-white"
+          line-height="line-height-lg"
         />
       </div>
-
-      <div class="my-5" style="flex: 1 0 200px">
-        <atom-text font-size="text-h4" :text="user.name" />
-        <atom-text
-          :text="user.belongs"
-          font-weight="font-weight-regular"
-          class="my-2"
-        />
-        <div class="d-flex flex-nowrap justify-start my-2" style="gap: 0 10px">
-          <atom-text
-            font-size="text-caption"
-            :text="'加入日：' + $getYMD(user.join)"
-            font-weight="font-weight-regular"
-          />
-          <atom-text
-            font-size="text-caption"
-            :text="'卒業日：' + $getYMD(user.leave)"
-            font-weight="font-weight-regular"
-          />
-        </div>
-        <div class="d-flex flex-nowra justify-start" style="gap: 0 10px">
-          <atom-button-circle
-            @btn-click="navigateTo(user.github, { external: true })"
-          >
-            <v-img src="/github.svg" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle
-            @btn-click="navigateTo(user.twitter, { external: true })"
-          >
-            <v-img src="/twitter.svg" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle
-            @btn-click="navigateTo(user.qiita, { external: true })"
-          >
-            <v-img src="/qiita.png" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle
-            @btn-click="navigateTo(user.zenn, { external: true })"
-          >
-            <v-img src="/zenn.svg" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle
-            @btn-click="navigateTo(user.slide, { external: true })"
-          >
-            <v-img src="/slideshare.png" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-        </div>
-        <atom-text text="自己紹介" class="mt-5" />
-        <atom-text
-          :text="user.description"
-          font-weight="font-weight-regular"
-          class="mt-2"
-        />
-      </div>
+      <v-spacer />
     </div>
-    <atom-text
-      v-if="user?.portfolio?.items.length"
-      font-size="text-h5"
-      text="ポートフォリオ"
-      class="mt-16"
+    <module-user-medium
+      :key="user.id"
+      :path="'/member/' + user.id"
+      :img-key="user.file?.key"
+      :name="user.name"
+      :belongs="user.belongs"
+      :github="user.github"
+      :twitter="user.twitter"
+      :qiita="user.qiita"
+      :zenn="user.zenn"
+      :identityId="user.file?.identityId"
+      class="mt-5 pa-10 w-50"
     />
-    <div
-      v-if="user?.portfolio?.items.length"
-      class="d-flex flex-wrap my-5"
-      style="gap: 60px 10%"
-    >
-      <module-content-medium
-        v-for="item in user.portfolio.items"
-        :key="item?.id"
-        :created-at="item?.createdAt"
-        :updated-at="item?.updatedAt"
-        :title="item?.title"
-        style="flex: 0 1 45%"
-        @click-func="navigateTo('/portfolio/' + item?.id)"
-      />
-    </div>
-    <atom-text
-      v-if="user?.article?.items.length"
-      font-size="text-h5"
-      text="執筆記事"
-      class="mt-16"
-    />
-    <div
-      v-if="user?.article?.items.length"
-      class="d-flex flex-wrap my-5"
-      style="gap: 60px 10%"
-    >
-      <module-content-medium
-        v-for="item in user.article.items"
-        :key="item?.id"
-        :created-at="item?.createdAt"
-        :updated-at="item?.updatedAt"
-        :title="item?.title"
-        style="flex: 0 1 45%"
-        @click-func="navigateTo('/article/' + item?.id)"
-      />
-    </div>
   </layout-admin>
 </template>

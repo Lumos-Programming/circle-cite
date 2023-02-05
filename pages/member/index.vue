@@ -13,7 +13,7 @@ await getUsers()
 <template>
   <layout-public>
     <atom-text font-size="text-h4" text="Member" class="py-10" />
-    <div class="d-flex flex-wrap" style="gap: 60px 5%">
+    <div class="d-flex flex-wrap mb-10" style="gap: 60px 5%">
       <module-user-medium
         v-for="item in users"
         :key="item.id"

@@ -299,7 +299,9 @@ export type Link = {
   __typename: "Link",
   id: string,
   url: string,
-  likes?: number | null,
+  title?: string | null,
+  image?: string | null,
+  description?: string | null,
   user?: ModelUserLinksConnection | null,
   createdAt: string,
   updatedAt: string,
@@ -329,33 +331,27 @@ export type DeleteUserInput = {
 export type CreateLinkInput = {
   id?: string | null,
   url: string,
-  likes?: number | null,
+  title?: string | null,
+  image?: string | null,
+  description?: string | null,
 };
 
 export type ModelLinkConditionInput = {
   url?: ModelStringInput | null,
-  likes?: ModelIntInput | null,
+  title?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  description?: ModelStringInput | null,
   and?: Array< ModelLinkConditionInput | null > | null,
   or?: Array< ModelLinkConditionInput | null > | null,
   not?: ModelLinkConditionInput | null,
 };
 
-export type ModelIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
 export type UpdateLinkInput = {
   id: string,
   url?: string | null,
-  likes?: number | null,
+  title?: string | null,
+  image?: string | null,
+  description?: string | null,
 };
 
 export type DeleteLinkInput = {
@@ -698,7 +694,9 @@ export type ModelUserConnection = {
 export type ModelLinkFilterInput = {
   id?: ModelIDInput | null,
   url?: ModelStringInput | null,
-  likes?: ModelIntInput | null,
+  title?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  description?: ModelStringInput | null,
   and?: Array< ModelLinkFilterInput | null > | null,
   or?: Array< ModelLinkFilterInput | null > | null,
   not?: ModelLinkFilterInput | null,
@@ -829,6 +827,158 @@ export type ModelArticleSkillsFilterInput = {
   and?: Array< ModelArticleSkillsFilterInput | null > | null,
   or?: Array< ModelArticleSkillsFilterInput | null > | null,
   not?: ModelArticleSkillsFilterInput | null,
+};
+
+export type ModelSubscriptionUserFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  belongs?: ModelSubscriptionStringInput | null,
+  join?: ModelSubscriptionStringInput | null,
+  leave?: ModelSubscriptionStringInput | null,
+  discordId?: ModelSubscriptionStringInput | null,
+  github?: ModelSubscriptionStringInput | null,
+  zenn?: ModelSubscriptionStringInput | null,
+  qiita?: ModelSubscriptionStringInput | null,
+  twitter?: ModelSubscriptionStringInput | null,
+  slide?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionLinkFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  url?: ModelSubscriptionStringInput | null,
+  title?: ModelSubscriptionStringInput | null,
+  image?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionLinkFilterInput | null > | null,
+  or?: Array< ModelSubscriptionLinkFilterInput | null > | null,
+};
+
+export type ModelSubscriptionSkillFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  title?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionSkillFilterInput | null > | null,
+  or?: Array< ModelSubscriptionSkillFilterInput | null > | null,
+};
+
+export type ModelSubscriptionArticleFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  title?: ModelSubscriptionStringInput | null,
+  body?: ModelSubscriptionStringInput | null,
+  published?: ModelSubscriptionBooleanInput | null,
+  and?: Array< ModelSubscriptionArticleFilterInput | null > | null,
+  or?: Array< ModelSubscriptionArticleFilterInput | null > | null,
+};
+
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+};
+
+export type ModelSubscriptionPortfolioFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  title?: ModelSubscriptionStringInput | null,
+  url?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  published?: ModelSubscriptionBooleanInput | null,
+  and?: Array< ModelSubscriptionPortfolioFilterInput | null > | null,
+  or?: Array< ModelSubscriptionPortfolioFilterInput | null > | null,
+};
+
+export type ModelSubscriptionProjectFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  title?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  start?: ModelSubscriptionStringInput | null,
+  end?: ModelSubscriptionStringInput | null,
+  wanted?: ModelSubscriptionBooleanInput | null,
+  published?: ModelSubscriptionBooleanInput | null,
+  and?: Array< ModelSubscriptionProjectFilterInput | null > | null,
+  or?: Array< ModelSubscriptionProjectFilterInput | null > | null,
+};
+
+export type ModelSubscriptionEventFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  title?: ModelSubscriptionStringInput | null,
+  date?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  wanted?: ModelSubscriptionBooleanInput | null,
+  published?: ModelSubscriptionBooleanInput | null,
+  and?: Array< ModelSubscriptionEventFilterInput | null > | null,
+  or?: Array< ModelSubscriptionEventFilterInput | null > | null,
+};
+
+export type ModelSubscriptionUserSkillsFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  userID?: ModelSubscriptionIDInput | null,
+  skillID?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionUserSkillsFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserSkillsFilterInput | null > | null,
+};
+
+export type ModelSubscriptionProjectUsersFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  userID?: ModelSubscriptionIDInput | null,
+  projectID?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionProjectUsersFilterInput | null > | null,
+  or?: Array< ModelSubscriptionProjectUsersFilterInput | null > | null,
+};
+
+export type ModelSubscriptionEventUsersFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  userID?: ModelSubscriptionIDInput | null,
+  eventID?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionEventUsersFilterInput | null > | null,
+  or?: Array< ModelSubscriptionEventUsersFilterInput | null > | null,
+};
+
+export type ModelSubscriptionUserLinksFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  userID?: ModelSubscriptionIDInput | null,
+  linkID?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionUserLinksFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserLinksFilterInput | null > | null,
+};
+
+export type ModelSubscriptionArticleSkillsFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  skillID?: ModelSubscriptionIDInput | null,
+  articleID?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionArticleSkillsFilterInput | null > | null,
+  or?: Array< ModelSubscriptionArticleSkillsFilterInput | null > | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -1385,7 +1535,9 @@ export type CreateUserMutation = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -1967,7 +2119,9 @@ export type UpdateUserMutation = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -2549,7 +2703,9 @@ export type DeleteUserMutation = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -2587,7 +2743,9 @@ export type CreateLinkMutation = {
     __typename: "Link",
     id: string,
     url: string,
-    likes?: number | null,
+    title?: string | null,
+    image?: string | null,
+    description?: string | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
       items:  Array< {
@@ -2650,7 +2808,9 @@ export type CreateLinkMutation = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -2679,7 +2839,9 @@ export type UpdateLinkMutation = {
     __typename: "Link",
     id: string,
     url: string,
-    likes?: number | null,
+    title?: string | null,
+    image?: string | null,
+    description?: string | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
       items:  Array< {
@@ -2742,7 +2904,9 @@ export type UpdateLinkMutation = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -2771,7 +2935,9 @@ export type DeleteLinkMutation = {
     __typename: "Link",
     id: string,
     url: string,
-    likes?: number | null,
+    title?: string | null,
+    image?: string | null,
+    description?: string | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
       items:  Array< {
@@ -2834,7 +3000,9 @@ export type DeleteLinkMutation = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -3678,7 +3846,9 @@ export type CreateArticleMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -4331,7 +4501,9 @@ export type UpdateArticleMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -4984,7 +5156,9 @@ export type DeleteArticleMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -5638,7 +5812,9 @@ export type CreatePortfolioMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -5964,7 +6140,9 @@ export type UpdatePortfolioMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -6290,7 +6468,9 @@ export type DeletePortfolioMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -8132,7 +8312,9 @@ export type CreateUserSkillsMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -8524,7 +8706,9 @@ export type UpdateUserSkillsMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -8916,7 +9100,9 @@ export type DeleteUserSkillsMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -9308,7 +9494,9 @@ export type CreateProjectUsersMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -9749,7 +9937,9 @@ export type UpdateProjectUsersMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -10190,7 +10380,9 @@ export type DeleteProjectUsersMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -10631,7 +10823,9 @@ export type CreateEventUsersMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -11070,7 +11264,9 @@ export type UpdateEventUsersMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -11509,7 +11705,9 @@ export type DeleteEventUsersMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -11948,7 +12146,9 @@ export type CreateUserLinksMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -11974,7 +12174,9 @@ export type CreateUserLinksMutation = {
       __typename: "Link",
       id: string,
       url: string,
-      likes?: number | null,
+      title?: string | null,
+      image?: string | null,
+      description?: string | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
         items:  Array< {
@@ -12005,7 +12207,9 @@ export type CreateUserLinksMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -12311,7 +12515,9 @@ export type UpdateUserLinksMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -12337,7 +12543,9 @@ export type UpdateUserLinksMutation = {
       __typename: "Link",
       id: string,
       url: string,
-      likes?: number | null,
+      title?: string | null,
+      image?: string | null,
+      description?: string | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
         items:  Array< {
@@ -12368,7 +12576,9 @@ export type UpdateUserLinksMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -12674,7 +12884,9 @@ export type DeleteUserLinksMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -12700,7 +12912,9 @@ export type DeleteUserLinksMutation = {
       __typename: "Link",
       id: string,
       url: string,
-      likes?: number | null,
+      title?: string | null,
+      image?: string | null,
+      description?: string | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
         items:  Array< {
@@ -12731,7 +12945,9 @@ export type DeleteUserLinksMutation = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -14335,7 +14551,9 @@ export type GetUserQuery = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -14648,7 +14866,9 @@ export type ListUsersQuery = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -14683,7 +14903,9 @@ export type GetLinkQuery = {
     __typename: "Link",
     id: string,
     url: string,
-    likes?: number | null,
+    title?: string | null,
+    image?: string | null,
+    description?: string | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
       items:  Array< {
@@ -14746,7 +14968,9 @@ export type GetLinkQuery = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -14778,7 +15002,9 @@ export type ListLinksQuery = {
       __typename: "Link",
       id: string,
       url: string,
-      likes?: number | null,
+      title?: string | null,
+      image?: string | null,
+      description?: string | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
         items:  Array< {
@@ -14809,7 +15035,9 @@ export type ListLinksQuery = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -15381,7 +15609,9 @@ export type GetArticleQuery = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -16298,7 +16528,9 @@ export type GetPortfolioQuery = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -17545,7 +17777,9 @@ export type GetUserSkillsQuery = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -18101,7 +18335,9 @@ export type GetProjectUsersQuery = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -18723,7 +18959,9 @@ export type GetEventUsersQuery = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -19342,7 +19580,9 @@ export type GetUserLinksQuery = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -19368,7 +19608,9 @@ export type GetUserLinksQuery = {
       __typename: "Link",
       id: string,
       url: string,
-      likes?: number | null,
+      title?: string | null,
+      image?: string | null,
+      description?: string | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
         items:  Array< {
@@ -19399,7 +19641,9 @@ export type GetUserLinksQuery = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -19547,7 +19791,9 @@ export type ListUserLinksQuery = {
         __typename: "Link",
         id: string,
         url: string,
-        likes?: number | null,
+        title?: string | null,
+        image?: string | null,
+        description?: string | null,
         user?:  {
           __typename: "ModelUserLinksConnection",
           items:  Array< {
@@ -20099,6 +20345,7 @@ export type ListArticleSkillsQuery = {
 };
 
 export type OnCreateUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -20651,7 +20898,9 @@ export type OnCreateUserSubscription = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -20680,6 +20929,7 @@ export type OnCreateUserSubscription = {
 };
 
 export type OnUpdateUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -21232,7 +21482,9 @@ export type OnUpdateUserSubscription = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -21261,6 +21513,7 @@ export type OnUpdateUserSubscription = {
 };
 
 export type OnDeleteUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -21813,7 +22066,9 @@ export type OnDeleteUserSubscription = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -21841,12 +22096,18 @@ export type OnDeleteUserSubscription = {
   } | null,
 };
 
+export type OnCreateLinkSubscriptionVariables = {
+  filter?: ModelSubscriptionLinkFilterInput | null,
+};
+
 export type OnCreateLinkSubscription = {
   onCreateLink?:  {
     __typename: "Link",
     id: string,
     url: string,
-    likes?: number | null,
+    title?: string | null,
+    image?: string | null,
+    description?: string | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
       items:  Array< {
@@ -21909,7 +22170,9 @@ export type OnCreateLinkSubscription = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -21926,6 +22189,10 @@ export type OnCreateLinkSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateLinkSubscriptionVariables = {
+  filter?: ModelSubscriptionLinkFilterInput | null,
 };
 
 export type OnUpdateLinkSubscription = {
@@ -21933,7 +22200,9 @@ export type OnUpdateLinkSubscription = {
     __typename: "Link",
     id: string,
     url: string,
-    likes?: number | null,
+    title?: string | null,
+    image?: string | null,
+    description?: string | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
       items:  Array< {
@@ -21996,7 +22265,9 @@ export type OnUpdateLinkSubscription = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -22015,12 +22286,18 @@ export type OnUpdateLinkSubscription = {
   } | null,
 };
 
+export type OnDeleteLinkSubscriptionVariables = {
+  filter?: ModelSubscriptionLinkFilterInput | null,
+};
+
 export type OnDeleteLinkSubscription = {
   onDeleteLink?:  {
     __typename: "Link",
     id: string,
     url: string,
-    likes?: number | null,
+    title?: string | null,
+    image?: string | null,
+    description?: string | null,
     user?:  {
       __typename: "ModelUserLinksConnection",
       items:  Array< {
@@ -22083,7 +22360,9 @@ export type OnDeleteLinkSubscription = {
           __typename: "Link",
           id: string,
           url: string,
-          likes?: number | null,
+          title?: string | null,
+          image?: string | null,
+          description?: string | null,
           user?:  {
             __typename: "ModelUserLinksConnection",
             nextToken?: string | null,
@@ -22100,6 +22379,10 @@ export type OnDeleteLinkSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateSkillSubscriptionVariables = {
+  filter?: ModelSubscriptionSkillFilterInput | null,
 };
 
 export type OnCreateSkillSubscription = {
@@ -22276,6 +22559,10 @@ export type OnCreateSkillSubscription = {
   } | null,
 };
 
+export type OnUpdateSkillSubscriptionVariables = {
+  filter?: ModelSubscriptionSkillFilterInput | null,
+};
+
 export type OnUpdateSkillSubscription = {
   onUpdateSkill?:  {
     __typename: "Skill",
@@ -22450,6 +22737,10 @@ export type OnUpdateSkillSubscription = {
   } | null,
 };
 
+export type OnDeleteSkillSubscriptionVariables = {
+  filter?: ModelSubscriptionSkillFilterInput | null,
+};
+
 export type OnDeleteSkillSubscription = {
   onDeleteSkill?:  {
     __typename: "Skill",
@@ -22622,6 +22913,10 @@ export type OnDeleteSkillSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateArticleSubscriptionVariables = {
+  filter?: ModelSubscriptionArticleFilterInput | null,
 };
 
 export type OnCreateArticleSubscription = {
@@ -22907,7 +23202,9 @@ export type OnCreateArticleSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -23270,6 +23567,10 @@ export type OnCreateArticleSubscription = {
     projectArticleId?: string | null,
     eventArticleId?: string | null,
   } | null,
+};
+
+export type OnUpdateArticleSubscriptionVariables = {
+  filter?: ModelSubscriptionArticleFilterInput | null,
 };
 
 export type OnUpdateArticleSubscription = {
@@ -23555,7 +23856,9 @@ export type OnUpdateArticleSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -23920,6 +24223,10 @@ export type OnUpdateArticleSubscription = {
   } | null,
 };
 
+export type OnDeleteArticleSubscriptionVariables = {
+  filter?: ModelSubscriptionArticleFilterInput | null,
+};
+
 export type OnDeleteArticleSubscription = {
   onDeleteArticle?:  {
     __typename: "Article",
@@ -24203,7 +24510,9 @@ export type OnDeleteArticleSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -24569,6 +24878,7 @@ export type OnDeleteArticleSubscription = {
 };
 
 export type OnCreatePortfolioSubscriptionVariables = {
+  filter?: ModelSubscriptionPortfolioFilterInput | null,
   owner?: string | null,
 };
 
@@ -24856,7 +25166,9 @@ export type OnCreatePortfolioSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -24894,6 +25206,7 @@ export type OnCreatePortfolioSubscription = {
 };
 
 export type OnUpdatePortfolioSubscriptionVariables = {
+  filter?: ModelSubscriptionPortfolioFilterInput | null,
   owner?: string | null,
 };
 
@@ -25181,7 +25494,9 @@ export type OnUpdatePortfolioSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -25219,6 +25534,7 @@ export type OnUpdatePortfolioSubscription = {
 };
 
 export type OnDeletePortfolioSubscriptionVariables = {
+  filter?: ModelSubscriptionPortfolioFilterInput | null,
   owner?: string | null,
 };
 
@@ -25506,7 +25822,9 @@ export type OnDeletePortfolioSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -25541,6 +25859,10 @@ export type OnDeletePortfolioSubscription = {
     userPortfolioId?: string | null,
     owner?: string | null,
   } | null,
+};
+
+export type OnCreateProjectSubscriptionVariables = {
+  filter?: ModelSubscriptionProjectFilterInput | null,
 };
 
 export type OnCreateProjectSubscription = {
@@ -25792,6 +26114,10 @@ export type OnCreateProjectSubscription = {
   } | null,
 };
 
+export type OnUpdateProjectSubscriptionVariables = {
+  filter?: ModelSubscriptionProjectFilterInput | null,
+};
+
 export type OnUpdateProjectSubscription = {
   onUpdateProject?:  {
     __typename: "Project",
@@ -26039,6 +26365,10 @@ export type OnUpdateProjectSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteProjectSubscriptionVariables = {
+  filter?: ModelSubscriptionProjectFilterInput | null,
 };
 
 export type OnDeleteProjectSubscription = {
@@ -26290,6 +26620,10 @@ export type OnDeleteProjectSubscription = {
   } | null,
 };
 
+export type OnCreateEventSubscriptionVariables = {
+  filter?: ModelSubscriptionEventFilterInput | null,
+};
+
 export type OnCreateEventSubscription = {
   onCreateEvent?:  {
     __typename: "Event",
@@ -26537,6 +26871,10 @@ export type OnCreateEventSubscription = {
   } | null,
 };
 
+export type OnUpdateEventSubscriptionVariables = {
+  filter?: ModelSubscriptionEventFilterInput | null,
+};
+
 export type OnUpdateEventSubscription = {
   onUpdateEvent?:  {
     __typename: "Event",
@@ -26782,6 +27120,10 @@ export type OnUpdateEventSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteEventSubscriptionVariables = {
+  filter?: ModelSubscriptionEventFilterInput | null,
 };
 
 export type OnDeleteEventSubscription = {
@@ -27032,6 +27374,7 @@ export type OnDeleteEventSubscription = {
 };
 
 export type OnCreateUserSkillsSubscriptionVariables = {
+  filter?: ModelSubscriptionUserSkillsFilterInput | null,
   owner?: string | null,
 };
 
@@ -27317,7 +27660,9 @@ export type OnCreateUserSkillsSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -27423,6 +27768,7 @@ export type OnCreateUserSkillsSubscription = {
 };
 
 export type OnUpdateUserSkillsSubscriptionVariables = {
+  filter?: ModelSubscriptionUserSkillsFilterInput | null,
   owner?: string | null,
 };
 
@@ -27708,7 +28054,9 @@ export type OnUpdateUserSkillsSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -27814,6 +28162,7 @@ export type OnUpdateUserSkillsSubscription = {
 };
 
 export type OnDeleteUserSkillsSubscriptionVariables = {
+  filter?: ModelSubscriptionUserSkillsFilterInput | null,
   owner?: string | null,
 };
 
@@ -28099,7 +28448,9 @@ export type OnDeleteUserSkillsSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -28205,6 +28556,7 @@ export type OnDeleteUserSkillsSubscription = {
 };
 
 export type OnCreateProjectUsersSubscriptionVariables = {
+  filter?: ModelSubscriptionProjectUsersFilterInput | null,
   owner?: string | null,
 };
 
@@ -28490,7 +28842,9 @@ export type OnCreateProjectUsersSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -28645,6 +28999,7 @@ export type OnCreateProjectUsersSubscription = {
 };
 
 export type OnUpdateProjectUsersSubscriptionVariables = {
+  filter?: ModelSubscriptionProjectUsersFilterInput | null,
   owner?: string | null,
 };
 
@@ -28930,7 +29285,9 @@ export type OnUpdateProjectUsersSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -29085,6 +29442,7 @@ export type OnUpdateProjectUsersSubscription = {
 };
 
 export type OnDeleteProjectUsersSubscriptionVariables = {
+  filter?: ModelSubscriptionProjectUsersFilterInput | null,
   owner?: string | null,
 };
 
@@ -29370,7 +29728,9 @@ export type OnDeleteProjectUsersSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -29525,6 +29885,7 @@ export type OnDeleteProjectUsersSubscription = {
 };
 
 export type OnCreateEventUsersSubscriptionVariables = {
+  filter?: ModelSubscriptionEventUsersFilterInput | null,
   owner?: string | null,
 };
 
@@ -29810,7 +30171,9 @@ export type OnCreateEventUsersSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -29963,6 +30326,7 @@ export type OnCreateEventUsersSubscription = {
 };
 
 export type OnUpdateEventUsersSubscriptionVariables = {
+  filter?: ModelSubscriptionEventUsersFilterInput | null,
   owner?: string | null,
 };
 
@@ -30248,7 +30612,9 @@ export type OnUpdateEventUsersSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -30401,6 +30767,7 @@ export type OnUpdateEventUsersSubscription = {
 };
 
 export type OnDeleteEventUsersSubscriptionVariables = {
+  filter?: ModelSubscriptionEventUsersFilterInput | null,
   owner?: string | null,
 };
 
@@ -30686,7 +31053,9 @@ export type OnDeleteEventUsersSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -30839,6 +31208,7 @@ export type OnDeleteEventUsersSubscription = {
 };
 
 export type OnCreateUserLinksSubscriptionVariables = {
+  filter?: ModelSubscriptionUserLinksFilterInput | null,
   owner?: string | null,
 };
 
@@ -31124,7 +31494,9 @@ export type OnCreateUserLinksSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -31150,7 +31522,9 @@ export type OnCreateUserLinksSubscription = {
       __typename: "Link",
       id: string,
       url: string,
-      likes?: number | null,
+      title?: string | null,
+      image?: string | null,
+      description?: string | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
         items:  Array< {
@@ -31181,7 +31555,9 @@ export type OnCreateUserLinksSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -31201,6 +31577,7 @@ export type OnCreateUserLinksSubscription = {
 };
 
 export type OnUpdateUserLinksSubscriptionVariables = {
+  filter?: ModelSubscriptionUserLinksFilterInput | null,
   owner?: string | null,
 };
 
@@ -31486,7 +31863,9 @@ export type OnUpdateUserLinksSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -31512,7 +31891,9 @@ export type OnUpdateUserLinksSubscription = {
       __typename: "Link",
       id: string,
       url: string,
-      likes?: number | null,
+      title?: string | null,
+      image?: string | null,
+      description?: string | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
         items:  Array< {
@@ -31543,7 +31924,9 @@ export type OnUpdateUserLinksSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -31563,6 +31946,7 @@ export type OnUpdateUserLinksSubscription = {
 };
 
 export type OnDeleteUserLinksSubscriptionVariables = {
+  filter?: ModelSubscriptionUserLinksFilterInput | null,
   owner?: string | null,
 };
 
@@ -31848,7 +32232,9 @@ export type OnDeleteUserLinksSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -31874,7 +32260,9 @@ export type OnDeleteUserLinksSubscription = {
       __typename: "Link",
       id: string,
       url: string,
-      likes?: number | null,
+      title?: string | null,
+      image?: string | null,
+      description?: string | null,
       user?:  {
         __typename: "ModelUserLinksConnection",
         items:  Array< {
@@ -31905,7 +32293,9 @@ export type OnDeleteUserLinksSubscription = {
             __typename: "Link",
             id: string,
             url: string,
-            likes?: number | null,
+            title?: string | null,
+            image?: string | null,
+            description?: string | null,
             createdAt: string,
             updatedAt: string,
           },
@@ -31922,6 +32312,10 @@ export type OnDeleteUserLinksSubscription = {
     updatedAt: string,
     owner?: string | null,
   } | null,
+};
+
+export type OnCreateArticleSkillsSubscriptionVariables = {
+  filter?: ModelSubscriptionArticleSkillsFilterInput | null,
 };
 
 export type OnCreateArticleSkillsSubscription = {
@@ -32263,6 +32657,10 @@ export type OnCreateArticleSkillsSubscription = {
   } | null,
 };
 
+export type OnUpdateArticleSkillsSubscriptionVariables = {
+  filter?: ModelSubscriptionArticleSkillsFilterInput | null,
+};
+
 export type OnUpdateArticleSkillsSubscription = {
   onUpdateArticleSkills?:  {
     __typename: "ArticleSkills",
@@ -32600,6 +32998,10 @@ export type OnUpdateArticleSkillsSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteArticleSkillsSubscriptionVariables = {
+  filter?: ModelSubscriptionArticleSkillsFilterInput | null,
 };
 
 export type OnDeleteArticleSkillsSubscription = {

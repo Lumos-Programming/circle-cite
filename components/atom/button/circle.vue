@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const isHovering = ref<boolean>(false)
 withDefaults(
   defineProps<{
     btnClass: string
@@ -9,19 +10,16 @@ withDefaults(
 )
 </script>
 <template>
-  <v-hover v-slot="{ isHovering, props }">
-    <div
-      class="height-40 width-40 transition-medium-ease rounded-circle cursor-pointer"
-      :class="[
-        isHovering
-          ? 'elevation-3 background-white'
-          : 'background-grey-lighten-4',
-        btnClass
-      ]"
-      v-bind="props"
-      @click="$emit('btn-click')"
-    >
-      <slot />
-    </div>
-  </v-hover>
+  <div
+    class="w-100 h-100 transition-medium-ease rounded-circle cursor-pointer"
+    :class="[
+      isHovering ? 'elevation-3 background-white' : 'background-grey-lighten-4',
+      btnClass
+    ]"
+    @mouseover="isHovering = true"
+    @mouseleave="isHovering = false"
+    @click="$emit('btn-click')"
+  >
+    <slot />
+  </div>
 </template>

@@ -468,7 +468,9 @@ export const getUser = /* GraphQL */ `
           link {
             id
             url
-            likes
+            title
+            image
+            description
             user {
               nextToken
             }
@@ -750,7 +752,9 @@ export const listUsers = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -780,7 +784,9 @@ export const getLink = /* GraphQL */ `
     getLink(id: $id) {
       id
       url
-      likes
+      title
+      image
+      description
       user {
         items {
           id
@@ -832,7 +838,9 @@ export const getLink = /* GraphQL */ `
           link {
             id
             url
-            likes
+            title
+            image
+            description
             user {
               nextToken
             }
@@ -860,7 +868,9 @@ export const listLinks = /* GraphQL */ `
       items {
         id
         url
-        likes
+        title
+        image
+        description
         user {
           items {
             id
@@ -887,7 +897,9 @@ export const listLinks = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -1390,7 +1402,9 @@ export const getArticle = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -2208,7 +2222,9 @@ export const getPortfolio = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -3298,7 +3314,9 @@ export const getUserSkills = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -3791,7 +3809,9 @@ export const getProjectUsers = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -4346,7 +4366,9 @@ export const getEventUsers = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -4898,7 +4920,9 @@ export const getUserLinks = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -4922,7 +4946,9 @@ export const getUserLinks = /* GraphQL */ `
       link {
         id
         url
-        likes
+        title
+        image
+        description
         user {
           items {
             id
@@ -4949,7 +4975,9 @@ export const getUserLinks = /* GraphQL */ `
             link {
               id
               url
-              likes
+              title
+              image
+              description
               createdAt
               updatedAt
             }
@@ -5079,7 +5107,9 @@ export const listUserLinks = /* GraphQL */ `
         link {
           id
           url
-          likes
+          title
+          image
+          description
           user {
             items {
               id

@@ -13,10 +13,10 @@ export const InputAttr = {
 export const OgpKey = [
   'title',
   'description',
-  'image',
-  'type',
-  'siteName',
-  'url'
+  'image'
+  // 'type',
+  // 'siteName',
+  // 'url'
 ] as const
 export const iconTypes: { [key in SnackbarTypeList]: SnackbarType } = {
   info: {
@@ -40,3 +40,19 @@ export const iconTypes: { [key in SnackbarTypeList]: SnackbarType } = {
     background: 'bg-light-green'
   }
 }
+export const Greetings = (name = 'スーパーエンジニア'): string[] => [
+  'Hi, ' + name + '!',
+  'Welcome back, ' + name + '!',
+  'おかえりなさい！' + name + 'さん',
+  name + 'は今日何するの？',
+  'さーて、' + name + 'といっちょやりますか！',
+  'おっとぉ？！新進気鋭の' + name + 'が登場だー！',
+  'おっとぉ？！先進気鋭の...え？新進気鋭？。。。あ。',
+  name + 'は最近どう？',
+  name + '、疲れてない？　少し離れてみるのも大事でっせ',
+  name.includes('スーパーエンジニア') ||
+  name.includes('ゲスト') ||
+  name.includes('Guest')
+    ? 'ガハハハ　早く名前を変えないとスーパーエンジニアになる呪いをかけたぞ'
+    : 'スーパーエンジニアの...って分かってますよ、' + name + 'さん'
+]
