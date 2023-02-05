@@ -51,12 +51,12 @@ const pages = [
 </script>
 <template>
   <div
-    class="d-flex flex-nowrap bg-white"
+    class="d-flex flex-nowrap bg-grey-color"
     style="width: 100vw; min-height: 100vh"
   >
     <!-- NOTE: 画面左側メニュバー -->
     <v-card
-      class="transition-medium-ease-out pa-2 position-relative bg-transparent rounded-0 d-flex flex-column flex-nowrap"
+      class="transition-medium-ease-out pa-2 position-relative bg-main-color rounded-0 d-flex flex-column flex-nowrap"
       :class="expand ? 'width-160' : 'width-52'"
     >
       <div class="d-flex">
@@ -69,7 +69,7 @@ const pages = [
             isSignedIn
               ? isAdmin
                 ? 'text-accent-color'
-                : 'text-grey-darken-4'
+                : 'text-white'
               : 'text-main-color'
           "
         />
@@ -77,7 +77,7 @@ const pages = [
         <v-btn
           :icon="expand ? 'mdi-arrow-left' : 'mdi-arrow-right'"
           variant="plain"
-          class="height-24 width-24 my-6 mr-2"
+          class="height-24 width-24 my-6 mr-2 text-white"
           @click="expand = !expand"
         ></v-btn>
       </div>
@@ -85,7 +85,7 @@ const pages = [
       <atom-text
         font-size="text-caption"
         text="Pages"
-        color="text-grey-darken-4"
+        color="text-white"
         line-height="line-height-20"
         font-weight="font-weight-regular"
         class="my-3 one-line-reader"
@@ -100,7 +100,7 @@ const pages = [
         :ripple="false"
       >
         <v-icon
-          class="width-20 text-grey-darken-4 transition-medium-ease-out"
+          class="width-20 text-white transition-medium-ease-out"
           :class="expand ? 'mr-2' : 'mr-0'"
         >
           {{ page.icon }}
@@ -110,20 +110,20 @@ const pages = [
           class="one-line-reader transition-medium-ease-out"
           :class="expand ? 'width-100' : 'width-0'"
           :text="page.title"
-          color="text-grey-darken-4"
+          color="text-white"
           line-height="line-height-30"
         />
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
-        class="height-30 px-2 mb-2 border-solid border-width-1 border-grey-darken-4 min-width-0 transition-medium-ease-out"
+        class="height-30 px-2 mb-2 border-solid border-width-1 border-white min-width-0 transition-medium-ease-out"
         :class="expand ? 'width-144' : 'width-36'"
         variant="text"
         :ripple="false"
         @click="$signOut()"
       >
         <v-icon
-          class="width-20 text-grey-darken-4 transition-medium-ease-out"
+          class="width-20 text-white transition-medium-ease-out"
           :class="expand ? 'mr-2' : 'mr-0'"
           >mdi-logout
         </v-icon>
@@ -132,7 +132,7 @@ const pages = [
           class="one-line-reader transition-medium-ease-out"
           :class="expand ? 'width-100' : 'width-0'"
           text="ログアウト"
-          color="text-grey-darken-4"
+          color="text-white"
           line-height="line-height-30"
         />
       </v-btn>

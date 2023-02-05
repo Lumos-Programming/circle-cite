@@ -55,19 +55,29 @@ await fetchUser()
           />
         </div>
         <div class="d-flex flex-nowra justify-start" style="gap: 0 10px">
-          <atom-button-circle @btn-click="$externalLink(user?.github)">
+          <atom-button-circle
+            @btn-click="navigateTo(user?.github, { external: true })"
+          >
             <v-img src="/github.svg" class="width-24 height-24 ma-2" />
           </atom-button-circle>
-          <atom-button-circle @btn-click="$externalLink(user?.twitter)">
+          <atom-button-circle
+            @btn-click="navigateTo(user?.twitter, { external: true })"
+          >
             <v-img src="/twitter.svg" class="width-24 height-24 ma-2" />
           </atom-button-circle>
-          <atom-button-circle @btn-click="$externalLink(user?.qiita)">
+          <atom-button-circle
+            @btn-click="navigateTo(user?.qiita, { external: true })"
+          >
             <v-img src="/qiita.png" class="width-24 height-24 ma-2" />
           </atom-button-circle>
-          <atom-button-circle @btn-click="$externalLink(user?.zenn)">
+          <atom-button-circle
+            @btn-click="navigateTo(user?.zenn, { external: true })"
+          >
             <v-img src="/zenn.svg" class="width-24 height-24 ma-2" />
           </atom-button-circle>
-          <atom-button-circle @btn-click="$externalLink(user?.slide)">
+          <atom-button-circle
+            @btn-click="navigateTo(user?.slide, { external: true })"
+          >
             <v-img src="/slideshare.png" class="width-24 height-24 ma-2" />
           </atom-button-circle>
         </div>

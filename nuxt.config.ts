@@ -1,3 +1,4 @@
+import vuetify from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   ssr: false,
   app: {
@@ -28,10 +29,13 @@ export default defineNuxtConfig({
   build: {
     transpile: ['vuetify']
   },
-  vuetify: {
-    treeShake: true
-  },
-  modules: [],
+  modules: [
+    (options, nuxt) => {
+      nuxt.hooks.hook('vite:extendConfig', (config) => {
+        if (config.plugins) config.plugins.push(vuetify())
+      })
+    }
+  ],
   vite: {
     resolve: {
       alias: {

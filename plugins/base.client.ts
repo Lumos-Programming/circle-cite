@@ -144,10 +144,6 @@ export default defineNuxtPlugin((nuxtApp) => {
         return str.replace(/[A-Z]/g, function (s) {
           return '_' + s.charAt(0).toLowerCase()
         })
-      },
-      externalLink(url?: string | null) {
-        if (!url) return
-        window.open(url, '_blank')
       }
     }
   }

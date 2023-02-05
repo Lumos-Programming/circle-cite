@@ -25,31 +25,51 @@ withDefaults(
 )
 </script>
 <template>
-  <v-sheet class="bg-transparent">
+  <v-card class="elevation-5 rounded-lg pa-10">
     <v-hover v-slot="{ isHovering, props }">
       <module-user-icon
         :img-key="imgKey"
         :identityId="identityId"
         v-bind="props"
         :style="{ transform: isHovering ? 'scale(1.05)' : 'scale(1.0)' }"
+        class="height-80 width-80 mx-auto"
         @click-func="navigateTo(path)"
       />
     </v-hover>
-    <atom-text font-size="text-h5" class="text-center my-3" :text="name" />
-    <atom-text class="text-center ma-3" :text="belongs" />
+    <atom-text font-size="text-h6" class="text-center mt-5" :text="name" />
+    <atom-text
+      font-size="text-subtitle-2"
+      class="text-center mt-1 mb-3 line-clamp-1"
+      color="text-grey-darken-1"
+      :text="belongs"
+    />
     <div class="d-flex flex-nowrap justify-center" style="gap: 0 4px">
-      <atom-button-circle @btn-click="$externalLink(github)">
-        <v-img src="/github.svg" class="width-24 height-24 ma-2" />
-      </atom-button-circle>
-      <atom-button-circle @btn-click="$externalLink(twitter)">
-        <v-img src="/twitter.svg" class="width-24 height-24 ma-2" />
-      </atom-button-circle>
-      <atom-button-circle @btn-click="$externalLink(qiita)">
-        <v-img src="/qiita.png" class="width-24 height-24 ma-2" />
-      </atom-button-circle>
-      <atom-button-circle @btn-click="$externalLink(zenn)">
-        <v-img src="/zenn.svg" class="width-24 height-24 ma-2" />
-      </atom-button-circle>
+      <nuxt-link :to="github || '/'" target="_blank" external>
+        <atom-button-circle class="width-28 height-28 pa-1">
+          <v-img src="/github.svg" class="width-20 height-20" />
+        </atom-button-circle>
+      </nuxt-link>
+      <nuxt-link :to="twitter || '/'" target="_blank" external>
+        <atom-button-circle class="width-28 height-28 pa-1">
+          <v-img
+            src="/twitter.svg"
+            class="width-20 height-20"
+          /> </atom-button-circle
+      ></nuxt-link>
+      <nuxt-link :to="qiita || '/'" target="_blank" external>
+        <atom-button-circle class="width-28 height-28 pa-1">
+          <v-img
+            src="/qiita.png"
+            class="width-20 height-20"
+          /> </atom-button-circle
+      ></nuxt-link>
+      <nuxt-link :to="zenn || '/'" target="_blank" external>
+        <atom-button-circle class="width-28 height-28 pa-1">
+          <v-img
+            src="/zenn.svg"
+            class="width-20 height-20"
+          /> </atom-button-circle
+      ></nuxt-link>
     </div>
-  </v-sheet>
+  </v-card>
 </template>

@@ -153,6 +153,9 @@ $line-height: (
   .line-height-#{$i} {
     line-height: $i * 1px !important;
   }
+  .w-#{$i} {
+    width: $i * 1% !important;
+  }
 }
 @for $i from 0 through 200 {
   .top-#{$i} {

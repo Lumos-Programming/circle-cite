@@ -14,7 +14,7 @@ const explains = [
 <template>
   <layout-public>
     <div
-      class="d-flex align-center bg-sub-color"
+      class="d-flex align-center"
       style="height: calc(var(--vh, 1vh) * 90 - 88px)"
     >
       <div style="flex: 3" class="mr-sm-16">
@@ -51,7 +51,11 @@ const explains = [
           <atom-button
             text="話だけでも聞いてみる"
             btn-class="border-solid border-width-1 border-grey-darken-4"
-            @btn-click="$externalLink('https://twitter.com/lumos_program')"
+            @btn-click="
+              navigateTo('https://twitter.com/lumos_program', {
+                external: true
+              })
+            "
           />
         </div>
       </div>
@@ -105,7 +109,9 @@ const explains = [
       <atom-button
         text="話だけでも聞いてみる"
         btn-class="border-solid border-width-1 border-grey-darken-4"
-        @btn-click="$externalLink('https://twitter.com/lumos_program')"
+        @btn-click="
+          navigateTo('https://twitter.com/lumos_program', { external: true })
+        "
       />
     </div>
   </layout-public>

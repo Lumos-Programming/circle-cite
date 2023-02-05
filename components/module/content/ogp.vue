@@ -86,7 +86,7 @@ for (let i = 0, len = OgpKey.length; i < len; i++) {
         line-height="line-height-lg"
         :color="isHovering ? 'text-white' : 'text-grey-darken-4'"
         class="line-clamp-1 my-2"
-        @click="$externalLink(url)"
+        @click="navigateTo(url, { external: true })"
       />
       <atom-text
         :text="metadata.description"
@@ -95,7 +95,7 @@ for (let i = 0, len = OgpKey.length; i < len; i++) {
         font-weight="font-weight-regular"
         :color="isHovering ? 'text-white' : 'text-grey-darken-4'"
         class="height-63 line-clamp-3"
-        @click="$externalLink(url)"
+        @click="navigateTo(url, { external: true })"
       />
       <div
         class="d-flex flex-nowrap mt-2"
@@ -139,7 +139,7 @@ for (let i = 0, len = OgpKey.length; i < len; i++) {
       lazySrc="/no_image.png"
       style="flex: 1 1 30%"
       class="d-none d-sm-block"
-      @click="$externalLink(url)"
+      @click="navigateTo(url, { external: true })"
     />
   </v-sheet>
 </template>
