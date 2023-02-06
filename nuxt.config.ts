@@ -1,6 +1,6 @@
 import vuetify from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   app: {
     head: {
       viewport: 'width=device-width, initial-scale=1, maximum-scale=1',

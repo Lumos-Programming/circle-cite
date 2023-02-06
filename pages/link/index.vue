@@ -14,7 +14,7 @@ await getLinks()
   <layout-public>
     <atom-text font-size="text-h4" text="Link" class="py-10" />
     <div class="d-flex flex-wrap" style="gap: 30px 0%">
-      <!-- <module-content-ogp
+      <module-content-ogp
         v-for="item in links"
         :id="item.id"
         :key="item.id"
@@ -22,7 +22,7 @@ await getLinks()
         :users="item.user?.items"
         @update:users="item.user?.items ? (item.user.items = $event) : null"
       >
-      </module-content-ogp> -->
+      </module-content-ogp>
     </div>
   </layout-public>
 </template>
