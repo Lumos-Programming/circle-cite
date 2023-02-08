@@ -83,18 +83,5 @@ await fetchUser()
       </div>
       <v-spacer />
     </div>
-    <module-user-medium
-      :key="user.id"
-      :path="'/member/' + user.id"
-      :img-key="user.file?.key"
-      :name="user.name"
-      :belongs="user.belongs"
-      :github="user.github"
-      :twitter="user.twitter"
-      :qiita="user.qiita"
-      :zenn="user.zenn"
-      :identityId="user.file?.identityId"
-      class="mt-5 pa-10 w-50"
-    />
   </layout-admin>
 </template>

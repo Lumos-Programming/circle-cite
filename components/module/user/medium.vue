@@ -44,32 +44,15 @@ withDefaults(
       :text="belongs"
     />
     <div class="d-flex flex-nowrap justify-center" style="gap: 0 4px">
-      <nuxt-link v-if="github" :to="github || '/'" target="_blank" external>
-        <atom-button-circle class="width-28 height-28 pa-1">
-          <v-img src="/github.svg" class="width-20 height-20" />
-        </atom-button-circle>
-      </nuxt-link>
-      <nuxt-link v-if="twitter" :to="twitter || '/'" target="_blank" external>
-        <atom-button-circle class="width-28 height-28 pa-1">
-          <v-img
-            src="/twitter.svg"
-            class="width-20 height-20"
-          /> </atom-button-circle
-      ></nuxt-link>
-      <nuxt-link v-if="qiita" :to="qiita || '/'" target="_blank" external>
-        <atom-button-circle class="width-28 height-28 pa-1">
-          <v-img
-            src="/qiita.png"
-            class="width-20 height-20"
-          /> </atom-button-circle
-      ></nuxt-link>
-      <nuxt-link v-if="zenn" :to="zenn || '/'" target="_blank" external>
-        <atom-button-circle class="width-28 height-28 pa-1">
-          <v-img
-            src="/zenn.svg"
-            class="width-20 height-20"
-          /> </atom-button-circle
-      ></nuxt-link>
+      <template
+        v-for="[key, value] in Object.entries({ github, twitter, qiita, zenn })"
+      >
+        <nuxt-link v-if="value" :to="value || '/'" target="_blank" external>
+          <atom-button-circle class="width-28 height-28 pa-1">
+            <v-img :src="`/${key}.svg`" class="width-20 height-20" />
+          </atom-button-circle>
+        </nuxt-link>
+      </template>
     </div>
   </v-card>
 </template>

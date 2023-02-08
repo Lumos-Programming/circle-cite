@@ -138,7 +138,7 @@ const pages = [
       </v-btn>
     </v-card>
     <div
-      class="pt-5 px-5 overflow-y-auto scrollbar-hidden position-relative"
+      class="pt-5 px-5 bg-white overflow-y-auto scrollbar-hidden position-relative"
       :style="{ flex: '1', height: 'calc(100vh - 40px)' }"
     >
       <atom-text
