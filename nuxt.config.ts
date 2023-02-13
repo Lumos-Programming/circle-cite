@@ -21,6 +21,7 @@ export default defineNuxtConfig({
       }
     }
   },
+  components: { global: true, dirs: ['~/components'] },
   typescript: {
     shim: false,
     strict: true

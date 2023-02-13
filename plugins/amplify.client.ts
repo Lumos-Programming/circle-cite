@@ -168,6 +168,13 @@ export default defineNuxtPlugin((nuxtApp) => {
           file
         }
       },
+      onImageChange: async (files: File[], target: any) => {
+        if (!files.length) return
+        const file = await nuxtApp.$makeS3Object(files[0])
+        console.log(file)
+        target = file
+        console.log(target)
+      },
       putImage: async (key: string, file: File) => {
         if (!file || !key) return
         return await Storage.put(key, file, {

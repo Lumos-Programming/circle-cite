@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Article, UpdateArticleInput, ListArticlesQuery } from '~/assets/API'
 import { FileInput } from '~/assets/type'
+import { InputComponents, articleInputs } from '~/assets/enum'
 import { createArticle, deleteArticle, updateArticle } from '~/assets/graphql/mutations'
 import { listArticles } from '~/assets/graphql/queries'
-const { $listQuery, $baseMutation, $filterAttr, $excludeAttr } = useNuxtApp()
+const { $listQuery, $extendMutation, $filterAttr, $excludeAttr } = useNuxtApp()
 const { banEdit } = useEditState()
 const articles = ref<Article[]>([])
 const getArticles = async () => {
@@ -12,9 +13,12 @@ const getArticles = async () => {
   })
 }
 const mutateArticle = async () => {
-  await $baseMutation({
+  await $extendMutation({
+    type: input.value.id ? 'update' : 'create',
+    key: input.value.file?.key || '',
     query: input.value.id ? updateArticle : createArticle,
-    input: input.value.id ? input.value : $excludeAttr(input.value, ['id'])
+    input: input.value.id ? input.value : $excludeAttr(input.value, ['id']),
+    file: input.value.file?.file
   })
 }
 const defaultInput = {
@@ -24,7 +28,8 @@ const defaultInput = {
   published: false,
   userArticleId: null,
   projectArticleId: null,
-  eventArticleId: null
+  eventArticleId: null,
+  file: null
 }
 const input = ref<FileInput<UpdateArticleInput>>(defaultInput)
 const headers = ['id', 'title', 'published', 'oparation']
@@ -54,14 +59,13 @@ getArticles()
           @btn-click="mutateArticle()"
         />
       </div>
-      <div v-for="[key, item] in Object.entries(input)" class="d-flex">
-        <atom-text
-          :text="key"
-          font-size="text-subtitle-2"
-          line-height="line-height-40"
-          style="flex: 0 0 120px"
+      <div v-for="item in articleInputs">
+        <atom-text :text="item.title" font-size="text-subtitle-2" line-height="line-height-40" />
+        <component
+          :is="resolveComponent(InputComponents()[item.type].comp)"
+          v-model="input[item.key]"
+          v-bind="InputComponents(item.key, input[item.key])[item.type].props"
         />
-        <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
     </div>
     <div class="my-5">
@@ -109,7 +113,9 @@ getArticles()
               size="24"
               class="ma-2"
               @click="
-                $baseMutation({
+                $extendMutation({
+                  type: 'delete',
+                  key: input.file?.key || '',
                   query: deleteArticle,
                   input: { id: item.id }
                 })

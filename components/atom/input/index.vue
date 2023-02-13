@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// NOTE: 必要なのはkey value title reactiveのためのemit input type
 import { S3ObjectInput } from '~~/assets/API'
 import { InputAttr } from '~~/assets/enum'
 const { $makeS3Object } = useNuxtApp()
@@ -44,10 +45,7 @@ const fixArray = (values: any[], index: number, target: any) => {
                 value.filter((_, l) => l !== i)
               )
           "
-          @click:prepend="
-            Array.isArray(value) &&
-              $emit('update:model-value', [...value, null])
-          "
+          @click:prepend="Array.isArray(value) && $emit('update:model-value', [...value, null])"
           @update:model-value="$emit('update:model-value', $event)"
         />
         <v-switch
@@ -65,10 +63,7 @@ const fixArray = (values: any[], index: number, target: any) => {
                 value.filter((_, l) => l !== i)
               )
           "
-          @click:prepend="
-            Array.isArray(value) &&
-              $emit('update:model-value', [...value, null])
-          "
+          @click:prepend="Array.isArray(value) && $emit('update:model-value', [...value, null])"
           @update:model-value="$emit('update:model-value', $event)"
         />
         <v-text-field
@@ -86,13 +81,9 @@ const fixArray = (values: any[], index: number, target: any) => {
                 value.filter((_, l) => l !== i)
               )
           "
-          @click:prepend="
-            Array.isArray(value) &&
-              $emit('update:model-value', [...value, null])
-          "
+          @click:prepend="Array.isArray(value) && $emit('update:model-value', [...value, null])"
           @update:model-value="
-            Array.isArray(value) &&
-              $emit('update:model-value', fixArray(value, i, $event))
+            Array.isArray(value) && $emit('update:model-value', fixArray(value, i, $event))
           "
         />
       </template>
@@ -151,11 +142,7 @@ const fixArray = (values: any[], index: number, target: any) => {
         class="my-3 mx-2 line-clamp-1"
         :style="{ width: 'calc(100% - 118px)' }"
       />
-      <v-icon
-        v-if="value?.name"
-        size="18"
-        class="my-3"
-        @click="$emit('update:model-value', null)"
+      <v-icon v-if="value?.name" size="18" class="my-3" @click="$emit('update:model-value', null)"
         >mdi-close
       </v-icon>
     </div>
