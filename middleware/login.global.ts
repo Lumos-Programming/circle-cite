@@ -32,7 +32,12 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
           'name',
           'email',
           'description',
-          'belongs',
+          'forRecruitment',
+          'history',
+          'university',
+          'faculty',
+          'grade',
+          'jobHunting',
           'join',
           'leave',
           'discordId',
@@ -47,7 +52,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     } else if (!self.length) {
       const res = await $baseMutation({
         query: createUser,
-        input: { name: 'ゲストさん', email: user.attributes.email }
+        input: { name: 'ゲスト', email: user.attributes.email }
       })
       if (!isProd) console.log('新規User作成', res)
     }

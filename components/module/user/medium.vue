@@ -3,7 +3,10 @@ withDefaults(
   defineProps<{
     name: string | null
     path: string
-    belongs: string | null
+    university: string | null
+    faculty: string | null
+    grade: number | null
+    jobHunting: boolean | null
     github: string | null
     twitter: string | null
     qiita: string | null
@@ -15,6 +18,10 @@ withDefaults(
     name: '',
     path: '/',
     belongs: '',
+    university: '',
+    faculty: '',
+    grade: 1,
+    jobHunting: false,
     github: '',
     twitter: '',
     qiita: '',
@@ -41,7 +48,19 @@ withDefaults(
       font-size="text-subtitle-2"
       class="text-center mt-1 mb-3 line-clamp-1"
       color="text-grey-darken-1"
-      :text="belongs"
+      :text="university"
+    />
+    <atom-text
+      font-size="text-subtitle-2"
+      class="text-center mt-1 mb-3 line-clamp-1"
+      color="text-grey-darken-1"
+      :text="faculty"
+    />
+    <atom-text
+      font-size="text-subtitle-2"
+      class="text-center mt-1 mb-3 line-clamp-1"
+      color="text-grey-darken-1"
+      :text="String(grade)"
     />
     <div class="d-flex flex-nowrap justify-center" style="gap: 0 4px">
       <template

@@ -26,7 +26,12 @@ const updateMyUser = async () => {
       'name',
       'email',
       'description',
-      'belongs',
+      'forRecruitment',
+      'history',
+      'university',
+      'faculty',
+      'grade',
+      'jobHunting',
       'join',
       'leave',
       'discordId',
@@ -45,7 +50,12 @@ const updateMyUser = async () => {
       'name',
       'email',
       'description',
-      'belongs',
+      'forRecruitment',
+      'history',
+      'university',
+      'faculty',
+      'grade',
+      'jobHunting',
       'join',
       'leave',
       'discordId',
@@ -83,5 +93,17 @@ await fetchUser()
       </div>
       <v-spacer />
     </div>
+    <module-user-medium
+      :key="user.id"
+      :path="'/member/' + user.id"
+      :img-key="user.file?.key"
+      :name="user.name"
+      :belongs="user.belongs"
+      :github="user.github"
+      :twitter="user.twitter"
+      :qiita="user.qiita"
+      :zenn="user.zenn"
+      :identityId="user.file?.identityId"
+    />
   </layout-admin>
 </template>

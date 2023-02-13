@@ -20,7 +20,12 @@ const updateMyUser = async () => {
       'name',
       'email',
       'description',
-      'belongs',
+      'forRecruitment',
+      'history',
+      'university',
+      'faculty',
+      'grade',
+      'jobHunting',
       'join',
       'leave',
       'discordId',
@@ -39,7 +44,12 @@ const updateMyUser = async () => {
       'name',
       'email',
       'description',
-      'belongs',
+      'forRecruitment',
+      'history',
+      'university',
+      'faculty',
+      'grade',
+      'jobHunting',
       'join',
       'leave',
       'discordId',
@@ -57,6 +67,7 @@ const input = ref<FileInput<UpdateUserInput>>(
 )
 const headers = ['id', 'name', 'email', 'belongs', 'join', 'leave']
 await getUsers()
+console.log(input.value)
 // TODO: valiidationを掛けること
 </script>
 <template>
