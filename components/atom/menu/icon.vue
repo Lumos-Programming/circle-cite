@@ -64,9 +64,7 @@ const menu = [
 ]
 </script>
 <template>
-  <div
-    class="position-absolute height-48 width-72 rounded right-20 top-20 z-index-10"
-  >
+  <div class="position-absolute height-48 width-72 rounded right-20 top-20 z-index-10">
     <v-hover v-slot="{ isHovering, props }">
       <div
         class="border-solid border-width-1 border-gery-darken-4 rounded position-absolute transition-medium-ease top-n1 right-n1 overflow-hidden"

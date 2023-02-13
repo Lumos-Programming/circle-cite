@@ -64,11 +64,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         setBanEdit(false)
         return { data: data.value as T, error: error.value as any }
       },
-      itemsSort: (
-        items: any[],
-        prop: string,
-        order: 'asc' | 'desc' = 'asc'
-      ): any[] => {
+      itemsSort: (items: any[], prop: string, order: 'asc' | 'desc' = 'asc'): any[] => {
         const extract = items.map((v, i) => {
           return { i, v: v[prop] }
         })
@@ -107,21 +103,12 @@ export default defineNuxtPlugin((nuxtApp) => {
         if (item) return item
         return null
       },
-      filterAttr: (
-        object: { [key: string]: any },
-        attr: string[] = Object.keys(object)
-      ): any => {
+      filterAttr: (object: { [key: string]: any }, attr: string[] = Object.keys(object)): any => {
         return attr.reduce((v: object, c) => {
           if (InputAttr.File.includes(c) && nuxtApp.$isObject(object[c])) {
             return {
               ...v,
-              [c]: nuxtApp.$filterAttr(object[c], [
-                'key',
-                'name',
-                'size',
-                'type',
-                'identityId'
-              ])
+              [c]: nuxtApp.$filterAttr(object[c], ['key', 'name', 'size', 'type', 'identityId'])
             }
           } else
             return {
@@ -130,10 +117,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             }
         }, {})
       },
-      excludeAttr: (
-        object: { [key: string]: any },
-        attr: string[] = []
-      ): any => {
+      excludeAttr: (object: { [key: string]: any }, attr: string[] = []): any => {
         const res = JSON.parse(JSON.stringify(object))
         for (let i = 0, len = attr.length; i < len; i++) {
           delete res[attr[i]]

@@ -168,10 +168,7 @@ const icons = [
 ]
 </script>
 <template>
-  <div
-    v-if="editor"
-    class="border-solid border-width-1 border-grey-darken-4 w-100 rounded"
-  >
+  <div v-if="editor" class="border-solid border-width-1 border-grey-darken-4 w-100 rounded">
     <div class="d-flex flex-wrap ma-1">
       <module-tiptap-icon
         v-for="item in icons"

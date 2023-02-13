@@ -7,10 +7,7 @@ import {
   DeleteProjectUsersInput
 } from '~/assets/API'
 import { getProject } from '~/assets/graphql/queries'
-import {
-  createProjectUsers,
-  deleteProjectUsers
-} from '~/assets/graphql/mutations'
+import { createProjectUsers, deleteProjectUsers } from '~/assets/graphql/mutations'
 const { $getQuery, $getImage, $baseMutation } = useNuxtApp()
 const { params } = useRoute()
 const { isSignedIn } = useLoginState()
@@ -27,18 +24,14 @@ const enter = async () => {
   project.value.user.items.push(res)
 }
 const leave = async () => {
-  const res = project.value.user?.items.find(
-    (v) => v?.userID === myUser.value.id
-  )
+  const res = project.value.user?.items.find((v) => v?.userID === myUser.value.id)
   if (!res) return
   await $baseMutation<DeleteProjectUsersInput, ProjectUsers>({
     query: deleteProjectUsers,
     input: { id: res.id }
   })
   if (!project.value.user?.items.length) return
-  project.value.user.items = project.value.user?.items.filter(
-    (v) => v?.userID !== myUser.value.id
-  )
+  project.value.user.items = project.value.user?.items.filter((v) => v?.userID !== myUser.value.id)
 }
 const fetchProject = async () => {
   project.value = await $getQuery<GetProjectQuery, Project>({
@@ -47,10 +40,7 @@ const fetchProject = async () => {
       id: params.id || null
     }
   })
-  imageUrl.value = await $getImage(
-    project.value.file?.key,
-    project.value.file?.identityId
-  )
+  imageUrl.value = await $getImage(project.value.file?.key, project.value.file?.identityId)
 }
 await fetchProject()
 </script>
@@ -68,40 +58,26 @@ await fetchProject()
         <atom-text font-size="text-h4" :text="project.title" />
         <template v-if="isSignedIn">
           <atom-button
-            v-if="
-              !project.user?.items.map((v) => v?.userID).includes(myUser.id)
-            "
+            v-if="!project.user?.items.map((v) => v?.userID).includes(myUser.id)"
             :loading="banEdit"
             text="参加する"
             @btn-click="enter()"
           />
-          <atom-button
-            v-else
-            :loading="banEdit"
-            text="参加をやめる"
-            @btn-click="leave()"
-          />
+          <atom-button v-else :loading="banEdit" text="参加をやめる" @btn-click="leave()" />
         </template>
       </div>
-      <div
-        class="d-flex flex-nowrap justify-start bg-transparent mt-2 mb-2"
-        style="gap: 0 10px"
-      >
+      <div class="d-flex flex-nowrap justify-start bg-transparent mt-2 mb-2" style="gap: 0 10px">
         <atom-text
           font-size="text-caption"
           :text="$getYMD(project.createdAt)"
           font-weight="font-weight-regular"
-          ><v-icon size="14" class="mr-1 align-text-bottom">
-            mdi-cloud-upload-outline
-          </v-icon>
+          ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-cloud-upload-outline </v-icon>
         </atom-text>
         <atom-text
           font-size="text-caption"
           :text="$getYMD(project.updatedAt)"
           font-weight="font-weight-regular"
-          ><v-icon size="14" class="mr-1 align-text-bottom">
-            mdi-autorenew
-          </v-icon>
+          ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-autorenew </v-icon>
         </atom-text>
       </div>
       <v-card class="rounded-lg ma-5">
@@ -115,10 +91,7 @@ await fetchProject()
       </div>
       <div class="d-flex flex-wrap flex-sm-nowrap my-2">
         <atom-text text="概要：" />
-        <atom-text
-          :text="project.description"
-          font-weight="font-weight-regular"
-        />
+        <atom-text :text="project.description" font-weight="font-weight-regular" />
       </div>
     </div>
     <atom-text font-size="text-h5" text="参加メンバー" class="mt-16 mx-5" />
@@ -149,11 +122,7 @@ await fetchProject()
       text="関連記事"
       class="mt-16 mx-5"
     />
-    <div
-      v-if="project?.article?.items.length"
-      class="d-flex flex-wrap"
-      style="gap: 60px 5%"
-    >
+    <div v-if="project?.article?.items.length" class="d-flex flex-wrap" style="gap: 60px 5%">
       <module-content-medium
         v-for="item in project.article.items"
         :key="item?.id"

@@ -26,11 +26,7 @@ await fetchSkill()
     <div class="mx-5">
       <atom-text font-size="text-h4" :text="'#' + skill.title" class="mt-16" />
     </div>
-    <atom-text
-      font-size="text-h5"
-      text="このタグを登録中のメンバー"
-      class="mt-16 mx-5"
-    />
+    <atom-text font-size="text-h5" text="このタグを登録中のメンバー" class="mt-16 mx-5" />
     <div
       v-if="skill?.user?.items"
       class="d-flex flex-nowrap ma-5 pa-2 overflow-x-auto"
@@ -45,11 +41,7 @@ await fetchSkill()
         style="flex: 0 1 22%"
       />
     </div>
-    <atom-text
-      font-size="text-h5"
-      text="このタグに関連する記事"
-      class="mt-16 mx-5"
-    />
+    <atom-text font-size="text-h5" text="このタグに関連する記事" class="mt-16 mx-5" />
     <div
       v-if="skill?.user?.items"
       class="d-flex flex-nowrap ma-5 pa-2 overflow-x-auto"

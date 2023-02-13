@@ -42,10 +42,9 @@ export const useMyUser = () => {
 // snackbarの管理
 export const useSnackbar = () => {
   const snackbars = useState<SnackbarType[]>('snackbar', () => [])
-  const setSnackbars =
-    (snackbars: Ref<SnackbarType[]>) => (v: SnackbarType[]) => {
-      snackbars.value = v
-    }
+  const setSnackbars = (snackbars: Ref<SnackbarType[]>) => (v: SnackbarType[]) => {
+    snackbars.value = v
+  }
   const addSnackbar =
     (snackbars: Ref<SnackbarType[]>) =>
     (

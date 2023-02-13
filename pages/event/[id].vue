@@ -31,9 +31,7 @@ const leave = async () => {
     input: { id: res.id }
   })
   if (!event.value.user?.items.length) return
-  event.value.user.items = event.value.user?.items.filter(
-    (v) => v?.userID !== myUser.value.id
-  )
+  event.value.user.items = event.value.user?.items.filter((v) => v?.userID !== myUser.value.id)
 }
 const fetchEvent = async () => {
   event.value = await $getQuery<GetEventQuery, Event>({
@@ -42,10 +40,7 @@ const fetchEvent = async () => {
       id: params.id || null
     }
   })
-  imageUrl.value = await $getImage(
-    event.value.file?.key,
-    event.value.file?.identityId
-  )
+  imageUrl.value = await $getImage(event.value.file?.key, event.value.file?.identityId)
 }
 await fetchEvent()
 </script>
@@ -68,33 +63,21 @@ await fetchEvent()
             text="参加する"
             @btn-click="enter()"
           />
-          <atom-button
-            v-else
-            :loading="banEdit"
-            text="参加をやめる"
-            @btn-click="leave()"
-          />
+          <atom-button v-else :loading="banEdit" text="参加をやめる" @btn-click="leave()" />
         </template>
       </div>
-      <div
-        class="d-flex flex-nowrap justify-start bg-transparent my-2"
-        style="gap: 0 10px"
-      >
+      <div class="d-flex flex-nowrap justify-start bg-transparent my-2" style="gap: 0 10px">
         <atom-text
           font-size="text-caption"
           :text="$getYMD(event.createdAt)"
           font-weight="font-weight-regular"
-          ><v-icon size="14" class="mr-1 align-text-bottom">
-            mdi-cloud-upload-outline
-          </v-icon>
+          ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-cloud-upload-outline </v-icon>
         </atom-text>
         <atom-text
           font-size="text-caption"
           :text="$getYMD(event.updatedAt)"
           font-weight="font-weight-regular"
-          ><v-icon size="14" class="mr-1 align-text-bottom">
-            mdi-autorenew
-          </v-icon>
+          ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-autorenew </v-icon>
         </atom-text>
         <atom-text
           :text="event.wanted ? '募集中' : '募集終了'"
@@ -113,17 +96,11 @@ await fetchEvent()
       </v-card>
       <div class="d-flex flex-wrap flex-sm-nowrap my-2">
         <atom-text text="日時：" />
-        <atom-text
-          :text="event.date?.join('、')"
-          font-weight="font-weight-regular"
-        />
+        <atom-text :text="event.date?.join('、')" font-weight="font-weight-regular" />
       </div>
       <div class="d-flex flex-wrap flex-sm-nowrap my-2">
         <atom-text text="概要：" />
-        <atom-text
-          :text="event.description"
-          font-weight="font-weight-regular"
-        />
+        <atom-text :text="event.description" font-weight="font-weight-regular" />
       </div>
     </div>
     <atom-text font-size="text-h5" text="参加メンバー" class="mt-16 mx-5" />
@@ -154,11 +131,7 @@ await fetchEvent()
       text="関連記事"
       class="mt-16 mx-5"
     />
-    <div
-      v-if="event?.article?.items.length"
-      class="d-flex flex-wrap ma-5"
-      style="gap: 60px 5%"
-    >
+    <div v-if="event?.article?.items.length" class="d-flex flex-wrap ma-5" style="gap: 60px 5%">
       <module-content-small
         v-for="item in event.article.items"
         :key="item?.id"

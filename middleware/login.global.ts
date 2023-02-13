@@ -62,9 +62,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     if (isSignedIn.value) {
       setAdmin(
         user?.signInUserSession.accessToken.payload['cognito:groups'] &&
-          user?.signInUserSession.accessToken.payload[
-            'cognito:groups'
-          ].includes('Admin')
+          user?.signInUserSession.accessToken.payload['cognito:groups'].includes('Admin')
       )
     } else return navigateTo('/login')
   }

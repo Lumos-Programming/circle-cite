@@ -62,12 +62,9 @@ const updateMyUser = async () => {
     ])
   )
 }
-const input = ref<FileInput<UpdateUserInput>>(
-  JSON.parse(JSON.stringify(myUser.value))
-)
+const input = ref<FileInput<UpdateUserInput>>(JSON.parse(JSON.stringify(myUser.value)))
 const headers = ['id', 'name', 'email', 'belongs', 'join', 'leave']
 await getUsers()
-console.log(input.value)
 // TODO: valiidationを掛けること
 </script>
 <template>

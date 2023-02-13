@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { Project, UpdateProjectInput, ListProjectsQuery } from '~/assets/API'
 import { FileInput } from '~/assets/type'
-import {
-  createProject,
-  deleteProject,
-  updateProject
-} from '~/assets/graphql/mutations'
+import { createProject, deleteProject, updateProject } from '~/assets/graphql/mutations'
 import { listProjects } from '~/assets/graphql/queries'
-const { $getYMD, $listQuery, $extendMutation, $filterAttr, $excludeAttr } =
-  useNuxtApp()
+const { $getYMD, $listQuery, $extendMutation, $filterAttr, $excludeAttr } = useNuxtApp()
 const { banEdit } = useEditState()
 const projects = ref<Project[]>([])
 const getProjects = async () => {

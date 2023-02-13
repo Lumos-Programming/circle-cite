@@ -76,11 +76,7 @@ await fetchUser()
             <v-chip
               :ripple="false"
               class="ma-2 transition-short-ease-out"
-              :class="[
-                isHovering
-                  ? 'text-white bg-main-color'
-                  : 'bg-white text-grey-darken-4'
-              ]"
+              :class="[isHovering ? 'text-white bg-main-color' : 'bg-white text-grey-darken-4']"
               variant="elevated"
               prepend-icon="mdi-music-accidental-sharp"
               v-bind="props"
@@ -99,11 +95,7 @@ await fetchUser()
       text="ポートフォリオ"
       class="mt-16 mx-5"
     />
-    <div
-      v-if="user?.portfolio?.items.length"
-      class="d-flex flex-wrap ma-5"
-      style="gap: 60px 5%"
-    >
+    <div v-if="user?.portfolio?.items.length" class="d-flex flex-wrap ma-5" style="gap: 60px 5%">
       <module-content-medium
         v-for="item in user?.portfolio.items"
         :key="item?.id"
@@ -120,11 +112,7 @@ await fetchUser()
       text="出した記事"
       class="mt-16 mx-5"
     />
-    <div
-      v-if="user?.article?.items.length"
-      class="d-flex flex-wrap ma-5"
-      style="gap: 60px 5%"
-    >
+    <div v-if="user?.article?.items.length" class="d-flex flex-wrap ma-5" style="gap: 60px 5%">
       <module-content-medium
         v-for="item in user?.article.items"
         :key="item?.id"

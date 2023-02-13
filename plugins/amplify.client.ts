@@ -23,8 +23,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
         })
           .then((res: any) => {
-            const name =
-              Object.keys(res.data).length && Object.keys(res.data)[0]
+            const name = Object.keys(res.data).length && Object.keys(res.data)[0]
             if (!name) return
             if (!isProd) console.log(res.data[name])
             setBanEdit(false)
@@ -58,12 +57,9 @@ export default defineNuxtPlugin((nuxtApp) => {
             const res: any = await API.graphql<GraphQLQuery<T>>({
               query,
               variables,
-              authMode: isSignedIn.value
-                ? 'AMAZON_COGNITO_USER_POOLS'
-                : 'AWS_IAM'
+              authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
             })
-            const name =
-              Object.keys(res.data).length && Object.keys(res.data)[0]
+            const name = Object.keys(res.data).length && Object.keys(res.data)[0]
             if (!name) return
             items.push(...(res.data[name]?.items || []))
             if (res.data[name]?.nextToken) {
@@ -94,8 +90,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
         })
           .then((res: any) => {
-            const name =
-              Object.keys(res.data).length && Object.keys(res.data)[0]
+            const name = Object.keys(res.data).length && Object.keys(res.data)[0]
             if (!name) return
             if (!isProd) console.log(res.data[name])
             addSnackbar({ text: '保存が完了しました' })
@@ -213,9 +208,7 @@ export default defineNuxtPlugin((nuxtApp) => {
               case 'InvalidParameterException':
                 // 必要な属性が足りない場合や、入力された各項目が Cognito 側で正しくパースできない場合（バリデーションエラー）に起こる。
                 // password が6文字未満の場合はバリデーションエラーでこちらのエラーコードが返ってくる。
-                alert(
-                  '必要な項目が足りないか、正しく認識することができませんでした'
-                )
+                alert('必要な項目が足りないか、正しく認識することができませんでした')
                 return
               default:
                 // その他のエラー
@@ -241,9 +234,7 @@ export default defineNuxtPlugin((nuxtApp) => {
               case 'ExpiredCodeException':
                 // コードが期限切れ（24時間をオーバー）した場合に起こる。
                 // 注) username が存在しない・無効化されている場合にも起こる。
-                alert(
-                  'コードの期限が切れているか、登録いただいたメールアドレスが存在しません'
-                )
+                alert('コードの期限が切れているか、登録いただいたメールアドレスが存在しません')
                 throw new Error('error')
               case 'NotAuthorizedException':
                 // 既にステータスが CONFIRMED になっている場合に起こる。

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { OgpKey } from '~/assets/enum'
 import { Metadata } from '~/assets/type'
 import { createUserLinks, deleteUserLinks } from '~/assets/graphql/mutations'
@@ -142,4 +142,4 @@ for (let i = 0, len = OgpKey.length; i < len; i++) {
       @click="navigateTo(url, { external: true })"
     />
   </v-sheet>
-</template>
+</template> -->

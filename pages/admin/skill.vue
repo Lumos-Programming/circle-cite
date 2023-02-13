@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { Skill, UpdateSkillInput, ListSkillsQuery } from '~/assets/API'
 import { IndexSignature } from '~/assets/type'
-import {
-  createSkill,
-  deleteSkill,
-  updateSkill
-} from '~/assets/graphql/mutations'
+import { createSkill, deleteSkill, updateSkill } from '~/assets/graphql/mutations'
 import { listSkills } from '~/assets/graphql/queries'
 const { $listQuery, $baseMutation, $filterAttr, $excludeAttr } = useNuxtApp()
 const { banEdit } = useEditState()
@@ -89,9 +85,7 @@ await getSkills()
             <v-icon
               size="24"
               class="ma-2"
-              @click="
-                input = $filterAttr(skills[item.index - 1], ['id', 'title'])
-              "
+              @click="input = $filterAttr(skills[item.index - 1], ['id', 'title'])"
               >mdi-pencil
             </v-icon>
             <v-icon

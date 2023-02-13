@@ -82,11 +82,7 @@ const menu = [
       font-size="text-h5"
       line-height="line-height-48"
       :color="
-        isSignedIn
-          ? isAdmin
-            ? 'text-accent-color'
-            : 'text-main-color'
-          : 'text-grey-darken-4'
+        isSignedIn ? (isAdmin ? 'text-accent-color' : 'text-main-color') : 'text-grey-darken-4'
       "
       class="cursor-pointer"
       @click="navigateTo('/')"

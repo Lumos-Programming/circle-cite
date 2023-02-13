@@ -63,9 +63,7 @@ withDefaults(
       :text="String(grade)"
     />
     <div class="d-flex flex-nowrap justify-center" style="gap: 0 4px">
-      <template
-        v-for="[key, value] in Object.entries({ github, twitter, qiita, zenn })"
-      >
+      <template v-for="[key, value] in Object.entries({ github, twitter, qiita, zenn })">
         <nuxt-link v-if="value" :to="value || '/'" target="_blank" external>
           <atom-button-circle class="width-28 height-28 pa-1">
             <v-img :src="`/${key}.svg`" class="width-20 height-20" />

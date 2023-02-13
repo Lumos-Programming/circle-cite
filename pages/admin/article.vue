@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { Article, UpdateArticleInput, ListArticlesQuery } from '~/assets/API'
 import { FileInput } from '~/assets/type'
-import {
-  createArticle,
-  deleteArticle,
-  updateArticle
-} from '~/assets/graphql/mutations'
+import { createArticle, deleteArticle, updateArticle } from '~/assets/graphql/mutations'
 import { listArticles } from '~/assets/graphql/queries'
 const { $listQuery, $baseMutation, $filterAttr, $excludeAttr } = useNuxtApp()
 const { banEdit } = useEditState()

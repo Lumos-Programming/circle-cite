@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { Event, UpdateEventInput, ListEventsQuery } from '~/assets/API'
 import { FileInput } from '~/assets/type'
-import {
-  createEvent,
-  deleteEvent,
-  updateEvent
-} from '~/assets/graphql/mutations'
+import { createEvent, deleteEvent, updateEvent } from '~/assets/graphql/mutations'
 import { listEvents } from '~/assets/graphql/queries'
-const { $getYMD, $listQuery, $extendMutation, $filterAttr, $excludeAttr } =
-  useNuxtApp()
+const { $getYMD, $listQuery, $extendMutation, $filterAttr, $excludeAttr } = useNuxtApp()
 const { banEdit } = useEditState()
 const events = ref<Event[]>([])
 const getEvents = async () => {

@@ -1,15 +1,7 @@
 <script setup lang="ts">
-import {
-  Portfolio,
-  UpdatePortfolioInput,
-  ListPortfoliosQuery
-} from '~/assets/API'
+import { Portfolio, UpdatePortfolioInput, ListPortfoliosQuery } from '~/assets/API'
 import { FileInput } from '~/assets/type'
-import {
-  createPortfolio,
-  deletePortfolio,
-  updatePortfolio
-} from '~/assets/graphql/mutations'
+import { createPortfolio, deletePortfolio, updatePortfolio } from '~/assets/graphql/mutations'
 import { listPortfolios } from '~/assets/graphql/queries'
 const { $listQuery, $extendMutation, $filterAttr, $excludeAttr } = useNuxtApp()
 const { banEdit } = useEditState()
