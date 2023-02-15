@@ -25,7 +25,9 @@ export const InputComponents = (key?: string, v?: any): InputComponentsType => {
       props: {
         density: 'compact',
         'hide-details': true,
-        class: v ? 'text-main-color' : 'text-grey-darken-4'
+        inset: true,
+        class: v ? 'text-main-color' : 'text-grey-darken-4',
+        label: v ? 'している' : 'していない'
       }
     },
     fileinput: {
@@ -40,11 +42,6 @@ export const InputComponents = (key?: string, v?: any): InputComponentsType => {
     },
     select: { comp: 'v-select' }
   }
-}
-export const InputAttr = {
-  RichText: ['body'],
-  TextArea: ['description'],
-  File: ['file']
 }
 export const OgpKey = [
   'title',
@@ -91,82 +88,140 @@ export const Greetings = (name = 'スーパーエンジニア'): string[] => [
     : 'スーパーエンジニアの...って分かってますよ、' + name + 'さん'
 ]
 export const articleInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false },
-  { key: 'title', title: 'タイトル', type: 'textfield', schemaType: 'String', isArray: false },
-  { key: 'body', title: '本文', type: 'richtext', schemaType: 'String', isArray: false },
+  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'title',
+    title: 'タイトル',
+    type: 'textfield',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  },
+  {
+    key: 'body',
+    title: '本文',
+    type: 'richtext',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  },
   {
     key: 'published',
-    title: '下書きor公開',
+    title: '公開中かどうか',
     type: 'switch',
     schemaType: 'Boolean',
-    isArray: false
+    isArray: false,
+    default: false
   },
-  { key: 'userArticleId', title: '著者のID', type: 'textfield', schemaType: 'ID', isArray: false },
+  {
+    key: 'userArticleId',
+    title: '著者のID',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: ''
+  },
   {
     key: 'projectArticleId',
     title: '関連するプロジェクトのID（任意）',
     type: 'textfield',
     schemaType: 'ID',
-    isArray: false
+    isArray: false,
+    default: ''
   },
   {
     key: 'eventArticleId',
     title: '関連するイベントのID（任意）',
     type: 'textfield',
     schemaType: 'ID',
-    isArray: false
+    isArray: false,
+    default: ''
   },
   {
     key: 'file',
     title: 'サムネイル画像',
     type: 'fileinput',
     schemaType: 'S3Object',
-    isArray: false
+    isArray: false,
+    default: null
   }
 ]
 export const eventInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false },
-  { key: 'title', title: 'タイトル', type: 'textfield', schemaType: 'String', isArray: false },
-  { key: 'date', title: '日付', type: 'textfield', schemaType: 'AWSDate', isArray: true },
-  { key: 'description', title: '概要', type: 'textfield', schemaType: 'String', isArray: false },
+  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'title',
+    title: 'タイトル',
+    type: 'textfield',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  },
+  {
+    key: 'date',
+    title: '日付',
+    type: 'textfield',
+    schemaType: 'AWSDate',
+    isArray: true,
+    default: [null]
+  },
+  {
+    key: 'description',
+    title: '概要',
+    type: 'textarea',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  },
   {
     key: 'wanted',
-    title: '募集終了or募集中',
+    title: '募集中かどうか',
     type: 'switch',
     schemaType: 'Boolean',
-    isArray: false
+    isArray: false,
+    default: false
   },
   {
     key: 'published',
-    title: '下書きor公開',
+    title: '公開中かどうか',
     type: 'switch',
     schemaType: 'Boolean',
-    isArray: false
+    isArray: false,
+    default: false
   },
   {
     key: 'file',
     title: 'サムネイル画像',
     type: 'fileinput',
     schemaType: 'S3Object',
-    isArray: false
+    isArray: false,
+    default: null
   }
 ]
 export const memberInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false },
-  { key: 'name', title: 'お名前', type: 'textfield', schemaType: 'String', isArray: false },
+  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'name',
+    title: 'お名前',
+    type: 'textfield',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  },
   {
     key: 'email',
     title: 'メールアドレス',
     type: 'textfield',
     schemaType: 'String',
-    isArray: false
+    isArray: false,
+    default: ''
   },
   {
     key: 'description',
     title: '簡単な自己紹介',
     type: 'textfield',
     schemaType: 'String',
-    isArray: false
+    isArray: false,
+    default: ''
   },
   // NOTE: ↓ここtextareaにするか、richtextにするかmarkdownにするか検討
   {
@@ -174,133 +229,240 @@ export const memberInputs: InputType[] = [
     title: '就活用長めの自己紹介',
     type: 'textarea',
     schemaType: 'String',
-    isArray: false
+    isArray: false,
+    default: ''
   },
   {
     key: 'history',
     title: 'これまでの経歴',
     type: 'textarea',
     schemaType: 'String',
-    isArray: false
+    isArray: false,
+    default: ''
   },
-  { key: 'university', title: '大学名', type: 'textfield', schemaType: 'String', isArray: false },
+  {
+    key: 'university',
+    title: '大学名',
+    type: 'textfield',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  },
   {
     key: 'faculty',
     title: '学部・学科・プログラム名',
     type: 'textfield',
     schemaType: 'String',
-    isArray: false
+    isArray: false,
+    default: ''
   },
   {
     key: 'grade',
     title: '学年(1~6(院2年)で)',
     type: 'textfield',
     schemaType: 'Int',
-    isArray: false
+    isArray: false,
+    default: 0
   },
   {
     key: 'jobHunting',
     title: '就活中かどうか',
     type: 'switch',
     schemaType: 'Boolean',
-    isArray: false
+    isArray: false,
+    default: false
   },
-  { key: 'join', title: '開始日', type: 'textfield', schemaType: 'AWSDate', isArray: false },
-  { key: 'leave', title: '終了日', type: 'textfield', schemaType: 'AWSDate', isArray: false },
+  {
+    key: 'join',
+    title: '開始日',
+    type: 'textfield',
+    schemaType: 'AWSDate',
+    isArray: false,
+    default: ''
+  },
+  {
+    key: 'leave',
+    title: '終了日',
+    type: 'textfield',
+    schemaType: 'AWSDate',
+    isArray: false,
+    default: ''
+  },
   {
     key: 'discordId',
     title: 'discordのID',
     type: 'textfield',
     schemaType: 'String',
-    isArray: false
+    isArray: false,
+    default: ''
   },
   {
     key: 'github',
     title: 'githubのURL（任意）',
     type: 'textfield',
     schemaType: 'String',
-    isArray: false
+    isArray: false,
+    default: ''
   },
   {
     key: 'zenn',
     title: 'zennのURL（任意）',
     type: 'textfield',
     schemaType: 'String',
-    isArray: false
+    isArray: false,
+    default: ''
   },
   {
     key: 'qiita',
     title: 'qiitaのURL（任意）',
     type: 'textfield',
     schemaType: 'String',
-    isArray: false
+    isArray: false,
+    default: ''
   },
   {
     key: 'twitter',
     title: 'twitterのURL（任意）',
     type: 'textfield',
     schemaType: 'String',
-    isArray: false
+    isArray: false,
+    default: ''
   },
   {
     key: 'slide',
     title: 'slideのURL（任意）',
     type: 'textfield',
     schemaType: 'String',
-    isArray: false
+    isArray: false,
+    default: ''
   },
-  { key: 'file', title: 'アイコン画像', type: 'fileinput', schemaType: 'S3Object', isArray: false }
+  {
+    key: 'file',
+    title: 'アイコン画像',
+    type: 'fileinput',
+    schemaType: 'S3Object',
+    isArray: false,
+    default: null
+  }
 ]
 export const portfolioInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false },
-  { key: 'title', title: 'タイトル', type: 'textfield', schemaType: 'String', isArray: false },
-  { key: 'url', title: 'URL', type: 'textfield', schemaType: 'String', isArray: false },
-  { key: 'description', title: '概要', type: 'textfield', schemaType: 'String', isArray: false },
+  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'title',
+    title: 'タイトル',
+    type: 'textfield',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  },
+  {
+    key: 'url',
+    title: 'URL',
+    type: 'textfield',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  },
+  {
+    key: 'description',
+    title: '概要',
+    type: 'textarea',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  },
   {
     key: 'published',
-    title: '下書きor公開',
+    title: '公開中かどうか',
     type: 'switch',
     schemaType: 'Boolean',
-    isArray: false
+    isArray: false,
+    default: false
   },
   {
     key: 'file',
     title: 'サムネイル画像',
     type: 'fileinput',
     schemaType: 'S3Object',
-    isArray: false
+    isArray: false,
+    default: null
   },
-  { key: 'userPortfolioId', title: '作者のID', type: 'textfield', schemaType: 'ID', isArray: false }
+  {
+    key: 'userPortfolioId',
+    title: '作者のID',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: ''
+  }
 ]
 export const projectInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false },
-  { key: 'title', title: 'タイトル', type: 'textfield', schemaType: 'String', isArray: false },
-  { key: 'start', title: '開始日', type: 'textfield', schemaType: 'AWSDate', isArray: false },
-  { key: 'end', title: '終了日', type: 'textfield', schemaType: 'AWSDate', isArray: false },
-  { key: 'description', title: '概要', type: 'textfield', schemaType: 'String', isArray: false },
+  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'title',
+    title: 'タイトル',
+    type: 'textfield',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  },
+  {
+    key: 'start',
+    title: '開始日',
+    type: 'textfield',
+    schemaType: 'AWSDate',
+    isArray: false,
+    default: ''
+  },
+  {
+    key: 'end',
+    title: '終了日',
+    type: 'textfield',
+    schemaType: 'AWSDate',
+    isArray: false,
+    default: ''
+  },
+  {
+    key: 'description',
+    title: '概要',
+    type: 'textarea',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  },
   {
     key: 'wanted',
-    title: '募集終了or募集中',
+    title: '募集中かどうか',
     type: 'switch',
     schemaType: 'Boolean',
-    isArray: false
+    isArray: false,
+    default: false
   },
   {
     key: 'published',
-    title: '下書きor公開',
+    title: '公開中かどうか',
     type: 'switch',
     schemaType: 'Boolean',
-    isArray: false
+    isArray: false,
+    default: false
   },
   {
     key: 'file',
     title: 'サムネイル画像',
     type: 'fileinput',
     schemaType: 'S3Object',
-    isArray: false
+    isArray: false,
+    default: null
   }
 ]
 export const skillInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false },
-  { key: 'title', title: 'スキルタグ名', type: 'textfield', schemaType: 'String', isArray: false }
+  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'title',
+    title: 'スキルタグ名',
+    type: 'textfield',
+    schemaType: 'String',
+    isArray: false,
+    default: ''
+  }
 ]

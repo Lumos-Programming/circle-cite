@@ -1,4 +1,5 @@
-import { InputAttr } from '~~/assets/enum'
+import { InputType } from '~/assets/type'
+// import { InputAttr } from '~~/assets/enum'
 export default defineNuxtPlugin((nuxtApp) => {
   const { addSnackbar } = useSnackbar()
   const { setBanEdit } = useEditState()
@@ -103,9 +104,14 @@ export default defineNuxtPlugin((nuxtApp) => {
         if (item) return item
         return null
       },
-      filterAttr: (object: { [key: string]: any }, attr: string[] = Object.keys(object)): any => {
+      filterAttr: (
+        object: { [key: string]: any },
+        attr: string[] = Object.keys(object),
+        inputs: InputType[] = []
+      ): any => {
+        const fileAttr = inputs.filter((v) => v.type === 'fileinput').map((v) => v.key)
         return attr.reduce((v: object, c) => {
-          if (InputAttr.File.includes(c) && nuxtApp.$isObject(object[c])) {
+          if (fileAttr.includes(c) && nuxtApp.$isObject(object[c])) {
             return {
               ...v,
               [c]: nuxtApp.$filterAttr(object[c], ['key', 'name', 'size', 'type', 'identityId'])

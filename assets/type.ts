@@ -53,4 +53,5 @@ export type InputType = {
   rules?: any[]
   schemaType: SchemaTypeList
   isArray: boolean
+  default: any
 }

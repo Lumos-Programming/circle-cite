@@ -1,5 +1,5 @@
 import { Auth } from 'aws-amplify'
-import { Regexp } from '~/assets/enum'
+import { Regexp, memberInputs } from '~/assets/enum'
 import { User, ListUsersQuery } from '~/assets/API'
 import { listUsers } from '~/assets/graphql/queries'
 import { createUser } from '~/assets/graphql/mutations'
@@ -25,36 +25,19 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       // @ts-ignore
       filter: { email: { eq: user.attributes.email } }
     })
-    if (self.length === 1) {
-      setMyUser(
-        $filterAttr(self[0], [
-          'id',
-          'name',
-          'email',
-          'description',
-          'forRecruitment',
-          'history',
-          'university',
-          'faculty',
-          'grade',
-          'jobHunting',
-          'join',
-          'leave',
-          'discordId',
-          'github',
-          'zenn',
-          'qiita',
-          'twitter',
-          'slide',
-          'file'
-        ])
-      )
-    } else if (!self.length) {
+    if (!self.length) {
       const res = await $baseMutation({
         query: createUser,
-        input: { name: 'ゲスト', email: user.attributes.email }
+        input: { email: user.attributes.email }
       })
       if (!isProd) console.log('新規User作成', res)
+    } else {
+      setMyUser(
+        $filterAttr(
+          self[0],
+          memberInputs.map((v) => v.key)
+        )
+      )
     }
   }
   if (to.path.includes('login') && isSignedIn.value) return navigateTo('/admin')

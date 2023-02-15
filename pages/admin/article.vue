@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Article, UpdateArticleInput, ListArticlesQuery } from '~/assets/API'
 import { FileInput } from '~/assets/type'
-import { InputComponents, articleInputs } from '~/assets/enum'
+import { articleInputs } from '~/assets/enum'
 import { createArticle, deleteArticle, updateArticle } from '~/assets/graphql/mutations'
 import { listArticles } from '~/assets/graphql/queries'
 const { $listQuery, $extendMutation, $filterAttr, $excludeAttr } = useNuxtApp()
@@ -21,18 +21,14 @@ const mutateArticle = async () => {
     file: input.value.file?.file
   })
 }
-const defaultInput = {
-  id: '',
-  title: '',
-  body: '',
-  published: false,
-  userArticleId: null,
-  projectArticleId: null,
-  eventArticleId: null,
-  file: null
-}
+const defaultInput = JSON.parse(
+  JSON.stringify(
+    articleInputs.reduce((v, c) => {
+      return { ...v, [c.key]: c.default }
+    }, {})
+  )
+)
 const input = ref<FileInput<UpdateArticleInput>>(defaultInput)
-const headers = ['id', 'title', 'published', 'oparation']
 getArticles()
 // TODO: valiidationを掛けること
 </script>
@@ -60,11 +56,16 @@ getArticles()
         />
       </div>
       <div v-for="item in articleInputs">
-        <atom-text :text="item.title" font-size="text-subtitle-2" line-height="line-height-40" />
-        <component
-          :is="resolveComponent(InputComponents()[item.type].comp)"
+        <atom-input
+          :key="item.key"
           v-model="input[item.key]"
-          v-bind="InputComponents(item.key, input[item.key])[item.type].props"
+          :input="item"
+          :is-file="
+            articleInputs
+              .filter((v) => v.type === 'fileinput')
+              .map((v) => v.key)
+              .includes(item.key)
+          "
         />
       </div>
     </div>
@@ -79,33 +80,28 @@ getArticles()
           @btn-click="getArticles()"
         />
       </div>
-      <easy-data-table
+      <v-data-table
         :headers="
-          headers.map((v) => {
-            return { text: v, value: v }
+          ['oparation', ...Object.keys(defaultInput)].map((v) => {
+            return { title: v, key: v }
           })
         "
         :items="articles"
-        header-item-class-name="text-subtitle-2 font-weight-bold line-height-36"
-        body-row-class-name="height-36 line-height-36 one-line-reader"
-        buttons-pagination
-        show-index
+        density="compact"
+        :style="{ '--v-table-header-height': '40px' }"
+        class="white-space-nowrap"
       >
-        <template #item-oparation="item">
+        <template #[`item.oparation`]="{ item }">
           <div class="d-flex flex-nowrap">
             <v-icon
               size="24"
               class="ma-2"
               @click="
-                input = $filterAttr(articles[item.index - 1], [
-                  'id',
-                  'title',
-                  'body',
-                  'published',
-                  'userArticleId',
-                  'projectArticleId',
-                  'eventArticleId'
-                ])
+                input = $filterAttr(
+                  articles[articles.indexOf(item.raw)],
+                  Object.keys(defaultInput),
+                  articleInputs
+                )
               "
               >mdi-pencil
             </v-icon>
@@ -124,7 +120,7 @@ getArticles()
             </v-icon>
           </div>
         </template>
-      </easy-data-table>
+      </v-data-table>
     </div>
   </layout-admin>
 </template>

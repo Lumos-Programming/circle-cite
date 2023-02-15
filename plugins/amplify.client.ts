@@ -125,17 +125,15 @@ export default defineNuxtPlugin((nuxtApp) => {
             authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
           })
           const name = Object.keys(data).length && Object.keys(data)[0]
-          if (!isProd) console.log(data[name])
-          if (!name || !key) return null
-          if (type === 'delete' || type === 'update') {
-            await nuxtApp.$removeImage(key)
-          }
-          if (type === 'create' || type === 'update') {
-            await nuxtApp.$putImage(key, file)
+          if (!isProd && name) console.log(data[name])
+          if (key && file) {
+            if (type === 'delete' || type === 'update') await nuxtApp.$removeImage(key)
+            if (type === 'create' || type === 'update') await nuxtApp.$putImage(key, file)
           }
           addSnackbar({ text: '保存が完了しました' })
           setBanEdit(false)
-          return data[name]
+          if (name) return data[name]
+          else return null
         } catch (e) {
           if (!isProd) console.log(e)
           addSnackbar({ type: 'alert', text: '保存に失敗しました' })
@@ -168,12 +166,11 @@ export default defineNuxtPlugin((nuxtApp) => {
           file
         }
       },
-      onImageChange: async (files: File[], target: any) => {
+      onImageChange: async (files: File[], target: any, key: string) => {
         if (!files.length) return
         const file = await nuxtApp.$makeS3Object(files[0])
-        console.log(file)
-        target = file
-        console.log(target)
+        console.log(files[0])
+        if (file) target[key] = file
       },
       putImage: async (key: string, file: File) => {
         if (!file || !key) return

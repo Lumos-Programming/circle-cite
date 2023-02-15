@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { User, UpdateUserInput, ListUsersQuery } from '~/assets/API'
 import { FileInput } from '~/assets/type'
-import { InputComponents, memberInputs } from '~/assets/enum'
+import { memberInputs } from '~/assets/enum'
 import { updateUser } from '~/assets/graphql/mutations'
 import { listUsers } from '~/assets/graphql/queries'
 const { $listQuery, $extendMutation, $filterAttr } = useNuxtApp()
@@ -11,77 +11,19 @@ const users = ref<User[]>([])
 const getUsers = async () => {
   users.value = await $listQuery<ListUsersQuery, User>({ query: listUsers })
 }
+const inputAttr = memberInputs.map((v) => v.key)
 const updateMyUser = async () => {
   const res = await $extendMutation({
     type: 'update',
     key: input.value.file?.key || '',
     query: updateUser,
-    input: $filterAttr(input.value, [
-      'id',
-      'name',
-      'email',
-      'description',
-      'forRecruitment',
-      'history',
-      'university',
-      'faculty',
-      'grade',
-      'jobHunting',
-      'join',
-      'leave',
-      'discordId',
-      'github',
-      'zenn',
-      'qiita',
-      'twitter',
-      'slide',
-      'file'
-    ]),
+    input: $filterAttr(input.value, inputAttr, memberInputs),
     file: input.value.file?.file
   })
-  await setMyUser(
-    $filterAttr(res as User, [
-      'id',
-      'name',
-      'email',
-      'description',
-      'forRecruitment',
-      'history',
-      'university',
-      'faculty',
-      'grade',
-      'jobHunting',
-      'join',
-      'leave',
-      'discordId',
-      'github',
-      'zenn',
-      'qiita',
-      'twitter',
-      'slide',
-      'file'
-    ])
-  )
+  await setMyUser($filterAttr(res as User, inputAttr))
 }
 const input = ref<FileInput<UpdateUserInput>>(JSON.parse(JSON.stringify(myUser.value)))
-const headers = ['id', 'name', 'email', 'belongs', 'join', 'leave']
 await getUsers()
-// TODO: valiidationを掛けること
-const files = (e: any) => {
-  console.log(e)
-  // lastModified: 1656063794073
-  // lastModifiedDate: Fri Jun 24 2022 18:43:14 GMT+0900 (日本標準時) {}
-  // name: "iOS の画像.jpg"
-  // size: 877092
-  // type: "image/jpeg"
-  // webkitRelativePath: ""
-  // { "key": "e053169b-4df0-4946-a3cf-c89fa5ee7f23.jpeg",
-  //  "name": "bdm-SEDd_400x400.jpeg",
-  //   "size": "15427",
-  //    "type": "image/jpeg",
-  //     "identityId": "ap-northeast-1:9bfae69e-c593-49d0-80a9-75ab1edccafd" }
-  return input.value.file
-}
 </script>
 <template>
   <layout-admin>
@@ -97,15 +39,18 @@ const files = (e: any) => {
         />
       </div>
       <div v-for="item in memberInputs">
-        <atom-text :text="item.title" font-size="text-subtitle-2" line-height="line-height-40" />
-        <component
-          :is="resolveComponent(InputComponents()[item.type].comp)"
+        <atom-input
+          :key="item.key"
           v-model="input[item.key]"
-          v-bind="InputComponents(item.key, input[item.key])[item.type].props"
-          @update:model-value="item.key === 'file' && $onImageChange($event, input[item.key])"
+          :input="item"
+          :is-file="
+            memberInputs
+              .filter((v) => v.type === 'fileinput')
+              .map((v) => v.key)
+              .includes(item.key)
+          "
         />
       </div>
-      {{ input }}
     </div>
     <div class="my-5">
       <div class="d-flex my-2">
@@ -118,19 +63,17 @@ const files = (e: any) => {
           @btn-click="getUsers()"
         />
       </div>
-      <easy-data-table
+      <v-data-table
         :headers="
-          headers.map((v) => {
-            return { text: v, value: v }
+          inputAttr.map((v) => {
+            return { title: v, key: v }
           })
         "
         :items="users"
-        header-item-class-name="text-subtitle-2 font-weight-bold line-height-36"
-        body-row-class-name="height-36 line-height-36 one-line-reader"
-        buttons-pagination
-        show-index
-      >
-      </easy-data-table>
+        density="compact"
+        :style="{ '--v-table-header-height': '40px' }"
+        class="white-space-nowrap"
+      ></v-data-table>
     </div>
   </layout-admin>
 </template>
