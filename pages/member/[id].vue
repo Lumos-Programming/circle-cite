@@ -37,7 +37,20 @@ await fetchUser()
       <div class="mx-10" style="flex: 1 0 200px">
         <atom-text font-size="text-h5" :text="user?.name" />
         <atom-text
-          :text="user?.belongs"
+          :text="user?.university || ''"
+          font-size="text-subtitle-2"
+          class="mt-1 mb-3 line-clamp-1"
+          color="text-grey-darken-1"
+          font-weight="font-weight-regular"
+        />
+        <atom-text
+          :text="user?.faculty || ''"
+          font-size="text-subtitle-2"
+          class="mt-1 mb-3 line-clamp-1"
+          color="text-grey-darken-1"
+          font-weight="font-weight-regular"
+        /><atom-text
+          :text="user?.grade + '年'"
           font-size="text-subtitle-2"
           class="mt-1 mb-3 line-clamp-1"
           color="text-grey-darken-1"
