@@ -15,10 +15,9 @@
 5. `code -r circle-cite`
 6. `git config --local user.name "ユーザーネーム"`や`git config --local user.email メールアドレス`で 個人用 github のアカウントの情報を登録してください(スキップしても OK)
 7. `git checkout develop` & `git pull origin develop`
-8. lumos の Google Drive の「hooks 設定ファイル共有用」フォルダから aws-exports.js を assets 配下に、.env.example をルートにダウンロードした後に置く。
-9. `cp .env.example .env`
-10. `yarn install`
-11. `yarn dev`で立ち上がるか確認
+8. lumos の Google Drive の「hooks 設定ファイル共有用」フォルダから aws-exports.js を assets 配下に、.env をルートにダウンロードした後に置く。
+9. `yarn install`
+10. `yarn dev`で立ち上がるか確認
 
 ---
 
