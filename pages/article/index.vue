@@ -25,10 +25,7 @@ await getArticles()
         style="flex: 0 1 45%"
       >
         <template #default="slot">
-          <div
-            class="d-flex flex-wrap justify-end bg-transparent mt-2 mb-2"
-            style="gap: 0 10px"
-          >
+          <div class="d-flex flex-wrap justify-end bg-transparent mt-2 mb-2" style="gap: 0 10px">
             <atom-text
               font-size="text-caption"
               font-weight="font-weight-regular"

@@ -27,9 +27,7 @@ setTimeout(function () {
     class="position-fixed z-index-10 transition-short-ease height-40 rounded"
     :class="[
       item.background,
-      active
-        ? 'right-10 opacity-dot10'
-        : 'right-n200 opacity-dot0 overflow-x-hidden'
+      active ? 'right-10 opacity-dot10' : 'right-n200 opacity-dot0 overflow-x-hidden'
     ]"
     :style="{ top: 150 + index * 60 + 'px !important', width: '200px' }"
   >

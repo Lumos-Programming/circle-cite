@@ -27,79 +27,88 @@ await fetchUser()
         }
       ]"
     />
-    <div class="d-flex flex-nowrap mx-5 mt-16">
-      <div class="mx-5" style="flex: 0 0 200px">
-        <module-user-icon
-          :img-key="user?.file?.key"
-          :identityId="user?.file?.identityId"
-        />
-      </div>
+    <v-card class="d-flex flex-nowrap pa-10 mx-5 mt-16 rounded-lg">
+      <module-user-icon
+        :img-key="user?.file?.key"
+        :identityId="user?.file?.identityId"
+        class="width-80 height-80 mx-5"
+      />
 
-      <div class="ma-10" style="flex: 1 0 200px">
-        <atom-text font-size="text-h4" :text="user?.name" />
+      <div class="mx-10" style="flex: 1 0 200px">
+        <atom-text font-size="text-h5" :text="user?.name" />
         <atom-text
-          :text="user?.belongs"
+          :text="user?.university || ''"
+          font-size="text-subtitle-2"
+          class="mt-1 mb-3 line-clamp-1"
+          color="text-grey-darken-1"
           font-weight="font-weight-regular"
-          class="my-2"
         />
-        <div class="d-flex flex-nowrap justify-start my-2" style="gap: 0 10px">
-          <atom-text
-            font-size="text-caption"
-            :text="'加入日：' + $getYMD(user?.join)"
-            font-weight="font-weight-regular"
-          />
-          <atom-text
-            font-size="text-caption"
-            :text="'卒業日：' + $getYMD(user?.leave)"
-            font-weight="font-weight-regular"
-          />
-        </div>
-        <div class="d-flex flex-nowra justify-start" style="gap: 0 10px">
-          <atom-button-circle
-            @btn-click="navigateTo(user?.github, { external: true })"
-          >
-            <v-img src="/github.svg" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle
-            @btn-click="navigateTo(user?.twitter, { external: true })"
-          >
-            <v-img src="/twitter.svg" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle
-            @btn-click="navigateTo(user?.qiita, { external: true })"
-          >
-            <v-img src="/qiita.png" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle
-            @btn-click="navigateTo(user?.zenn, { external: true })"
-          >
-            <v-img src="/zenn.svg" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-          <atom-button-circle
-            @btn-click="navigateTo(user?.slide, { external: true })"
-          >
-            <v-img src="/slideshare.png" class="width-24 height-24 ma-2" />
-          </atom-button-circle>
-        </div>
-        <atom-text text="自己紹介" class="mt-5" />
+        <atom-text
+          :text="user?.faculty || ''"
+          font-size="text-subtitle-2"
+          class="mt-1 mb-3 line-clamp-1"
+          color="text-grey-darken-1"
+          font-weight="font-weight-regular"
+        /><atom-text
+          :text="user?.grade + '年'"
+          font-size="text-subtitle-2"
+          class="mt-1 mb-3 line-clamp-1"
+          color="text-grey-darken-1"
+          font-weight="font-weight-regular"
+        />
         <atom-text
           :text="user?.description"
+          font-size="text-subtitle-2"
           font-weight="font-weight-regular"
-          class="mt-2"
+          class="my-5 line-clamp-3"
         />
+
+        <div class="d-flex flex-nowra justify-start" style="gap: 0 10px">
+          <template
+            v-for="[key, value] in Object.entries({
+              github: user?.github,
+              twitter: user?.twitter,
+              qiita: user?.qiita,
+              zenn: user?.zenn,
+              slide: user?.slide
+            })"
+          >
+            <nuxt-link v-if="value" :to="value || '/'" target="_blank" external>
+              <atom-button-circle class="width-28 height-28 pa-1">
+                <v-img :src="`/${key}.svg`" class="width-20 height-20" />
+              </atom-button-circle>
+            </nuxt-link>
+          </template>
+        </div>
+        <v-chip-group column class="ml-n3">
+          <v-hover
+            v-for="item in user.skill?.items.slice(0, 10)"
+            :key="item?.skill.id"
+            v-slot="{ isHovering, props }"
+          >
+            <v-chip
+              :ripple="false"
+              class="ma-2 transition-short-ease-out"
+              :class="[isHovering ? 'text-white bg-main-color' : 'bg-white text-grey-darken-4']"
+              variant="elevated"
+              prepend-icon="mdi-music-accidental-sharp"
+              v-bind="props"
+              link
+              :to="'/skill/' + item?.skill.id"
+            >
+              {{ item?.skill.title }}
+            </v-chip>
+          </v-hover>
+        </v-chip-group>
       </div>
-    </div>
+    </v-card>
     <atom-text
       v-if="user?.portfolio?.items.length"
       font-size="text-h5"
       text="ポートフォリオ"
       class="mt-16 mx-5"
     />
-    <div
-      v-if="user?.portfolio?.items.length"
-      class="d-flex flex-wrap ma-5"
-      style="gap: 60px 5%"
-    >
+    <div v-if="user?.portfolio?.items.length" class="d-flex flex-wrap ma-5" style="gap: 60px 5%">
       <module-content-medium
         v-for="item in user?.portfolio.items"
         :key="item?.id"
@@ -113,14 +122,10 @@ await fetchUser()
     <atom-text
       v-if="user?.article?.items.length"
       font-size="text-h5"
-      text="執筆記事"
+      text="出した記事"
       class="mt-16 mx-5"
     />
-    <div
-      v-if="user?.article?.items.length"
-      class="d-flex flex-wrap ma-5"
-      style="gap: 60px 5%"
-    >
+    <div v-if="user?.article?.items.length" class="d-flex flex-wrap ma-5" style="gap: 60px 5%">
       <module-content-medium
         v-for="item in user?.article.items"
         :key="item?.id"

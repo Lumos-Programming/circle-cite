@@ -33,25 +33,18 @@ imageUrl.value = await $getImage(Props.imgKey, Props.identityId)
         <v-img :src="imageUrl" :aspect-ratio="16 / 9" cover />
       </v-card>
     </v-hover>
-    <div
-      class="d-flex flex-nowrap justify-end bg-transparent mt-4 mb-2"
-      style="gap: 0 10px"
-    >
+    <div class="d-flex flex-nowrap justify-end bg-transparent mt-4 mb-2" style="gap: 0 10px">
       <atom-text
         font-size="text-caption"
         :text="$getYMD(createdAt)"
         font-weight="font-weight-regular"
-        ><v-icon size="14" class="mr-1 align-text-bottom">
-          mdi-cloud-upload-outline
-        </v-icon>
+        ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-cloud-upload-outline </v-icon>
       </atom-text>
       <atom-text
         font-size="text-caption"
         :text="$getYMD(updatedAt)"
         font-weight="font-weight-regular"
-        ><v-icon size="14" class="mr-1 align-text-bottom">
-          mdi-autorenew
-        </v-icon>
+        ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-autorenew </v-icon>
       </atom-text>
     </div>
     <slot />

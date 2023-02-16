@@ -23,31 +23,20 @@ await fetchArticle()
     />
     <div class="mx-5">
       <atom-text font-size="text-h4" :text="article.title" class="mt-16" />
-      <div
-        class="d-flex flex-nowrap justify-start bg-transparent mt-2 mb-2"
-        style="gap: 0 10px"
-      >
+      <div class="d-flex flex-nowrap justify-start bg-transparent mt-2 mb-2" style="gap: 0 10px">
         <atom-text
           font-size="text-caption"
           :text="$getYMD(article.createdAt)"
           font-weight="font-weight-regular"
-          ><v-icon size="14" class="mr-1 align-text-bottom">
-            mdi-cloud-upload-outline
-          </v-icon>
+          ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-cloud-upload-outline </v-icon>
         </atom-text>
         <atom-text
           font-size="text-caption"
           :text="$getYMD(article.updatedAt)"
           font-weight="font-weight-regular"
-          ><v-icon size="14" class="mr-1 align-text-bottom">
-            mdi-autorenew
-          </v-icon>
+          ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-autorenew </v-icon>
         </atom-text>
-        <atom-text
-          font-size="text-caption"
-          font-weight="font-weight-regular"
-          text="|"
-        />
+        <atom-text font-size="text-caption" font-weight="font-weight-regular" text="|" />
         <atom-text
           font-size="text-caption"
           font-weight="font-weight-regular"
@@ -58,19 +47,11 @@ await fetchArticle()
         />
       </div>
       <v-chip-group v-if="article.skill?.items.length" column>
-        <v-hover
-          v-for="item in article.skill.items"
-          :key="item?.id"
-          v-slot="{ isHovering, props }"
-        >
+        <v-hover v-for="item in article.skill.items" :key="item?.id" v-slot="{ isHovering, props }">
           <v-chip
             :ripple="false"
             class="ma-2 elevation-5 transition-short-ease-out"
-            :class="[
-              isHovering
-                ? 'text-white bg-grey-darken-4'
-                : 'bg-white grey-darken-4'
-            ]"
+            :class="[isHovering ? 'text-white bg-grey-darken-4' : 'bg-white grey-darken-4']"
             variant="flat"
             prepend-icon="mdi-music-accidental-sharp"
             v-bind="props"

@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { Event, UpdateEventInput, ListEventsQuery } from '~/assets/API'
 import { FileInput } from '~/assets/type'
-import {
-  createEvent,
-  deleteEvent,
-  updateEvent
-} from '~/assets/graphql/mutations'
+import { eventInputs } from '~/assets/enum'
+import { createEvent, deleteEvent, updateEvent } from '~/assets/graphql/mutations'
 import { listEvents } from '~/assets/graphql/queries'
-const { $getYMD, $listQuery, $extendMutation, $filterAttr, $excludeAttr } =
-  useNuxtApp()
+const { $listQuery, $extendMutation, $filterAttr, $excludeAttr } = useNuxtApp()
 const { banEdit } = useEditState()
 const events = ref<Event[]>([])
 const getEvents = async () => {
@@ -23,17 +19,14 @@ const mutateEvent = async () => {
     file: input.value.file?.file
   })
 }
-const defaultInput = {
-  id: '',
-  title: '',
-  date: [$getYMD(new Date().toLocaleString(), '-')],
-  description: '',
-  wanted: false,
-  published: false,
-  file: null
-}
+const defaultInput = JSON.parse(
+  JSON.stringify(
+    eventInputs.reduce((v, c) => {
+      return { ...v, [c.key]: c.default }
+    }, {})
+  )
+)
 const input = ref<FileInput<UpdateEventInput>>(defaultInput)
-const headers = ['id', 'title', 'wanted', 'published', 'oparation']
 await getEvents()
 // TODO: valiidationを掛けること
 </script>
@@ -60,14 +53,18 @@ await getEvents()
           @btn-click="mutateEvent()"
         />
       </div>
-      <div v-for="[key, item] in Object.entries(input)" class="d-flex">
-        <atom-text
-          :text="key"
-          font-size="text-subtitle-2"
-          line-height="line-height-40"
-          style="flex: 0 0 120px"
+      <div v-for="item in eventInputs">
+        <atom-input
+          :key="item.key"
+          v-model="input[item.key]"
+          :input="item"
+          :is-file="
+            eventInputs
+              .filter((v) => v.type === 'fileinput')
+              .map((v) => v.key)
+              .includes(item.key)
+          "
         />
-        <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
     </div>
     <div class="my-5">
@@ -81,33 +78,28 @@ await getEvents()
           @btn-click="getEvents()"
         />
       </div>
-      <easy-data-table
+      <v-data-table
         :headers="
-          headers.map((v) => {
-            return { text: v, value: v }
+          ['oparation', ...Object.keys(defaultInput)].map((v) => {
+            return { title: v, key: v }
           })
         "
         :items="events"
-        header-item-class-name="text-subtitle-2 font-weight-bold line-height-36"
-        body-row-class-name="height-36 line-height-36 one-line-reader"
-        buttons-pagination
-        show-index
+        density="compact"
+        :style="{ '--v-table-header-height': '40px' }"
+        class="white-space-nowrap"
       >
-        <template #item-oparation="item">
+        <template #[`item.oparation`]="{ item }">
           <div class="d-flex flex-nowrap">
             <v-icon
               size="24"
               class="ma-2"
               @click="
-                input = $filterAttr(events[item.index - 1], [
-                  'id',
-                  'title',
-                  'date',
-                  'description',
-                  'wanted',
-                  'published',
-                  'file'
-                ])
+                input = $filterAttr(
+                  events[events.indexOf(item.raw)],
+                  Object.keys(defaultInput),
+                  eventInputs
+                )
               "
               >mdi-pencil
             </v-icon>
@@ -126,7 +118,7 @@ await getEvents()
             </v-icon>
           </div>
         </template>
-      </easy-data-table>
+      </v-data-table>
     </div>
   </layout-admin>
 </template>

@@ -23,8 +23,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
         })
           .then((res: any) => {
-            const name =
-              Object.keys(res.data).length && Object.keys(res.data)[0]
+            const name = Object.keys(res.data).length && Object.keys(res.data)[0]
             if (!name) return
             if (!isProd) console.log(res.data[name])
             setBanEdit(false)
@@ -58,12 +57,9 @@ export default defineNuxtPlugin((nuxtApp) => {
             const res: any = await API.graphql<GraphQLQuery<T>>({
               query,
               variables,
-              authMode: isSignedIn.value
-                ? 'AMAZON_COGNITO_USER_POOLS'
-                : 'AWS_IAM'
+              authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
             })
-            const name =
-              Object.keys(res.data).length && Object.keys(res.data)[0]
+            const name = Object.keys(res.data).length && Object.keys(res.data)[0]
             if (!name) return
             items.push(...(res.data[name]?.items || []))
             if (res.data[name]?.nextToken) {
@@ -94,8 +90,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
         })
           .then((res: any) => {
-            const name =
-              Object.keys(res.data).length && Object.keys(res.data)[0]
+            const name = Object.keys(res.data).length && Object.keys(res.data)[0]
             if (!name) return
             if (!isProd) console.log(res.data[name])
             addSnackbar({ text: '保存が完了しました' })
@@ -130,17 +125,15 @@ export default defineNuxtPlugin((nuxtApp) => {
             authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
           })
           const name = Object.keys(data).length && Object.keys(data)[0]
-          if (!isProd) console.log(data[name])
-          if (!name || !key) return null
-          if (type === 'delete' || type === 'update') {
-            await nuxtApp.$removeImage(key)
-          }
-          if (type === 'create' || type === 'update') {
-            await nuxtApp.$putImage(key, file)
+          if (!isProd && name) console.log(data[name])
+          if (key && file) {
+            if (type === 'delete' || type === 'update') await nuxtApp.$removeImage(key)
+            if (type === 'create' || type === 'update') await nuxtApp.$putImage(key, file)
           }
           addSnackbar({ text: '保存が完了しました' })
           setBanEdit(false)
-          return data[name]
+          if (name) return data[name]
+          else return null
         } catch (e) {
           if (!isProd) console.log(e)
           addSnackbar({ type: 'alert', text: '保存に失敗しました' })
@@ -172,6 +165,12 @@ export default defineNuxtPlugin((nuxtApp) => {
           identityId,
           file
         }
+      },
+      onImageChange: async (files: File[], target: any, key: string) => {
+        if (!files.length) return
+        const file = await nuxtApp.$makeS3Object(files[0])
+        console.log(files[0])
+        if (file) target[key] = file
       },
       putImage: async (key: string, file: File) => {
         if (!file || !key) return
@@ -213,9 +212,7 @@ export default defineNuxtPlugin((nuxtApp) => {
               case 'InvalidParameterException':
                 // 必要な属性が足りない場合や、入力された各項目が Cognito 側で正しくパースできない場合（バリデーションエラー）に起こる。
                 // password が6文字未満の場合はバリデーションエラーでこちらのエラーコードが返ってくる。
-                alert(
-                  '必要な項目が足りないか、正しく認識することができませんでした'
-                )
+                alert('必要な項目が足りないか、正しく認識することができませんでした')
                 return
               default:
                 // その他のエラー
@@ -241,9 +238,7 @@ export default defineNuxtPlugin((nuxtApp) => {
               case 'ExpiredCodeException':
                 // コードが期限切れ（24時間をオーバー）した場合に起こる。
                 // 注) username が存在しない・無効化されている場合にも起こる。
-                alert(
-                  'コードの期限が切れているか、登録いただいたメールアドレスが存在しません'
-                )
+                alert('コードの期限が切れているか、登録いただいたメールアドレスが存在しません')
                 throw new Error('error')
               case 'NotAuthorizedException':
                 // 既にステータスが CONFIRMED になっている場合に起こる。

@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { Skill, UpdateSkillInput, ListSkillsQuery } from '~/assets/API'
 import { IndexSignature } from '~/assets/type'
-import {
-  createSkill,
-  deleteSkill,
-  updateSkill
-} from '~/assets/graphql/mutations'
+import { skillInputs } from '~/assets/enum'
+import { createSkill, deleteSkill, updateSkill } from '~/assets/graphql/mutations'
 import { listSkills } from '~/assets/graphql/queries'
 const { $listQuery, $baseMutation, $filterAttr, $excludeAttr } = useNuxtApp()
 const { banEdit } = useEditState()
@@ -24,7 +21,6 @@ const defaultInput = {
   title: ''
 }
 const input = ref<IndexSignature<UpdateSkillInput>>(defaultInput)
-const headers = ['id', 'title', 'oparation']
 await getSkills()
 // TODO: valiidationを掛けること
 </script>
@@ -51,14 +47,18 @@ await getSkills()
           @btn-click="mutateSkill()"
         />
       </div>
-      <div v-for="[key, item] in Object.entries(input)" class="d-flex">
-        <atom-text
-          :text="key"
-          font-size="text-subtitle-2"
-          line-height="line-height-40"
-          style="flex: 0 0 120px"
+      <div v-for="item in skillInputs">
+        <atom-input
+          :key="item.key"
+          v-model="input[item.key]"
+          :input="item"
+          :is-file="
+            skillInputs
+              .filter((v) => v.type === 'fileinput')
+              .map((v) => v.key)
+              .includes(item.key)
+          "
         />
-        <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
     </div>
     <div class="my-5">
@@ -72,25 +72,28 @@ await getSkills()
           @btn-click="getSkills()"
         />
       </div>
-      <easy-data-table
+      <v-data-table
         :headers="
-          headers.map((v) => {
-            return { text: v, value: v }
+          ['oparation', ...Object.keys(defaultInput)].map((v) => {
+            return { title: v, key: v }
           })
         "
         :items="skills"
-        header-item-class-name="text-subtitle-2 font-weight-bold line-height-36"
-        body-row-class-name="height-36 line-height-36 one-line-reader"
-        buttons-pagination
-        show-index
+        density="compact"
+        :style="{ '--v-table-header-height': '40px' }"
+        class="white-space-nowrap"
       >
-        <template #item-oparation="item">
+        <template #[`item.oparation`]="{ item }">
           <div class="d-flex flex-nowrap">
             <v-icon
               size="24"
               class="ma-2"
               @click="
-                input = $filterAttr(skills[item.index - 1], ['id', 'title'])
+                input = $filterAttr(
+                  skills[skills.indexOf(item.raw)],
+                  Object.keys(defaultInput),
+                  skillInputs
+                )
               "
               >mdi-pencil
             </v-icon>
@@ -98,7 +101,9 @@ await getSkills()
               size="24"
               class="ma-2"
               @click="
-                $baseMutation({
+                $extendMutation({
+                  type: 'delete',
+                  key: input.file?.key || '',
                   query: deleteSkill,
                   input: { id: item.id }
                 })
@@ -107,7 +112,7 @@ await getSkills()
             </v-icon>
           </div>
         </template>
-      </easy-data-table>
+      </v-data-table>
     </div>
   </layout-admin>
 </template>

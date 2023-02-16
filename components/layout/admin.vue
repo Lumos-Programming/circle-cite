@@ -36,11 +36,6 @@ const pages = [
     title: 'スキルタグ',
     icon: 'mdi-tag-outline',
     path: '/admin/skill'
-  },
-  {
-    title: 'リンク集',
-    icon: 'mdi-link',
-    path: '/admin/link'
   }
   // {
   //   title: '設定',
@@ -50,10 +45,7 @@ const pages = [
 ]
 </script>
 <template>
-  <div
-    class="d-flex flex-nowrap bg-grey-color"
-    style="width: 100vw; min-height: 100vh"
-  >
+  <div class="d-flex flex-nowrap bg-grey-color" style="width: 100vw; min-height: 100vh">
     <!-- NOTE: 画面左側メニュバー -->
     <v-card
       class="transition-medium-ease-out pa-2 position-relative bg-main-color rounded-0 d-flex flex-column flex-nowrap"
@@ -65,13 +57,7 @@ const pages = [
           class="one-line-reader flex-shrink-1"
           text="Hooks"
           line-height="line-height-72"
-          :color="
-            isSignedIn
-              ? isAdmin
-                ? 'text-accent-color'
-                : 'text-white'
-              : 'text-main-color'
-          "
+          :color="isSignedIn ? (isAdmin ? 'text-accent-color' : 'text-white') : 'text-main-color'"
         />
         <v-spacer></v-spacer>
         <v-btn
@@ -138,14 +124,10 @@ const pages = [
       </v-btn>
     </v-card>
     <div
-      class="pt-5 px-5 overflow-y-auto scrollbar-hidden position-relative"
+      class="pt-5 px-5 bg-white overflow-y-auto scrollbar-hidden position-relative"
       :style="{ flex: '1', height: 'calc(100vh - 40px)' }"
     >
-      <atom-text
-        font-size="text-h6"
-        line-height="line-height-lg"
-        text="Hooks Admin"
-      />
+      <atom-text font-size="text-h6" line-height="line-height-lg" text="Hooks Admin" />
       <atom-breadcrumbs class="mb-5" />
       <atom-menu-icon />
       <slot />

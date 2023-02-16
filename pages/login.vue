@@ -16,9 +16,7 @@ const { isSignedIn } = useLoginState()
         <v-btn variant="outlined" class="ma-5" @click="navigateTo('/admin')">
           管理画面トップへ
         </v-btn>
-        <v-btn variant="outlined" class="ma-5" @click="signOut">
-          ログアウト
-        </v-btn>
+        <v-btn variant="outlined" class="ma-5" @click="signOut"> ログアウト </v-btn>
       </template>
     </Authenticator>
   </layout-public>

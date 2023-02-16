@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { User, UpdateUserInput, ListUsersQuery } from '~/assets/API'
 import { FileInput } from '~/assets/type'
+import { memberInputs } from '~/assets/enum'
 import { updateUser } from '~/assets/graphql/mutations'
 import { listUsers } from '~/assets/graphql/queries'
 const { $listQuery, $extendMutation, $filterAttr } = useNuxtApp()
@@ -10,54 +11,19 @@ const users = ref<User[]>([])
 const getUsers = async () => {
   users.value = await $listQuery<ListUsersQuery, User>({ query: listUsers })
 }
+const inputAttr = memberInputs.map((v) => v.key)
 const updateMyUser = async () => {
   const res = await $extendMutation({
     type: 'update',
     key: input.value.file?.key || '',
     query: updateUser,
-    input: $filterAttr(input.value, [
-      'id',
-      'name',
-      'email',
-      'description',
-      'belongs',
-      'join',
-      'leave',
-      'discordId',
-      'github',
-      'zenn',
-      'qiita',
-      'twitter',
-      'slide',
-      'file'
-    ]),
+    input: $filterAttr(input.value, inputAttr, memberInputs),
     file: input.value.file?.file
   })
-  await setMyUser(
-    $filterAttr(res as User, [
-      'id',
-      'name',
-      'email',
-      'description',
-      'belongs',
-      'join',
-      'leave',
-      'discordId',
-      'github',
-      'zenn',
-      'qiita',
-      'twitter',
-      'slide',
-      'file'
-    ])
-  )
+  await setMyUser($filterAttr(res as User, inputAttr))
 }
-const input = ref<FileInput<UpdateUserInput>>(
-  JSON.parse(JSON.stringify(myUser.value))
-)
-const headers = ['id', 'name', 'email', 'belongs', 'join', 'leave']
+const input = ref<FileInput<UpdateUserInput>>(JSON.parse(JSON.stringify(myUser.value)))
 await getUsers()
-// TODO: valiidationを掛けること
 </script>
 <template>
   <layout-admin>
@@ -72,14 +38,18 @@ await getUsers()
           @btn-click="updateMyUser()"
         />
       </div>
-      <div v-for="[key, item] in Object.entries(input)" class="d-flex">
-        <atom-text
-          :text="key"
-          font-size="text-subtitle-2"
-          line-height="line-height-40"
-          style="flex: 0 0 120px"
+      <div v-for="item in memberInputs">
+        <atom-input
+          :key="item.key"
+          v-model="input[item.key]"
+          :input="item"
+          :is-file="
+            memberInputs
+              .filter((v) => v.type === 'fileinput')
+              .map((v) => v.key)
+              .includes(item.key)
+          "
         />
-        <atom-input v-model="input[key]" :value="item" :label="key" />
       </div>
     </div>
     <div class="my-5">
@@ -93,19 +63,17 @@ await getUsers()
           @btn-click="getUsers()"
         />
       </div>
-      <easy-data-table
+      <v-data-table
         :headers="
-          headers.map((v) => {
-            return { text: v, value: v }
+          inputAttr.map((v) => {
+            return { title: v, key: v }
           })
         "
         :items="users"
-        header-item-class-name="text-subtitle-2 font-weight-bold line-height-36"
-        body-row-class-name="height-36 line-height-36 one-line-reader"
-        buttons-pagination
-        show-index
-      >
-      </easy-data-table>
+        density="compact"
+        :style="{ '--v-table-header-height': '40px' }"
+        class="white-space-nowrap"
+      ></v-data-table>
     </div>
   </layout-admin>
 </template>

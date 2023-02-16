@@ -20,3 +20,38 @@ export type SnackbarType = {
   background?: string
   timeout?: number
 }
+export type InputTypeList =
+  | 'textfield'
+  | 'textarea'
+  | 'richtext'
+  | 'switch'
+  | 'fileinput'
+  | 'select'
+export type SchemaTypeList =
+  | 'ID'
+  | 'String'
+  | 'Int'
+  | 'Float'
+  | 'Boolean'
+  | 'AWSDate'
+  | 'AWSTime'
+  | 'AWSDateTime'
+  | 'AWSTimestamp'
+  | 'AWSEmail'
+  | 'AWSJSON'
+  | 'AWSPhone'
+  | 'AWSURL'
+  | 'AWSIPAddress'
+  | 'S3Object'
+export type InputComponentsType = {
+  [key in InputTypeList]: { comp: string; props?: object }
+}
+export type InputType = {
+  key: string
+  title: string
+  type: InputTypeList
+  rules?: any[]
+  schemaType: SchemaTypeList
+  isArray: boolean
+  default: any
+}
