@@ -1,6 +1,6 @@
 import { translations } from '@aws-amplify/ui-vue'
 import { Amplify, I18n } from 'aws-amplify'
-import amplifyConfig from '~/assets/aws-exports'
+import amplifyConfig from '~/src/aws-exports'
 export default defineNuxtPlugin(() => {
   Amplify.configure(amplifyConfig)
 
