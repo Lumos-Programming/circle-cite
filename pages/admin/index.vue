@@ -41,7 +41,7 @@ await fetchUser()
       :twitter="user.twitter"
       :qiita="user.qiita"
       :zenn="user.zenn"
-      :identityId="user.file?.identityId"
+      :identity-id="user.file?.identityId"
     />
   </layout-admin>
 </template>

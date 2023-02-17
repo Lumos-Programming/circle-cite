@@ -35,6 +35,8 @@ const breadcrumbs = computed(() => {
   <v-breadcrumbs
     :items="breadcrumbs"
     class="pa-0 text-caption line-height-lg"
-    style="--v-disabled-opacity: 0.5"
+    style="
+
+  --v-disabled-opacity: 0.5"
   ></v-breadcrumbs>
 </template>

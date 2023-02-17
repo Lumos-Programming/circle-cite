@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Highlight from '@tiptap/extension-highlight'
-import Heading from '@tiptap/extension-heading'
-import Paragraph from '@tiptap/extension-paragraph'
-import Typography from '@tiptap/extension-typography'
-import TextAlign from '@tiptap/extension-text-align'
+import { Highlight } from '@tiptap/extension-highlight'
+import { Heading } from '@tiptap/extension-heading'
+import { Paragraph } from '@tiptap/extension-paragraph'
+import { Typography } from '@tiptap/extension-typography'
+import { TextAlign } from '@tiptap/extension-text-align'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import { StarterKit } from '@tiptap/starter-kit'
 const props = withDefaults(

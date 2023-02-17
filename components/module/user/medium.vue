@@ -36,7 +36,7 @@ withDefaults(
     <v-hover v-slot="{ isHovering, props }">
       <module-user-icon
         :img-key="imgKey"
-        :identityId="identityId"
+        :identity-id="identityId"
         v-bind="props"
         :style="{ transform: isHovering ? 'scale(1.05)' : 'scale(1.0)' }"
         class="height-80 width-80 mx-auto"

@@ -49,6 +49,6 @@ const submit = async () => {
       clearable
       :rules="[validation.required, validation.maxString(500)]"
     />
-    <atom-button text="送信" btnClass="w-100" :loading="banEdit" @btn-click="submit()" />
+    <atom-button text="送信" btn-class="w-100" :loading="banEdit" @btn-click="submit()" />
   </layout-public>
 </template>

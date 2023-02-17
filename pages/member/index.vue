@@ -27,7 +27,7 @@ await getUsers()
         :twitter="item.twitter"
         :qiita="item.qiita"
         :zenn="item.zenn"
-        :identityId="item.file?.identityId"
+        :identity-id="item.file?.identityId"
         style="flex: 0 1 30%; padding: 0 3%"
       />
     </div>

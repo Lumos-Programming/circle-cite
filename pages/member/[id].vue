@@ -30,7 +30,7 @@ await fetchUser()
     <v-card class="d-flex flex-nowrap pa-10 mx-5 mt-16 rounded-lg">
       <module-user-icon
         :img-key="user?.file?.key"
-        :identityId="user?.file?.identityId"
+        :identity-id="user?.file?.identityId"
         class="width-80 height-80 mx-5"
       />
 

@@ -50,9 +50,8 @@ classベースでデザインするためによく使うstyleをクラス化す�
 単一プロパティを表す責務を負うcss class
 */
 .font-family-main {
-  font-family: Roboto, '游ゴシック体', YuGothic, '游ゴシック Medium',
-    'Yu Gothic Medium', '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN',
-    'ヒラギノ角ゴ ProN W3', 'メイリオ' !important;
+  font-family: Roboto, '游ゴシック体', YuGothic, '游ゴシック Medium', 'Yu Gothic Medium',
+    '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'メイリオ' !important;
 }
 
 $transition: ease, ease-out, ease-in, ease-in-out;
@@ -68,9 +67,8 @@ $transition-time: (
     }
   }
 }
-$cursor: alias, all-scroll, cell, copy, context-menu, crosshair, default, grab,
-  grabbing, help, move, no-drop, not-allowed, progress, wait, pointer, text,
-  vertical-text, zoom-in, zoom-out, unset;
+$cursor: alias, all-scroll, cell, copy, context-menu, crosshair, default, grab, grabbing, help, move,
+  no-drop, not-allowed, progress, wait, pointer, text, vertical-text, zoom-in, zoom-out, unset;
 @each $i in $cursor {
   .cursor-#{$i} {
     cursor: $i !important;

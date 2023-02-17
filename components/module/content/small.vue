@@ -25,6 +25,6 @@ const isHovering = ref<boolean>(false)
       line-height="line-height-lg"
       :color="isHovering ? 'text-white' : 'text-grey-darken-4'"
     />
-    <slot :isHovering="isHovering" />
+    <slot :is-hovering="isHovering" />
   </v-sheet>
 </template>
