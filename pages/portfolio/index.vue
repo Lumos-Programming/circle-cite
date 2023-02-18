@@ -14,7 +14,7 @@ await getPortfolios()
 <template>
   <layout-public>
     <atom-text font-size="text-h4" text="Portfolio" class="py-10" />
-    <div class="d-flex flex-wrap" style="gap: 60px 5%">
+    <div class="d-flex flex-wrap">
       <module-content-medium
         v-for="item in portfolios"
         :key="item.id"
@@ -23,7 +23,7 @@ await getPortfolios()
         :created-at="item.createdAt"
         :updated-at="item.updatedAt"
         :title="item.title"
-        style="flex: 0 1 30%"
+        class="v-col-12 v-col-sm-6 v-col-md-4"
         @click-func="navigateTo(item.url, { external: true })"
       >
       </module-content-medium>

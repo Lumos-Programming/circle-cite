@@ -1,30 +1,22 @@
 <script setup lang="ts">
+import { User } from '~/assets/API'
 withDefaults(
   defineProps<{
-    name: string | null
-    path: string
-    imgKey: string
-    identityId: string
+    user?: User
   }>(),
-  {
-    name: '',
-    path: '/',
-    imgKey: '',
-    identityId: ''
-  }
+  {}
 )
 </script>
 <template>
-  <v-sheet class="w-100 bg-transparent">
-    <v-hover v-slot="{ isHovering, props }">
-      <module-user-icon
-        :img-key="imgKey"
-        :identity-id="identityId"
-        v-bind="props"
-        :style="{ transform: isHovering ? 'scale(1.05)' : 'scale(1.0)' }"
-        @click-func="navigateTo(path)"
-      />
-    </v-hover>
-    <atom-text font-size="text-h5" class="text-center my-3" :text="name" />
+  <v-sheet
+    class="w-100 bg-transparent cursor-pointer"
+    @click="user?.id && navigateTo('/member/' + user?.id)"
+  >
+    <module-user-icon
+      :img-key="user?.file?.key"
+      :identity-id="user?.file?.identityId"
+      class="height-80 width-80 mx-auto"
+    />
+    <atom-text class="text-center mt-5" :text="user?.name" />
   </v-sheet>
 </template>

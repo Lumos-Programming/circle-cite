@@ -20,40 +20,37 @@ const Props = withDefaults(
 imageUrl.value = await $getImage(Props.imgKey, Props.identityId)
 </script>
 <template>
-  <v-sheet class="bg-transparent">
+  <v-sheet class="pa-5 bg-transparent">
     <v-hover v-slot="{ isHovering, props }">
       <v-card
-        class="w-100 elevation-5 rounded-lg transition-medium-ease"
+        class="w-100 pb-2 rounded-lg transition-medium-ease"
         v-bind="props"
-        :style="{
-          transform: isHovering ? 'scale(1.05)' : 'scale(1.0)'
-        }"
+        :style="{ transform: isHovering ? 'scale(1.05)' : 'scale(1.0)' }"
         @click="$emit('click-func')"
       >
         <v-img :src="imageUrl" :aspect-ratio="16 / 9" cover />
+        <div class="d-flex flex-nowrap my-3 mx-2" style="gap: 0 10px">
+          <atom-text
+            font-size="text-caption"
+            :text="$getYMD(createdAt)"
+            font-weight="font-weight-regular"
+            ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-cloud-upload-outline </v-icon>
+          </atom-text>
+          <atom-text
+            font-size="text-caption"
+            :text="$getYMD(updatedAt)"
+            font-weight="font-weight-regular"
+            ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-autorenew </v-icon>
+          </atom-text>
+        </div>
+        <atom-text
+          :text="title"
+          line-height="line-height-lg"
+          class="ma-2 line-clamp-3 height-72"
+          @click="$emit('click-func')"
+        />
+        <slot />
       </v-card>
     </v-hover>
-    <div class="d-flex flex-nowrap justify-end bg-transparent mt-4 mb-2" style="gap: 0 10px">
-      <atom-text
-        font-size="text-caption"
-        :text="$getYMD(createdAt)"
-        font-weight="font-weight-regular"
-        ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-cloud-upload-outline </v-icon>
-      </atom-text>
-      <atom-text
-        font-size="text-caption"
-        :text="$getYMD(updatedAt)"
-        font-weight="font-weight-regular"
-        ><v-icon size="14" class="mr-1 align-text-bottom"> mdi-autorenew </v-icon>
-      </atom-text>
-    </div>
-    <slot />
-    <atom-text
-      :text="title"
-      font-size="text-h6"
-      line-height="line-height-lg"
-      class="ml-1"
-      @click="$emit('click-func')"
-    />
   </v-sheet>
 </template>

@@ -47,12 +47,6 @@ const menu = [
     path: '/portfolio'
   },
   {
-    text: 'リンク集',
-    function: () => navigateTo('/link'),
-    outside: false,
-    path: '/link'
-  },
-  {
     text: 'お問合わせ',
     function: () => navigateTo('/contact'),
     outside: true,

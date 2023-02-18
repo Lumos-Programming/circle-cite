@@ -29,19 +29,6 @@ await fetchUser()
       </div>
       <v-spacer />
     </div>
-    <module-user-medium
-      :key="user.id"
-      :path="'/member/' + user.id"
-      :img-key="user.file?.key"
-      :name="user.name"
-      :university="user.university"
-      :faculty="user.faculty"
-      :grade="user.grade"
-      :github="user.github"
-      :twitter="user.twitter"
-      :qiita="user.qiita"
-      :zenn="user.zenn"
-      :identity-id="user.file?.identityId"
-    />
+    <module-user-medium :user="user" />
   </layout-admin>
 </template>
