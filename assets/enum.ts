@@ -1,3 +1,4 @@
+import { validation } from './validation'
 import { InputType, InputComponentsType, SnackbarType, SnackbarTypeList } from '~/assets/type'
 export const Regexp = {
   normalize: /\/$/,
@@ -88,14 +89,23 @@ export const Greetings = (name = 'スーパーエンジニア'): string[] => [
     : 'スーパーエンジニアの...って分かってますよ、' + name + 'さん'
 ]
 export const articleInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'id',
+    title: 'id',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.checkUUID]
+  },
   {
     key: 'title',
     title: 'タイトル',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(40)]
   },
   {
     key: 'body',
@@ -103,7 +113,8 @@ export const articleInputs: InputType[] = [
     type: 'richtext',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(1000)]
   },
   {
     key: 'published',
@@ -111,7 +122,8 @@ export const articleInputs: InputType[] = [
     type: 'switch',
     schemaType: 'Boolean',
     isArray: false,
-    default: false
+    default: false,
+    rules: [validation.required]
   },
   {
     key: 'userArticleId',
@@ -119,7 +131,8 @@ export const articleInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'ID',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.checkUUID]
   },
   {
     key: 'projectArticleId',
@@ -127,7 +140,8 @@ export const articleInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'ID',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkUUID]
   },
   {
     key: 'eventArticleId',
@@ -135,7 +149,8 @@ export const articleInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'ID',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkUUID]
   },
   {
     key: 'file',
@@ -143,18 +158,28 @@ export const articleInputs: InputType[] = [
     type: 'fileinput',
     schemaType: 'S3Object',
     isArray: false,
-    default: null
+    default: null,
+    rules: [validation.maxFileSize(5)]
   }
 ]
 export const eventInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'id',
+    title: 'id',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.checkUUID]
+  },
   {
     key: 'title',
     title: 'タイトル',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(40)]
   },
   {
     key: 'date',
@@ -162,7 +187,8 @@ export const eventInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'AWSDate',
     isArray: true,
-    default: [null]
+    default: ['2000-01-01'],
+    rules: [validation.required, validation.checkAWSDate]
   },
   {
     key: 'description',
@@ -170,7 +196,8 @@ export const eventInputs: InputType[] = [
     type: 'textarea',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(300)]
   },
   {
     key: 'wanted',
@@ -178,7 +205,8 @@ export const eventInputs: InputType[] = [
     type: 'switch',
     schemaType: 'Boolean',
     isArray: false,
-    default: false
+    default: false,
+    rules: [validation.required]
   },
   {
     key: 'published',
@@ -186,7 +214,8 @@ export const eventInputs: InputType[] = [
     type: 'switch',
     schemaType: 'Boolean',
     isArray: false,
-    default: false
+    default: false,
+    rules: [validation.required]
   },
   {
     key: 'file',
@@ -194,18 +223,28 @@ export const eventInputs: InputType[] = [
     type: 'fileinput',
     schemaType: 'S3Object',
     isArray: false,
-    default: null
+    default: null,
+    rules: [validation.maxFileSize(5)]
   }
 ]
 export const memberInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'id',
+    title: 'id',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.checkUUID]
+  },
   {
     key: 'name',
     title: 'お名前',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(20)]
   },
   {
     key: 'email',
@@ -213,7 +252,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required]
   },
   {
     key: 'description',
@@ -221,7 +261,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(300)]
   },
   // NOTE: ↓ここtextareaにするか、richtextにするかmarkdownにするか検討
   {
@@ -230,7 +271,8 @@ export const memberInputs: InputType[] = [
     type: 'textarea',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.maxString(1000)]
   },
   {
     key: 'history',
@@ -238,7 +280,8 @@ export const memberInputs: InputType[] = [
     type: 'textarea',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.maxString(1000)]
   },
   {
     key: 'university',
@@ -246,7 +289,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(40)]
   },
   {
     key: 'faculty',
@@ -254,7 +298,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(40)]
   },
   {
     key: 'grade',
@@ -262,7 +307,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'Int',
     isArray: false,
-    default: 0
+    default: 0,
+    rules: [validation.required]
   },
   {
     key: 'jobHunting',
@@ -270,7 +316,8 @@ export const memberInputs: InputType[] = [
     type: 'switch',
     schemaType: 'Boolean',
     isArray: false,
-    default: false
+    default: false,
+    rules: [validation.required]
   },
   {
     key: 'join',
@@ -278,7 +325,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'AWSDate',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkAWSDate]
   },
   {
     key: 'leave',
@@ -286,7 +334,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'AWSDate',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkAWSDate]
   },
   {
     key: 'discordId',
@@ -294,7 +343,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.maxString(10)]
   },
   {
     key: 'github',
@@ -302,7 +352,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkURL, validation.maxString(40)]
   },
   {
     key: 'zenn',
@@ -310,7 +361,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkURL, validation.maxString(40)]
   },
   {
     key: 'qiita',
@@ -318,7 +370,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkURL, validation.maxString(40)]
   },
   {
     key: 'twitter',
@@ -326,7 +379,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkURL, validation.maxString(40)]
   },
   {
     key: 'slide',
@@ -334,7 +388,8 @@ export const memberInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkURL, validation.maxString(40)]
   },
   {
     key: 'file',
@@ -342,18 +397,28 @@ export const memberInputs: InputType[] = [
     type: 'fileinput',
     schemaType: 'S3Object',
     isArray: false,
-    default: null
+    default: null,
+    rules: [validation.maxFileSize(5)]
   }
 ]
 export const portfolioInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'id',
+    title: 'id',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.checkUUID]
+  },
   {
     key: 'title',
     title: 'タイトル',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(40)]
   },
   {
     key: 'url',
@@ -361,7 +426,8 @@ export const portfolioInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkURL, validation.maxString(40)]
   },
   {
     key: 'description',
@@ -369,7 +435,8 @@ export const portfolioInputs: InputType[] = [
     type: 'textarea',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(300)]
   },
   {
     key: 'published',
@@ -377,7 +444,8 @@ export const portfolioInputs: InputType[] = [
     type: 'switch',
     schemaType: 'Boolean',
     isArray: false,
-    default: false
+    default: false,
+    rules: [validation.required]
   },
   {
     key: 'file',
@@ -385,7 +453,8 @@ export const portfolioInputs: InputType[] = [
     type: 'fileinput',
     schemaType: 'S3Object',
     isArray: false,
-    default: null
+    default: null,
+    rules: [validation.maxFileSize(5)]
   },
   {
     key: 'userPortfolioId',
@@ -393,18 +462,28 @@ export const portfolioInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'ID',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.checkUUID]
   }
 ]
 export const projectInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'id',
+    title: 'id',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.checkUUID]
+  },
   {
     key: 'title',
     title: 'タイトル',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(40)]
   },
   {
     key: 'start',
@@ -412,7 +491,8 @@ export const projectInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'AWSDate',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkAWSDate]
   },
   {
     key: 'end',
@@ -420,7 +500,8 @@ export const projectInputs: InputType[] = [
     type: 'textfield',
     schemaType: 'AWSDate',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.checkAWSDate]
   },
   {
     key: 'description',
@@ -428,7 +509,8 @@ export const projectInputs: InputType[] = [
     type: 'textarea',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(300)]
   },
   {
     key: 'wanted',
@@ -436,7 +518,8 @@ export const projectInputs: InputType[] = [
     type: 'switch',
     schemaType: 'Boolean',
     isArray: false,
-    default: false
+    default: false,
+    rules: [validation.required]
   },
   {
     key: 'published',
@@ -444,7 +527,8 @@ export const projectInputs: InputType[] = [
     type: 'switch',
     schemaType: 'Boolean',
     isArray: false,
-    default: false
+    default: false,
+    rules: [validation.required]
   },
   {
     key: 'file',
@@ -452,17 +536,27 @@ export const projectInputs: InputType[] = [
     type: 'fileinput',
     schemaType: 'S3Object',
     isArray: false,
-    default: null
+    default: null,
+    rules: [validation.maxFileSize(5)]
   }
 ]
 export const skillInputs: InputType[] = [
-  { key: 'id', title: 'id', type: 'textfield', schemaType: 'ID', isArray: false, default: '' },
+  {
+    key: 'id',
+    title: 'id',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.checkUUID]
+  },
   {
     key: 'title',
     title: 'スキルタグ名',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
-    default: ''
+    default: '',
+    rules: [validation.required, validation.maxString(40)]
   }
 ]

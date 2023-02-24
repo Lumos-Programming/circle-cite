@@ -5,10 +5,9 @@ const { $makeS3Object } = useNuxtApp()
 const props = withDefaults(
   defineProps<{
     input: InputType
-    isFile: boolean
     modelValue: any
   }>(),
-  { isFile: false, modelValue: () => ({}) }
+  { modelValue: () => ({}) }
 )
 const emit = defineEmits<{
   (e: 'update:model-value', value: any): void
@@ -16,7 +15,7 @@ const emit = defineEmits<{
 const onChange = async ({ index = 0, event }: { index?: number; event?: Event | File[] }) => {
   let res = props.modelValue
   let data: any = event
-  if (props.isFile && Array.isArray(event)) {
+  if (props.input.type === 'fileinput' && Array.isArray(event)) {
     if (!event?.length) return
     data = await $makeS3Object(event[0])
   }
@@ -34,6 +33,7 @@ const onChange = async ({ index = 0, event }: { index?: number; event?: Event | 
       v-for="(v, i) in modelValue"
       v-bind="InputComponents(input.key, v)[input.type].props"
       class="mb-4"
+      :rules="input.rules"
       prepend-icon="mdi-plus"
       append-icon="mdi-minus"
       :model-value="v"
@@ -49,6 +49,7 @@ const onChange = async ({ index = 0, event }: { index?: number; event?: Event | 
       :is="resolveComponent(InputComponents()[input.type].comp)"
       v-bind="InputComponents(input.key, modelValue)[input.type].props"
       class="mb-4"
+      :rules="input.rules"
       :model-value="modelValue"
       @update:model-value="onChange({ event: $event })"
     />
