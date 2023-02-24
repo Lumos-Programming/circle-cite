@@ -32,6 +32,7 @@ const onChange = async ({ index = 0, event }: { index?: number; event?: Event | 
       :is="resolveComponent(InputComponents()[input.type].comp)"
       v-for="(v, i) in modelValue"
       v-bind="InputComponents(input.key, v)[input.type].props"
+      :id="input.title + '-' + i"
       class="mb-4"
       :rules="input.rules"
       prepend-icon="mdi-plus"
@@ -48,6 +49,7 @@ const onChange = async ({ index = 0, event }: { index?: number; event?: Event | 
     <component
       :is="resolveComponent(InputComponents()[input.type].comp)"
       v-bind="InputComponents(input.key, modelValue)[input.type].props"
+      :id="input.title"
       class="mb-4"
       :rules="input.rules"
       :model-value="modelValue"
