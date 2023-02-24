@@ -6,11 +6,21 @@ import { createEvent, deleteEvent, updateEvent } from '~/assets/graphql/mutation
 import { listEvents } from '~/assets/graphql/queries'
 const { $listQuery, $extendMutation, $filterAttr } = useNuxtApp()
 const { banEdit } = useEditState()
+const { setExistError, setErrorMessages } = useErrorState()
 const events = ref<Event[]>([])
+const form = ref<any>()
 const getEvents = async () => {
   events.value = await $listQuery<ListEventsQuery, Event>({ query: listEvents })
 }
 const mutateEvent = async () => {
+  const validate = await form.value?.validate()
+  if (!validate.valid) {
+    setExistError(true)
+    setErrorMessages(
+      form.value?.errors.map((v: any) => v.errorMessages.map((m: string) => `${v.id}：${m}`)).flat()
+    )
+    return
+  }
   await $extendMutation({
     type: input.value.id ? 'update' : 'create',
     key: input.value.file?.key || '',
@@ -30,7 +40,6 @@ const defaultInput = JSON.parse(
 )
 const input = ref<FileInput<UpdateEventInput>>(defaultInput)
 await getEvents()
-// TODO: valiidationを掛けること
 </script>
 <template>
   <layout-admin>
@@ -55,19 +64,14 @@ await getEvents()
           @btn-click="mutateEvent()"
         />
       </div>
-      <div v-for="item in eventInputs">
+      <v-form ref="form">
         <atom-input
+          v-for="item in eventInputs"
           :key="item.key"
           v-model="input[item.key]"
           :input="item"
-          :is-file="
-            eventInputs
-              .filter((v) => v.type === 'fileinput')
-              .map((v) => v.key)
-              .includes(item.key)
-          "
         />
-      </div>
+      </v-form>
     </div>
     <div class="my-5">
       <div class="d-flex my-2">

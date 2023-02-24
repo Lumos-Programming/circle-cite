@@ -5,7 +5,9 @@ import { projectInputs } from '~/assets/enum'
 import { createProject, deleteProject, updateProject } from '~/assets/graphql/mutations'
 import { listProjects } from '~/assets/graphql/queries'
 const { $listQuery, $extendMutation, $filterAttr } = useNuxtApp()
+const { setExistError, setErrorMessages } = useErrorState()
 const { banEdit } = useEditState()
+const form = ref<any>()
 const projects = ref<Project[]>([])
 const getProjects = async () => {
   projects.value = await $listQuery<ListProjectsQuery, Project>({
@@ -13,6 +15,14 @@ const getProjects = async () => {
   })
 }
 const mutateProject = async () => {
+  const validate = await form.value?.validate()
+  if (!validate.valid) {
+    setExistError(true)
+    setErrorMessages(
+      form.value?.errors.map((v: any) => v.errorMessages.map((m: string) => `${v.id}：${m}`)).flat()
+    )
+    return
+  }
   await $extendMutation({
     type: input.value.id ? 'update' : 'create',
     key: input.value.file?.key || '',
@@ -32,7 +42,6 @@ const defaultInput = JSON.parse(
 )
 const input = ref<FileInput<UpdateProjectInput>>(defaultInput)
 await getProjects()
-// TODO: valiidationを掛けること
 </script>
 <template>
   <layout-admin>
@@ -57,19 +66,14 @@ await getProjects()
           @btn-click="mutateProject()"
         />
       </div>
-      <div v-for="item in projectInputs">
+      <v-form ref="form">
         <atom-input
+          v-for="item in projectInputs"
           :key="item.key"
           v-model="input[item.key]"
           :input="item"
-          :is-file="
-            projectInputs
-              .filter((v) => v.type === 'fileinput')
-              .map((v) => v.key)
-              .includes(item.key)
-          "
         />
-      </div>
+      </v-form>
     </div>
     <div class="my-5">
       <div class="d-flex my-2">

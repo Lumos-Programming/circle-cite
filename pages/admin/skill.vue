@@ -5,12 +5,22 @@ import { skillInputs } from '~/assets/enum'
 import { createSkill, deleteSkill, updateSkill } from '~/assets/graphql/mutations'
 import { listSkills } from '~/assets/graphql/queries'
 const { $listQuery, $baseMutation, $filterAttr } = useNuxtApp()
+const { setExistError, setErrorMessages } = useErrorState()
 const { banEdit } = useEditState()
+const form = ref<any>()
 const skills = ref<Skill[]>([])
 const getSkills = async () => {
   skills.value = await $listQuery<ListSkillsQuery, Skill>({ query: listSkills })
 }
 const mutateSkill = async () => {
+  const validate = await form.value?.validate()
+  if (!validate.valid) {
+    setExistError(true)
+    setErrorMessages(
+      form.value?.errors.map((v: any) => v.errorMessages.map((m: string) => `${v.id}：${m}`)).flat()
+    )
+    return
+  }
   await $baseMutation({
     query: input.value.id ? updateSkill : createSkill,
     input: input.value.id
@@ -24,7 +34,6 @@ const defaultInput = {
 }
 const input = ref<IndexSignature<UpdateSkillInput>>(defaultInput)
 await getSkills()
-// TODO: valiidationを掛けること
 </script>
 <template>
   <layout-admin>
@@ -49,19 +58,14 @@ await getSkills()
           @btn-click="mutateSkill()"
         />
       </div>
-      <div v-for="item in skillInputs">
+      <v-form ref="form">
         <atom-input
+          v-for="item in skillInputs"
           :key="item.key"
           v-model="input[item.key]"
           :input="item"
-          :is-file="
-            skillInputs
-              .filter((v) => v.type === 'fileinput')
-              .map((v) => v.key)
-              .includes(item.key)
-          "
         />
-      </div>
+      </v-form>
     </div>
     <div class="my-5">
       <div class="d-flex my-2">

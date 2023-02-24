@@ -3,7 +3,7 @@ export const validation = {
   maxString: (length: number) => (v: string) =>
     !v ? true : (v && v.length <= length) || length + '文字までです',
   maxFileSize: (size: number) => (v: File[]) =>
-    !v[0]
+    !v || !v[0]
       ? true
       : v[0].size <= size * 1000 * 1000 ||
         'アップロード可能なファイルサイズは' + size + 'MBまでです',

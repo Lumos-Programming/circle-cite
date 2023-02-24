@@ -7,11 +7,21 @@ import { listUsers } from '~/assets/graphql/queries'
 const { $listQuery, $extendMutation, $filterAttr } = useNuxtApp()
 const { myUser, setMyUser } = useMyUser()
 const { banEdit } = useEditState()
+const { setExistError, setErrorMessages } = useErrorState()
 const users = ref<User[]>([])
+const form = ref<any>()
 const getUsers = async () => {
   users.value = await $listQuery<ListUsersQuery, User>({ query: listUsers })
 }
 const updateMyUser = async () => {
+  const validate = await form.value?.validate()
+  if (!validate.valid) {
+    setExistError(true)
+    setErrorMessages(
+      form.value?.errors.map((v: any) => v.errorMessages.map((m: string) => `${v.id}：${m}`)).flat()
+    )
+    return
+  }
   const res = await $extendMutation({
     type: 'update',
     key: input.value.file?.key || '',
@@ -37,19 +47,14 @@ await getUsers()
           @btn-click="updateMyUser()"
         />
       </div>
-      <div v-for="item in memberInputs">
+      <v-form ref="form">
         <atom-input
+          v-for="item in memberInputs"
           :key="item.key"
           v-model="input[item.key]"
           :input="item"
-          :is-file="
-            memberInputs
-              .filter((v) => v.type === 'fileinput')
-              .map((v) => v.key)
-              .includes(item.key)
-          "
         />
-      </div>
+      </v-form>
     </div>
     <div class="my-5">
       <div class="d-flex my-2">
