@@ -4,7 +4,7 @@ import { IndexSignature } from '~/assets/type'
 import { skillInputs } from '~/assets/enum'
 import { createSkill, deleteSkill, updateSkill } from '~/assets/graphql/mutations'
 import { listSkills } from '~/assets/graphql/queries'
-const { $listQuery, $baseMutation, $filterAttr, $excludeAttr } = useNuxtApp()
+const { $listQuery, $baseMutation, $filterAttr } = useNuxtApp()
 const { banEdit } = useEditState()
 const skills = ref<Skill[]>([])
 const getSkills = async () => {
@@ -13,7 +13,9 @@ const getSkills = async () => {
 const mutateSkill = async () => {
   await $baseMutation({
     query: input.value.id ? updateSkill : createSkill,
-    input: input.value.id ? input.value : $excludeAttr(input.value, ['id'])
+    input: input.value.id
+      ? $filterAttr(input.value, skillInputs)
+      : $filterAttr(input.value, skillInputs, ['id'])
   })
 }
 const defaultInput = {
@@ -88,13 +90,7 @@ await getSkills()
             <v-icon
               size="24"
               class="ma-2"
-              @click="
-                input = $filterAttr(
-                  skills[skills.indexOf(item.raw)],
-                  Object.keys(defaultInput),
-                  skillInputs
-                )
-              "
+              @click="input = $filterAttr(skills[skills.indexOf(item.raw)], skillInputs)"
               >mdi-pencil
             </v-icon>
             <v-icon

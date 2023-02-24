@@ -29,6 +29,6 @@ await fetchUser()
       </div>
       <v-spacer />
     </div>
-    <module-user-medium :user="user" />
+    <module-user-large :user="user" class="ma-5" />
   </layout-admin>
 </template>

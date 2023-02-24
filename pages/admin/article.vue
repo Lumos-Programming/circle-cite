@@ -4,7 +4,7 @@ import { FileInput } from '~/assets/type'
 import { articleInputs } from '~/assets/enum'
 import { createArticle, deleteArticle, updateArticle } from '~/assets/graphql/mutations'
 import { listArticles } from '~/assets/graphql/queries'
-const { $listQuery, $extendMutation, $filterAttr, $excludeAttr } = useNuxtApp()
+const { $listQuery, $extendMutation, $filterAttr } = useNuxtApp()
 const { banEdit } = useEditState()
 const articles = ref<Article[]>([])
 const getArticles = async () => {
@@ -17,7 +17,9 @@ const mutateArticle = async () => {
     type: input.value.id ? 'update' : 'create',
     key: input.value.file?.key || '',
     query: input.value.id ? updateArticle : createArticle,
-    input: input.value.id ? input.value : $excludeAttr(input.value, ['id']),
+    input: input.value.id
+      ? $filterAttr(input.value, articleInputs)
+      : $filterAttr(input.value, articleInputs, ['id']),
     file: input.value.file?.file
   })
 }
@@ -96,13 +98,7 @@ getArticles()
             <v-icon
               size="24"
               class="ma-2"
-              @click="
-                input = $filterAttr(
-                  articles[articles.indexOf(item.raw)],
-                  Object.keys(defaultInput),
-                  articleInputs
-                )
-              "
+              @click="input = $filterAttr(articles[articles.indexOf(item.raw)], articleInputs)"
               >mdi-pencil
             </v-icon>
             <v-icon

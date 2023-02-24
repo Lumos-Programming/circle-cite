@@ -32,12 +32,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       })
       if (!isProd) console.log('新規User作成', res)
     } else {
-      setMyUser(
-        $filterAttr(
-          self[0],
-          memberInputs.map((v) => v.key)
-        )
-      )
+      setMyUser($filterAttr(self[0], memberInputs))
     }
   }
   if (to.path.includes('login') && isSignedIn.value) return navigateTo('/admin')

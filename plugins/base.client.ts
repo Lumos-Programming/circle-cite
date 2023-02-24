@@ -106,15 +106,22 @@ export default defineNuxtPlugin((nuxtApp) => {
       },
       filterAttr: (
         object: { [key: string]: any },
-        attr: string[] = Object.keys(object),
-        inputs: InputType[] = []
+        inputs: InputType[] = [],
+        excludeAttr: string[] = []
       ): any => {
+        const attr = inputs.map((v) => v.key).filter((v) => !excludeAttr.includes(v))
         const fileAttr = inputs.filter((v) => v.type === 'fileinput').map((v) => v.key)
         return attr.reduce((v: object, c) => {
           if (fileAttr.includes(c) && nuxtApp.$isObject(object[c])) {
             return {
               ...v,
-              [c]: nuxtApp.$filterAttr(object[c], ['key', 'name', 'size', 'type', 'identityId'])
+              [c]: nuxtApp.$filterAttr(
+                object[c],
+                ['key', 'name', 'size', 'type', 'identityId'].map((key) => {
+                  return { key }
+                }),
+                ['file']
+              )
             }
           } else
             return {
@@ -122,13 +129,6 @@ export default defineNuxtPlugin((nuxtApp) => {
               [c]: object[c]
             }
         }, {})
-      },
-      excludeAttr: (object: { [key: string]: any }, attr: string[] = []): any => {
-        const res = JSON.parse(JSON.stringify(object))
-        for (let i = 0, len = attr.length; i < len; i++) {
-          delete res[attr[i]]
-        }
-        return res
       },
       snakeCase: (str: string): string => {
         return str.replace(/[A-Z]/g, function (s) {

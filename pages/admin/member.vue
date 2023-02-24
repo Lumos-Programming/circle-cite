@@ -11,16 +11,15 @@ const users = ref<User[]>([])
 const getUsers = async () => {
   users.value = await $listQuery<ListUsersQuery, User>({ query: listUsers })
 }
-const inputAttr = memberInputs.map((v) => v.key)
 const updateMyUser = async () => {
   const res = await $extendMutation({
     type: 'update',
     key: input.value.file?.key || '',
     query: updateUser,
-    input: $filterAttr(input.value, inputAttr, memberInputs),
+    input: $filterAttr(input.value, memberInputs),
     file: input.value.file?.file
   })
-  await setMyUser($filterAttr(res as User, inputAttr))
+  await setMyUser($filterAttr(res as User, memberInputs))
 }
 const input = ref<FileInput<UpdateUserInput>>(JSON.parse(JSON.stringify(myUser.value)))
 await getUsers()
@@ -65,8 +64,8 @@ await getUsers()
       </div>
       <v-data-table
         :headers="
-          inputAttr.map((v) => {
-            return { title: v, key: v }
+          memberInputs.map((v) => {
+            return { title: v.key, key: v.key }
           })
         "
         :items="users"
