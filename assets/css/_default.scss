@@ -1,6 +1,7 @@
 /*
 htmlタグなどに初期スタイルを設定するためのscss
 */
+@use './variables' as var;
 @use './utility';
 html {
   font-size: 100%;
@@ -9,4 +10,15 @@ html {
   overflow: auto;
   @extend .font-family-main;
   @extend .designed-scrollbar;
+}
+.rich-text {
+  li {
+    margin-left: 16px !important;
+  }
+}
+
+@each $name, $color in var.$colors {
+  html {
+    --#{$name}: #{$color};
+  }
 }

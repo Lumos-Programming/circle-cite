@@ -114,7 +114,7 @@ await fetchProject()
         </div>
       </div>
     </div>
-    <v-card class="rounded-lg mx-5">
+    <v-card class="rounded-lg mx-5 mb-16">
       <v-tabs v-model="tab" class="bg-main-color text-white" :items="tabs"></v-tabs>
       <v-window v-model="tab">
         <v-window-item :value="tabs[0]">

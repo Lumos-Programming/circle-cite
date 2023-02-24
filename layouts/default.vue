@@ -21,12 +21,13 @@ const listener = (data: HubCapsule) => {
     navigateTo('/admin')
   }
 }
-Hub.listen('auth', listener)
+const hubListenerCancel = Hub.listen('auth', listener)
 onUnmounted(() => {
-  Hub.remove('auth', listener)
+  hubListenerCancel()
 })
 </script>
 <template>
   <atom-snackbar-list />
   <NuxtPage />
+  <atom-error-modal />
 </template>

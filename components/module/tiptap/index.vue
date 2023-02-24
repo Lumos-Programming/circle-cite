@@ -22,16 +22,8 @@ const editor = useEditor({
   extensions: [
     StarterKit,
     Highlight,
-    Heading.configure({
-      HTMLAttributes: {
-        class: 'text-h6'
-      }
-    }),
-    Paragraph.configure({
-      HTMLAttributes: {
-        class: 'text-subtitle-1'
-      }
-    }),
+    Heading,
+    Paragraph,
     Typography,
     TextAlign.configure({
       types: ['heading', 'paragraph']
@@ -179,7 +171,7 @@ const icons = [
         @click-func="item.func()"
       />
     </div>
-    <v-divider class="bg-grey-darken-4"></v-divider>
-    <editor-content :editor="editor" class="py-5 px-2" />
+    <v-divider class="text-grey-darken-4"></v-divider>
+    <editor-content :editor="editor" class="py-5 px-2 rich-text" />
   </div>
 </template>

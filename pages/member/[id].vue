@@ -37,7 +37,7 @@ await fetchUser()
       ]"
     />
     <module-user-large :user="user" class="my-8" />
-    <v-card class="rounded-lg">
+    <v-card class="rounded-lg mb-16">
       <v-tabs v-model="tab" class="bg-main-color text-white" :items="tabs"></v-tabs>
       <v-window v-model="tab">
         <v-window-item :value="tabs[0]">
