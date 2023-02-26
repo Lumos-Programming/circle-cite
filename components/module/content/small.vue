@@ -16,7 +16,7 @@ const isHovering = ref<boolean>(false)
     class="bg-white pa-5 rounded-lg transition-long-ease-out cursor-pointer"
     :class="isHovering ? 'bg-main-color' : 'bg-white'"
     @click="navigateTo(path)"
-    @mouseover="isHovering = true"
+    @mouseenter="isHovering = true"
     @mouseleave="isHovering = false"
   >
     <atom-text

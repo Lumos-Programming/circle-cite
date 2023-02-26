@@ -13,7 +13,7 @@ withDefaults(
   <div
     class="w-100 h-100 transition-medium-ease rounded-circle cursor-pointer"
     :class="[isHovering ? 'elevation-3 background-white' : 'background-grey-lighten-4', btnClass]"
-    @mouseover="isHovering = true"
+    @mouseenter="isHovering = true"
     @mouseleave="isHovering = false"
     @click="$emit('btn-click')"
   >
