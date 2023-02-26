@@ -41,7 +41,7 @@ const pages = [
   {
     title: '紐付け',
     icon: 'mdi-relation-many-to-many',
-    path: '/relation'
+    path: '/admin/relation'
   }
 ]
 </script>

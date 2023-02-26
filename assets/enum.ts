@@ -559,3 +559,127 @@ export const skillInputs: InputType[] = [
     rules: [validation.required, validation.maxString(40)]
   }
 ]
+export const articleSkillInputs: InputType[] = [
+  {
+    key: 'id',
+    title: 'id',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.checkUUID]
+  },
+  {
+    key: 'articleID',
+    title: '紐づける記事',
+    type: 'select',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.required],
+    props: { queryName: 'listArticles', itemTitle: 'title' }
+  },
+  {
+    key: 'skillID',
+    title: '紐づけるスキルタグ',
+    type: 'select',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.required],
+    props: { queryName: 'listSkills', itemTitle: 'title' }
+  }
+]
+export const eventUserInputs: InputType[] = [
+  {
+    key: 'id',
+    title: 'id',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.checkUUID]
+  },
+  {
+    key: 'eventID',
+    title: '紐づけるイベント',
+    type: 'select',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.required],
+    props: { queryName: 'listEvents', itemTitle: 'title' }
+  },
+  {
+    key: 'userID',
+    title: '紐づけるユーザー',
+    type: 'select',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.required],
+    props: { queryName: 'listUsers', itemTitle: 'name' }
+  }
+]
+export const projectUserInputs: InputType[] = [
+  {
+    key: 'id',
+    title: 'id',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.checkUUID]
+  },
+  {
+    key: 'projectID',
+    title: '紐づけるプロジェクト',
+    type: 'select',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.required],
+    props: { queryName: 'listProjects', itemTitle: 'title' }
+  },
+  {
+    key: 'userID',
+    title: '紐づけるユーザー',
+    type: 'select',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.required],
+    props: { queryName: 'listUsers', itemTitle: 'name' }
+  }
+]
+export const userSkillInputs: InputType[] = [
+  {
+    key: 'id',
+    title: 'id',
+    type: 'textfield',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.checkUUID]
+  },
+  {
+    key: 'skillID',
+    title: '紐づけるスキルタグ',
+    type: 'select',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.required],
+    props: { queryName: 'listSkills', itemTitle: 'title' }
+  },
+  {
+    key: 'userID',
+    title: '紐づけるユーザー',
+    type: 'select',
+    schemaType: 'ID',
+    isArray: false,
+    default: '',
+    rules: [validation.required],
+    props: { queryName: 'listUsers', itemTitle: 'name' }
+  }
+]
