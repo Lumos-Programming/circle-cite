@@ -31,7 +31,7 @@ const onChange = async ({ index = 0, event }: { index?: number; event?: Event | 
     <component
       :is="resolveComponent(InputComponents()[input.type].comp)"
       v-for="(v, i) in modelValue"
-      v-bind="InputComponents(input.key, v)[input.type].props"
+      v-bind="{ ...InputComponents(input.key, v)[input.type].props, ...input.props }"
       :id="input.title + '-' + i"
       class="mb-4"
       :rules="input.rules"
@@ -48,7 +48,7 @@ const onChange = async ({ index = 0, event }: { index?: number; event?: Event | 
   <template v-else>
     <component
       :is="resolveComponent(InputComponents()[input.type].comp)"
-      v-bind="InputComponents(input.key, modelValue)[input.type].props"
+      v-bind="{ ...InputComponents(input.key, modelValue)[input.type].props, ...input.props }"
       :id="input.title"
       class="mb-4"
       :rules="input.rules"
