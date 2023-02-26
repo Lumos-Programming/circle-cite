@@ -33,14 +33,8 @@ const mutateArticle = async () => {
     file: input.value.file?.file
   })
 }
-const defaultInput = JSON.parse(
-  JSON.stringify(
-    articleInputs.reduce((v, c) => {
-      return { ...v, [c.key]: c.default }
-    }, {})
-  )
-)
-const input = ref<FileInput<UpdateArticleInput>>(defaultInput)
+const defaultInput = Object.fromEntries(articleInputs.map((v) => [v.key, v.default]))
+const input = ref<FileInput<Partial<UpdateArticleInput>>>(defaultInput)
 getArticles()
 </script>
 <template>

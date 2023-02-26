@@ -28,11 +28,8 @@ const mutateSkill = async () => {
       : $filterAttr(input.value, skillInputs, ['id'])
   })
 }
-const defaultInput = {
-  id: '',
-  title: ''
-}
-const input = ref<IndexSignature<UpdateSkillInput>>(defaultInput)
+const defaultInput = Object.fromEntries(skillInputs.map((v) => [v.key, v.default]))
+const input = ref<IndexSignature<Partial<UpdateSkillInput>>>(defaultInput)
 await getSkills()
 </script>
 <template>
@@ -101,9 +98,7 @@ await getSkills()
               size="24"
               class="ma-2"
               @click="
-                $extendMutation({
-                  type: 'delete',
-                  key: input.file?.key || '',
+                $baseMutation({
                   query: deleteSkill,
                   input: { id: item.id }
                 })

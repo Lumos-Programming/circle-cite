@@ -33,14 +33,8 @@ const mutatePortfolio = async () => {
     file: input.value.file?.file
   })
 }
-const defaultInput = JSON.parse(
-  JSON.stringify(
-    portfolioInputs.reduce((v, c) => {
-      return { ...v, [c.key]: c.default }
-    }, {})
-  )
-)
-const input = ref<FileInput<UpdatePortfolioInput>>(defaultInput)
+const defaultInput = Object.fromEntries(portfolioInputs.map((v) => [v.key, v.default]))
+const input = ref<FileInput<Partial<UpdatePortfolioInput>>>(defaultInput)
 await getPortfolios()
 </script>
 <template>

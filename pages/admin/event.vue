@@ -31,14 +31,8 @@ const mutateEvent = async () => {
     file: input.value.file?.file
   })
 }
-const defaultInput = JSON.parse(
-  JSON.stringify(
-    eventInputs.reduce((v, c) => {
-      return { ...v, [c.key]: c.default }
-    }, {})
-  )
-)
-const input = ref<FileInput<UpdateEventInput>>(defaultInput)
+const defaultInput = Object.fromEntries(eventInputs.map((v) => [v.key, v.default]))
+const input = ref<FileInput<Partial<UpdateEventInput>>>(defaultInput)
 await getEvents()
 </script>
 <template>

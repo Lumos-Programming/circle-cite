@@ -5,53 +5,6 @@ export const Regexp = {
   public: /(^\/(login)?$|^(\/(event|project|skill|article|member))?(\/\d+)?$)/,
   whiteList: /(^\/(login)?$|^(\/admin)?(\/(event|project|skill|article|member))?(\/.+)?$)/
 }
-export const InputComponents = (key?: string, v?: any): InputComponentsType => {
-  return {
-    textfield: {
-      comp: 'v-text-field',
-      props: {
-        density: 'compact',
-        clearable: true,
-        class: 'text-main-color',
-        disabled: key === 'id' || key === 'email'
-      }
-    },
-    textarea: {
-      comp: 'v-textarea',
-      props: { density: 'compact', clearable: true, class: 'text-main-color' }
-    },
-    richtext: { comp: 'module-tiptap' },
-    switch: {
-      comp: 'v-switch',
-      props: {
-        density: 'compact',
-        'hide-details': true,
-        inset: true,
-        class: v ? 'text-main-color' : 'text-grey-darken-4',
-        label: v ? 'している' : 'していない'
-      }
-    },
-    fileinput: {
-      comp: 'v-file-input',
-      props: {
-        density: 'compact',
-        clearable: true,
-        class: 'text-main-color',
-        variant: 'underlined',
-        accept: 'image/*'
-      }
-    },
-    select: { comp: 'v-select' }
-  }
-}
-export const OgpKey = [
-  'title',
-  'description',
-  'image'
-  // 'type',
-  // 'siteName',
-  // 'url'
-] as const
 export const iconTypes: { [key in SnackbarTypeList]: SnackbarType } = {
   info: {
     icon: 'mdi-information-outline',
@@ -88,6 +41,48 @@ export const Greetings = (name = 'スーパーエンジニア'): string[] => [
     ? 'ガハハハ  早く名前を変えないとスーパーエンジニアになる呪いをかけたぞ'
     : 'スーパーエンジニアの...って分かってますよ、' + name + 'さん'
 ]
+export const InputComponents = (key?: string, v?: any): InputComponentsType => {
+  return {
+    textfield: {
+      comp: 'v-text-field',
+      props: {
+        density: 'compact',
+        clearable: true,
+        class: 'text-main-color',
+        disabled: key === 'id' || key === 'email'
+      }
+    },
+    textarea: {
+      comp: 'v-textarea',
+      props: { density: 'compact', clearable: true, class: 'text-main-color' }
+    },
+    richtext: { comp: 'module-tiptap' },
+    switch: {
+      comp: 'v-switch',
+      props: {
+        density: 'compact',
+        'hide-details': true,
+        inset: true,
+        class: v ? 'text-main-color' : 'text-grey-darken-4',
+        label: v ? 'している' : 'していない'
+      }
+    },
+    fileinput: {
+      comp: 'v-file-input',
+      props: {
+        density: 'compact',
+        clearable: true,
+        class: 'text-main-color',
+        variant: 'underlined',
+        accept: 'image/*'
+      }
+    },
+    select: {
+      comp: 'atom-input-select',
+      props: {}
+    }
+  }
+}
 export const articleInputs: InputType[] = [
   {
     key: 'id',
@@ -127,30 +122,33 @@ export const articleInputs: InputType[] = [
   },
   {
     key: 'userArticleId',
-    title: '著者のID',
-    type: 'textfield',
+    title: '著者',
+    type: 'select',
     schemaType: 'ID',
     isArray: false,
     default: '',
-    rules: [validation.required, validation.checkUUID]
+    rules: [validation.required, validation.checkUUID],
+    props: { queryName: 'listUsers', itemTitle: 'name' }
   },
   {
     key: 'projectArticleId',
-    title: '関連するプロジェクトのID（任意）',
-    type: 'textfield',
+    title: '関連するプロジェクト（任意）',
+    type: 'select',
     schemaType: 'ID',
     isArray: false,
     default: '',
-    rules: [validation.checkUUID]
+    rules: [validation.checkUUID],
+    props: { queryName: 'listProjects', itemTitle: 'title' }
   },
   {
     key: 'eventArticleId',
-    title: '関連するイベントのID（任意）',
-    type: 'textfield',
+    title: '関連するイベント（任意）',
+    type: 'select',
     schemaType: 'ID',
     isArray: false,
     default: '',
-    rules: [validation.checkUUID]
+    rules: [validation.checkUUID],
+    props: { queryName: 'listEvents', itemTitle: 'title' }
   },
   {
     key: 'file',
@@ -339,7 +337,7 @@ export const memberInputs: InputType[] = [
   },
   {
     key: 'discordId',
-    title: 'discordのID',
+    title: 'discord',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
@@ -458,12 +456,13 @@ export const portfolioInputs: InputType[] = [
   },
   {
     key: 'userPortfolioId',
-    title: '作者のID',
-    type: 'textfield',
+    title: '作者',
+    type: 'select',
     schemaType: 'ID',
     isArray: false,
     default: '',
-    rules: [validation.required, validation.checkUUID]
+    rules: [validation.required, validation.checkUUID],
+    props: { queryName: 'listUsers', itemTitle: 'name' }
   }
 ]
 export const projectInputs: InputType[] = [

@@ -33,14 +33,8 @@ const mutateProject = async () => {
     file: input.value.file?.file
   })
 }
-const defaultInput = JSON.parse(
-  JSON.stringify(
-    projectInputs.reduce((v, c) => {
-      return { ...v, [c.key]: c.default }
-    }, {})
-  )
-)
-const input = ref<FileInput<UpdateProjectInput>>(defaultInput)
+const defaultInput = Object.fromEntries(projectInputs.map((v) => [v.key, v.default]))
+const input = ref<FileInput<Partial<UpdateProjectInput>>>(defaultInput)
 await getProjects()
 </script>
 <template>
