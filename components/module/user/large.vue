@@ -18,7 +18,7 @@ withDefaults(
       />
     </div>
 
-    <div class="v-col-auto">
+    <div class="v-col-auto" :style="{ flex: 1 }">
       <atom-text font-size="text-h6" class="text-center text-sm-left" :text="user.name" />
       <atom-text
         font-size="text-caption"
@@ -38,15 +38,13 @@ withDefaults(
         color="text-grey-darken-1"
         :text="'学年： ' + (user.grade || 1) + '年'"
       ></atom-text>
-      <v-chip-group column class="ml-n3">
-        <v-hover v-slot="{ isHovering, props }">
+      <v-chip-group class="ml-n3">
+        <v-hover v-for="item in user.skill?.items" v-slot="{ isHovering, props }">
           <v-chip
-            v-for="item in user.skill?.items"
             :ripple="false"
-            class="ma-2 transition-short-ease-out"
+            class="ma-2 transition-short-ease-out rounded text-caption"
             :class="[isHovering ? 'text-white bg-main-color' : 'bg-white text-grey-darken-4']"
             variant="elevated"
-            prepend-icon="mdi-music-accidental-sharp"
             v-bind="props"
             link
             :to="item?.skill.id ? '/skill/' + item?.skill.id : '/'"
