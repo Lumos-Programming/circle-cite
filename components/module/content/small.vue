@@ -12,19 +12,20 @@ withDefaults(
 const isHovering = ref<boolean>(false)
 </script>
 <template>
-  <v-sheet
-    class="bg-white pa-5 rounded-lg transition-long-ease-out cursor-pointer"
-    :class="isHovering ? 'bg-main-color' : 'bg-white'"
-    @click="navigateTo(path)"
+  <v-card
+    class="w-100 pb-2 rounded-lg transition-medium-ease"
+    :style="{ transform: isHovering ? 'scale(1.05)' : 'scale(1.0)' }"
+    @click="$emit('click-func')"
     @mouseenter="isHovering = true"
     @mouseleave="isHovering = false"
   >
+    <slot name="upper" />
     <atom-text
       :text="title"
-      font-size="text-h6"
       line-height="line-height-lg"
-      :color="isHovering ? 'text-white' : 'text-grey-darken-4'"
+      class="ma-2 line-clamp-3 height-72"
+      @click="$emit('click-func')"
     />
     <slot :is-hovering="isHovering" />
-  </v-sheet>
+  </v-card>
 </template>

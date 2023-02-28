@@ -49,7 +49,7 @@ imageUrl.value = await $getImage(Props.imgKey, Props.identityId)
           class="ma-2 line-clamp-3 height-72"
           @click="$emit('click-func')"
         />
-        <slot />
+        <slot :is-hovering="isHovering" />
       </v-card>
     </v-hover>
   </v-sheet>

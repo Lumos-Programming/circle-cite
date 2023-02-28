@@ -14,27 +14,24 @@ await getArticles()
 <template>
   <layout-public>
     <atom-text font-size="text-h4" text="Article" class="py-10" />
-    <div class="d-flex flex-wrap" style="gap: 60px 10%">
-      <module-content-small
+    <div class="d-flex flex-wrap">
+      <module-content-medium
         v-for="item in articles"
-        :key="item.id"
-        :path="'/article/' + item.id"
-        :created-at="item.createdAt"
-        :updated-at="item.updatedAt"
-        :title="item.title"
-        style="flex: 0 1 45%"
+        :key="item?.id"
+        :created-at="item?.createdAt"
+        :updated-at="item?.updatedAt"
+        :title="item?.title"
+        class="v-col-12 v-col-sm-6 v-col-md-4"
+        @click-func="navigateTo('/article/' + item?.id)"
       >
-        <template #default="slot">
-          <div class="d-flex flex-wrap justify-end bg-transparent mt-2 mb-2" style="gap: 0 10px">
-            <atom-text
-              font-size="text-caption"
-              font-weight="font-weight-regular"
-              :text="item.user?.name"
-              :color="slot.isHovering ? 'text-white' : 'text-grey-darken-4'"
-            />
-          </div>
-        </template>
-      </module-content-small>
+        <div class="d-flex flex-wrap justify-end bg-transparent my-2 mr-5" style="gap: 0 10px">
+          <atom-text
+            font-size="text-caption"
+            font-weight="font-weight-regular"
+            :text="item.user?.name"
+          />
+        </div>
+      </module-content-medium>
     </div>
   </layout-public>
 </template>

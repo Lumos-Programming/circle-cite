@@ -46,17 +46,16 @@ await fetchArticle()
           @click="navigateTo('/member/' + article.user.id)"
         />
       </div>
-      <v-chip-group v-if="article.skill?.items.length" column>
-        <v-hover v-for="item in article.skill.items" :key="item?.id" v-slot="{ isHovering, props }">
+      <v-chip-group v-if="article.skill?.items.length" class="ml-n3">
+        <v-hover v-for="item in article.skill?.items" v-slot="{ isHovering, props }">
           <v-chip
             :ripple="false"
-            class="ma-2 elevation-5 transition-short-ease-out"
-            :class="[isHovering ? 'text-white bg-grey-darken-4' : 'bg-white grey-darken-4']"
-            variant="flat"
-            prepend-icon="mdi-music-accidental-sharp"
+            class="ma-2 transition-short-ease-out rounded text-caption elevation-0"
+            :class="[isHovering ? 'text-white bg-main-color' : 'bg-white text-grey-darken-4']"
+            variant="elevated"
             v-bind="props"
             link
-            :to="'/skill/' + item?.id"
+            :to="item?.skill.id ? '/skill/' + item?.skill.id : '/'"
           >
             {{ item?.skill.title }}
           </v-chip>

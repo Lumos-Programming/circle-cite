@@ -6,7 +6,7 @@ const active = ref<boolean>(false)
 const menu = [
   { text: 'トップ', outside: false, path: '/' },
   { text: 'メンバー', outside: false, path: '/member' },
-  { text: 'コラム', outside: false, path: '/article' },
+  { text: '記事', outside: false, path: '/article' },
   { text: 'プロジェクト', outside: false, path: '/project' },
   { text: 'イベント', outside: false, path: '/event' },
   { text: 'スキルタグ', outside: false, path: '/skill' },
@@ -59,7 +59,7 @@ const menu = [
             @click="active = !active"
             >{{ active ? 'mdi-close' : 'mdi-menu' }}
           </v-icon>
-          <div v-if="active" class="pt-10 px-10 w-100">
+          <div v-if="active" class="pt-10 w-100">
             <v-hover
               v-for="item in menu"
               :key="item.text"
