@@ -1,14 +1,22 @@
 <script setup lang="ts">
 useHead({ title: 'トップページ' })
 const explains = [
-  { title: 'Hooksって？', explain: 'HooksはLumosのサークル公式サイトです。' },
+  { title: 'Lumosって？', explain: 'Lumosはインカレプログラミングサークルです' },
   {
-    title: 'Lumosって？',
-    explain: 'Lumosはプログラミングサークルです'
+    title: '参加費とかあるの？',
+    explain:
+      '現時点(2022/12時点)ではサークル費はありませんが、今後活動を多様化させていくにあたって、サークル費を設けようという話は出ています。'
   },
-  { title: '参加費とかあるの？', explain: '' },
-  { title: '他大学でも入れる？', explain: '' },
-  { title: '', explain: '' }
+  {
+    title: '他大学でも入れる？',
+    explain:
+      'オフラインイベントもありますが、基本的にはDiscordでの活動になるので遠方の大学・専門学校・高専の方でも入れます。'
+  },
+  {
+    title: '参加するにはまずどうしたらいい？',
+    explain:
+      'LumosのTwitter(@lumos_program)にDM頂くか、Hooksの「お問い合わせ」よりその旨送って頂ければ対応いたします。'
+  }
 ]
 </script>
 <template>
@@ -47,24 +55,33 @@ const explains = [
       <atom-text text="scroll" class="mb-1" />
       <atom-text text="↓" />
     </div>
-    <div
-      v-for="(item, index) in explains"
-      :key="item.title"
-      class="mb-10 d-flex flex-nowrap"
-      :class="index % 2 ? ' flex-column flex-sm-row-reverse' : ' flex-column flex-sm-row'"
-      style="min-height: 200px"
+
+    <atom-text text="よくある質問" font-size="text-h4" class="py-2" />
+    <v-carousel
+      hide-delimiters
+      show-arrows="hover"
+      style="height: 300px"
+      class="pt-5 rounded-lg bg-white border-width-1 border-solid border-main-color"
     >
-      <div style="flex: 1" class="pa-10 d-flex justify-center align-center">
-        <atom-text :text="item.title" font-size="text-h4" class="mb-2" />
-      </div>
-      <v-card style="flex: 1" class="pa-10 rounded-lg bg-white" variant="outlined">
-        <atom-text
-          :text="item.explain"
-          font-weight="font-weight-regular"
-          class="letter-spacing-10"
-        />
-      </v-card>
-    </div>
+      <v-carousel-item v-for="(item, index) in explains">
+        <div class="w-100 h-100 px-16">
+          <div class="d-flex mb-3 mr-5">
+            <v-img
+              :src="index / 2 ? 'question_woman.png' : 'question_man.png'"
+              class="width-42 height-64 ml-3 mr-5 flex-grow-0"
+            />
+            <atom-text :text="item.title" font-size="text-h6" line-height="line-height-64" />
+          </div>
+          <div class="d-flex mr-5">
+            <v-img src="mushimegane_man.png" class="width-42 height-64 ml-3 mr-5 flex-grow-0" />
+            <v-card class="w-100 bg-white rounded-lg pa-5 mt-1" variant="outlined">
+              <atom-text :text="item.explain" font-size="text-h6" class="letter-spacing-10" />
+            </v-card>
+          </div>
+        </div>
+      </v-carousel-item>
+    </v-carousel>
+
     <v-divider class="my-10"></v-divider>
     <atom-text
       text="もしプログラミングに興味が湧いたら"
