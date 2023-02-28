@@ -4,66 +4,16 @@ const { isSignedIn, isAdmin } = useLoginState()
 const { xs } = useDisplay()
 const active = ref<boolean>(false)
 const menu = [
-  {
-    text: 'トップ',
-    function: () => navigateTo('/'),
-    outside: false,
-    path: '/'
-  },
-  {
-    text: 'メンバー',
-    function: () => navigateTo('/member'),
-    outside: false,
-    path: '/member'
-  },
-  {
-    text: 'コラム',
-    function: () => navigateTo('/article'),
-    outside: false,
-    path: '/article'
-  },
-  {
-    text: 'プロジェクト',
-    function: () => navigateTo('/project'),
-    outside: false,
-    path: '/project'
-  },
-  {
-    text: 'イベント',
-    function: () => navigateTo('/event'),
-    outside: false,
-    path: '/event'
-  },
-  {
-    text: 'スキルタグ',
-    function: () => navigateTo('/skill'),
-    outside: false,
-    path: '/skill'
-  },
-  {
-    text: 'ポートフォリオ',
-    function: () => navigateTo('/portfolio'),
-    outside: false,
-    path: '/portfolio'
-  },
-  {
-    text: 'お問合わせ',
-    function: () => navigateTo('/contact'),
-    outside: true,
-    path: '/contact'
-  },
-  {
-    text: 'ログイン',
-    function: () => navigateTo('/login'),
-    outside: true,
-    path: '/login'
-  },
-  {
-    text: '管理画面',
-    function: () => navigateTo('/admin'),
-    outside: false,
-    path: '/admin'
-  }
+  { text: 'トップ', outside: false, path: '/' },
+  { text: 'メンバー', outside: false, path: '/member' },
+  { text: 'コラム', outside: false, path: '/article' },
+  { text: 'プロジェクト', outside: false, path: '/project' },
+  { text: 'イベント', outside: false, path: '/event' },
+  { text: 'スキルタグ', outside: false, path: '/skill' },
+  { text: 'ポートフォリオ', outside: false, path: '/portfolio' },
+  { text: 'お問い合わせ', outside: true, path: '/contact' },
+  { text: 'ログイン', outside: true, path: '/login' },
+  { text: '管理画面', outside: false, path: '/admin' }
 ]
 </script>
 <template>
@@ -88,7 +38,7 @@ const menu = [
         :key="item.text"
         :text="item.text"
         btn-class="my-1"
-        @btn-click="item.function()"
+        @btn-click="navigateTo(item.path)"
       />
     </template>
     <div class="position-relative height-48 width-72 rounded">
@@ -100,7 +50,7 @@ const menu = [
           :style="{
             'max-width': '960px',
             width: active ? 'calc(100vw - 40px)' : '72px',
-            height: active ? 'calc(var(--vh) * 100 - 80px)' : '48px'
+            height: active ? 'calc(var(--vh) * 100 - 104px)' : '48px'
           }"
         >
           <v-icon
@@ -121,7 +71,7 @@ const menu = [
                 class="w-100 text-center py-4 cursor-pointer transition-short-ease-out"
                 v-bind="Props"
                 :class="[IsHovering ? 'bg-main-color' : ' bg-white']"
-                @click="item.function()"
+                @click="navigateTo(item.path)"
               />
             </v-hover>
           </div>

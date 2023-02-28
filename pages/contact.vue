@@ -1,11 +1,21 @@
 <script setup lang="ts">
 import { validation } from '~/assets/validation'
 const { $baseFetch, $options } = useNuxtApp()
+const { setExistError, setErrorMessages } = useErrorState()
 const { banEdit } = useEditState()
 const config = useRuntimeConfig()
 const name = ref<string>('')
 const body = ref<string>('')
+const form = ref<any>(null)
 const submit = async () => {
+  const validate = await form.value?.validate()
+  if (!validate.valid) {
+    setExistError(true)
+    setErrorMessages(
+      form.value?.errors.map((v: any) => v.errorMessages.map((m: string) => `${v.id}：${m}`)).flat()
+    )
+    return
+  }
   const content =
     '「' + name.value + '」さんからお問い合わせがありました！\n\nお問い合わせ内容\n' + body.value
   if (!config.public.discordwebhook) return
@@ -15,7 +25,7 @@ const submit = async () => {
       key: content,
       method: 'POST',
       body: JSON.stringify({
-        username: 'サークルサイトからのお問い合わせ',
+        username: 'Hooksからのお問い合わせ',
         content
       }),
       headers: {
@@ -35,22 +45,30 @@ const submit = async () => {
       font-weight="font-weight-regular"
       class="mb-10"
     />
-    <atom-text text="お名前" class="mb-2" />
-    <v-text-field
-      v-model="name"
-      variant="outlined"
-      density="compact"
-      clearable
-      :rules="[validation.required, validation.maxString(30)]"
-    />
-    <atom-text text="ご用件" class="mb-2" />
-    <v-textarea
-      v-model="body"
-      variant="outlined"
-      density="compact"
-      clearable
-      :rules="[validation.required, validation.maxString(500)]"
-    />
+    <v-form ref="form">
+      <atom-text text="お名前" class="mb-2" />
+      <v-text-field
+        id="お名前"
+        v-model="name"
+        variant="outlined"
+        density="compact"
+        clearable
+        :rules="[validation.required, validation.maxString(30)]"
+        counter="30"
+        class="mb-5"
+      />
+      <atom-text text="ご用件" class="mb-2" />
+      <v-textarea
+        id="ご用件"
+        v-model="body"
+        variant="outlined"
+        density="compact"
+        clearable
+        :rules="[validation.required, validation.maxString(500)]"
+        counter="500"
+        class="mb-5"
+      />
+    </v-form>
     <atom-button text="送信" btn-class="w-100" :loading="banEdit" @btn-click="submit()" />
   </layout-public>
 </template>
