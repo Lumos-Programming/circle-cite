@@ -118,7 +118,7 @@ export const articleInputs: InputType[] = [
     schemaType: 'Boolean',
     isArray: false,
     default: false,
-    rules: [validation.required]
+    rules: []
   },
   {
     key: 'userArticleId',
@@ -213,7 +213,7 @@ export const eventInputs: InputType[] = [
     schemaType: 'Boolean',
     isArray: false,
     default: false,
-    rules: [validation.required]
+    rules: []
   },
   {
     key: 'file',
@@ -315,7 +315,7 @@ export const memberInputs: InputType[] = [
     schemaType: 'Boolean',
     isArray: false,
     default: false,
-    rules: [validation.required]
+    rules: []
   },
   {
     key: 'join',
@@ -443,7 +443,7 @@ export const portfolioInputs: InputType[] = [
     schemaType: 'Boolean',
     isArray: false,
     default: false,
-    rules: [validation.required]
+    rules: []
   },
   {
     key: 'file',
@@ -518,7 +518,7 @@ export const projectInputs: InputType[] = [
     schemaType: 'Boolean',
     isArray: false,
     default: false,
-    rules: [validation.required]
+    rules: []
   },
   {
     key: 'published',
@@ -527,7 +527,7 @@ export const projectInputs: InputType[] = [
     schemaType: 'Boolean',
     isArray: false,
     default: false,
-    rules: [validation.required]
+    rules: []
   },
   {
     key: 'file',
