@@ -45,15 +45,14 @@ classベースでデザインするためによく使うstyleをクラス化す�
   overflow: hidden;
   white-space: nowrap;
 }
-
-/*
-単一プロパティを表す責務を負うcss class
-*/
 .font-family-main {
   font-family: Roboto, '游ゴシック体', YuGothic, '游ゴシック Medium', 'Yu Gothic Medium',
     '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'メイリオ' !important;
 }
 
+/*
+単一プロパティを表す責務を負うcss class
+*/
 $transition: ease, ease-out, ease-in, ease-in-out;
 $transition-time: (
   'short': 0.1s,
@@ -114,6 +113,22 @@ $mix-blend-mode: normal, luminosity, screen, unset;
     mix-blend-mode: $i;
   }
 }
+$line-height: (
+  'xs': 1,
+  'sm': 1.15,
+  'md': 1.2,
+  'lg': 1.5,
+  'xl': 1.8
+);
+@each $k, $v in $line-height {
+  .line-height-#{$k} {
+    line-height: $v !important;
+  }
+}
+
+/*
+数量系の単一プロパティを表す責務を負うclass
+*/
 @for $i from 0 through 10 {
   .border-width-#{$i} {
     border-width: 1px * $i !important;
@@ -135,24 +150,15 @@ $mix-blend-mode: normal, luminosity, screen, unset;
     flex-shrink: $i;
   }
 }
-$line-height: (
-  'xs': 1,
-  'sm': 1.15,
-  'md': 1.2,
-  'lg': 1.5,
-  'xl': 1.8
-);
-@each $k, $v in $line-height {
-  .line-height-#{$k} {
-    line-height: $v !important;
-  }
-}
 @for $i from 0 through 100 {
   .line-height-#{$i} {
     line-height: $i * 1px !important;
   }
   .w-#{$i} {
     width: $i * 1% !important;
+  }
+  .h-#{$i} {
+    height: $i * 1% !important;
   }
 }
 @for $i from 0 through 200 {

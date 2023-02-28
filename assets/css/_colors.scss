@@ -23,4 +23,16 @@
   .border-#{$name} {
     border-color: $color !important;
   }
+  .border-top-#{$name} {
+    border-top-color: $color !important;
+  }
+  .border-right-#{$name} {
+    border-right-color: $color !important;
+  }
+  .border-bottom-#{$name} {
+    border-bottom-color: $color !important;
+  }
+  .border-left-#{$name} {
+    border-left-color: $color !important;
+  }
 }

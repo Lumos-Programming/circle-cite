@@ -2,51 +2,35 @@
 const { isSignedIn, isAdmin } = useLoginState()
 const route = useRoute()
 const expand = ref<boolean>(false)
+const open = ref<boolean>(false)
 const pages = [
-  {
-    title: 'トップ',
-    icon: 'mdi-home',
-    path: '/admin'
-  },
-  {
-    title: 'メンバー',
-    icon: 'mdi-account-group',
-    path: '/admin/member'
-  },
-  {
-    title: '記事',
-    icon: 'mdi-pen',
-    path: '/admin/article'
-  },
-  {
-    title: 'プロジェクト',
-    icon: 'mdi-one-up',
-    path: '/admin/project'
-  },
-  {
-    title: 'イベント',
-    icon: 'mdi-calendar',
-    path: '/admin/event'
-  },
-  {
-    title: 'ポートフォリオ',
-    icon: 'mdi-palette',
-    path: '/admin/portfolio'
-  },
-  {
-    title: 'スキルタグ',
-    icon: 'mdi-tag-outline',
-    path: '/admin/skill'
-  },
-  {
-    title: '紐付け',
-    icon: 'mdi-relation-many-to-many',
-    path: '/admin/relation'
-  }
+  { title: 'トップ', icon: 'mdi-home', path: '/admin' },
+  { title: 'メンバー', icon: 'mdi-account-group', path: '/admin/member' },
+  { title: '記事', icon: 'mdi-pen', path: '/admin/article' },
+  { title: 'プロジェクト', icon: 'mdi-one-up', path: '/admin/project' },
+  { title: 'イベント', icon: 'mdi-calendar', path: '/admin/event' },
+  { title: 'ポートフォリオ', icon: 'mdi-palette', path: '/admin/portfolio' },
+  { title: 'スキルタグ', icon: 'mdi-tag-outline', path: '/admin/skill' },
+  { title: '紐付け', icon: 'mdi-relation-many-to-many', path: '/admin/relation' }
+]
+const menu = [
+  { text: 'トップ', path: '/' },
+  { text: 'メンバー', path: '/member' },
+  { text: 'コラム', path: '/article' },
+  { text: 'プロジェクト', path: '/project' },
+  { text: 'イベント', path: '/event' },
+  { text: 'スキルタグ', path: '/skill' },
+  { text: 'ポートフォリオ', path: '/portfolio' },
+  { text: 'お問合わせ', path: '/contact' },
+  { text: 'ログイン', path: '/login' },
+  { text: '管理画面', path: '/admin' }
 ]
 </script>
 <template>
-  <div class="d-flex flex-nowrap bg-grey-color" style="width: 100vw; min-height: 100vh">
+  <div
+    class="d-flex flex-nowrap bg-grey-color position-relative overflow-x-hidden"
+    :style="{ width: '100vw', 'min-height': 'calc(var(--vh, 1vh) * 100)' }"
+  >
     <!-- NOTE: 画面左側メニュバー -->
     <v-card
       class="transition-medium-ease-out pa-2 position-relative bg-main-color rounded-0 d-flex flex-column flex-nowrap"
@@ -130,8 +114,46 @@ const pages = [
     >
       <atom-text font-size="text-h6" line-height="line-height-lg" text="Hooks Admin" />
       <atom-breadcrumbs class="mb-5" />
-      <atom-menu-icon />
       <slot />
+    </div>
+    <div
+      class="d-flex position-absolute top-0 right-0 z-index-10 transition-medium-ease-out"
+      :class="open ? 'right-0' : 'right-n200'"
+      :style="{ width: '232px', height: 'calc(var(--vh, 1vh) * 100)' }"
+    >
+      <div class="width-32 h-100">
+        <div class="w-100 height-48"></div>
+        <v-hover v-slot="{ isHovering, props }">
+          <v-card
+            class="w-100 height-48 rounded-lg bg-main-color"
+            :style="{
+              'border-top-right-radius': '0 !important',
+              'border-bottom-right-radius': '0 !important'
+            }"
+            v-bind="props"
+            @click="open = !open"
+          >
+            <v-icon
+              class="height-24 mx-1 my-3 transition-medium-ease-out"
+              :class="isHovering ? 'text-accent-color' : 'text-white'"
+              >mdi-menu
+            </v-icon>
+          </v-card>
+        </v-hover>
+      </div>
+      <div class="width-200 h-100 bg-white" style="border-left: 1px solid var(--main-color)">
+        <v-hover v-for="m in menu" v-slot="{ isHovering, props }">
+          <nuxt-link :to="m.path" :style="{ 'text-decoration': 'none' }" v-bind="props">
+            <atom-text
+              :text="m.text"
+              :color="isHovering ? 'text-white' : 'text-main-color'"
+              line-height="line-height-lg"
+              class="text-center py-3 transition-short-ease"
+              :class="isHovering ? 'bg-main-color' : 'bg-white'"
+            />
+          </nuxt-link>
+        </v-hover>
+      </div>
     </div>
   </div>
 </template>

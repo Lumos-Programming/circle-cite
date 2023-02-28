@@ -17,8 +17,8 @@ html {
   }
 }
 
-@each $name, $color in var.$colors {
-  html {
+html {
+  @each $name, $color in var.$colors {
     --#{$name}: #{$color};
   }
 }
