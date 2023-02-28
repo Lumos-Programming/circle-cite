@@ -16,7 +16,7 @@ const pages = [
 const menu = [
   { text: 'トップ', path: '/' },
   { text: 'メンバー', path: '/member' },
-  { text: 'コラム', path: '/article' },
+  { text: '記事', path: '/article' },
   { text: 'プロジェクト', path: '/project' },
   { text: 'イベント', path: '/event' },
   { text: 'スキルタグ', path: '/skill' },

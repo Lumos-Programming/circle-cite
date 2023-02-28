@@ -41,15 +41,12 @@ withDefaults(
           color="text-grey-darken-1"
           :text="'学年： ' + (user.grade || 1) + '年'"
         ></atom-text>
-        <v-chip-group column class="ml-n3">
+        <v-chip-group class="ml-n2">
           <v-chip
-            v-for="item in user.skill?.items.slice(0, 5)"
+            v-for="item in user.skill?.items"
             :ripple="false"
-            class="ma-2 transition-short-ease-out"
-            variant="elevated"
-            prepend-icon="mdi-music-accidental-sharp"
-            link
-            :to="item?.skill.id ? '/skill/' + item?.skill.id : '/'"
+            class="ma-1 transition-short-ease-out rounded text-caption text-black"
+            variant="outlined"
           >
             {{ item?.skill.title }}
           </v-chip>

@@ -47,6 +47,8 @@ await fetchSkill()
         :created-at="item?.article.createdAt"
         :updated-at="item?.article.updatedAt"
         :title="item?.article.title"
+        :img-key="item?.article.file?.key"
+        :identity-id="item?.article.file?.identityId"
         class="v-col-12 v-col-sm-6 v-col-md-4"
         @click-func="navigateTo('/article/' + item?.article.id)"
       />

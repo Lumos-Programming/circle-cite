@@ -54,6 +54,8 @@ await fetchUser()
               :created-at="item?.createdAt"
               :updated-at="item?.updatedAt"
               :title="item?.title"
+              :img-key="item?.file?.key"
+              :identity-id="item?.file?.identityId"
               class="v-col-12 v-col-sm-6 v-col-md-4"
               @click-func="navigateTo('/portfolio/' + item?.id)"
             />
@@ -67,6 +69,8 @@ await fetchUser()
               :created-at="item?.createdAt"
               :updated-at="item?.updatedAt"
               :title="item?.title"
+              :img-key="item?.file?.key"
+              :identity-id="item?.file?.identityId"
               class="v-col-12 v-col-sm-6 v-col-md-4"
               @click-func="navigateTo('/article/' + item?.id)"
             />
@@ -80,6 +84,8 @@ await fetchUser()
               :created-at="item?.project.createdAt"
               :updated-at="item?.project.updatedAt"
               :title="item?.project.title"
+              :img-key="item?.project.file?.key"
+              :identity-id="item?.project.file?.identityId"
               class="v-col-12 v-col-sm-6 v-col-md-4"
               @click-func="navigateTo('/project/' + item?.project.id)"
             />
@@ -93,6 +99,8 @@ await fetchUser()
               :created-at="item?.event.createdAt"
               :updated-at="item?.event.updatedAt"
               :title="item?.event.title"
+              :img-key="item?.event.file?.key"
+              :identity-id="item?.event.file?.identityId"
               class="v-col-12 v-col-sm-6 v-col-md-4"
               @click-func="navigateTo('/event/' + item?.event.id)"
             />

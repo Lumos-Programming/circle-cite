@@ -21,6 +21,8 @@ await getArticles()
         :created-at="item?.createdAt"
         :updated-at="item?.updatedAt"
         :title="item?.title"
+        :img-key="item?.file?.key"
+        :identity-id="item?.file?.identityId"
         class="v-col-12 v-col-sm-6 v-col-md-4"
         @click-func="navigateTo('/article/' + item?.id)"
       >
