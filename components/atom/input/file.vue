@@ -45,5 +45,13 @@ await setImage(props.modelValue)
     @click:clear="resetImage()"
     @change="onImagePicked($event)"
   ></v-file-input>
-  <v-img :src="imageURL" :aspect-ratio="16 / 9" class="max-height-200" />
+  <div class="w-100 height-200 rounded-lg border-width-1 border-solid border-main-color">
+    <v-img v-if="imageURL" :src="imageURL" :aspect-ratio="16 / 9" class="max-height-198" />
+    <atom-text
+      v-else
+      text="ここに画像が表示されます"
+      line-height="line-height-72"
+      class="w-100 text-center my-16"
+    />
+  </div>
 </template>
