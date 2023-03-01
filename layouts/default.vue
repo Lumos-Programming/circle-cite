@@ -29,5 +29,5 @@ onUnmounted(() => {
 <template>
   <atom-snackbar-list />
   <NuxtPage />
-  <atom-error-modal />
+  <atom-modal-error />
 </template>
