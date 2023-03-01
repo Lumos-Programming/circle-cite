@@ -17,7 +17,7 @@ await getArticles()
     <div class="d-flex py-10">
       <atom-text font-size="text-h4" text="Article" />
       <v-spacer />
-      <atom-button v-if="isSignedIn" text="新規作成" @btn-click="navigateTo('/admin/project')" />
+      <atom-button v-if="isSignedIn" text="新規作成" @btn-click="navigateTo('/admin/article')" />
     </div>
     <div class="d-flex flex-wrap">
       <module-content-medium

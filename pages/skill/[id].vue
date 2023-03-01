@@ -24,7 +24,7 @@ await fetchSkill()
       ]"
     />
     <div class="mx-5">
-      <atom-text font-size="text-h4" :text="'#' + skill.title" class="mt-16" />
+      <atom-text font-size="text-h4" :text="skill.title" class="mt-16" />
     </div>
     <atom-text font-size="text-h5" text="このタグを登録中のメンバー" class="mt-16 mx-5" />
     <div

@@ -38,13 +38,14 @@ withDefaults(
         color="text-grey-darken-1"
         :text="'学年： ' + (user.grade || 1) + '年'"
       ></atom-text>
-      <v-chip-group class="ml-n3">
+      <v-chip-group :style="{ gap: '4px 8px' }">
         <v-hover v-for="item in user.skill?.items" v-slot="{ isHovering, props }">
           <v-chip
             :ripple="false"
-            class="ma-2 transition-short-ease-out rounded text-caption"
+            class="px-3 transition-short-ease-out rounded-pill text-caption"
             :class="[isHovering ? 'text-white bg-main-color' : 'bg-white text-grey-darken-4']"
-            variant="elevated"
+            variant="outlined"
+            :style="{ '--v-chip-height': '24px' }"
             v-bind="props"
             link
             :to="item?.skill.id ? '/skill/' + item?.skill.id : '/'"

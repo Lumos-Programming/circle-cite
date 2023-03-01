@@ -19,7 +19,7 @@ await getSkills()
           :ripple="false"
           class="ma-2 transition-short-ease-out"
           :class="[isHovering ? 'text-white bg-main-color' : 'bg-white text-grey-darken-4']"
-          variant="elevated"
+          variant="outlined"
           prepend-icon="mdi-music-accidental-sharp"
           v-bind="props"
           link

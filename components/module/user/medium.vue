@@ -41,11 +41,12 @@ withDefaults(
           color="text-grey-darken-1"
           :text="'学年： ' + (user.grade || 1) + '年'"
         ></atom-text>
-        <v-chip-group class="ml-n2">
+        <v-chip-group :style="{ gap: '4px 8px' }">
           <v-chip
             v-for="item in user.skill?.items"
             :ripple="false"
-            class="ma-1 transition-short-ease-out rounded text-caption text-black"
+            class="transition-short-ease-out rounded-pill px-3 text-caption text-black"
+            :style="{ '--v-chip-height': '24px' }"
             variant="outlined"
           >
             {{ item?.skill.title }}

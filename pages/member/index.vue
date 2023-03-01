@@ -18,7 +18,7 @@ await getUsers()
         v-for="item in users"
         :key="item.id"
         :user="item"
-        class="pa-5 v-col-6 v-col-md-4"
+        class="pa-5 v-col-12 v-col-sm-6 v-col-md-4"
       />
     </div>
   </layout-public>
