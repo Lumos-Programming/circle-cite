@@ -91,7 +91,7 @@ await getProjects()
         :style="{ '--v-table-header-height': '40px' }"
         class="white-space-nowrap"
       >
-        <template #[`item.oparation`]="{ item }">
+        <template #item.oparation="{ item }">
           <div class="d-flex flex-nowrap">
             <v-icon
               size="24"
