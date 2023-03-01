@@ -337,12 +337,12 @@ export const memberInputs: InputType[] = [
   },
   {
     key: 'discordId',
-    title: 'discord',
+    title: 'discordのID（18桁の数字）',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
     default: '',
-    rules: [validation.maxString(10)]
+    rules: [validation.equalString(18)]
   },
   {
     key: 'github',
