@@ -68,14 +68,8 @@ export const InputComponents = (key?: string, v?: any): InputComponentsType => {
       }
     },
     fileinput: {
-      comp: 'v-file-input',
-      props: {
-        density: 'compact',
-        clearable: true,
-        class: 'text-main-color',
-        variant: 'underlined',
-        accept: 'image/*'
-      }
+      comp: 'atom-input-file',
+      props: {}
     },
     select: {
       comp: 'atom-input-select',
@@ -301,7 +295,7 @@ export const memberInputs: InputType[] = [
   },
   {
     key: 'grade',
-    title: '学年(1~6(院2年)で)',
+    title: '学年(1~6で記入して下さい)',
     type: 'textfield',
     schemaType: 'Int',
     isArray: false,
