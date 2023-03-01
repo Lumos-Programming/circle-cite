@@ -4,6 +4,11 @@ export const validation = {
     !v ? true : (v && v.length <= length) || length + '文字までです',
   equalString: (length: number) => (v: string) =>
     !v ? true : (v && v.length === length) || `想定している文字数は丁度${length}文字です`,
+  rangeInt: (range: number[]) => (v: string) =>
+    !v || range.length < 2
+      ? true
+      : (Number(v) && Number(v) >= range[0] && Number(v) <= range[1]) ||
+        `${range[0]}から${range[1]}までの数字を入力してください。`,
   maxFileSize: (size: number) => (v: File[]) =>
     !v || !v[0]
       ? true

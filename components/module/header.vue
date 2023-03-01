@@ -45,7 +45,7 @@ const menu = [
       <v-hover v-slot="{ isHovering, props }">
         <div
           class="border-solid border-width-1 border-gery-darken-4 rounded position-absolute transition-medium-ease top-n1 right-n1 overflow-hidden"
-          :class="[!active && isHovering ? 'bg-main-color' : 'bg-white']"
+          :class="[!active && isHovering ? 'bg-main-color cursor-pointer' : 'bg-white']"
           v-bind="props"
           :style="{
             'max-width': '960px',
@@ -54,11 +54,11 @@ const menu = [
           }"
         >
           <v-icon
-            class="height-48 position-absolute top-0 right-23"
+            :icon="active ? 'mdi-close' : 'mdi-menu'"
+            class="width-72 height-48 position-absolute top-0 right-0"
             :class="!active && isHovering ? 'text-white' : 'text-grey-darken-4'"
             @click="active = !active"
-            >{{ active ? 'mdi-close' : 'mdi-menu' }}
-          </v-icon>
+          />
           <div v-if="active" class="pt-10 w-100">
             <v-hover
               v-for="item in menu"

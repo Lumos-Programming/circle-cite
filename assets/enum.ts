@@ -306,7 +306,7 @@ export const memberInputs: InputType[] = [
     schemaType: 'Int',
     isArray: false,
     default: 0,
-    rules: [validation.required]
+    rules: [validation.required, validation.rangeInt([1, 6])]
   },
   {
     key: 'jobHunting',
