@@ -2,6 +2,7 @@
 import { Event, ListEventsQuery } from '~/assets/API'
 import { listEvents } from '~/assets/graphql/queries'
 const { $listQuery } = useNuxtApp()
+const { isSignedIn } = useLoginState()
 const events = ref<Event[]>([])
 const getEvents = async () => {
   events.value = await $listQuery<ListEventsQuery, Event>({
@@ -13,7 +14,11 @@ await getEvents()
 </script>
 <template>
   <layout-public>
-    <atom-text font-size="text-h4" text="Event" class="py-10" />
+    <div class="d-flex py-10">
+      <atom-text font-size="text-h4" text="Event" />
+      <v-spacer />
+      <atom-button v-if="isSignedIn" text="新規作成" @btn-click="navigateTo('/admin/project')" />
+    </div>
     <div class="d-flex flex-wrap">
       <module-content-medium
         v-for="item in events"

@@ -2,6 +2,7 @@
 import { Project, ListProjectsQuery } from '~/assets/API'
 import { listProjects } from '~/assets/graphql/queries'
 const { $listQuery } = useNuxtApp()
+const { isSignedIn } = useLoginState()
 const projects = ref<Project[]>([])
 const getProjects = async () => {
   projects.value = await $listQuery<ListProjectsQuery, Project>({
@@ -13,7 +14,11 @@ await getProjects()
 </script>
 <template>
   <layout-public>
-    <atom-text font-size="text-h4" text="Project" class="py-10" />
+    <div class="d-flex py-10">
+      <atom-text font-size="text-h4" text="Project" />
+      <v-spacer />
+      <atom-button v-if="isSignedIn" text="新規作成" @btn-click="navigateTo('/admin/project')" />
+    </div>
     <div class="d-flex flex-wrap">
       <module-content-medium
         v-for="item in projects"
