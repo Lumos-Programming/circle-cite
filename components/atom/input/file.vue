@@ -18,10 +18,11 @@ const onImagePicked = (e: Event) => {
   if (!t.files?.length) return
   imageURL.value = URL.createObjectURL(t.files[0])
 }
-const setImage = async (v: S3Object | null) => {
+watch(props, async (_, c) => {
+  const v = c.modelValue
   if (!v || !('key' in v) || !('identityId' in v)) return
   imageURL.value = await $getImage(v.key, v.identityId)
-}
+})
 const resetImage = () => {
   emit('update:model-value', null)
   imageURL.value = ''
@@ -31,7 +32,6 @@ const makeValue = (v: S3Object | null) => {
   const file = new File([], v.name, { type: v.type || '' })
   return [file]
 }
-await setImage(props.modelValue)
 </script>
 <template>
   <v-file-input
