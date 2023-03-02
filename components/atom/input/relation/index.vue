@@ -42,6 +42,7 @@ const mutateRelation = async () => {
       ? $filterAttr(input.value, props.inputs)
       : $filterAttr(input.value, props.inputs, ['id'])
   })
+  await getRelation()
 }
 const defaultInput = Object.fromEntries(props.inputs.map((v) => [v.key, v.default]))
 const input = ref<any>(defaultInput)

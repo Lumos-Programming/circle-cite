@@ -27,6 +27,7 @@ const mutateSkill = async () => {
       ? $filterAttr(input.value, skillInputs)
       : $filterAttr(input.value, skillInputs, ['id'])
   })
+  await getSkills()
 }
 const defaultInput = Object.fromEntries(skillInputs.map((v) => [v.key, v.default]))
 const input = ref<IndexSignature<Partial<UpdateSkillInput>>>(defaultInput)

@@ -30,6 +30,7 @@ const updateMyUser = async () => {
     file: input.value.file?.file
   })
   await setMyUser($filterAttr(res as User, memberInputs))
+  await getUsers()
 }
 const input = ref<FileInput<UpdateUserInput>>(JSON.parse(JSON.stringify(myUser.value)))
 await getUsers()

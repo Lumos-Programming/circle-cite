@@ -32,6 +32,7 @@ const mutateArticle = async () => {
       : $filterAttr(input.value, articleInputs, ['id']),
     file: input.value.file?.file
   })
+  await getArticles()
 }
 const defaultInput = Object.fromEntries(articleInputs.map((v) => [v.key, v.default]))
 const input = ref<FileInput<Partial<UpdateArticleInput>>>(defaultInput)

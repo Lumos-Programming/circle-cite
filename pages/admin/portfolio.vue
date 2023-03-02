@@ -32,6 +32,7 @@ const mutatePortfolio = async () => {
       : $filterAttr(input.value, portfolioInputs, ['id']),
     file: input.value.file?.file
   })
+  await getPortfolios()
 }
 const defaultInput = Object.fromEntries(portfolioInputs.map((v) => [v.key, v.default]))
 const input = ref<FileInput<Partial<UpdatePortfolioInput>>>(defaultInput)

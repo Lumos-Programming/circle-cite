@@ -32,6 +32,7 @@ const mutateProject = async () => {
       : $filterAttr(input.value, projectInputs, ['id']),
     file: input.value.file?.file
   })
+  await getProjects()
 }
 const defaultInput = Object.fromEntries(projectInputs.map((v) => [v.key, v.default]))
 const input = ref<FileInput<Partial<UpdateProjectInput>>>(defaultInput)

@@ -30,6 +30,7 @@ const mutateEvent = async () => {
       : $filterAttr(input.value, eventInputs, ['id']),
     file: input.value.file?.file
   })
+  await getEvents()
 }
 const defaultInput = Object.fromEntries(eventInputs.map((v) => [v.key, v.default]))
 const input = ref<FileInput<Partial<UpdateEventInput>>>(defaultInput)
