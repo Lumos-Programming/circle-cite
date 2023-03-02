@@ -82,39 +82,21 @@ await getRelation()
         </v-form>
       </v-window-item>
       <v-window-item :value="tabs[1]">
-        <v-data-table
+        <module-data-table
           :headers="
             ['oparation', ...Object.keys(defaultInput)].map((v) => {
               return { title: v, key: v }
             })
           "
           :items="items"
-          density="compact"
-          :style="{ '--v-table-header-height': '40px' }"
-          class="white-space-nowrap pa-5"
-        >
-          <template #item.oparation="{ item }">
-            <div class="d-flex flex-nowrap">
-              <v-icon
-                size="24"
-                class="ma-2"
-                @click="input = $filterAttr(items[items.indexOf(item.raw)], inputs)"
-                >mdi-pencil
-              </v-icon>
-              <v-icon
-                size="24"
-                class="ma-2"
-                @click="
-                  $baseMutation({
-                    query: deleteMutation,
-                    input: { id: item.id }
-                  })
-                "
-                >mdi-delete
-              </v-icon>
-            </div>
-          </template>
-        </v-data-table>
+          @fetch-func="getRelation()"
+          @edit-func="
+            (item) => {
+              input = $filterAttr(items[items.indexOf(item.raw)], inputs)
+            }
+          "
+          @delete-func="(id) => $baseMutation({ query: deleteMutation, input: { id } })"
+        />
       </v-window-item>
     </v-window>
   </v-card>

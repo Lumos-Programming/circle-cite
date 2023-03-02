@@ -67,52 +67,28 @@ await getEvents()
         />
       </v-form>
     </div>
-    <div class="my-5">
-      <div class="d-flex my-2">
-        <atom-text text="一括取得" font-size="text-h6" class="my-2" />
-        <v-spacer />
-        <atom-button
-          :loading="banEdit"
-          text="再取得"
-          btn-class="border-solid border-width-1 border-grey-darken-4"
-          @btn-click="getEvents()"
-        />
-      </div>
-      <v-data-table
-        :headers="
-          ['oparation', ...Object.keys(defaultInput)].map((v) => {
-            return { title: v, key: v }
+    <module-data-table
+      :headers="
+        ['oparation', ...Object.keys(defaultInput)].map((v) => {
+          return { title: v, key: v }
+        })
+      "
+      :items="events"
+      @fetch-func="getEvents()"
+      @edit-func="
+        (item) => {
+          input = $filterAttr(events[events.indexOf(item.raw)], eventInputs)
+        }
+      "
+      @delete-func="
+        (id) =>
+          $extendMutation({
+            type: 'delete',
+            key: input.file?.key || '',
+            query: deleteEvent,
+            input: { id }
           })
-        "
-        :items="events"
-        density="compact"
-        :style="{ '--v-table-header-height': '40px' }"
-        class="white-space-nowrap"
-      >
-        <template #item.oparation="{ item }">
-          <div class="d-flex flex-nowrap">
-            <v-icon
-              size="24"
-              class="ma-2"
-              @click="input = $filterAttr(events[events.indexOf(item.raw)], eventInputs)"
-              >mdi-pencil
-            </v-icon>
-            <v-icon
-              size="24"
-              class="ma-2"
-              @click="
-                $extendMutation({
-                  type: 'delete',
-                  key: input.file?.key || '',
-                  query: deleteEvent,
-                  input: { id: item.id }
-                })
-              "
-              >mdi-delete
-            </v-icon>
-          </div>
-        </template>
-      </v-data-table>
-    </div>
+      "
+    />
   </layout-admin>
 </template>

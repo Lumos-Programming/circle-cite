@@ -56,28 +56,14 @@ await getUsers()
         />
       </v-form>
     </div>
-    <div class="my-5">
-      <div class="d-flex my-2">
-        <atom-text text="一括取得" font-size="text-h6" class="my-2" />
-        <v-spacer />
-        <atom-button
-          :loading="banEdit"
-          text="再取得"
-          btn-class="border-solid border-width-1 border-grey-darken-4"
-          @btn-click="getUsers()"
-        />
-      </div>
-      <v-data-table
-        :headers="
-          memberInputs.map((v) => {
-            return { title: v.key, key: v.key }
-          })
-        "
-        :items="users"
-        density="compact"
-        :style="{ '--v-table-header-height': '40px' }"
-        class="white-space-nowrap"
-      ></v-data-table>
-    </div>
+    <module-data-table
+      :headers="
+        memberInputs.map((v) => {
+          return { title: v.key, key: v.key }
+        })
+      "
+      :items="users"
+      @fetch-func="getUsers()"
+    />
   </layout-admin>
 </template>
