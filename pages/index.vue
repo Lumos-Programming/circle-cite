@@ -33,14 +33,9 @@ const explains = [
         />
         <atom-text text="インカレプログラミングサークルです。" class="ml-1 letter-spacing-10" />
         <div class="d-flex flex-nowrap my-5" style="gap: 0 10px">
-          <atom-button
-            text="参加する"
-            btn-class="border-solid border-width-1 border-grey-darken-4"
-            @btn-click="navigateTo('/contact')"
-          />
+          <atom-button text="参加する" @btn-click="navigateTo('/contact')" />
           <atom-button
             text="話だけでも聞いてみる"
-            btn-class="border-solid border-width-1 border-grey-darken-4"
             @btn-click="
               navigateTo('https://twitter.com/lumos_program', {
                 external: true
@@ -89,14 +84,9 @@ const explains = [
       class="mb-10 text-center"
     />
     <div class="d-flex flex-nowrap justify-center align-center mb-10" style="gap: 0 50px">
-      <atom-button
-        text="参加する"
-        btn-class="border-solid border-width-1 border-grey-darken-4"
-        @btn-click="navigateTo('/contact')"
-      />
+      <atom-button text="参加する" @btn-click="navigateTo('/contact')" />
       <atom-button
         text="話だけでも聞いてみる"
-        btn-class="border-solid border-width-1 border-grey-darken-4"
         @btn-click="navigateTo('https://twitter.com/lumos_program', { external: true })"
       />
     </div>

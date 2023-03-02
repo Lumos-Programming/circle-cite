@@ -17,11 +17,11 @@ withDefaults(
 <template>
   <v-hover v-slot="{ isHovering, props }">
     <v-btn
-      class="height-40 px-4 py-2 transition-medium-ease"
+      class="height-40 px-4 py-2 transition-short-ease"
       :class="[isHovering ? 'bg-main-color' : 'bg-white', btnClass]"
       :loading="loading"
       :ripple="false"
-      variant="flat"
+      variant="outlined"
       v-bind="props"
       @click="$emit('btn-click')"
     >

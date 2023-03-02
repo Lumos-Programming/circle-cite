@@ -46,13 +46,12 @@ await getSkills()
         <atom-button
           :loading="banEdit"
           text="リセット"
-          btn-class="border-solid border-width-1 border-grey-darken-4 mr-3"
+          btn-class="mr-3"
           @btn-click="input = defaultInput"
         />
         <atom-button
           :loading="banEdit"
           :text="input.id ? '更新' : '新規作成'"
-          btn-class="border-solid border-width-1 border-grey-darken-4"
           @btn-click="mutateSkill()"
         />
       </div>
