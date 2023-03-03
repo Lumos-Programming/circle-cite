@@ -147,7 +147,7 @@ await fetchUser()
         </v-window-item>
       </v-window>
     </v-card>
-    <v-form ref="form" class="rounded-lg bg-white pa-5 elevation-3">
+    <v-form ref="form" class="rounded-lg bg-white pa-5 elevation-3 mb-10">
       <atom-text
         :text="(user.name || 'このメンバー') + 'にメッセージを送る'"
         font-size="text-h6"
