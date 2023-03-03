@@ -45,7 +45,7 @@ const submit = async () => {
       font-weight="font-weight-regular"
       class="mb-10"
     />
-    <v-form ref="form">
+    <v-form ref="form" class="rounded-lg bg-white pa-5 elevation-3">
       <atom-text text="お名前" class="mb-2" />
       <v-text-field
         id="お名前"
@@ -68,7 +68,7 @@ const submit = async () => {
         counter="500"
         class="mb-5"
       />
+      <atom-button text="送信" btn-class="w-100" :loading="banEdit" @btn-click="submit()" />
     </v-form>
-    <atom-button text="送信" btn-class="w-100" :loading="banEdit" @btn-click="submit()" />
   </layout-public>
 </template>

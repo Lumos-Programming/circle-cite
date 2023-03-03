@@ -6,6 +6,8 @@ import { Typography } from '@tiptap/extension-typography'
 import { TextAlign } from '@tiptap/extension-text-align'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import { StarterKit } from '@tiptap/starter-kit'
+const config = useRuntimeConfig()
+const isProd = config.public.isProd
 const props = withDefaults(
   defineProps<{
     modelValue: string
@@ -34,7 +36,7 @@ const editor = useEditor({
   }
 })
 watch(props, (v, c) => {
-  console.log(c.modelValue)
+  if (!isProd) console.log(c.modelValue)
   if (editor.value?.getHTML() === c.modelValue) return
   editor.value?.commands.setContent(c.modelValue, false)
 })

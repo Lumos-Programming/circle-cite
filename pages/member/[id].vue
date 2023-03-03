@@ -1,9 +1,17 @@
 <script setup lang="ts">
+import { validation } from '~/assets/validation'
 import { User, GetUserQuery } from '~/assets/API'
 import { getUser } from '~/assets/graphql/queries'
-const { $getQuery } = useNuxtApp()
+const { $baseFetch, $options, $getQuery } = useNuxtApp()
+const { setExistError, setErrorMessages } = useErrorState()
+const config = useRuntimeConfig()
+const { banEdit } = useEditState()
 const { params } = useRoute()
+const tab = ref<string>('')
+const name = ref<string>('')
+const body = ref<string>('')
 const user = ref<User>({} as User)
+const form = ref<any>(null)
 const fetchUser = async () => {
   user.value = await $getQuery<GetUserQuery, User>({
     query: getUser,
@@ -11,6 +19,38 @@ const fetchUser = async () => {
       id: params.id || null
     }
   })
+}
+const submit = async () => {
+  const validate = await form.value?.validate()
+  if (!validate.valid) {
+    setExistError(true)
+    setErrorMessages(
+      form.value?.errors.map((v: any) => v.errorMessages.map((m: string) => `${v.id}：${m}`)).flat()
+    )
+    return
+  }
+  const content =
+    'TO: <@' +
+    user.value.discordId +
+    '>\n「' +
+    name.value +
+    '」さんからお問い合わせがありました！\n\nお問い合わせ内容\n' +
+    body.value
+  if (!config.public.discordwebhook) return
+  await $baseFetch(
+    config.public.discordwebhook,
+    $options({
+      key: content,
+      method: 'POST',
+      body: JSON.stringify({
+        username: 'Hooksからのお問い合わせ',
+        content
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  )
 }
 const tabs = [
   '就活プロフィール',
@@ -20,7 +60,6 @@ const tabs = [
   '参加したプロジェクト',
   '参加したイベント'
 ]
-const tab = ref<string>('')
 await fetchUser()
 </script>
 <template>
@@ -108,5 +147,35 @@ await fetchUser()
         </v-window-item>
       </v-window>
     </v-card>
+    <v-form ref="form" class="rounded-lg bg-white pa-5 elevation-3">
+      <atom-text
+        :text="(user.name || 'このメンバー') + 'にメッセージを送る'"
+        font-size="text-h6"
+        class="pb-5"
+      />
+      <atom-text text="お名前" class="mb-2" />
+      <v-text-field
+        id="お名前"
+        v-model="name"
+        variant="outlined"
+        density="compact"
+        clearable
+        :rules="[validation.required, validation.maxString(30)]"
+        counter="30"
+        class="mb-5"
+      />
+      <atom-text text="ご用件" class="mb-2" />
+      <v-textarea
+        id="ご用件"
+        v-model="body"
+        variant="outlined"
+        density="compact"
+        clearable
+        :rules="[validation.required, validation.maxString(500)]"
+        counter="500"
+        class="mb-5"
+      />
+      <atom-button text="送信" btn-class="w-100" :loading="banEdit" @btn-click="submit()" />
+    </v-form>
   </layout-public>
 </template>
