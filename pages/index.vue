@@ -62,7 +62,7 @@ const explains = [
         <div class="w-100 h-100 px-16">
           <div class="d-flex mb-3 mr-5">
             <v-img
-              :src="index / 2 ? 'question_woman.png' : 'question_man.png'"
+              :src="index % 2 ? 'question_woman.png' : 'question_man.png'"
               class="width-42 height-64 ml-3 mr-5 flex-grow-0"
             />
             <atom-text :text="item.title" font-size="text-h6" line-height="line-height-64" />
