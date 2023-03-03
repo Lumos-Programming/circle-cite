@@ -60,3 +60,4 @@
 ### **その他注意事項等**
 
 - v-calender は vuetify3 で v-calender と v-date-picker が再実装され使えるようになるまでの代用ライブラリとして入れています。v-calender と v-date-picker が使えるようになったら適宜抜いて下さい。
+- \<v-hover>\</v-hover>はコンポーネントで使う場合、トップレベルでの使用は避けてください。呼び出し時に\<some-component style="color:red"/>みたいな設定が当たらなくなります。
