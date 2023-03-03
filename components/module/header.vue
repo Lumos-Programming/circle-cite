@@ -38,6 +38,7 @@ const menu = [
         :key="item.text"
         :text="item.text"
         btn-class="my-1"
+        style="border: none"
         @btn-click="navigateTo(item.path)"
       />
     </template>

@@ -248,34 +248,6 @@ export const memberInputs: InputType[] = [
     rules: [validation.required]
   },
   {
-    key: 'description',
-    title: '簡単な自己紹介',
-    type: 'textfield',
-    schemaType: 'String',
-    isArray: false,
-    default: '',
-    rules: [validation.required, validation.maxString(300)]
-  },
-  // NOTE: ↓ここtextareaにするか、richtextにするかmarkdownにするか検討
-  {
-    key: 'forRecruitment',
-    title: '就活用長めの自己紹介',
-    type: 'textarea',
-    schemaType: 'String',
-    isArray: false,
-    default: '',
-    rules: [validation.maxString(1000)]
-  },
-  {
-    key: 'history',
-    title: 'これまでの経歴',
-    type: 'textarea',
-    schemaType: 'String',
-    isArray: false,
-    default: '',
-    rules: [validation.maxString(1000)]
-  },
-  {
     key: 'university',
     title: '大学名',
     type: 'textfield',
@@ -313,7 +285,7 @@ export const memberInputs: InputType[] = [
   },
   {
     key: 'join',
-    title: '開始日',
+    title: '加入日（任意）',
     type: 'textfield',
     schemaType: 'AWSDate',
     isArray: false,
@@ -322,7 +294,7 @@ export const memberInputs: InputType[] = [
   },
   {
     key: 'leave',
-    title: '終了日',
+    title: '卒業日（任意）',
     type: 'textfield',
     schemaType: 'AWSDate',
     isArray: false,
@@ -331,7 +303,7 @@ export const memberInputs: InputType[] = [
   },
   {
     key: 'discordId',
-    title: 'discordのID（18桁の数字）',
+    title: 'DiscordのID（18桁の数字）',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
@@ -339,8 +311,35 @@ export const memberInputs: InputType[] = [
     rules: [validation.equalString(18)]
   },
   {
+    key: 'description',
+    title: '簡単な自己紹介',
+    type: 'textfield',
+    schemaType: 'String',
+    isArray: false,
+    default: '',
+    rules: [validation.required, validation.maxString(300)]
+  },
+  {
+    key: 'forRecruitment',
+    title: '就活用長めの自己紹介（任意）',
+    type: 'textarea',
+    schemaType: 'String',
+    isArray: false,
+    default: '',
+    rules: [validation.maxString(1000)]
+  },
+  {
+    key: 'history',
+    title: 'これまでの経歴（任意）',
+    type: 'textarea',
+    schemaType: 'String',
+    isArray: false,
+    default: '',
+    rules: [validation.maxString(1000)]
+  },
+  {
     key: 'github',
-    title: 'githubのURL（任意）',
+    title: 'GithubのURL（任意）',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
@@ -349,7 +348,7 @@ export const memberInputs: InputType[] = [
   },
   {
     key: 'zenn',
-    title: 'zennのURL（任意）',
+    title: 'ZennのURL（任意）',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
@@ -358,7 +357,7 @@ export const memberInputs: InputType[] = [
   },
   {
     key: 'qiita',
-    title: 'qiitaのURL（任意）',
+    title: 'QiitaのURL（任意）',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
@@ -367,7 +366,7 @@ export const memberInputs: InputType[] = [
   },
   {
     key: 'twitter',
-    title: 'twitterのURL（任意）',
+    title: 'TwitterのURL（任意）',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
@@ -376,7 +375,7 @@ export const memberInputs: InputType[] = [
   },
   {
     key: 'slide',
-    title: 'slideのURL（任意）',
+    title: 'SlideshareのURL（任意）',
     type: 'textfield',
     schemaType: 'String',
     isArray: false,
@@ -385,7 +384,7 @@ export const memberInputs: InputType[] = [
   },
   {
     key: 'file',
-    title: 'アイコン画像',
+    title: 'アイコン画像（任意）',
     type: 'fileinput',
     schemaType: 'S3Object',
     isArray: false,
