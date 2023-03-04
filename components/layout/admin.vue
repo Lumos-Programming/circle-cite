@@ -23,7 +23,8 @@ const menu = [
   { text: 'ポートフォリオ', path: '/portfolio' },
   { text: 'お問合わせ', path: '/contact' },
   { text: 'ログイン', path: '/login' },
-  { text: '管理画面', path: '/admin' }
+  { text: '管理画面', path: '/admin' },
+  { text: 'タイピングゲーム', path: '/typing-game' }
 ]
 </script>
 <template>

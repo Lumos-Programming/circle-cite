@@ -16,6 +16,7 @@
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix && yarn lint:style --fix"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@mdi/font": "npm:@mdi/font@latest",
     "@mdi/js": "npm:@mdi/js@latest",
     "@nuxtjs/eslint-config-typescript": "npm:@nuxtjs/eslint-config-typescript@latest",

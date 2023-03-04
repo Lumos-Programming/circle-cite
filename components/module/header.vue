@@ -13,7 +13,8 @@ const menu = [
   { text: 'ポートフォリオ', outside: false, path: '/portfolio' },
   { text: 'お問い合わせ', outside: true, path: '/contact' },
   { text: 'ログイン', outside: true, path: '/login' },
-  { text: '管理画面', outside: false, path: '/admin' }
+  { text: '管理画面', outside: false, path: '/admin' },
+  { text: 'タイピングゲーム', outside: false, path: '/typing-game' }
 ]
 </script>
 <template>
