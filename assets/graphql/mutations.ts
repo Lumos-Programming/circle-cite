@@ -1,9 +1,12 @@
 /* tslint:disable */
- 
+/* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
 export const createUser = /* GraphQL */ `
-  mutation CreateUser($input: CreateUserInput!, $condition: ModelUserConditionInput) {
+  mutation CreateUser(
+    $input: CreateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
     createUser(input: $input, condition: $condition) {
       id
       name
@@ -451,9 +454,12 @@ export const createUser = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateUser = /* GraphQL */ `
-  mutation UpdateUser($input: UpdateUserInput!, $condition: ModelUserConditionInput) {
+  mutation UpdateUser(
+    $input: UpdateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
     updateUser(input: $input, condition: $condition) {
       id
       name
@@ -901,9 +907,12 @@ export const updateUser = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteUser = /* GraphQL */ `
-  mutation DeleteUser($input: DeleteUserInput!, $condition: ModelUserConditionInput) {
+  mutation DeleteUser(
+    $input: DeleteUserInput!
+    $condition: ModelUserConditionInput
+  ) {
     deleteUser(input: $input, condition: $condition) {
       id
       name
@@ -1351,9 +1360,12 @@ export const deleteUser = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createSkill = /* GraphQL */ `
-  mutation CreateSkill($input: CreateSkillInput!, $condition: ModelSkillConditionInput) {
+  mutation CreateSkill(
+    $input: CreateSkillInput!
+    $condition: ModelSkillConditionInput
+  ) {
     createSkill(input: $input, condition: $condition) {
       id
       title
@@ -1516,9 +1528,12 @@ export const createSkill = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const updateSkill = /* GraphQL */ `
-  mutation UpdateSkill($input: UpdateSkillInput!, $condition: ModelSkillConditionInput) {
+  mutation UpdateSkill(
+    $input: UpdateSkillInput!
+    $condition: ModelSkillConditionInput
+  ) {
     updateSkill(input: $input, condition: $condition) {
       id
       title
@@ -1681,9 +1696,12 @@ export const updateSkill = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const deleteSkill = /* GraphQL */ `
-  mutation DeleteSkill($input: DeleteSkillInput!, $condition: ModelSkillConditionInput) {
+  mutation DeleteSkill(
+    $input: DeleteSkillInput!
+    $condition: ModelSkillConditionInput
+  ) {
     deleteSkill(input: $input, condition: $condition) {
       id
       title
@@ -1846,9 +1864,12 @@ export const deleteSkill = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const createArticle = /* GraphQL */ `
-  mutation CreateArticle($input: CreateArticleInput!, $condition: ModelArticleConditionInput) {
+  mutation CreateArticle(
+    $input: CreateArticleInput!
+    $condition: ModelArticleConditionInput
+  ) {
     createArticle(input: $input, condition: $condition) {
       id
       title
@@ -2486,9 +2507,12 @@ export const createArticle = /* GraphQL */ `
       eventArticleId
     }
   }
-`
+`;
 export const updateArticle = /* GraphQL */ `
-  mutation UpdateArticle($input: UpdateArticleInput!, $condition: ModelArticleConditionInput) {
+  mutation UpdateArticle(
+    $input: UpdateArticleInput!
+    $condition: ModelArticleConditionInput
+  ) {
     updateArticle(input: $input, condition: $condition) {
       id
       title
@@ -3126,9 +3150,12 @@ export const updateArticle = /* GraphQL */ `
       eventArticleId
     }
   }
-`
+`;
 export const deleteArticle = /* GraphQL */ `
-  mutation DeleteArticle($input: DeleteArticleInput!, $condition: ModelArticleConditionInput) {
+  mutation DeleteArticle(
+    $input: DeleteArticleInput!
+    $condition: ModelArticleConditionInput
+  ) {
     deleteArticle(input: $input, condition: $condition) {
       id
       title
@@ -3766,7 +3793,7 @@ export const deleteArticle = /* GraphQL */ `
       eventArticleId
     }
   }
-`
+`;
 export const createPortfolio = /* GraphQL */ `
   mutation CreatePortfolio(
     $input: CreatePortfolioInput!
@@ -4062,7 +4089,7 @@ export const createPortfolio = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updatePortfolio = /* GraphQL */ `
   mutation UpdatePortfolio(
     $input: UpdatePortfolioInput!
@@ -4358,7 +4385,7 @@ export const updatePortfolio = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deletePortfolio = /* GraphQL */ `
   mutation DeletePortfolio(
     $input: DeletePortfolioInput!
@@ -4654,9 +4681,12 @@ export const deletePortfolio = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createProject = /* GraphQL */ `
-  mutation CreateProject($input: CreateProjectInput!, $condition: ModelProjectConditionInput) {
+  mutation CreateProject(
+    $input: CreateProjectInput!
+    $condition: ModelProjectConditionInput
+  ) {
     createProject(input: $input, condition: $condition) {
       id
       title
@@ -4879,9 +4909,12 @@ export const createProject = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const updateProject = /* GraphQL */ `
-  mutation UpdateProject($input: UpdateProjectInput!, $condition: ModelProjectConditionInput) {
+  mutation UpdateProject(
+    $input: UpdateProjectInput!
+    $condition: ModelProjectConditionInput
+  ) {
     updateProject(input: $input, condition: $condition) {
       id
       title
@@ -5104,9 +5137,12 @@ export const updateProject = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const deleteProject = /* GraphQL */ `
-  mutation DeleteProject($input: DeleteProjectInput!, $condition: ModelProjectConditionInput) {
+  mutation DeleteProject(
+    $input: DeleteProjectInput!
+    $condition: ModelProjectConditionInput
+  ) {
     deleteProject(input: $input, condition: $condition) {
       id
       title
@@ -5329,9 +5365,12 @@ export const deleteProject = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const createEvent = /* GraphQL */ `
-  mutation CreateEvent($input: CreateEventInput!, $condition: ModelEventConditionInput) {
+  mutation CreateEvent(
+    $input: CreateEventInput!
+    $condition: ModelEventConditionInput
+  ) {
     createEvent(input: $input, condition: $condition) {
       id
       title
@@ -5552,9 +5591,12 @@ export const createEvent = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const updateEvent = /* GraphQL */ `
-  mutation UpdateEvent($input: UpdateEventInput!, $condition: ModelEventConditionInput) {
+  mutation UpdateEvent(
+    $input: UpdateEventInput!
+    $condition: ModelEventConditionInput
+  ) {
     updateEvent(input: $input, condition: $condition) {
       id
       title
@@ -5775,9 +5817,12 @@ export const updateEvent = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const deleteEvent = /* GraphQL */ `
-  mutation DeleteEvent($input: DeleteEventInput!, $condition: ModelEventConditionInput) {
+  mutation DeleteEvent(
+    $input: DeleteEventInput!
+    $condition: ModelEventConditionInput
+  ) {
     deleteEvent(input: $input, condition: $condition) {
       id
       title
@@ -5998,7 +6043,7 @@ export const deleteEvent = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const createUserSkills = /* GraphQL */ `
   mutation CreateUserSkills(
     $input: CreateUserSkillsInput!
@@ -6357,7 +6402,7 @@ export const createUserSkills = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateUserSkills = /* GraphQL */ `
   mutation UpdateUserSkills(
     $input: UpdateUserSkillsInput!
@@ -6716,7 +6761,7 @@ export const updateUserSkills = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteUserSkills = /* GraphQL */ `
   mutation DeleteUserSkills(
     $input: DeleteUserSkillsInput!
@@ -7075,7 +7120,7 @@ export const deleteUserSkills = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createProjectUsers = /* GraphQL */ `
   mutation CreateProjectUsers(
     $input: CreateProjectUsersInput!
@@ -7492,7 +7537,7 @@ export const createProjectUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateProjectUsers = /* GraphQL */ `
   mutation UpdateProjectUsers(
     $input: UpdateProjectUsersInput!
@@ -7909,7 +7954,7 @@ export const updateProjectUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteProjectUsers = /* GraphQL */ `
   mutation DeleteProjectUsers(
     $input: DeleteProjectUsersInput!
@@ -8326,7 +8371,7 @@ export const deleteProjectUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createEventUsers = /* GraphQL */ `
   mutation CreateEventUsers(
     $input: CreateEventUsersInput!
@@ -8741,7 +8786,7 @@ export const createEventUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateEventUsers = /* GraphQL */ `
   mutation UpdateEventUsers(
     $input: UpdateEventUsersInput!
@@ -9156,7 +9201,7 @@ export const updateEventUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteEventUsers = /* GraphQL */ `
   mutation DeleteEventUsers(
     $input: DeleteEventUsersInput!
@@ -9571,7 +9616,7 @@ export const deleteEventUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createArticleSkills = /* GraphQL */ `
   mutation CreateArticleSkills(
     $input: CreateArticleSkillsInput!
@@ -9879,7 +9924,7 @@ export const createArticleSkills = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const updateArticleSkills = /* GraphQL */ `
   mutation UpdateArticleSkills(
     $input: UpdateArticleSkillsInput!
@@ -10187,7 +10232,7 @@ export const updateArticleSkills = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const deleteArticleSkills = /* GraphQL */ `
   mutation DeleteArticleSkills(
     $input: DeleteArticleSkillsInput!
@@ -10495,4 +10540,4 @@ export const deleteArticleSkills = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;

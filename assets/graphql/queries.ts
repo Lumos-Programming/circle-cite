@@ -1,5 +1,5 @@
 /* tslint:disable */
- 
+/* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
 export const getUser = /* GraphQL */ `
@@ -451,9 +451,13 @@ export const getUser = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listUsers = /* GraphQL */ `
-  query ListUsers($filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -729,7 +733,7 @@ export const listUsers = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getSkill = /* GraphQL */ `
   query GetSkill($id: ID!) {
     getSkill(id: $id) {
@@ -894,9 +898,13 @@ export const getSkill = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listSkills = /* GraphQL */ `
-  query ListSkills($filter: ModelSkillFilterInput, $limit: Int, $nextToken: String) {
+  query ListSkills(
+    $filter: ModelSkillFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -974,7 +982,7 @@ export const listSkills = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getArticle = /* GraphQL */ `
   query GetArticle($id: ID!) {
     getArticle(id: $id) {
@@ -1614,9 +1622,13 @@ export const getArticle = /* GraphQL */ `
       eventArticleId
     }
   }
-`
+`;
 export const listArticles = /* GraphQL */ `
-  query ListArticles($filter: ModelArticleFilterInput, $limit: Int, $nextToken: String) {
+  query ListArticles(
+    $filter: ModelArticleFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -1842,7 +1854,7 @@ export const listArticles = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getPortfolio = /* GraphQL */ `
   query GetPortfolio($id: ID!) {
     getPortfolio(id: $id) {
@@ -2135,9 +2147,13 @@ export const getPortfolio = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listPortfolios = /* GraphQL */ `
-  query ListPortfolios($filter: ModelPortfolioFilterInput, $limit: Int, $nextToken: String) {
+  query ListPortfolios(
+    $filter: ModelPortfolioFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listPortfolios(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -2251,7 +2267,7 @@ export const listPortfolios = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getProject = /* GraphQL */ `
   query GetProject($id: ID!) {
     getProject(id: $id) {
@@ -2476,9 +2492,13 @@ export const getProject = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listProjects = /* GraphQL */ `
-  query ListProjects($filter: ModelProjectFilterInput, $limit: Int, $nextToken: String) {
+  query ListProjects(
+    $filter: ModelProjectFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listProjects(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -2614,7 +2634,7 @@ export const listProjects = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getEvent = /* GraphQL */ `
   query GetEvent($id: ID!) {
     getEvent(id: $id) {
@@ -2837,9 +2857,13 @@ export const getEvent = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listEvents = /* GraphQL */ `
-  query ListEvents($filter: ModelEventFilterInput, $limit: Int, $nextToken: String) {
+  query ListEvents(
+    $filter: ModelEventFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -2973,7 +2997,7 @@ export const listEvents = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getUserSkills = /* GraphQL */ `
   query GetUserSkills($id: ID!) {
     getUserSkills(id: $id) {
@@ -3329,9 +3353,13 @@ export const getUserSkills = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listUserSkills = /* GraphQL */ `
-  query ListUserSkills($filter: ModelUserSkillsFilterInput, $limit: Int, $nextToken: String) {
+  query ListUserSkills(
+    $filter: ModelUserSkillsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listUserSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -3462,7 +3490,7 @@ export const listUserSkills = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getProjectUsers = /* GraphQL */ `
   query GetProjectUsers($id: ID!) {
     getProjectUsers(id: $id) {
@@ -3876,9 +3904,13 @@ export const getProjectUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listProjectUsers = /* GraphQL */ `
-  query ListProjectUsers($filter: ModelProjectUsersFilterInput, $limit: Int, $nextToken: String) {
+  query ListProjectUsers(
+    $filter: ModelProjectUsersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listProjectUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -4025,7 +4057,7 @@ export const listProjectUsers = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getEventUsers = /* GraphQL */ `
   query GetEventUsers($id: ID!) {
     getEventUsers(id: $id) {
@@ -4437,9 +4469,13 @@ export const getEventUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listEventUsers = /* GraphQL */ `
-  query ListEventUsers($filter: ModelEventUsersFilterInput, $limit: Int, $nextToken: String) {
+  query ListEventUsers(
+    $filter: ModelEventUsersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listEventUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -4585,7 +4621,7 @@ export const listEventUsers = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getArticleSkills = /* GraphQL */ `
   query GetArticleSkills($id: ID!) {
     getArticleSkills(id: $id) {
@@ -4890,9 +4926,13 @@ export const getArticleSkills = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listArticleSkills = /* GraphQL */ `
-  query ListArticleSkills($filter: ModelArticleSkillsFilterInput, $limit: Int, $nextToken: String) {
+  query ListArticleSkills(
+    $filter: ModelArticleSkillsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listArticleSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -5051,4 +5091,4 @@ export const listArticleSkills = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;

@@ -1,9 +1,12 @@
 /* tslint:disable */
- 
+/* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput, $owner: String) {
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
     onCreateUser(filter: $filter, owner: $owner) {
       id
       name
@@ -451,9 +454,12 @@ export const onCreateUser = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput, $owner: String) {
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
     onUpdateUser(filter: $filter, owner: $owner) {
       id
       name
@@ -901,9 +907,12 @@ export const onUpdateUser = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput, $owner: String) {
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
     onDeleteUser(filter: $filter, owner: $owner) {
       id
       name
@@ -1351,7 +1360,7 @@ export const onDeleteUser = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onCreateSkill = /* GraphQL */ `
   subscription OnCreateSkill($filter: ModelSubscriptionSkillFilterInput) {
     onCreateSkill(filter: $filter) {
@@ -1516,7 +1525,7 @@ export const onCreateSkill = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const onUpdateSkill = /* GraphQL */ `
   subscription OnUpdateSkill($filter: ModelSubscriptionSkillFilterInput) {
     onUpdateSkill(filter: $filter) {
@@ -1681,7 +1690,7 @@ export const onUpdateSkill = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const onDeleteSkill = /* GraphQL */ `
   subscription OnDeleteSkill($filter: ModelSubscriptionSkillFilterInput) {
     onDeleteSkill(filter: $filter) {
@@ -1846,7 +1855,7 @@ export const onDeleteSkill = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const onCreateArticle = /* GraphQL */ `
   subscription OnCreateArticle($filter: ModelSubscriptionArticleFilterInput) {
     onCreateArticle(filter: $filter) {
@@ -2486,7 +2495,7 @@ export const onCreateArticle = /* GraphQL */ `
       eventArticleId
     }
   }
-`
+`;
 export const onUpdateArticle = /* GraphQL */ `
   subscription OnUpdateArticle($filter: ModelSubscriptionArticleFilterInput) {
     onUpdateArticle(filter: $filter) {
@@ -3126,7 +3135,7 @@ export const onUpdateArticle = /* GraphQL */ `
       eventArticleId
     }
   }
-`
+`;
 export const onDeleteArticle = /* GraphQL */ `
   subscription OnDeleteArticle($filter: ModelSubscriptionArticleFilterInput) {
     onDeleteArticle(filter: $filter) {
@@ -3766,9 +3775,12 @@ export const onDeleteArticle = /* GraphQL */ `
       eventArticleId
     }
   }
-`
+`;
 export const onCreatePortfolio = /* GraphQL */ `
-  subscription OnCreatePortfolio($filter: ModelSubscriptionPortfolioFilterInput, $owner: String) {
+  subscription OnCreatePortfolio(
+    $filter: ModelSubscriptionPortfolioFilterInput
+    $owner: String
+  ) {
     onCreatePortfolio(filter: $filter, owner: $owner) {
       id
       title
@@ -4059,9 +4071,12 @@ export const onCreatePortfolio = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onUpdatePortfolio = /* GraphQL */ `
-  subscription OnUpdatePortfolio($filter: ModelSubscriptionPortfolioFilterInput, $owner: String) {
+  subscription OnUpdatePortfolio(
+    $filter: ModelSubscriptionPortfolioFilterInput
+    $owner: String
+  ) {
     onUpdatePortfolio(filter: $filter, owner: $owner) {
       id
       title
@@ -4352,9 +4367,12 @@ export const onUpdatePortfolio = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onDeletePortfolio = /* GraphQL */ `
-  subscription OnDeletePortfolio($filter: ModelSubscriptionPortfolioFilterInput, $owner: String) {
+  subscription OnDeletePortfolio(
+    $filter: ModelSubscriptionPortfolioFilterInput
+    $owner: String
+  ) {
     onDeletePortfolio(filter: $filter, owner: $owner) {
       id
       title
@@ -4645,7 +4663,7 @@ export const onDeletePortfolio = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onCreateProject = /* GraphQL */ `
   subscription OnCreateProject($filter: ModelSubscriptionProjectFilterInput) {
     onCreateProject(filter: $filter) {
@@ -4870,7 +4888,7 @@ export const onCreateProject = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const onUpdateProject = /* GraphQL */ `
   subscription OnUpdateProject($filter: ModelSubscriptionProjectFilterInput) {
     onUpdateProject(filter: $filter) {
@@ -5095,7 +5113,7 @@ export const onUpdateProject = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const onDeleteProject = /* GraphQL */ `
   subscription OnDeleteProject($filter: ModelSubscriptionProjectFilterInput) {
     onDeleteProject(filter: $filter) {
@@ -5320,7 +5338,7 @@ export const onDeleteProject = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const onCreateEvent = /* GraphQL */ `
   subscription OnCreateEvent($filter: ModelSubscriptionEventFilterInput) {
     onCreateEvent(filter: $filter) {
@@ -5543,7 +5561,7 @@ export const onCreateEvent = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const onUpdateEvent = /* GraphQL */ `
   subscription OnUpdateEvent($filter: ModelSubscriptionEventFilterInput) {
     onUpdateEvent(filter: $filter) {
@@ -5766,7 +5784,7 @@ export const onUpdateEvent = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const onDeleteEvent = /* GraphQL */ `
   subscription OnDeleteEvent($filter: ModelSubscriptionEventFilterInput) {
     onDeleteEvent(filter: $filter) {
@@ -5989,9 +6007,12 @@ export const onDeleteEvent = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const onCreateUserSkills = /* GraphQL */ `
-  subscription OnCreateUserSkills($filter: ModelSubscriptionUserSkillsFilterInput, $owner: String) {
+  subscription OnCreateUserSkills(
+    $filter: ModelSubscriptionUserSkillsFilterInput
+    $owner: String
+  ) {
     onCreateUserSkills(filter: $filter, owner: $owner) {
       id
       userID
@@ -6345,9 +6366,12 @@ export const onCreateUserSkills = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onUpdateUserSkills = /* GraphQL */ `
-  subscription OnUpdateUserSkills($filter: ModelSubscriptionUserSkillsFilterInput, $owner: String) {
+  subscription OnUpdateUserSkills(
+    $filter: ModelSubscriptionUserSkillsFilterInput
+    $owner: String
+  ) {
     onUpdateUserSkills(filter: $filter, owner: $owner) {
       id
       userID
@@ -6701,9 +6725,12 @@ export const onUpdateUserSkills = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onDeleteUserSkills = /* GraphQL */ `
-  subscription OnDeleteUserSkills($filter: ModelSubscriptionUserSkillsFilterInput, $owner: String) {
+  subscription OnDeleteUserSkills(
+    $filter: ModelSubscriptionUserSkillsFilterInput
+    $owner: String
+  ) {
     onDeleteUserSkills(filter: $filter, owner: $owner) {
       id
       userID
@@ -7057,7 +7084,7 @@ export const onDeleteUserSkills = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onCreateProjectUsers = /* GraphQL */ `
   subscription OnCreateProjectUsers(
     $filter: ModelSubscriptionProjectUsersFilterInput
@@ -7474,7 +7501,7 @@ export const onCreateProjectUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onUpdateProjectUsers = /* GraphQL */ `
   subscription OnUpdateProjectUsers(
     $filter: ModelSubscriptionProjectUsersFilterInput
@@ -7891,7 +7918,7 @@ export const onUpdateProjectUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onDeleteProjectUsers = /* GraphQL */ `
   subscription OnDeleteProjectUsers(
     $filter: ModelSubscriptionProjectUsersFilterInput
@@ -8308,9 +8335,12 @@ export const onDeleteProjectUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onCreateEventUsers = /* GraphQL */ `
-  subscription OnCreateEventUsers($filter: ModelSubscriptionEventUsersFilterInput, $owner: String) {
+  subscription OnCreateEventUsers(
+    $filter: ModelSubscriptionEventUsersFilterInput
+    $owner: String
+  ) {
     onCreateEventUsers(filter: $filter, owner: $owner) {
       id
       userID
@@ -8720,9 +8750,12 @@ export const onCreateEventUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onUpdateEventUsers = /* GraphQL */ `
-  subscription OnUpdateEventUsers($filter: ModelSubscriptionEventUsersFilterInput, $owner: String) {
+  subscription OnUpdateEventUsers(
+    $filter: ModelSubscriptionEventUsersFilterInput
+    $owner: String
+  ) {
     onUpdateEventUsers(filter: $filter, owner: $owner) {
       id
       userID
@@ -9132,9 +9165,12 @@ export const onUpdateEventUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onDeleteEventUsers = /* GraphQL */ `
-  subscription OnDeleteEventUsers($filter: ModelSubscriptionEventUsersFilterInput, $owner: String) {
+  subscription OnDeleteEventUsers(
+    $filter: ModelSubscriptionEventUsersFilterInput
+    $owner: String
+  ) {
     onDeleteEventUsers(filter: $filter, owner: $owner) {
       id
       userID
@@ -9544,9 +9580,11 @@ export const onDeleteEventUsers = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const onCreateArticleSkills = /* GraphQL */ `
-  subscription OnCreateArticleSkills($filter: ModelSubscriptionArticleSkillsFilterInput) {
+  subscription OnCreateArticleSkills(
+    $filter: ModelSubscriptionArticleSkillsFilterInput
+  ) {
     onCreateArticleSkills(filter: $filter) {
       id
       skillID
@@ -9849,9 +9887,11 @@ export const onCreateArticleSkills = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const onUpdateArticleSkills = /* GraphQL */ `
-  subscription OnUpdateArticleSkills($filter: ModelSubscriptionArticleSkillsFilterInput) {
+  subscription OnUpdateArticleSkills(
+    $filter: ModelSubscriptionArticleSkillsFilterInput
+  ) {
     onUpdateArticleSkills(filter: $filter) {
       id
       skillID
@@ -10154,9 +10194,11 @@ export const onUpdateArticleSkills = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const onDeleteArticleSkills = /* GraphQL */ `
-  subscription OnDeleteArticleSkills($filter: ModelSubscriptionArticleSkillsFilterInput) {
+  subscription OnDeleteArticleSkills(
+    $filter: ModelSubscriptionArticleSkillsFilterInput
+  ) {
     onDeleteArticleSkills(filter: $filter) {
       id
       skillID
@@ -10459,4 +10501,4 @@ export const onDeleteArticleSkills = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
