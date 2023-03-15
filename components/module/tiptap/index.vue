@@ -174,6 +174,6 @@ const icons = [
       />
     </div>
     <v-divider class="text-grey-darken-4"></v-divider>
-    <editor-content :editor="editor" class="py-5 px-2 rich-text" />
+    <editor-content :editor="editor" class="py-5 px-2" />
   </div>
 </template>
