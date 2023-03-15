@@ -86,7 +86,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         setBanEdit(true)
         return await API.graphql<GraphQLQuery<T>>({
           query,
-          variables: { input },
+          variables: { input: Object.fromEntries(Object.entries(input).filter((v) => !!v[1])) },
           authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
         })
           .then((res: any) => {
@@ -121,7 +121,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           setBanEdit(true)
           const { data }: any = await API.graphql<GraphQLQuery<T>>({
             query,
-            variables: { input },
+            variables: { input: Object.fromEntries(Object.entries(input).filter((v) => !!v[1])) },
             authMode: isSignedIn.value ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
           })
           const name = Object.keys(data).length && Object.keys(data)[0]
