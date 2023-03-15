@@ -62,7 +62,7 @@ await fetchArticle()
           </v-chip>
         </v-hover>
       </v-chip-group>
-      <div class="mt-10">{{ article.body }}</div>
+      <div class="mt-10 ProseMirror">{{ article.body }}</div>
     </div>
   </layout-public>
 </template>
