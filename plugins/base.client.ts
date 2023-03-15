@@ -26,15 +26,13 @@ export default defineNuxtPlugin((nuxtApp) => {
           'Access-Control-Allow-Origin': '*'
         },
         body = null,
-        lazy = true,
-        cache = true
+        lazy = true
       }: {
         key?: string
         method?: string
         headers?: { [key: string]: string }
         body?: string | null | FormData
         lazy?: boolean
-        cache?: boolean
       } = {}) => ({
         key,
         baseURL: config.public.baseUrl || '',
@@ -43,8 +41,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         headers: {
           ...headers
         },
-        lazy,
-        initialCache: cache
+        lazy
       }),
       baseFetch: async <T>(path: string, options = nuxtApp.$options()) => {
         setBanEdit(true)
